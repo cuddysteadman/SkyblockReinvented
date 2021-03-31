@@ -37,4 +37,4 @@
 * /sre: main GUI (aliases: /SRE, /SkyblockReinvented)
 * /re: toggle whether to render players (aliases: /render)
 * /f1, /f2, /f3, etc: join respective dungeon floors
-#### Join the discord for support: !
+#### Join the discord for support: discord.link/SkyblockReinvented!
