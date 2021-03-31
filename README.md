@@ -37,4 +37,10 @@
 * /sre: main GUI (aliases: /SRE, /SkyblockReinvented)
 * /re: toggle whether to render players (aliases: /render)
 * /f1, /f2, /f3, etc: join respective dungeon floors
+## This mod would not be possible without these wonderful people and their projects:
+* Sychic, My-Name-Is-Jeff, Angry-Pineapple3121, and AzuredBlue (Skytils)
+* Moulberry (NEU)
+* Cobble8 (SkyblockPersonalized)
+* Biscuit (SkyblockAddons)
+* bowser0000 (Danker's Skyblock Mod)
 #### Join the discord for support: discord.link/SkyblockReinvented!
