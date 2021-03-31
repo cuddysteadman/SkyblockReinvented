@@ -38,9 +38,10 @@
 * /re: toggle whether to render players (aliases: /render)
 * /f1, /f2, /f3, etc: join respective dungeon floors
 ## This mod would not be possible without these wonderful people and their projects:
-* Sychic, My-Name-Is-Jeff, Angry-Pineapple3121, and AzuredBlue (Skytils)
-* Moulberry (NEU)
-* Cobble8 (SkyblockPersonalized)
-* Biscuit (SkyblockAddons)
-* bowser0000 (Danker's Skyblock Mod)
+* Sychic, My-Name-Is-Jeff, Angry-Pineapple3121, and AzuredBlue (Skytils: https://github.com/Skytils/SkytilsMod)
+* Moulberry (NEU: https://github.com/Moulberry/NotEnoughUpdates)
+* Cobble8 (SkyblockPersonalized: https://github.com/Cobble8/SkyblockPersonalized)
+* Biscuit (SkyblockAddons: https://github.com/BiscuitDevelopment/SkyblockAddons)
+* bowser0000 (Danker's Skyblock Mod: https://github.com/bowser0000/SkyblockMod)
+* Sk1er LLC (ModCore: https://github.com/Sk1erLLC (not exactly a github, but it was the closest I could find since the source code isn't public to my knowledge))
 #### Join the discord for support: discord.link/SkyblockReinvented!
