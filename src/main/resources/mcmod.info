@@ -1,0 +1,16 @@
+[
+{
+  "modid": "sre",
+  "name": "SkyblockReinvented",
+  "description": "A mod with tons of useful features for Hypixel Skyblock!",
+  "version": "0.0.1",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/theCudster/SkyblockReinvented",
+  "updateUrl": "discord.link/SkyblockReinvented",
+  "authorList": ["theCudster"],
+  "credits": "Moulberry, bowser0000, Sychic, My-Name-Is-Jeff, Moulberry, Biscuit, MatthewTGM",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": [ModCore]
+}
+]

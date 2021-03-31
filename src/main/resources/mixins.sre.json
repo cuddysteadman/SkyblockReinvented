@@ -1,0 +1,10 @@
+{
+    "compatibilityLevel": "JAVA_8",
+    "package": "thecudster.sre.mixins",
+    "refmap": "mixins.sre.refmap.json",
+    "mixins": [
+        // "MixinGuiContainer",
+        "MixinNetworkManager"
+    ],
+    "verbose": true
+}
