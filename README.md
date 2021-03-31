@@ -44,4 +44,5 @@
 * Biscuit (SkyblockAddons: https://github.com/BiscuitDevelopment/SkyblockAddons)
 * bowser0000 (Danker's Skyblock Mod: https://github.com/bowser0000/SkyblockMod)
 * Sk1er LLC (ModCore: https://github.com/Sk1erLLC (not exactly a github, but it was the closest I could find since the source code isn't public to my knowledge))
-#### Join the discord for support: discord.link/SkyblockReinvented!
+#### Join the discord for support: 
+* discord.link/SkyblockReinvented
