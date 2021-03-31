@@ -45,4 +45,4 @@
 * bowser0000 (Danker's Skyblock Mod: https://github.com/bowser0000/SkyblockMod)
 * Sk1er LLC (ModCore: https://github.com/Sk1erLLC (not exactly a github, but it was the closest I could find since the source code isn't public to my knowledge))
 #### Join the discord for support: 
-* https://discord.com/invite/kUdkB3RSwJ
+* https://discord.gg/xkeYgZrRbN
