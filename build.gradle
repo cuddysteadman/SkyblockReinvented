@@ -18,7 +18,7 @@ buildscript {
 apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: "org.spongepowered.mixin"
 
-version = "0.0.1"
+version = "0.0.2-pre1"
 group = "thecudster.sre"
 archivesBaseName = "sre"
 
@@ -68,19 +68,36 @@ dependencies {
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-    provided files("libs/modcore.jar")
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     packageLib("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
         exclude module: 'guava'
         exclude module: 'commons-io'
         exclude module: 'gson'
     }
-
+    provided files("libs/modcore.jar")
     configurations.compile.extendsFrom(configurations.packageLib)
 }
 
 mixin {
     add sourceSets.main, "mixins.sre.refmap.json"
+}
+jar {
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest.attributes(
+            "FMLCorePlugin": "thecudster.sre.tweaker.FMLLoadingPlugin",
+            "FMLCorePluginContainsFMLMod": true,
+            "ForceLoadAsMod": true,
+            "Main-Class": "SkyblockReinventedInstallerFrame",
+            "MixinConfigs": "mixins.sre.json",
+            "ModSide": "CLIENT",
+            "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
+            "TweakOrder": "0",
+    )
+    from {
+        configurations.packageLib.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 processResources {
     // this will ensure that this task is redone when the versions change.
@@ -100,19 +117,6 @@ processResources {
         exclude 'mcmod.info'
     }
 }
-jar {
-
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    manifest.attributes(
-            "Main-Class": "SkyblockReinventedInstallerFrame",
-            "MixinConfigs": "mixins.sre.json",
-            "ModSide": "CLIENT",
-            "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
-            "TweakOrder": "0",
-    )
-    manifest {
-        attributes "FMLCorePlugin": "thecudster.sre.tweaker.FMLLoadingPlugin",
-                "FMLCorePluginContainsFMLMod": "Yes, yes it does"
-    }
+sourceSets {
+    main { output.resourcesDir = output.resourcesDir }
 }
