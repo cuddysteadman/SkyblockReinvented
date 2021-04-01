@@ -4,8 +4,10 @@ package thecudster.sre;
 import java.io.File;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -13,6 +15,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
+import org.lwjgl.input.Keyboard;
 import scala.actors.threadpool.TimeUnit;
 import thecudster.sre.commands.ReCommand;
 import thecudster.sre.commands.SBCommand;
@@ -28,16 +31,18 @@ import thecudster.sre.commands.dungfloors.Floor7;
 import thecudster.sre.events.GuiContainerEvent;
 import thecudster.sre.features.impl.dungeons.LockMort;
 import thecudster.sre.features.impl.filter.FilterHandler;
-import thecudster.sre.features.impl.rendering.BlockPowerOrb;
-import thecudster.sre.features.impl.rendering.PlayerHider;
-import thecudster.sre.features.impl.rendering.WitherCloakHider;
+import thecudster.sre.features.impl.qol.Keybindings;
+import thecudster.sre.features.impl.rendering.*;
 import thecudster.sre.features.impls.sounds.BlockCreeperSound;
 import thecudster.sre.settings.Config;
 import thecudster.sre.util.Reference;
 
+import javax.swing.text.JTextComponent;
+
 @Mod(modid = "sre", name = Reference.MOD_NAME, version = Reference.VERSION)
 public class SkyblockReinvented {
 	public static Config config = new Config();
+	public static KeyBinding[] keyBindings = new KeyBinding[2];
 	public static boolean creeperActivated;
 	public static File modDir;
 	public static boolean foundSB;
@@ -69,11 +74,20 @@ public class SkyblockReinvented {
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new FilterHandler());
 		MinecraftForge.EVENT_BUS.register(new PlayerHider());
+		MinecraftForge.EVENT_BUS.register(new GiftCompassWaypoints());
 		MinecraftForge.EVENT_BUS.register(new BlockPowerOrb());
 		MinecraftForge.EVENT_BUS.register(new WitherCloakHider());
+		MinecraftForge.EVENT_BUS.register(new RemoveVillagers());
 
 		MinecraftForge.EVENT_BUS.register(new BlockCreeperSound());
+		MinecraftForge.EVENT_BUS.register(new RemoveDumbNametags());
+		MinecraftForge.EVENT_BUS.register(new Keybindings());
 		// MinecraftForge.EVENT_BUS.register(new LockMort());
+		keyBindings[0] = new KeyBinding("Open Bazaar", Keyboard.KEY_H, "SkyblockReinvented");
+		keyBindings[1] = new KeyBinding("Open AH", Keyboard.KEY_B, "SkyblockReinvented");
+		for (KeyBinding keyBinding : keyBindings) {
+			ClientRegistry.registerKeyBinding(keyBinding);
+		}
 	}
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
@@ -86,5 +100,6 @@ public class SkyblockReinvented {
 	public void serverClose(FMLServerStoppingEvent event) {
 		
 	}
+
 	
 }

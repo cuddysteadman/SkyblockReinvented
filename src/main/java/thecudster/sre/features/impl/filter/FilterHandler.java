@@ -49,6 +49,24 @@ public class FilterHandler {
 			"Death awaits you on this path, and everywhere else to be fair.",
 			"Monsters with a star next to their name have Wither Keys...sometimes."
 	};
+	public static final String[] maddoxQuotes = {"Hello?",
+			"Someone answers!",
+			"How does a lobster answer? Shello!",
+			"Hey what do you need?",
+			"You hear the line pick up...",
+			"You again? What do you want this time?"
+	};
+	public static final String[] maddoxFails = {
+			"Please leave your message after the beep.",
+			"How can you tell if a bee is on the phone? You get a buzzy signal!",
+			"The phone keeps ringing, is it broken?",
+			"The phone picks up but it immediately hangs up!",
+			"What did the cat say on the phone? Can you hear meow?",
+			"No answer.",
+			"Seems like it's not picking up!",
+			"\"Your call is important to us, please stay on the line\", so you hang up.",
+			"HEY IT'S NOT PICKING UP STOP TRYING!"
+	};
 	public static final String[] watcherQuotes = {"You have failed to prove yourself, "
 		+ "and have paid with your lives. You will make an excellent addition to my collection.",
 		"You have proven yourself. You may pass.",
@@ -138,6 +156,21 @@ public class FilterHandler {
 			message.contains("You can no longer consume or splash any potions during the remainder of this Dungeon run!")) {
 				event.setCanceled(true);
 				return;
+			}
+		}
+		if (SkyblockReinvented.config.maddoxMsg) {
+			for (String s : maddoxFails) {
+				if (message.contains(s)) {
+					Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("§cMaddox batphone on cooldown!"));
+					event.setCanceled(true);
+					return;
+				}
+			}
+			for (String s : maddoxQuotes) {
+				if (message.contains(s)) {
+					event.setCanceled(true);
+					return;
+				}
 			}
 		}
 		if (SkyblockReinvented.config.watchdogAnnouncement) {
@@ -320,7 +353,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.removeSkytils) {
-			if (message.contains("Skytils has prevented you from")) {
+			if (message.contains("§cSkytils has prevented you from breaking that block!")) {
 				event.setCanceled(true);
 				return;
 			}

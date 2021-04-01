@@ -4,6 +4,7 @@ import java.io.File;
 
 import club.sk1er.vigilance.Vigilant;
 import club.sk1er.vigilance.data.*;
+import scala.sys.Prop;
 
 
 public class Config extends Vigilant {
@@ -247,6 +248,31 @@ public class Config extends Vigilant {
 		subcategory="Items"
 	)
 	public boolean creeperSounds = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Show Gift Compass Waypoints",
+			description = "Shows waypoints for where to go when Gift Compass is held in hand.",
+			category = "QOL",
+			hidden = true,
+			subcategory = "Skyblock QOL"
+	)
+	public boolean giftCompassWaypoints = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Hide Villagers",
+			description = "Hides all annoying villagers in the hub. Exceptions might be added later on.",
+			category = "Rendering",
+			subcategory = "NPCs"
+	)
+	public boolean renderVillagers = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Maddox Messages",
+			description = "Hides all annoying Maddox messages when you use Maddox batphone.",
+			category = "Chat",
+			subcategory = "Warnings"
+	)
+	public boolean maddoxMsg = false;
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove all Chat if Ironman",
