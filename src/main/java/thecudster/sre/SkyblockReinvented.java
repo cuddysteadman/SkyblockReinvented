@@ -16,7 +16,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import org.lwjgl.input.Keyboard;
-import scala.actors.threadpool.TimeUnit;
 import thecudster.sre.commands.ReCommand;
 import thecudster.sre.commands.SBCommand;
 import thecudster.sre.commands.SBToggle;
@@ -28,16 +27,12 @@ import thecudster.sre.commands.dungfloors.Floor4;
 import thecudster.sre.commands.dungfloors.Floor5;
 import thecudster.sre.commands.dungfloors.Floor6;
 import thecudster.sre.commands.dungfloors.Floor7;
-import thecudster.sre.events.GuiContainerEvent;
-import thecudster.sre.features.impl.dungeons.LockMort;
 import thecudster.sre.features.impl.filter.FilterHandler;
-import thecudster.sre.features.impl.qol.Keybindings;
+import thecudster.sre.events.Keybindings;
 import thecudster.sre.features.impl.rendering.*;
 import thecudster.sre.features.impls.sounds.BlockCreeperSound;
 import thecudster.sre.settings.Config;
 import thecudster.sre.util.Reference;
-
-import javax.swing.text.JTextComponent;
 
 @Mod(modid = "sre", name = Reference.MOD_NAME, version = Reference.VERSION)
 public class SkyblockReinvented {
@@ -80,7 +75,6 @@ public class SkyblockReinvented {
 		MinecraftForge.EVENT_BUS.register(new RemoveVillagers());
 
 		MinecraftForge.EVENT_BUS.register(new BlockCreeperSound());
-		MinecraftForge.EVENT_BUS.register(new RemoveDumbNametags());
 		MinecraftForge.EVENT_BUS.register(new Keybindings());
 		// MinecraftForge.EVENT_BUS.register(new LockMort());
 		keyBindings[0] = new KeyBinding("Open Bazaar", Keyboard.KEY_H, "SkyblockReinvented");

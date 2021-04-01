@@ -1,4 +1,4 @@
-package thecudster.sre.features.impl.qol;
+package thecudster.sre.events;
 
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
