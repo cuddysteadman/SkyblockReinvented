@@ -7,7 +7,10 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.util.ItemUtil;
 import thecudster.sre.util.Utils;
+
+import java.nio.charset.StandardCharsets;
 
 public class FilterHandler {
 	public static final String[] seaCreatureList = {"A squid appeared.", 
@@ -52,7 +55,7 @@ public class FilterHandler {
 	public static final String[] maddoxQuotes = {"Hello?",
 			"Someone answers!",
 			"How does a lobster answer? Shello!",
-			"Hey what do you need?",
+			"ey what do you need",
 			"You hear the line pick up...",
 			"You again? What do you want this time?"
 	};
@@ -120,14 +123,30 @@ public class FilterHandler {
 			"is telling the truth.",
 			"My chest has the reward."
 	}; // i got these from an old forum post, might be outdated lmk
-
+	public static final String[] dumbSlayerDrops = {
+			"Pestilence Rune I",
+			"Undead Catalyst",
+			"Smite VI",
+			"Beheaded Horror",
+			"Revenant Catalyst",
+			"Snake Rune",
+			"Bite Rune I",
+			"Spider Catalyst",
+			"Bane of Arthropods VI",
+			"Fly Swatter",
+			"Spirit Rune I",
+			"Critical VI",
+			"Red Claw Egg",
+			"Couture Rune I",
+			"Grizzly Bait"
+	};
 	
 	@SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
 	public void onChat(ClientChatReceivedEvent event) {
 		if (event.type == 0x2) {
 			return;
 		}
-		
+
 		// if (!Utils.inSkyblock) { return; }
 		String message = event.message.getUnformattedText();
 		System.out.println(message);
@@ -172,9 +191,89 @@ public class FilterHandler {
 					return;
 				}
 			}
+			if (message.contains("Open chat then click anywhere on-screen to open Maddox")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("SLAYER QUEST STARTED!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Slay") && (message.contains("worth of Zombies") || message.contains("worth of Spiders") || message.contains("worth of Wolves"))) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Ring...")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("NICE! SLAYER BOSS SLAIN!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Talk to Maddox to claim your")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("SLAYER QUEST COMPLETE")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.hubWarnings) {
+			if (message.contains("Couldn't warp you!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("This island has had too many recent visits!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("This ability is disabled while guesting!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Finding player...")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Sending a visit request...")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You can't fast travel while in combat!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Warping...")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Request join for")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Warping you to")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.dumbSlayerDrops) {
+			for (String s : dumbSlayerDrops) {
+				if (message.contains(s)) {
+					event.setCanceled(true);
+					return;
+				}
+			}
+		}
+		if (SkyblockReinvented.config.minionXP) {
+			if (message.contains("You gained") && message.contains("experience from minions!")) {
+				event.setCanceled(true);
+				return;
+			}
 		}
 		if (SkyblockReinvented.config.watchdogAnnouncement) {
-			if (message.contains("WATCHDOG ANNOUNCEMENT") && message.contains("Watchdog has banned ") && message.contains("players in the last 7 days.")) {
+			if (message.contains("WATCHDOG ANNOUNCEMENT") || (message.contains("Watchdog has banned ") && message.contains("players in the last 7 days."))) {
 				event.setCanceled(true);
 				return;
 			}

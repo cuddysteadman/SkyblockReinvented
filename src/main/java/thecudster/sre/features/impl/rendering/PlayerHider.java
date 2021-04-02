@@ -26,6 +26,9 @@ public class PlayerHider {
         if (this.isNPC(event.entity)) { return; }
         if (event.entity.hasCustomName()) { return; }
 		// System.out.println("not rendering!");
+		if (event.entity.getCustomNameTag().contains("MaineBuilder")) {
+			Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(event.entity.getCustomNameTag()));
+		}
 		if (!SkyblockReinvented.config.renderPlayers) { return; }
 		event.setCanceled(true);
 		/*boolean done = false;

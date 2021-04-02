@@ -16,7 +16,7 @@ import thecudster.sre.events.GuiContainerEvent;
  * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
  */
 @Mixin(GuiContainer.class)
-public class MixinGuiContainer {/*
+public class MixinGuiContainer {
 
     @Shadow public Container inventorySlots;
 
@@ -33,5 +33,5 @@ public class MixinGuiContainer {/*
     @Inject(method = "handleMouseClick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/PlayerControllerMP;windowClick(IIIILnet/minecraft/entity/player/EntityPlayer;)Lnet/minecraft/item/ItemStack;"), cancellable = true)
     private void onMouseClick(Slot slot, int slotId, int clickedButton, int clickType, CallbackInfo ci) {
         if (MinecraftForge.EVENT_BUS.post(new GuiContainerEvent.SlotClickEvent(inventorySlots, slot, slotId, clickedButton, clickType))) ci.cancel();
-    }*/
+    }
 }

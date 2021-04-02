@@ -18,7 +18,7 @@ buildscript {
 apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: "org.spongepowered.mixin"
 
-version = "0.0.2-pre2"
+version = "0.0.2-pre4"
 group = "thecudster.sre"
 archivesBaseName = "sre"
 
@@ -33,8 +33,9 @@ minecraft {
     runDir = "run"
     mappings = "stable_22"
     makeObfSourceJar = false
-    clientRunArgs += "--mixin mixins.sre.json"
     clientJvmArgs += "-Dfml.coreMods.load=thecudster.sre.tweaker.FMLLoadingPlugin"
+    clientRunArgs += "--mixin mixins.sre.json"
+
 }
 
 repositories {

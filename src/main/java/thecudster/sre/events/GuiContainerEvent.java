@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
  * @author Sychic
  */
 public class GuiContainerEvent extends Event {
-/*
+
     public Container container;
     public GuiContainerEvent(Container container) {
         this.container = container;
@@ -55,5 +55,5 @@ public class GuiContainerEvent extends Event {
             this.clickType = clickType;
         }
     }
-    */
+
 }

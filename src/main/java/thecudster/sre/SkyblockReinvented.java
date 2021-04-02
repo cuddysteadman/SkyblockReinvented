@@ -27,16 +27,21 @@ import thecudster.sre.commands.dungfloors.Floor4;
 import thecudster.sre.commands.dungfloors.Floor5;
 import thecudster.sre.commands.dungfloors.Floor6;
 import thecudster.sre.commands.dungfloors.Floor7;
+import thecudster.sre.features.impl.dungeons.LockMort;
 import thecudster.sre.features.impl.filter.FilterHandler;
 import thecudster.sre.events.Keybindings;
+import thecudster.sre.features.impl.qol.ItemDropStop;
 import thecudster.sre.features.impl.rendering.*;
 import thecudster.sre.features.impls.sounds.BlockCreeperSound;
 import thecudster.sre.settings.Config;
 import thecudster.sre.util.Reference;
 
-@Mod(modid = "sre", name = Reference.MOD_NAME, version = Reference.VERSION)
+@Mod(modid = SkyblockReinvented.MODID, name = SkyblockReinvented.MOD_NAME, version = SkyblockReinvented.VERSION, acceptedMinecraftVersions = "[1.8.9]", clientSideOnly = true)
 public class SkyblockReinvented {
 	public static Config config = new Config();
+	public static final String MODID = "sre";
+	public static final String MOD_NAME = "Skytils";
+	public static final String VERSION = "0.0.2-pre4";
 	public static KeyBinding[] keyBindings = new KeyBinding[2];
 	public static boolean creeperActivated;
 	public static File modDir;
@@ -69,14 +74,16 @@ public class SkyblockReinvented {
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new FilterHandler());
 		MinecraftForge.EVENT_BUS.register(new PlayerHider());
+		MinecraftForge.EVENT_BUS.register(new ItemDropStop());
 		MinecraftForge.EVENT_BUS.register(new GiftCompassWaypoints());
 		MinecraftForge.EVENT_BUS.register(new BlockPowerOrb());
 		MinecraftForge.EVENT_BUS.register(new WitherCloakHider());
 		MinecraftForge.EVENT_BUS.register(new RemoveVillagers());
+		MinecraftForge.EVENT_BUS.register(new HyperionOverlay());
 
 		MinecraftForge.EVENT_BUS.register(new BlockCreeperSound());
 		MinecraftForge.EVENT_BUS.register(new Keybindings());
-		// MinecraftForge.EVENT_BUS.register(new LockMort());
+		MinecraftForge.EVENT_BUS.register(new LockMort());
 		keyBindings[0] = new KeyBinding("Open Bazaar", Keyboard.KEY_H, "SkyblockReinvented");
 		keyBindings[1] = new KeyBinding("Open AH", Keyboard.KEY_B, "SkyblockReinvented");
 		for (KeyBinding keyBinding : keyBindings) {

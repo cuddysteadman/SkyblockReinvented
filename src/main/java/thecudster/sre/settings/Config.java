@@ -30,7 +30,8 @@ public class Config extends Vigilant {
 		name = "Remove Power Orbs from Rendering",
 		description = "Stops power orb nametags from rendering to improve visibility and FPS.",
 		category = "Rendering",
-		subcategory = "FPS Improvement"
+		subcategory = "FPS Improvement",
+			hidden = true
 	)
 
 	public boolean renderPowerOrb = false;
@@ -57,7 +58,6 @@ public class Config extends Vigilant {
         description = "Only allows you to enter a certain floor of dungeons.",
         category = "QOL",
         subcategory = "Skyblock QOL",
-        hidden = true,
         max = 7
 	)
 	public int floorLock = 0;
@@ -257,6 +257,30 @@ public class Config extends Vigilant {
 			subcategory = "Skyblock QOL"
 	)
 	public boolean giftCompassWaypoints = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Hide Hub Warp Warnings/Messages",
+			description = "Hides all annoying warp warnings/messages.",
+			category = "Chat",
+			subcategory = "Warnings"
+	)
+	public boolean hubWarnings = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Hide Autotip Messages",
+			description = "Fix for hypixel's setting to hide tip messages.",
+			category = "QOL",
+			subcategory = "Hypixel QOL"
+	)
+	public boolean tipMsgs = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Hide Dumb Slayer Drops",
+			description = "Hides useless/worthless slayer drops.",
+			category = "Chat",
+			subcategory = "Items"
+	)
+	public boolean dumbSlayerDrops = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Hide Villagers",

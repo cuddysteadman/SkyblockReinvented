@@ -3,7 +3,7 @@
     "package": "thecudster.sre.mixins",
     "refmap": "mixins.sre.refmap.json",
     "mixins": [
-        // "MixinGuiContainer",
+        "MixinGuiContainer",
         "MixinNetworkManager"
     ],
     "verbose": true

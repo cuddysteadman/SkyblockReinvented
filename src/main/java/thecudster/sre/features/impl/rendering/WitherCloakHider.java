@@ -28,7 +28,7 @@ public class WitherCloakHider {
 		if (!(event.entity instanceof EntityCreeper)) { return; }
 		EntityCreeper creeperEntity = (EntityCreeper) event.entity;
 		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-		if (event.entity.getDistance(player.posX, player.posY, player.posZ) <= 3) { return; }
+		if (event.entity.getDistance(player.posX, player.posY, player.posZ) <= 5) { return; }
 		
 			if (creeperEntity instanceof EntityCreeper && SkyblockReinvented.config.renderCreepers && creeperEntity.getPowered()) {
 				event.setCanceled(true);

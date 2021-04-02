@@ -20,8 +20,8 @@ import thecudster.sre.util.Utils;
  * @author Sychic
  */
 public class LockMort {
-	/*
-	@SubscribeEvent
+    public String supposedName;
+	@SubscribeEvent(receiveCanceled = true)
     public void onSlotClick(GuiContainerEvent.SlotClickEvent event) {
         // if (!Utils.inSkyblock) return;
 		
@@ -34,14 +34,40 @@ public class LockMort {
             ItemStack item = slot.getStack();
             String inventoryName = inventory.getDisplayName().getUnformattedText();
             String itemName = item.getDisplayName();
-            Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(itemName));
             if (item == null) return;
+
             NBTTagCompound extraAttributes = ItemUtil.getExtraAttributes(item);
             
             if (inventoryName.equals("Catacombs Gate")) {
                 if (SkyblockReinvented.config.floorLock > 0) {
                     if (slot.inventory == Minecraft.getMinecraft().thePlayer.inventory || slot.slotNumber == 50 || slot.slotNumber == 49 || slot.slotNumber == 48 || slot.slotNumber == 47) return;
-                    if (item.getItem() != Items.skull || extraAttributes == null || !(itemName.contains("Floor " + SkyblockReinvented.config.floorLock))) {
+                    switch (SkyblockReinvented.config.floorLock) {
+                        case 1:
+                            supposedName = "§aThe Catacombs §8- §eFloor I";
+                            break;
+                        case 2:
+                            supposedName = "§aThe Catacombs §8- §eFloor II";
+                            break;
+                        case 3:
+                            supposedName = "§aThe Catacombs §8- §eFloor III";
+                            break;
+                        case 4:
+                            supposedName = "§aThe Catacombs §8- §eFloor IV";
+                            break;
+                        case 5:
+                            supposedName = "§aThe Catacombs §8- §eFloor V";
+                            break;
+                        case 6:
+                            supposedName = "§aThe Catacombs §8- §eFloor VI";
+                            break;
+                        case 7:
+                            supposedName = "§aThe Catacombs §8- §eFloor VII";
+                            break;
+                        default:
+                            supposedName = "Floor Null";
+                            break;
+                    }
+                    if (item.getItem() != Items.skull || !(itemName.equals(supposedName))) {
                         event.setCanceled(true);
                         return;
                     }
@@ -49,5 +75,5 @@ public class LockMort {
             }
         }
 	}
-	*/
+
 }
