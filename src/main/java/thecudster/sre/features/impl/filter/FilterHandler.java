@@ -286,6 +286,10 @@ public class FilterHandler {
 				return;
 			}
 		}
+		if (message.equals("")) {
+			return;
+		}
+		
 		if (SkyblockReinvented.config.journalMsg) {
 			if (message.contains("Added") && message.contains("to your dungeon journal collection!")) {
 				event.setCanceled(true);

@@ -36,6 +36,15 @@ public class Config extends Vigilant {
 
 	public boolean renderPowerOrb = false;
 	@Property(
+			type = PropertyType.SWITCH,
+			name = "Overlay Mobs in Range of Hyperion",
+			description = "Overlays mobs that are in range of your hyperion with a green box around them.",
+			category = "QOL",
+			subcategory = "Skyblock QOL"
+	)
+	public boolean hyperionOverlay;
+
+	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Chat from Skytils",
 		description = "Removes chat messages like \"Skytils has prevented you from\", etc.",
