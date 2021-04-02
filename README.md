@@ -32,7 +32,12 @@
 * Remove Revive Stone Messages
 * Remove Watcher Messages
 * Remove Watchdog Announcement!
-/f1, /f2, /f3, etc commands for joining dungeon floors. (Master mode implementation coming soon!)
+* /f1, /f2, /f3, etc commands for joining dungeon floors. (Master mode implementation coming soon!)
+* Clean Maddox Batphone - Removes Useless Batphone Messages
+* Hyperion Overlay - Overlays mobs within Hyperion range
+* Gift Waypoints - Displays Gift Waypoints when holding Gift Compass
+* Lock Mort - Lock which dungeon to join when in Mort's menu in Dungeons Hub (May be bannable, checking with admins soon)
+* Hide Useless Slayer Drop Messages - Removes useless (<15k coinsish) slayer drop messages
 ### Commands
 * /sre: main GUI (aliases: /SRE, /SkyblockReinvented)
 * /re: toggle whether to render players (aliases: /render)
