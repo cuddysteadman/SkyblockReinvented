@@ -262,7 +262,6 @@ public class Config extends Vigilant {
 			name = "Show Gift Compass Waypoints",
 			description = "Shows waypoints for where to go when Gift Compass is held in hand.",
 			category = "QOL",
-			hidden = true,
 			subcategory = "Skyblock QOL"
 	)
 	public boolean giftCompassWaypoints = false;

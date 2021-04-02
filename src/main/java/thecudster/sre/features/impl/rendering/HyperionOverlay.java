@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraft.entity.monster.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.util.ItemUtil;
 import thecudster.sre.util.RenderUtil;
 
 import java.awt.*;
@@ -26,7 +27,8 @@ public class HyperionOverlay {
             EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
             Vec3 rot = player.getLookVec();
             if (Minecraft.getMinecraft().thePlayer.getHeldItem() != null) {
-                if (Minecraft.getMinecraft().thePlayer.getHeldItem().getDisplayName().contains("Hyperion")) { // using display name because I don't have a hyperion to test with lmao
+                if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()) != null)
+                if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()).equals("HYPERION")) {
                     boolean distance = event.entity.getDistance(rot.xCoord * 6 + player.posX, player.posY + rot.yCoord * 6, player.posZ + rot.zCoord * 6) <= 6;
                     if (distance) {
                         if (event.entity instanceof EntityZombie || event.entity instanceof EntitySilverfish ||

@@ -7,7 +7,11 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 
 import java.awt.*;
-
+/*
+* Taken from Skytils under GNU Affero Public License.
+* @author Sychic
+* @author My-Name-Is-Jeff
+ */
 public class DrawWaypoint {
     public static void drawWaypoint(float partialTicks, BlockPos pos, String text) {
 
@@ -24,9 +28,9 @@ public class DrawWaypoint {
 
         GlStateManager.disableDepth();
         GlStateManager.disableCull();
-        RenderUtil.drawFilledBoundingBox(new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1), new Color(2, 250, 39), 1f);
+        RenderUtil.drawFilledBoundingBox(new AxisAlignedBB(x, y + 2, z, x + 1, y + 3, z + 1), new Color(2, 250, 39), 1f);
         GlStateManager.disableTexture2D();
-        if (distSq > 5*5) RenderUtil.renderBeaconBeam(x, y + 1, z, new Color(2, 250, 39).getRGB(), 1.0f, partialTicks);
+        if (distSq > 5*5) RenderUtil.renderBeaconBeam(x, y + 2, z, new Color(2, 250, 39).getRGB(), 1.0f, partialTicks);
         RenderUtil.renderWaypointText(text, pos.up(5), partialTicks);
         GlStateManager.disableLighting();
         GlStateManager.enableTexture2D();
