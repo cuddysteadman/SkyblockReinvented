@@ -33,45 +33,46 @@ public class LockMort {
             if (slot == null) return;
             ItemStack item = slot.getStack();
             String inventoryName = inventory.getDisplayName().getUnformattedText();
-            if (item.hasDisplayName()) {
-                String itemName = item.getDisplayName();
-                if (item == null) return;
+            if (item != null) {
+                if (item.hasDisplayName()) {
+                    String itemName = item.getDisplayName();
 
-                NBTTagCompound extraAttributes = ItemUtil.getExtraAttributes(item);
+                    NBTTagCompound extraAttributes = ItemUtil.getExtraAttributes(item);
 
-                if (inventoryName.equals("Catacombs Gate")) {
-                    if (SkyblockReinvented.config.floorLock > 0) {
-                        if (slot.inventory == Minecraft.getMinecraft().thePlayer.inventory || slot.slotNumber == 50 || slot.slotNumber == 49 || slot.slotNumber == 48 || slot.slotNumber == 47)
-                            return;
-                        switch (SkyblockReinvented.config.floorLock) {
-                            case 1:
-                                supposedName = "§aThe Catacombs §8- §eFloor I";
-                                break;
-                            case 2:
-                                supposedName = "§aThe Catacombs §8- §eFloor II";
-                                break;
-                            case 3:
-                                supposedName = "§aThe Catacombs §8- §eFloor III";
-                                break;
-                            case 4:
-                                supposedName = "§aThe Catacombs §8- §eFloor IV";
-                                break;
-                            case 5:
-                                supposedName = "§aThe Catacombs §8- §eFloor V";
-                                break;
-                            case 6:
-                                supposedName = "§aThe Catacombs §8- §eFloor VI";
-                                break;
-                            case 7:
-                                supposedName = "§aThe Catacombs §8- §eFloor VII";
-                                break;
-                            default:
-                                supposedName = "Floor Null";
-                                break;
-                        }
-                        if (item.getItem() != Items.skull || !(itemName.equals(supposedName))) {
-                            event.setCanceled(true);
-                            return;
+                    if (inventoryName.equals("Catacombs Gate")) {
+                        if (SkyblockReinvented.config.floorLock > 0) {
+                            if (slot.inventory == Minecraft.getMinecraft().thePlayer.inventory || slot.slotNumber == 50 || slot.slotNumber == 49 || slot.slotNumber == 48 || slot.slotNumber == 47)
+                                return;
+                            switch (SkyblockReinvented.config.floorLock) {
+                                case 1:
+                                    supposedName = "§aThe Catacombs §8- §eFloor I";
+                                    break;
+                                case 2:
+                                    supposedName = "§aThe Catacombs §8- §eFloor II";
+                                    break;
+                                case 3:
+                                    supposedName = "§aThe Catacombs §8- §eFloor III";
+                                    break;
+                                case 4:
+                                    supposedName = "§aThe Catacombs §8- §eFloor IV";
+                                    break;
+                                case 5:
+                                    supposedName = "§aThe Catacombs §8- §eFloor V";
+                                    break;
+                                case 6:
+                                    supposedName = "§aThe Catacombs §8- §eFloor VI";
+                                    break;
+                                case 7:
+                                    supposedName = "§aThe Catacombs §8- §eFloor VII";
+                                    break;
+                                default:
+                                    supposedName = "Floor Null";
+                                    break;
+                            }
+                            if (item.getItem() != Items.skull || !(itemName.equals(supposedName))) {
+                                event.setCanceled(true);
+                                return;
+                            }
                         }
                     }
                 }
