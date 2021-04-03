@@ -35,13 +35,14 @@ import thecudster.sre.features.impl.rendering.*;
 import thecudster.sre.features.impls.sounds.BlockCreeperSound;
 import thecudster.sre.settings.Config;
 import thecudster.sre.util.Reference;
+import thecudster.sre.util.api.GetSkyBlockAuctionsExample;
 
 @Mod(modid = SkyblockReinvented.MODID, name = SkyblockReinvented.MOD_NAME, version = SkyblockReinvented.VERSION, acceptedMinecraftVersions = "[1.8.9]", clientSideOnly = true)
 public class SkyblockReinvented {
 	public static Config config = new Config();
 	public static final String MODID = "sre";
 	public static final String MOD_NAME = "Skytils";
-	public static final String VERSION = "0.0.2-pre4";
+	public static final String VERSION = "0.0.2";
 	public static KeyBinding[] keyBindings = new KeyBinding[2];
 	public static boolean creeperActivated;
 	public static File modDir;
@@ -49,6 +50,7 @@ public class SkyblockReinvented {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		modDir = new File(event.getModConfigurationDirectory(), "sre");
+		// GetSkyBlockAuctionsExample.printAuctions(0);
         if (!modDir.exists()) modDir.mkdirs();
 		
 	}

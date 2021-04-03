@@ -6,6 +6,8 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.checkerframework.checker.units.qual.C;
+import scala.collection.parallel.ParIterableLike;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.ItemUtil;
 import thecudster.sre.util.Utils;
@@ -216,6 +218,251 @@ public class FilterHandler {
 				return;
 			}
 			if (message.contains("SLAYER QUEST COMPLETE")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.uselessJacob) {
+			if (message.contains("[NPC] Jacob: The Farming Contest is over!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("[NPC] Jacob: Let me count the final results eh?")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("[NPC] Jacob: Come see me in the Hub to claim your reward!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("[NPC] Jacob: You scored") && message.contains("items collected!")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.reskinJacob) {
+			if (message.contains("[NPC] Jacob: You earned a GOLD medal in the ")) {
+				event.setCanceled(true);
+				Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("You got gold, you actual sweat."));
+				return;
+			}
+			if (message.contains("[NPC] Jacob: You earned a SILVER medal in the ")) {
+				event.setCanceled(true);
+				Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("You got silver! Not bad."));
+				return;
+			}
+			if (message.contains("[NPC] Jacob: You earned a BRONZE medal in the ")) {
+				event.setCanceled(true);
+				Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("You got bronze! What are you doing m8."));
+				return;
+			}
+			if (message.contains("[NPC] Jacob: You didn't earn a medal, but you may claim a participation reward in the ")) {
+				event.setCanceled(true);
+				Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("bruh. f in the chat."));
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.cryptWitherSkull) {
+			if (message.contains("A Crypt Wither Skull exploded, hitting you for ")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		// TODO: AH API Integration + Bits Shop Thing (/bits)
+		if (SkyblockReinvented.config.cleanJerry) {
+			if (message.contains("[NPC] Baker:")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You claimed New Year Cake!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You feel your Gift Compass pull towards a new location...")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You have already found this Gift this year!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("mounted a Snow Cannon!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("GIFT! You hound a White Gift!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("It doesn't seem there are any unopened presents nearby...")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("GIFT! You found all of the Gifts! Talk to St. Jerry to receive a reward!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("§e[NPC] §cSt. Jerry§f: You found all of the Gifts!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("§e[NPC] §cSt. Jerry§f: Take this §aGreen Gift§r! You'll hopefully find something nicer than what was in those White Gifts!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("§e[NPC] §cSt. Jerry§f: If you haven't already, be sure to give your other Gifts away to others. Giving Gifts benefits both you and the receiver!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You claimed Green Gift!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("to shoot. Move cursor to aim.")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("The Snow Cannon is reloading!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You dismounted the Snow Cannon!")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.useless) {
+			if (message.contains("Warped to Election Room!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Warped to Community Center!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You claimed Dungeon Orb!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You already have this class selected!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You can't put this item in there!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You have already opened a Dungeon chest for this run!")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.bonePlating) {
+			if (message.contains("Your bone plating reduced the damage you took by")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.removePuzzler) {
+			if (message.contains("§e[NPC] §dPuzzler§f:") && !message.contains("§d?")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.cleanEnd) {
+			if (message.equals("                          The Catacombs - Floor I")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.equals("                          The Catacombs - Floor II")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.equals("                          The Catacombs - Floor III")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.equals("                          The Catacombs - Floor IV")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.equals("                          The Catacombs - Floor V")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.equals("                          The Catacombs - Floor VI")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.equals("                          The Catacombs - Floor VII")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.equals("                          Master Mode Catacombs - Floor I")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.equals("                          Master Mode Catacombs - Floor II")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.equals("                          Master Mode Catacombs - Floor III")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.equals("                          Master Mode Catacombs - Floor IV")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.equals("                          Master Mode Catacombs - Floor V")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.equals("                          Master Mode Catacombs - Floor VI")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.equals("                          Master Mode Catacombs - Floor VII")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Experience (Team Bonus)")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("§6> §e§lEXTRA STATS §6<")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Defeated Bonzo in ")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Defeated Scarf in ")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Defeated The Professor in ")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Defeated Thorn in ")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Defeated Livid in ")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Defeated Sadan in ")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Defeated Necron in ")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("+") && message.contains("Bits")) {
 				event.setCanceled(true);
 				return;
 			}
@@ -526,6 +773,43 @@ public class FilterHandler {
 				return;
 			}
 		}
+		if (SkyblockReinvented.config.healerMsg) {
+			if (message.contains("You formed a tether with")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Your tether with ") && message.contains("healed you for")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Your fairy healed yourself for")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.dungeonFinder) {
+			if (message.contains("This group is full and has been de-listed!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Attempting to add you to the party...")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You need to have a class at level") && message.contains("or higher to join this group!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Please wait a few seconds between refreshing!")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Refreshing...")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+
 		
 	}
 }
