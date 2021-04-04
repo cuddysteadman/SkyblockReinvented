@@ -9,10 +9,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.checkerframework.checker.units.qual.C;
 import scala.collection.parallel.ParIterableLike;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.features.impl.qol.SlayerReminder;
 import thecudster.sre.util.ItemUtil;
+import thecudster.sre.util.ScoreboardUtil;
 import thecudster.sre.util.Utils;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class FilterHandler {
 	public static final String[] seaCreatureList = {"A squid appeared.", 
@@ -226,10 +229,106 @@ public class FilterHandler {
 			}
 			if (message.contains("NICE! SLAYER BOSS SLAIN!")) {
 				event.setCanceled(true);
+
 				return;
 			}
 			if (message.contains("Talk to Maddox to claim your")) {
-				event.setCanceled(true);
+				if (SkyblockReinvented.config.remindSlayer) {
+					if (message.contains("Spider Slayer XP!")) {
+						new java.util.Timer().schedule(
+
+								new java.util.TimerTask() {
+									@Override
+									public void run() {
+										try {
+											boolean found = false;
+											boolean notClaimed = false;
+											List<String> scoreboard = ScoreboardUtil.getSidebarLines();
+											for (String s : scoreboard) {
+												String sCleaned = ScoreboardUtil.cleanSB(s);
+												if (sCleaned.contains("Tarantula")) {
+													found = true;
+												}
+												if (sCleaned.contains("Boss slain!")) {
+													notClaimed = true;
+												}
+											}
+											if (notClaimed || !found) {
+												SlayerReminder.remindTara();
+											}
+										}
+										catch (InterruptedException e) {
+
+										}
+									}
+								},
+								6000
+						);
+					}
+					if (message.contains("Zombie Slayer XP!")) {
+						new java.util.Timer().schedule(
+
+								new java.util.TimerTask() {
+									@Override
+									public void run() {
+										try {
+											boolean found = false;
+											boolean notClaimed = false;
+											List<String> scoreboard = ScoreboardUtil.getSidebarLines();
+											for (String s : scoreboard) {
+												String sCleaned = ScoreboardUtil.cleanSB(s);
+												if (sCleaned.contains("Revenant Horror")) {
+													found = true;
+												}
+												if (sCleaned.contains("Boss slain!")) {
+													notClaimed = true;
+												}
+											}
+											if (notClaimed || !found) {
+												SlayerReminder.remindTara();
+											}
+										}
+										catch (InterruptedException e) {
+
+										}
+									}
+								},
+								6000
+						);
+					}
+					if (message.contains("Wolf Slayer XP!")) {
+						new java.util.Timer().schedule(
+
+								new java.util.TimerTask() {
+									@Override
+									public void run() {
+										try {
+											boolean found = false;
+											boolean notClaimed = false;
+											List<String> scoreboard = ScoreboardUtil.getSidebarLines();
+											for (String s : scoreboard) {
+												String sCleaned = ScoreboardUtil.cleanSB(s);
+												if (sCleaned.contains("Sven Packmaster")) {
+													found = true;
+												}
+												if (sCleaned.contains("Boss slain!")) {
+													notClaimed = true;
+												}
+											}
+											if (notClaimed || !found) {
+												SlayerReminder.remindTara();
+											}
+										}
+										catch (InterruptedException e) {
+
+										}
+									}
+								},
+								6000
+						);
+					}
+					event.setCanceled(true);
+				}
 				return;
 			}
 			if (message.contains("SLAYER QUEST COMPLETE")) {

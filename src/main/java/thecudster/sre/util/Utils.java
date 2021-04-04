@@ -111,20 +111,20 @@ public class Utils {
      */
     public static void playLoudSound(String sound, double pitch) {
         shouldBypassVolume = true;
-        mc.thePlayer.playSound(sound, 1, (float) pitch);
+        mc.thePlayer.playSound(sound, 2, (float) pitch);
         shouldBypassVolume = false;
     }
     public static boolean checkIronman() {
-    	if (inSkyblock) {
-    		
-    		ScoreObjective scoreboard = mc.theWorld.getScoreboard().getObjectiveInDisplaySlot(3);
-    				Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(scoreboard.getDisplayName()));
-    		if (scoreboard.getCriteria().toString().contains("Ironman")) {
-    			return true;
-    		}}
-    		
-    	
-    	return false;
+        if (inSkyblock) {
+            List<String> scoreboard = ScoreboardUtil.getSidebarLines();
+            for (String s : scoreboard) {
+                String sCleaned = ScoreboardUtil.cleanSB(s);
+                if (sCleaned.contains("Ironman")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

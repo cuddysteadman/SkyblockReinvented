@@ -1,9 +1,11 @@
 package thecudster.sre.settings;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import club.sk1er.vigilance.Vigilant;
 import club.sk1er.vigilance.data.*;
+import org.checkerframework.checker.units.qual.A;
 import scala.sys.Prop;
 
 
@@ -273,7 +275,8 @@ public class Config extends Vigilant {
 			category = "Dungeons",
 			subcategory = "Rendering"
 	)
-	public boolean renderWaypointDungeons;
+	public boolean renderWaypointDungeons = false;
+
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Overlay Uncollected Jacob's Contests",
@@ -281,7 +284,15 @@ public class Config extends Vigilant {
 			category = "Hub",
 			subcategory = "Rendering"
 	)
-	public boolean jacobRender;
+	public boolean jacobRender = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remind to Start New Slayer",
+			description = "Reminds you to start a new slayer quest if you haven't started a new one after 5 seconds.",
+			category = "Skills",
+			subcategory = "Slayer"
+	)
+	public boolean remindSlayer = false;
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Creeper Sounds from Veil",
@@ -536,6 +547,23 @@ public class Config extends Vigilant {
 			subcategory = "Chat"
 	)
 	public boolean cleanEnd = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Hub Overlay",
+			description = "Overlays hubs that you can join in green and hubs that you can't join in red.",
+			category = "Hub",
+			subcategory = "Rendering"
+	)
+	public boolean hubOverlay = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Raffle Waypoint",
+			description = "Renders a waypoint where you have to deposit your tickets in the raffle event. §cUSE AT YOUR OWN RISK!",
+			category = "Dwarven Mines",
+			subcategory = "Rendering"
+	)
+	public boolean raffleWaypoint = false;
+	public ArrayList<String> toSearch = new ArrayList<String>();
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove Healer Messages",

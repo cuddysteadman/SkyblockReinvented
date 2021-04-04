@@ -16,6 +16,8 @@ import java.awt.Color;
 
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.events.GuiContainerEvent;
+import thecudster.sre.util.ItemUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -66,6 +68,69 @@ public class HighlightFarming {
                                     } else {
                                         showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
                                     }
+                                }
+                            }
+                        }
+                    }
+                    return;
+                }
+            }
+        }
+        if (SkyblockReinvented.config.hubOverlay) {
+            Minecraft mc = Minecraft.getMinecraft();
+            if (mc.currentScreen instanceof GuiChest) {
+                GuiChest chest = (GuiChest) mc.currentScreen;
+                ContainerChest inventory = (ContainerChest) chest.inventorySlots;
+
+                if (inventory.getLowerChestInventory().getDisplayName().getUnformattedText().equals("SkyBlock Hub Selector")) {
+                    List<Slot> slots = chest.inventorySlots.inventorySlots;
+
+                    for (Slot toCheck : slots) {
+                        if (toCheck.getStack() != null) {
+                            if (toCheck.getStack().hasDisplayName()) {
+                                String name = toCheck.getStack().getDisplayName();
+                                if (name.contains("SkyBlock Hub")) {
+                                    List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
+                                    boolean found = false;
+                                    for (String s : lore) {
+                                        if (s.contains("Full!") || s.contains("Already connected!")) {
+                                            found = true;
+                                            showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
+                                        }
+                                    }
+                                    if (!found) {
+                                        showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.green.getRGB());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return;
+                }
+            }
+        }
+        if (SkyblockReinvented.config.toSearch != null && !SkyblockReinvented.config.toSearch.isEmpty()) {
+            Minecraft mc = Minecraft.getMinecraft();
+            if (mc.currentScreen instanceof GuiChest) {
+                GuiChest chest = (GuiChest) mc.currentScreen;
+                ContainerChest inventory = (ContainerChest) chest.inventorySlots;
+                String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
+                if (displayText.contains("Ender Chest") || displayText.contains("Accessory Bag") || displayText.contains("Wardrobe")) {
+                    List<Slot> slots = chest.inventorySlots.inventorySlots;
+
+                    for (Slot toCheck : slots) {
+                        if (toCheck.getStack() != null) {
+                            if (toCheck.getStack().hasDisplayName()) {
+                                boolean found = false;
+                                String name = toCheck.getStack().getDisplayName();
+                                for (String s : SkyblockReinvented.config.toSearch) {
+                                    if (StringUtils.containsIgnoreCase(name, s)) {
+                                        found = true;
+                                        showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.green.getRGB());
+                                    }
+                                }
+                                if (!found) {
+                                    showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
                                 }
                             }
                         }
