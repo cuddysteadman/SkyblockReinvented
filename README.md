@@ -38,6 +38,22 @@
 * Gift Waypoints - Displays Gift Waypoints when holding Gift Compass
 * Lock Mort - Lock which dungeon to join when in Mort's menu in Dungeons Hub (May be bannable, checking with admins soon)
 * Hide Useless Slayer Drop Messages - Removes useless (<15k coinsish) slayer drop messages
+* Remove Puzzler Messages (except for the one that tells you where it is)
+* Clean Jerry's Workshop - Generally cleans up the chat of Jerry's Workshop
+* Hide Autotip Messages - Hide all messages that say "You tipped x in x"
+* Remove Bone Plating Messages
+* Clean Ending of Dungeon Message - Summarizes the end of a dungeon chat for a cleaner more :sparkles: aesthetic :sparkles: look
+* Remove Healer Messages - Removes "you were tethered to x person", etc, and other useless messages
+* Removes Useless Dungeon Finder Messages - DOES NOT remove X joined the group messages, so shouldn't break mods
+* Revamped Jacob Messages - Replaces some of the Jacob's Farming Contest messages with more... smarky messages (50% meme)
+* Hide Useless Jacob Messages - Removes Useless Jacob's Event Messages
+* Remove Generally Useless Messages (just ones that I find, let me know if you think one that is removed is actually essential)
+* Clean Maddox Batphone - Removes Useless Batphone Messages
+* Hyperion Overlay - Overlays mobs within Hyperion range
+* Gift Waypoints - Displays Gift Waypoints when holding Gift Compass
+* Lock Mort - Lock which dungeon to join when in Mort's menu in Dungeons Hub (May be bannable, doesn't deal with packets so should be ok, if people start getting kicked because of it i'll remove it, just let me know!)
+* Hide Useless Slayer Drop Messages - Removes useless (<15k coinsish) slayer drop messages
+* Keybinds for /ah and /bz
 ### Commands
 * /sre: main GUI (aliases: /SRE, /SkyblockReinvented)
 * /re: toggle whether to render players (aliases: /render)
