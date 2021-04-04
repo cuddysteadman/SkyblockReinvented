@@ -13,5 +13,8 @@ public class Keybindings {
         if (SkyblockReinvented.keyBindings[1].isPressed()) {
             Minecraft.getMinecraft().thePlayer.sendChatMessage("/ah");
         }
+        if (SkyblockReinvented.keyBindings[2].isPressed()) {
+            Minecraft.getMinecraft().thePlayer.sendChatMessage("/visit prtl");
+        }
     }
 }

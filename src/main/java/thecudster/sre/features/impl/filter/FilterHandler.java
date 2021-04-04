@@ -166,6 +166,20 @@ public class FilterHandler {
 				}
 			}
 		}
+		if (SkyblockReinvented.config.showFetchur) {
+			if (message.contains("hi i need your help maybe")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("im looking for some stuff, dont remember the name tbh")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("you didnt find my things yet?")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
 		if (SkyblockReinvented.config.warps) {
 			if (message.contains("Warping you to the") || message.contains("Sending to server")) {
 				event.setCanceled(true);
@@ -179,6 +193,7 @@ public class FilterHandler {
 				return;
 			}
 		}
+
 		if (SkyblockReinvented.config.maddoxMsg) {
 			for (String s : maddoxFails) {
 				if (message.contains(s)) {

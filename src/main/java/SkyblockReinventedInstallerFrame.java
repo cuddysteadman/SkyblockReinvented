@@ -133,7 +133,7 @@ public class SkyblockReinventedInstallerFrame extends JFrame implements ActionLi
                 margin = 5;
 
                 BufferedImage myPicture = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader()
-                        .getResourceAsStream("assets/SkyblockReinvented/gui/logo.png"), "Logo not found."));
+                        .getResourceAsStream("assets/sre/gui/logo.png"), "Logo not found."));
                 Image scaled = myPicture.getScaledInstance(w/2-margin*2, h-margin, Image.SCALE_SMOOTH);
                 logo = new JLabel(new ImageIcon(scaled));
                 logo.setName("Logo");
@@ -276,7 +276,7 @@ public class SkyblockReinventedInstallerFrame extends JFrame implements ActionLi
 
             try {
                 BufferedImage myPicture = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader()
-                        .getResourceAsStream("assets/SkyblockReinvented/gui/folder.png"), "Folder icon not found."));
+                        .getResourceAsStream("assets/sre/gui/folder.png"), "Folder icon not found."));
                 Image scaled = myPicture.getScaledInstance(w-8, h-6, Image.SCALE_SMOOTH);
                 buttonChooseFolder = new JButton(new ImageIcon(scaled));
                 buttonChooseFolder.setName("ButtonFolder");

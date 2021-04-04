@@ -18,6 +18,7 @@ import thecudster.sre.util.RenderUtil;
 import java.awt.*;
 
 public class HyperionOverlay {
+    public String name = "";
     @SubscribeEvent
     public void hyperionOverlay(RenderLivingEvent.Pre event) {
         if (event.entity instanceof EntityOtherPlayerMP) {
@@ -28,13 +29,14 @@ public class HyperionOverlay {
             Vec3 rot = player.getLookVec();
             if (Minecraft.getMinecraft().thePlayer.getHeldItem() != null) {
                 if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()) != null)
-                if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()).equals("HYPERION")) {
+                    name = ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem());
+                if (name.equals("HYPERION") || name.equals("VALKYRIE") || name.equals("SCYLLA") || name.equals("ASTREA")) { // guessing on scylla because no metadata on wiki but who uses scylla lol
                     boolean distance = event.entity.getDistance(rot.xCoord * 6 + player.posX, player.posY + rot.yCoord * 6, player.posZ + rot.zCoord * 6) <= 6;
                     if (distance) {
                         if (event.entity instanceof EntityZombie || event.entity instanceof EntitySilverfish ||
                                 event.entity instanceof EntitySkeleton || event.entity instanceof EntityEnderman ||
                                 event.entity instanceof EntitySpider) {
-                            RenderUtil.drawOutlinedBoundingBox(event.entity.getEntityBoundingBox(), new Color(27, 255, 11, 255), 3, 1f);
+                            RenderUtil.drawFilledBoundingBox(event.entity.getEntityBoundingBox(), new Color(27, 255, 11, 255), 3);
                             return;
                         }
                     }

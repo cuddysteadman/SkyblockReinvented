@@ -230,10 +230,18 @@ public class Config extends Vigilant {
 		type = PropertyType.SWITCH,
 		name = "Remove Sea Creature Messages",
 		description = "Removes all messages from sea creatures.",
-		category = "Fishing",
-		subcategory = "Chat"
+		category = "Skills",
+		subcategory = "Fishing"
 	)
 	public boolean seaCreatures = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Sven Pups",
+			description = "Stops sven pups from rendering.",
+			category = "Skills",
+			subcategory = "Slayer"
+	)
+	public boolean svenPups = false;
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Slow Down Messages",
@@ -242,7 +250,14 @@ public class Config extends Vigilant {
 		subcategory = "Chat"
 	)
 	public boolean slowDown = false;
-	
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Unimportant Fetchur Messages",
+			description = "Removes all unimportant fetchur messages.",
+			category = "Dwarven Mines",
+			subcategory = "Chat"
+	)
+	public boolean showFetchur = false;
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Island Visit Messages",
@@ -252,11 +267,27 @@ public class Config extends Vigilant {
 	)
 	public boolean visitIsland = false;
 	@Property(
+			type = PropertyType.SWITCH,
+			name = "Render Waypoints to Teammates",
+			description = "Render a waypoint at teammates while in a dungeon.",
+			category = "Dungeons",
+			subcategory = "Rendering"
+	)
+	public boolean renderWaypointDungeons;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Overlay Uncollected Jacob's Contests",
+			description = "Creates overlay on uncollected jacob's contests. Other contests are overlay'd as red.",
+			category = "Hub",
+			subcategory = "Rendering"
+	)
+	public boolean jacobRender;
+	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Creeper Sounds from Veil",
 		description = "Removes Creeper Veil constant creeper/skeleton noises. \n§cThis feature removes all creeper & skeleton hurt noises while creeper veil is activated.",
-		category="Sounds",
-		subcategory="Items"
+		category="Items",
+		subcategory="Sounds"
 	)
 	public boolean creeperSounds = false;
 	@Property(
@@ -310,18 +341,26 @@ public class Config extends Vigilant {
 	public boolean cleanJerry = false;
 	@Property(
 			type = PropertyType.SWITCH,
-			name = "Hide Autotip Messages",
-			description = "Fix for hypixel's setting to hide tip messages.",
-			category = "QOL",
-			subcategory = "Hypixel QOL"
+			name = "Hide your Spirit Bats",
+			description = "Hides your spirit bats.",
+			category = "Dungeons",
+			subcategory = "Rendering"
 	)
-	public boolean tipMsgs = false;
+	public boolean spiritBats = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove JerryChine Gun Sounds",
+			description = "Removes your jerrychine gun sounds.",
+			category = "Items",
+			subcategory = "Sounds"
+	)
+	public boolean jerryChine;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Hide Dumb Slayer Drops",
 			description = "Hides useless/worthless slayer drops.",
-			category = "Slayer",
-			subcategory = "Chat"
+			category = "Skills",
+			subcategory = "Slayer"
 	)
 	public boolean dumbSlayerDrops = false;
 	@Property(
@@ -336,8 +375,8 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Maddox Messages",
 			description = "Hides all annoying Maddox messages when you use Maddox batphone.",
-			category = "Slayer",
-			subcategory = "Chat"
+			category = "Skills",
+			subcategory = "Slayer"
 	)
 	public boolean maddoxMsg = false;
 	@Property(

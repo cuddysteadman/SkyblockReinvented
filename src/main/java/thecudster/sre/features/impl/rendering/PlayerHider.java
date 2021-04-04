@@ -8,10 +8,13 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.Util;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.util.DrawWaypoint;
+import thecudster.sre.util.Utils;
 
 public class PlayerHider {
 	/**
@@ -20,17 +23,25 @@ public class PlayerHider {
      * @author MatthewTGM
      */
 	@SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
-	public void onEntityRender(RenderLivingEvent.Pre<EntityOtherPlayerMP> event) {
+	public void onEntityRender(RenderLivingEvent.Pre event) {
 		if (event.entity instanceof EntityPlayerSP) return;
         if (!(event.entity instanceof EntityOtherPlayerMP)) return;
         if (this.isNPC(event.entity)) { return; }
-        if (event.entity.hasCustomName()) { return; }
+        // if (event.entity.hasCustomName()) { return; }
 		// System.out.println("not rendering!");
-		if (event.entity.getCustomNameTag().contains("MaineBuilder")) {
-			Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(event.entity.getCustomNameTag()));
+		if (SkyblockReinvented.config.renderPlayers) {
+			event.setCanceled(true);
+
 		}
-		if (!SkyblockReinvented.config.renderPlayers) { return; }
-		event.setCanceled(true);
+		Utils.checkForSkyblock();
+		Utils.checkForDungeons();
+		String str = ((EntityOtherPlayerMP) event.entity).getDisplayNameString();
+		if (str.contains("Crypt Dreadlord") || str.contains("Crypt Souleater") || str.contains("Lost Adventurer") || str.contains("Angry Archaeologist")) {
+			return;
+		}
+		if (SkyblockReinvented.config.renderWaypointDungeons && Utils.inDungeons) {
+			DrawWaypoint.drawWaypoint(0.01f, event.entity.getPosition().down(), ((EntityOtherPlayerMP) event.entity).getDisplayNameString());
+		}
 		/*boolean done = false;
 		 * WHY ISN'T THIS WORKING REEE
 		ArrayList<String> listPlayers = new ArrayList<String>();

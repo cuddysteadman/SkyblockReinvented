@@ -1,6 +1,7 @@
 package thecudster.sre.util;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
@@ -46,13 +47,13 @@ public class Utils {
      */
     public static void checkForDungeons() {
         if (inSkyblock) {
-            ScoreObjective scoreboardObj = mc.theWorld.getScoreboard().getObjectiveInDisplaySlot(1);
-            if (scoreboardObj != null) {
-            	String scObjName = scoreboardObj.getDisplayName();
-            	if (scObjName.contains("DUNGEONS")) {
-            		inDungeons = true;
-            		return;
-            	}
+            List<String> scoreboard = ScoreboardUtil.getSidebarLines();
+            for (String s : scoreboard) {
+                String sCleaned = ScoreboardUtil.cleanSB(s);
+                if (sCleaned.contains("The Catacombs") || sCleaned.contains("Dungeon Cleared:")) {
+                    inDungeons = true;
+                    return;
+                }
             }
         }
         inDungeons = false;
