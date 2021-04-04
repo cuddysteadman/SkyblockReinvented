@@ -54,10 +54,21 @@
 * Lock Mort - Lock which dungeon to join when in Mort's menu in Dungeons Hub (May be bannable, doesn't deal with packets so should be ok, if people start getting kicked because of it i'll remove it, just let me know!)
 * Hide Useless Slayer Drop Messages - Removes useless (<15k coinsish) slayer drop messages
 * Keybinds for /ah and /bz
+* Remind to Start New Slayer: reminds you to start a new slayer quest if you haven't started a new one after 5 seconds
+* Raffle Waypoints: shows a waypoint to the raffle box
+* Hub Overlay: overlays hubs that you can join in green and hubs that you can't join in red
+* Hide Jerry-chine Gun Sounds
+* Keybind for /visit prtl
+* Jacob's Contest Overlay - Shows which you haven't claimed
+* Render Waypoints to Teammates - Renders waypoints on teammates while in dungeons (still needs to be tested for other mobs - USE AT YOUR OWN RISK)
+* Hide Sven Pups - stops sven pups from rendering (only client side obv)
+* Remove Unimportant Fetchur Messages - self explanatory
+* Hide your own spirit bats
 ### Commands
 * /sre: main GUI (aliases: /SRE, /SkyblockReinvented)
 * /re: toggle whether to render players (aliases: /render)
 * /f1, /f2, /f3, etc: join respective dungeon floors
+* /s: /s add, /s search, /s clear, /s remove: search for items in Wardrobe, Echest, and Accessory Bag.
 ## This mod would not be possible without these wonderful people and their projects:
 * Sychic, My-Name-Is-Jeff, Angry-Pineapple3121, and AzuredBlue (Skytils: https://github.com/Skytils/SkytilsMod)
 * Moulberry (NEU: https://github.com/Moulberry/NotEnoughUpdates)
