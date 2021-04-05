@@ -14,6 +14,7 @@
     <img alt="discord" src="https://img.shields.io/discord/825217968438902825?color=4166f5&label=discord&style=flat-square" />
   </a>
 </p>
+Why isn't this working?
 ***
 ## Features
 ### Items
