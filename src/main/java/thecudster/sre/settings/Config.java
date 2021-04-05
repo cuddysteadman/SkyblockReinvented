@@ -555,6 +555,15 @@ public class Config extends Vigilant {
 			subcategory = "Rendering"
 	)
 	public boolean hubOverlay = false;
+
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Secret Waypoints",
+			description = "Creates a waypoint to secrets like drops, bats, and chests. §cUSE AT YOUR OWN RISK!",
+			category = "Dungeons",
+			subcategory = "Secrets"
+	)
+	public boolean secretFinder = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Raffle Waypoint",

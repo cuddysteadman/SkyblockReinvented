@@ -7,9 +7,11 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.Util;
 import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
@@ -22,6 +24,7 @@ public class PlayerHider {
      * https://github.com/TGMDevelopment/SkyBlockBonus/blob/main/LICENSE
      * @author MatthewTGM
      */
+
 	@SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
 	public void onEntityRender(RenderLivingEvent.Pre event) {
 		if (event.entity instanceof EntityPlayerSP) return;
@@ -36,7 +39,9 @@ public class PlayerHider {
 		Utils.checkForSkyblock();
 		Utils.checkForDungeons();
 		String str = ((EntityOtherPlayerMP) event.entity).getDisplayNameString();
-		if (str.contains("Crypt Dreadlord") || str.contains("Crypt Souleater") || str.contains("Lost Adventurer") || str.contains("Angry Archaeologist")) {
+		if (str.contains("Crypt Dreadlord") || str.contains("Crypt Souleater") || str.contains("Lost Adventurer") || str.contains("Angry Archaeologist") ||
+		str.contains("Putrid") || str.contains("Cannibal") || str.contains("Tear") || str.contains("Freak") || str.contains("Flamer") || str.contains("Undead") ||
+		str.contains("Bonzo") || str.contains("Livid") || str.contains("The Professor") || str.contains("Scarf")) {
 			return;
 		}
 		if (SkyblockReinvented.config.renderWaypointDungeons && Utils.inDungeons) {

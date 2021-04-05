@@ -42,7 +42,7 @@ public class SkyblockReinvented {
 	public static Config config = new Config();
 	public static final String MODID = "sre";
 	public static final String MOD_NAME = "Skytils";
-	public static final String VERSION = "0.0.3-pre2";
+	public static final String VERSION = "0.0.3";
 	public static KeyBinding[] keyBindings = new KeyBinding[3];
 	public static boolean creeperActivated;
 	public static File modDir;

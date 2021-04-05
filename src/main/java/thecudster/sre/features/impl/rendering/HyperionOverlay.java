@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.model.ModelRotation;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
@@ -12,6 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraft.entity.monster.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.util.DrawWaypoint;
 import thecudster.sre.util.ItemUtil;
 import thecudster.sre.util.RenderUtil;
 
@@ -21,6 +23,7 @@ public class HyperionOverlay {
     public String name = "";
     @SubscribeEvent
     public void hyperionOverlay(RenderLivingEvent.Pre event) {
+
         if (event.entity instanceof EntityOtherPlayerMP) {
             return;
         }

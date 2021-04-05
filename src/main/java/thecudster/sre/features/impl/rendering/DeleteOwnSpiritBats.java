@@ -27,6 +27,7 @@ public class DeleteOwnSpiritBats {
                         if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()) != null) {
                             if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()).equals("BAT_WAND")) {
                                 Minecraft.getMinecraft().theWorld.removeEntity(event.entity);
+
                             }
                         }
                     }
