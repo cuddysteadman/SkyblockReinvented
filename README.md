@@ -12,7 +12,7 @@
   <a href="https://discord.gg/xkeYgZrRbN" target="_blank">
     <img alt="discord" src="https://img.shields.io/discord/825217968438902825?color=4166f5&label=discord&style=flat-square" />
   </a>
-</p><sup>1</sup>
+</p>
 ## Features
 ***
 ### Items
