@@ -10,7 +10,7 @@
     <img alt="license" src="https://img.shields.io/github/license/theCudster/SkyblockReinvented?color=4166f5&style=flat-square" />
   </a>
   <a href="https://discord.gg/xkeYgZrRbN" target="_blank">
-    <img alt="discord" src="https://img.shields.io/discord/807302538558308352?color=4166f5&label=discord&style=flat-square" />
+    <img alt="discord" src="https://img.shields.io/discord/825217968438902825?color=4166f5&label=discord&style=flat-square" />
   </a>
 </p><sup>1</sup>
 ## Features
