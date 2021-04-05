@@ -17,7 +17,7 @@
 ***
 ## Features
 ### Items
-* Remove Creeper Veil Messages
+- Remove Creeper Veil Messages
 * Remove Skeleton Hat Messages
 * Remove Guardian Chestplate Messages
 * Remove Wither Cloak Creepers Except your Own
