@@ -1,4 +1,18 @@
 # SkyblockReinvented
+<p align="center">
+  <a href="https://github.com/theCudster/SkyblockReinvented/releases" target="_blank">
+    <img alt="downloads" src="https://img.shields.io/github/v/release/Skytils/SkytilsMod?color=4166f5&style=flat-square" />
+  </a>
+  <a href="https://github.com/theCudster/SkyblockReinvented/releases" target="_blank">
+    <img alt="downloads" src="https://img.shields.io/github/downloads/Skytils/SkytilsMod/total?color=4166f5&style=flat-square" />
+  </a>
+  <a href="https://github.com/theCudster/SkyblockReinvented/blob/main/LICENSE" target="_blank">
+    <img alt="license" src="https://img.shields.io/github/license/Skytils/SkytilsMod?color=4166f5&style=flat-square" />
+  </a>
+  <a href="https://discord.gg/xkeYgZrRbN" target="_blank">
+    <img alt="discord" src="https://img.shields.io/discord/807302538558308352?color=4166f5&label=discord&style=flat-square" />
+  </a>
+</p><sup>1</sup>
 ## Features
 ### Items
 * Remove Creeper Veil Messages
