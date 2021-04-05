@@ -13,6 +13,7 @@
     <img alt="discord" src="https://img.shields.io/discord/807302538558308352?color=4166f5&label=discord&style=flat-square" />
   </a>
 </p><sup>1</sup>
+***
 ## Features
 ### Items
 * Remove Creeper Veil Messages
