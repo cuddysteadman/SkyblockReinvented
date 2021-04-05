@@ -9,6 +9,7 @@
 * Hide Jerry-chine Gun Sounds
 * Hyperion Overlay - Overlays mobs within Hyperion range
 ### General
+* Create Waypoints at End Crystals
 * Remove "You're doing this too fast!" Messages
 * Remove Welcome Messages
 * Remove You are playing on profile Messages
@@ -39,6 +40,7 @@
 * Remove Wither Door Opened Messages
 * Remove Can't Open Wither Door Messages
 * Remove Revive Stone Messages
+* Remove Orb Messages
 * /f1, /f2, /f3, etc commands for joining dungeon floors. (Master mode implementation coming soon!)
 * Remove Watcher Messages
 * Lock Mort - Lock which dungeon to join when in Mort's menu in Dungeons Hub (May be bannable, checking with admins soon)
@@ -52,6 +54,7 @@
 ### QOL
 * Remove GEXP Messages
 * Remove Watchdog Announcement!
+* Remove Warnings about Hubs
 ### Skills
 #### Slayer
 * Clean Maddox Batphone - Removes Useless Batphone Messages
@@ -61,13 +64,22 @@
 * Hide Sven Pups - stops sven pups from rendering
 #### Fishing
 * Remove Sea Creature Messages
+#### Enchanting
+* Remove Experimentation Table Messages
+#### Farming
+* Remove RNG Messages from Dicer
+#### Mining
+* Remove Compact Messages
 ### Dwarven Mines
 * Raffle Waypoints: shows a waypoint to the raffle box
 * Remove Puzzler Messages (except for the one that tells you where it is)
 * Remove Unimportant Fetchur Messages
+* Remove Golden Goblin Messages
+* Remove Titles from Raffles
 ### Hub
 * Hub Overlay: overlays hubs that you can join in green and hubs that you can't join in red
 * Jacob's Contest Overlay - Shows which you haven't claimed
+* Remove Messages from Kat
 ### Jerry Island
 * Gift Waypoints - Displays Gift Waypoints when holding Gift Compass
 * Clean Jerry's Workshop - Generally cleans up the chat of Jerry's Workshop
