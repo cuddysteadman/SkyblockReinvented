@@ -41,11 +41,34 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Overlay Mobs in Range of Hyperion",
 			description = "Overlays mobs that are in range of your hyperion with a green box around them.",
+			category = "Items",
+			subcategory = "Rendering"
+	)
+	public boolean hyperionOverlay = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Titles from Raffles",
+			description = "Removes the annoying \"WON 3X EVENT REWARDS!\" titles.",
+			category = "Dwarven Mines",
+			subcategory = "Rendering"
+	)
+	public boolean removeRaffleTitles = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove RNG Titles from Dicer",
+			description = "Removes all titles from dicer that say \"Dicer dropped 64x Pumpkin\", for example.",
+			category = "Skills",
+			subcategory = "Farming"
+	)
+	public boolean removeRNGChat = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Create Waypoint at End Crystals",
+			description = "Creates a waypoint at End Crystal. §cUSE AT YOUR OWN RISK!",
 			category = "General",
 			subcategory = "Rendering"
 	)
-	public boolean hyperionOverlay;
-
+	public boolean endCrystalWaypoint = false;
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Chat from Skytils",
@@ -555,7 +578,54 @@ public class Config extends Vigilant {
 			subcategory = "Rendering"
 	)
 	public boolean hubOverlay = false;
-
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Golden Goblin Messages",
+			description = "Removes all messages from golden goblins.",
+			category = "Dwarven Mines",
+			subcategory = "Chat"
+	)
+	public boolean goldenGoblin = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Compact Messages",
+			description = "Removes all messages from compact.",
+			category = "Skills",
+			subcategory = "Mining"
+	)
+	public boolean compactMsg = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Experimentation Table Messages",
+			description = "Removes all messages from placing/removing the experimentation table.",
+			category = "Skills",
+			subcategory = "Enchanting"
+	)
+	public boolean experimentationTable = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Orb Messages",
+			description = "Removes messages about picking up orbs from players.",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean damageOrbs = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Warnings about Hubs",
+			description = "Removes all warnings about joining Skyblock and others.",
+			category = "QOL",
+			subcategory = "Hypixel QOL"
+	)
+	public boolean serverFull = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Messages from Kat",
+			description = "Removes all messages from Kat.",
+			category = "Hub",
+			subcategory = "Chat"
+	)
+	public boolean katMsg = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Secret Waypoints",

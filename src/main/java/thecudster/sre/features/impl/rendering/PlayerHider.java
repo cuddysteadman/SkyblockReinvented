@@ -1,21 +1,14 @@
 package thecudster.sre.features.impl.rendering;
 
-import java.util.ArrayList;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.Util;
 import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.DrawWaypoint;
+import thecudster.sre.util.gui.DrawWaypoint;
 import thecudster.sre.util.Utils;
 
 public class PlayerHider {

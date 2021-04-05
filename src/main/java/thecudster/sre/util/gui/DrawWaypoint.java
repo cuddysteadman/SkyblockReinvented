@@ -1,10 +1,11 @@
-package thecudster.sre.util;
+package thecudster.sre.util.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import thecudster.sre.util.gui.RenderUtil;
 
 import java.awt.*;
 /*

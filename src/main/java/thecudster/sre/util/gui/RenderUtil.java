@@ -1,4 +1,4 @@
-package thecudster.sre.util;
+package thecudster.sre.util.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;

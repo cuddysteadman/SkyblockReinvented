@@ -114,6 +114,15 @@ public class FilterHandler {
 		"Things feel a little more roomy now, eh? I've knocked down those pillars to go for a more... open concept. "
 		+ "Plus I needed to give my new friends some space to roam..."
 	};
+	public static final String[] warningServers = {
+			"You are trying to do that too fast. Try again in a moment.",
+			"There was a problem joining SkyBlock, try again in a moment!",
+			"Oops! Couldn't find a SkyBlock server for you! Try again later!",
+			"There was an error queuing into SkyBlock!",
+			"Try again in a moment!",
+			"Please don't spam the command!",
+			"Oops! Couldn't find a SkyBlock server for you! Try again later!"
+	}; // TODO: move hyp overlay to items
 	public static final String[] threeWeirdosSolutions = {"One of us is telling the truth!",
 			"They are both telling the truth. The reward isn't in",
 			"We are all telling the truth!",
@@ -196,7 +205,14 @@ public class FilterHandler {
 				return;
 			}
 		}
-
+		if (SkyblockReinvented.config.serverFull) {
+			for (String s : warningServers) {
+				if (message.contains(s)) {
+					event.setCanceled(true);
+					return;
+				}
+			}
+		}
 		if (SkyblockReinvented.config.maddoxMsg) {
 			for (String s : maddoxFails) {
 				if (message.contains(s)) {
@@ -445,7 +461,12 @@ public class FilterHandler {
 				return;
 			}
 		}
+
 		if (SkyblockReinvented.config.useless) {
+			if (message.contains("joined SkyBlock.")) {
+				event.setCanceled(true);
+				return;
+			}
 			if (message.contains("Warped to Election Room!")) {
 				event.setCanceled(true);
 				return;
@@ -650,6 +671,10 @@ public class FilterHandler {
 		if (message.equals("")) {
 			return;
 		}
+		if (message.equals(null)) {
+			event.setCanceled(true);
+			return;
+		}
 
 		if (SkyblockReinvented.config.journalMsg) {
 			if (message.contains("Added") && message.contains("to your dungeon journal collection!")) {
@@ -794,6 +819,22 @@ public class FilterHandler {
 				}
 			}
 		}
+		if (SkyblockReinvented.config.damageOrbs) {
+			if (message.contains("You picked up a") && message.contains(" from ") && message.contains(" healing you for ")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("picked up your ") && message.contains("Orb!")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.katMsg) {
+			if (message.contains("I'm currently taking care of your ") && message.contains("You can pick it up in")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
 		if (SkyblockReinvented.config.slowDown) {
 			if (message.contains("Whow! Slow down there!")) {
 				event.setCanceled(true);
@@ -812,6 +853,28 @@ public class FilterHandler {
 		}
 		if (SkyblockReinvented.config.minionXP) {
 			if (message.contains("You received") && message.contains("from minions")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.goldenGoblin) {
+			if (message.contains("A Golden Goblin has spawned from the earth!")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.experimentationTable) {
+			if (message.contains("You removed a Experimentation Table. (")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You placed a Experimentation Table. (")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.compactMsg) {
+			if (message.contains("COMPACT! You found a Enchanted")) {
 				event.setCanceled(true);
 				return;
 			}
@@ -859,12 +922,22 @@ public class FilterHandler {
 			return;
 		}
 		*/
+		if (message.equals(" ")) {
+			event.setCanceled(true);
+			return;
+		}
 		if (SkyblockReinvented.config.removeTooFast) {
 			if (message.contains("You are sending commands too fast")) {
 				event.setCanceled(true);
 				return;
 			}
 			if (message.contains("You're clicking too fast")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.removeRNGChat) {
+			if (message.contains("Dicer dropped ")) {
 				event.setCanceled(true);
 				return;
 			}
@@ -919,6 +992,10 @@ public class FilterHandler {
 				return;
 			}
 			if (message.contains("Refreshing...")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You are already in a party!")) {
 				event.setCanceled(true);
 				return;
 			}

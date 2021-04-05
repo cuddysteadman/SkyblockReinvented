@@ -1,27 +1,23 @@
 package thecudster.sre.features.impl.rendering;
 
-import net.minecraft.block.BlockLever;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.S05PacketSpawnPosition;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.Util;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.DrawWaypoint;
+import thecudster.sre.util.gui.DrawWaypoint;
 import thecudster.sre.events.ReceivePacketEvent;
 import thecudster.sre.util.ItemUtil;
 import thecudster.sre.util.Utils;
 
-public class GiftCompassWaypoints {
+public class MiscWaypoints {
     public BlockPos pos;
     @SubscribeEvent(receiveCanceled=true)
     public void onReceivePacket(ReceivePacketEvent event) {
@@ -56,6 +52,13 @@ public class GiftCompassWaypoints {
                 }
             }
         }
+        if (Utils.inSkyblock && SkyblockReinvented.config.endCrystalWaypoint) {
+            for (Entity o : Minecraft.getMinecraft().theWorld.loadedEntityList) {
+                if (o instanceof EntityEnderCrystal) {
+                    DrawWaypoint.drawWaypoint(0.05f, o.getPosition().down(), "End Crystal");
+                }
+            }
+        }
         if (Minecraft.getMinecraft().thePlayer.getHeldItem() != null && ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()) != null) {
                 if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()).equals("GIFT_COMPASS")) {
                     if (pos != null) {
@@ -66,5 +69,6 @@ public class GiftCompassWaypoints {
                 }
 
         }
+
     }
 }

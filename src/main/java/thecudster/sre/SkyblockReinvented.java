@@ -25,7 +25,6 @@ import thecudster.sre.commands.dungfloors.Floor5;
 import thecudster.sre.commands.dungfloors.Floor6;
 import thecudster.sre.commands.dungfloors.Floor7;
 import thecudster.sre.features.impl.dungeons.LockMort;
-import thecudster.sre.features.impl.dungeons.SecretWaypoints;
 import thecudster.sre.features.impl.filter.FilterHandler;
 import thecudster.sre.events.Keybindings;
 import thecudster.sre.features.impl.qol.HighlightFarming;
@@ -33,16 +32,13 @@ import thecudster.sre.features.impl.qol.ItemDropStop;
 import thecudster.sre.features.impl.rendering.*;
 import thecudster.sre.features.impls.sounds.BlockCreeperSound;
 import thecudster.sre.settings.Config;
-import thecudster.sre.util.Reference;
-import thecudster.sre.util.api.GetSkyBlockAuctionsExample;
-import thecudster.sre.features.impl.qol.*;
 
 @Mod(modid = SkyblockReinvented.MODID, name = SkyblockReinvented.MOD_NAME, version = SkyblockReinvented.VERSION, acceptedMinecraftVersions = "[1.8.9]", clientSideOnly = true)
 public class SkyblockReinvented {
 	public static Config config = new Config();
 	public static final String MODID = "sre";
 	public static final String MOD_NAME = "Skytils";
-	public static final String VERSION = "0.0.3";
+	public static final String VERSION = "0.0.4-pre1";
 	public static KeyBinding[] keyBindings = new KeyBinding[3];
 	public static boolean creeperActivated;
 	public static File modDir;
@@ -73,12 +69,12 @@ public class SkyblockReinvented {
 		ClientCommandHandler.instance.registerCommand(new Floor7());
 		ClientCommandHandler.instance.registerCommand(new SBToggle());
 		ClientCommandHandler.instance.registerCommand(new AddItem());
+		MinecraftForge.EVENT_BUS.register(new RemoveRaffleTitles());
 		MinecraftForge.EVENT_BUS.register(this);
-		MinecraftForge.EVENT_BUS.register(new SecretWaypoints());
 		MinecraftForge.EVENT_BUS.register(new FilterHandler());
 		MinecraftForge.EVENT_BUS.register(new PlayerHider());
 		MinecraftForge.EVENT_BUS.register(new ItemDropStop());
-		MinecraftForge.EVENT_BUS.register(new GiftCompassWaypoints());
+		MinecraftForge.EVENT_BUS.register(new MiscWaypoints());
 		MinecraftForge.EVENT_BUS.register(new BlockPowerOrb());
 		MinecraftForge.EVENT_BUS.register(new WitherCloakHider());
 		MinecraftForge.EVENT_BUS.register(new RemoveVillagers());
