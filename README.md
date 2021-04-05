@@ -14,7 +14,6 @@
   </a>
 </p>
 ## Features
-***
 ### Items
 * Remove Creeper Veil Messages
 * Remove Skeleton Hat Messages
