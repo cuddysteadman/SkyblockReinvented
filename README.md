@@ -48,6 +48,7 @@
 * Removes Useless Dungeon Finder Messages - DOES NOT remove X joined the group messages, so shouldn't break mods
 * Hide your own spirit bats
 * Render Waypoints to Teammates - Renders waypoints on teammates while in dungeons (still needs to be tested for other mobs - USE AT YOUR OWN RISK)
+* Render Waypoints to Secrets - EXTREMELY use at your own risk
 ### QOL
 * Remove GEXP Messages
 * Remove Watchdog Announcement!
