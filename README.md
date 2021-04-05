@@ -1,4 +1,5 @@
 # SkyblockReinvented
+***
 <p align="center">
   <a href="https://github.com/theCudster/SkyblockReinvented/releases" target="_blank">
     <img alt="downloads" src="https://img.shields.io/github/v/release/theCudster/SkyblockReinvented?color=4166f5&style=flat-square" />
@@ -13,6 +14,7 @@
     <img alt="discord" src="https://img.shields.io/discord/825217968438902825?color=4166f5&label=discord&style=flat-square" />
   </a>
 </p>
+***
 ## Features
 ### Items
 * Remove Creeper Veil Messages
