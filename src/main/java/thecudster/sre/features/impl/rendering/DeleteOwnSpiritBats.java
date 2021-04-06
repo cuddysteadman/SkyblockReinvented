@@ -48,14 +48,5 @@ public class DeleteOwnSpiritBats {
 
             }
         }
-        if (SkyblockReinvented.config.raffleWaypoint) {
-            if (event.entity instanceof EntityArmorStand) {
-                if (event.entity.getCustomNameTag() != null) {
-                    if (event.entity.getCustomNameTag().contains("BRING YOUR TICKETS")) {
-                        DrawWaypoint.drawWaypoint(0.01f, event.entity.getPosition().down(), "Raffle Box");
-                    }
-                }
-            }
-        }
     }
 }

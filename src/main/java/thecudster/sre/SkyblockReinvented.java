@@ -58,7 +58,6 @@ public class SkyblockReinvented {
 
         config.preload();
 		ClientCommandHandler.instance.registerCommand(new SRECommand());
-		ClientCommandHandler.instance.registerCommand(new ReCommand());
 		ClientCommandHandler.instance.registerCommand(new SBCommand());
 		ClientCommandHandler.instance.registerCommand(new Floor1());
 		ClientCommandHandler.instance.registerCommand(new Floor2());
@@ -69,6 +68,7 @@ public class SkyblockReinvented {
 		ClientCommandHandler.instance.registerCommand(new Floor7());
 		ClientCommandHandler.instance.registerCommand(new SBToggle());
 		ClientCommandHandler.instance.registerCommand(new AddItem());
+		ClientCommandHandler.instance.registerCommand(new Rendering());
 		MinecraftForge.EVENT_BUS.register(new RemoveRaffleTitles());
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new FilterHandler());

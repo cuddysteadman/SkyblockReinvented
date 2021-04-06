@@ -1,12 +1,15 @@
 package thecudster.sre.features.impl.rendering;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import scala.collection.parallel.ParIterableLike;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.gui.DrawWaypoint;
 import thecudster.sre.util.Utils;
@@ -23,11 +26,12 @@ public class PlayerHider {
 		if (event.entity instanceof EntityPlayerSP) return;
         if (!(event.entity instanceof EntityOtherPlayerMP)) return;
         if (this.isNPC(event.entity)) { return; }
-        // if (event.entity.hasCustomName()) { return; }
-		// System.out.println("not rendering!");
-		if (SkyblockReinvented.config.renderPlayers) {
+        boolean found = false;
+		for (String s : SkyblockReinvented.config.listToRender) {
+			if (((EntityOtherPlayerMP) event.entity).getDisplayNameString().contains(s)) { found = true; }
+		}
+		if (!found && SkyblockReinvented.config.renderPlayers) {
 			event.setCanceled(true);
-
 		}
 		Utils.checkForSkyblock();
 		Utils.checkForDungeons();
@@ -40,37 +44,6 @@ public class PlayerHider {
 		if (SkyblockReinvented.config.renderWaypointDungeons && Utils.inDungeons) {
 			DrawWaypoint.drawWaypoint(0.01f, event.entity.getPosition().down(), ((EntityOtherPlayerMP) event.entity).getDisplayNameString());
 		}
-		/*boolean done = false;
-		 * WHY ISN'T THIS WORKING REEE
-		ArrayList<String> listPlayers = new ArrayList<String>();
-		String s = new String(SkyblockReinvented.config.listToRender.toString());
-		if (s == "") {event.setCanceled(true); return; }
-		if (!s.contains(",")) {
-			done = true;
-		}
-		boolean solo = false;
-		if (s.length() > 0 && !(s.contains(","))) {
-			solo = true;
-		}
-		while (!done && !solo) {
-			
-			listPlayers.add(s.substring(0, s.indexOf(",")));
-			s = s.substring(s.indexOf("," + 1));
-			if (s.substring(0, 1) == " ") {
-				s = s.substring(1);
-			}
-			if (!s.contains(",")) {
-				done = true;
-			}
-		}
-		boolean found = false;
-		Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(listPlayers.toString()));
-		for (String player : listPlayers) {
-			if (event.entity.getName().contains(player)){ found = true; }
-			if (!found) {
-			event.setCanceled(true);
-			}
-		}*/
 		
 		
 		/**

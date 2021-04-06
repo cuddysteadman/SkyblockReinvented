@@ -26,7 +26,7 @@ public class Config extends Vigilant {
 		hidden=true,
 		subcategory = "Rendering"
 	)
-	public String listToRender= "";
+	public ArrayList<String> listToRender = new ArrayList<String>();
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Power Orbs from Rendering",
@@ -37,6 +37,38 @@ public class Config extends Vigilant {
 	)
 
 	public boolean renderPowerOrb = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Dante Goon Messages",
+			description = "Removes all messages from Dante's goons.",
+			category = "Hub",
+			subcategory = "Chat"
+	)
+	public boolean danteMsgs = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Ghost Titles",
+			description = "Removes all titles on screen about how ghosts are dangerous.",
+			category = "Dwarven Mines",
+			subcategory = "Rendering"
+	)
+	public boolean dangerGhosts = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Raffle Messages",
+			description = "Removes all messages about registering tickets in the raffle event.",
+			category = "Dwarven Mines",
+			subcategory = "Chat"
+	)
+	public boolean ticketMsgs = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Messages about Bank",
+			description = "Removes all messages about bank withdrawals.",
+			category = "General",
+			subcategory = "Chat"
+	)
+	public boolean bankMsgs = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Overlay Mobs in Range of Hyperion",

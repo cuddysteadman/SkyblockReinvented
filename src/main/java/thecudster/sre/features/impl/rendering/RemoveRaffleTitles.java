@@ -27,14 +27,32 @@ public class RemoveRaffleTitles {
                 S45PacketTitle packet = (S45PacketTitle) event.packet;
                 if (packet.getMessage() != null) {
                     String unformatted = StringUtils.stripControlCodes(packet.getMessage().getUnformattedText());
-                    Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(unformatted));
-                    for (NetworkPlayerInfo p : TabListUtils.getTabEntries()) {
-                        if (unformatted.contains(p.getDisplayName().getUnformattedText())) {
-                            event.setCanceled(true);
-                        }
-                    }
-                    if (unformatted.contains("WON 3X EVENT REWARDS")) {
+                    if (unformatted.contains("WINNER #1 (for 3x rewards!)") || unformatted.contains("WINNER #2 (for 3x rewards!") || unformatted.contains("WINNER #3 (for 3x rewards")) {
                         event.setCanceled(true);
+                    }
+                    if (unformatted.contains("MVP")) {
+                        event.setCanceled(true);
+                    }
+                    if (unformatted.contains("VIP")) {
+                        event.setCanceled(true);
+                    }
+                    if (unformatted.contains("WINNER")) {
+                        event.setCanceled(true);
+                    }
+                }
+            }
+        }
+        if (SkyblockReinvented.config.dangerGhosts) {
+            if (event.packet instanceof S45PacketTitle) {
+                S45PacketTitle packet = (S45PacketTitle) event.packet;
+                if (packet.getMessage() != null) {
+                    String unformatted = StringUtils.stripControlCodes(packet.getMessage().getUnformattedText());
+                    if (unformatted.contains("Powerful creatures reside in the Mist")) {
+                        event.setCanceled(true);
+                    }
+                    if (unformatted.contains("DANGER")) {
+                        event.setCanceled(true);
+                        return;
                     }
                 }
             }

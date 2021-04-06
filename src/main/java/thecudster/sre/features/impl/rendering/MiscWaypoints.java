@@ -1,5 +1,6 @@
 package thecudster.sre.features.impl.rendering;
 
+import net.minecraft.block.BlockJukebox;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
@@ -9,6 +10,7 @@ import net.minecraft.network.play.server.S05PacketSpawnPosition;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
@@ -26,6 +28,7 @@ public class MiscWaypoints {
             pos = spawnPosition.getSpawnPos();
             pos.add(0, 4, 0);
         }
+
     }
     @SubscribeEvent
     public void onWorldRender(RenderWorldLastEvent event) {
@@ -56,6 +59,17 @@ public class MiscWaypoints {
             for (Entity o : Minecraft.getMinecraft().theWorld.loadedEntityList) {
                 if (o instanceof EntityEnderCrystal) {
                     DrawWaypoint.drawWaypoint(0.05f, o.getPosition().down(), "End Crystal");
+                }
+            }
+        }
+        if (Utils.inSkyblock && SkyblockReinvented.config.raffleWaypoint) {
+            boolean found = false;
+            for (TileEntity o : Minecraft.getMinecraft().theWorld.loadedTileEntityList) {
+                if (o instanceof BlockJukebox.TileEntityJukebox) {
+                    if (found) { return; }
+                    found = true;
+                    BlockJukebox.TileEntityJukebox chest = ((BlockJukebox.TileEntityJukebox) o);
+                    DrawWaypoint.drawWaypoint(0.05f, ((BlockJukebox.TileEntityJukebox) o).getPos().down(), "Raffle Box");
                 }
             }
         }

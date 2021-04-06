@@ -18,6 +18,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class FilterHandler {
+	public static final String[] danteList = {
+			"you need wear Happy Mask!",
+			"go Dante in community center get Happy Mask!",
+			"you not happy? go get Happy Mask!",
+			"oi, where your Happy Mask?"
+	};
 	public static final String[] seaCreatureList = {"A squid appeared.", 
 			"You caught a Sea Walker.",
 			"Pitch Darkness reveals you've caught a Night Squid.",
@@ -176,6 +182,30 @@ public class FilterHandler {
 					event.setCanceled(true);
 					return;
 				}
+			}
+		}
+		if (SkyblockReinvented.config.danteMsgs) {
+			for (String s : danteList) {
+				if (message.contains(s)) {
+					event.setCanceled(true);
+					return;
+				}
+			}
+		}
+		if (SkyblockReinvented.config.ticketMsgs) {
+			if (message.contains("You registered") && message.contains("in the raffle event!")) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+		if (SkyblockReinvented.config.bankMsgs) {
+			if (message.contains("Deposited") && message.contains("coins! There's now ") && message.contains("coins in the account!"))  {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Withdrew") && message.contains("coins! There's now ") && message.contains("coins in the account!"))  {
+				event.setCanceled(true);
+				return;
 			}
 		}
 		if (SkyblockReinvented.config.showFetchur) {
