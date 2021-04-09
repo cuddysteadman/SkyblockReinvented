@@ -25,7 +25,6 @@
 * Hide Jerry-chine Gun Sounds
 * Hyperion Overlay - Overlays mobs within Hyperion range
 ### General
-* Create Waypoints at End Crystals
 * Remove "You're doing this too fast!" Messages
 * Remove Welcome Messages
 * Remove You are playing on profile Messages
@@ -36,7 +35,7 @@
 * Remove Generally Useless Messages
 * Hyperion Overlay - Overlays mobs within Hyperion range
 * Remove Chat from Mods such as Skytils, SBA, etc.
-* Only Render Specific Players (not customizable yet)
+* Only Render Specific Players
 * Keybind for /visit prtl
 * Keybinds for /ah and /bz
 ### Your Island
@@ -65,8 +64,9 @@
 * Remove Healer Messages - Removes "you were tethered to x person", etc, and other useless messages
 * Removes Useless Dungeon Finder Messages - DOES NOT remove X joined the group messages, so shouldn't break mods
 * Hide your own spirit bats
-* Render Waypoints to Teammates - Renders waypoints on teammates while in dungeons (still needs to be tested for other mobs - USE AT YOUR OWN RISK)
 * Render Waypoints to Secrets - EXTREMELY use at your own risk
+* Remind Skeleton Masters: plays a sound and makes a title if you're near a skeleton master
+* Remind Bat Secrets: plays a sound and makes a title if you're near a bat that's a secret
 ### QOL
 * Remove GEXP Messages
 * Remove Watchdog Announcement!
@@ -96,6 +96,8 @@
 * Hub Overlay: overlays hubs that you can join in green and hubs that you can't join in red
 * Jacob's Contest Overlay - Shows which you haven't claimed
 * Remove Messages from Kat
+* Remove Messages from Dante's goons
+* Remove Messages about Bank Withdrawals/Deposits
 ### Jerry Island
 * Gift Waypoints - Displays Gift Waypoints when holding Gift Compass
 * Clean Jerry's Workshop - Generally cleans up the chat of Jerry's Workshop
@@ -104,6 +106,7 @@
 * /re: toggle whether to render players (aliases: /render)
 * /f1, /f2, /f3, etc: join respective dungeon floors
 * /s: /s add, /s search, /s clear, /s remove: search for items in Wardrobe, Echest, and Accessory Bag.
+* /re: /re add, /re search, /re add, /re remove: add or remove specific players to the whitelist
 ## This mod would not be possible without these wonderful people and their projects:
 * Sychic, My-Name-Is-Jeff, Angry-Pineapple3121, and AzuredBlue (Skytils: https://github.com/Skytils/SkytilsMod)
 * Moulberry (NEU: https://github.com/Moulberry/NotEnoughUpdates)
