@@ -17,21 +17,27 @@
  */
 package thecudster.sre.events;
 /*
- * Taken from Skytils under GNU Affero Public license.
- * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
- * @author My-Name-Is-Jeff
- * @author Sychic
+* Taken from Skytils under GNU Affero General Public License.
+* https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
+* @author My-Name-Is-Jeff
+* @author Sychic
+* @author Angry-Pineapple3121
+* @author AzuredBlue
  */
-import net.minecraft.network.Packet;
+
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 @Cancelable
-public class ReceivePacketEvent extends Event {
+public class DamageBlockEvent extends Event {
 
-    public Packet<?> packet;
+    public BlockPos pos;
+    public EnumFacing facing;
 
-    public ReceivePacketEvent(Packet<?> packet) {
-        this.packet = packet;
+    public DamageBlockEvent(BlockPos pos, EnumFacing facing) {
+        this.pos = pos;
+        this.facing = facing;
     }
 }

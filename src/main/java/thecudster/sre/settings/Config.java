@@ -50,7 +50,8 @@ public class Config extends Vigilant {
 			name = "Remove Ghost Titles",
 			description = "Removes all titles on screen about how ghosts are dangerous.",
 			category = "Dwarven Mines",
-			subcategory = "Rendering"
+			subcategory = "Rendering",
+			hidden = true
 	)
 	public boolean dangerGhosts = false;
 	@Property(
@@ -63,12 +64,75 @@ public class Config extends Vigilant {
 	public boolean ticketMsgs = false;
 	@Property(
 			type = PropertyType.SWITCH,
+			name = "Remind Skeleton Masters",
+			description = "Plays a sound when you are near a skeleton master.",
+			category = "Dungeons",
+			subcategory = "Rendering"
+	)
+	public boolean warnSkeletonMasters = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remind Bat Secrets",
+			description = "Plays a sound when you are near a bat secret.",
+			category = "Dungeons",
+			subcategory = "Rendering"
+	)
+	public boolean warnBatSecrets = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Ghost Loot Tracker",
+			description = "Tracks the loot you get from ghosts.",
+			category = "Dwarven Mines",
+			subcategory = "Combat"
+	)
+	public boolean ghostTracker = false;
+	@Property(
+			type = PropertyType.SLIDER,
+			max = 10,
+			min = 1,
+			name = "Range to Remind Skeleton Masters",
+			description = "Specifies the range to play a sound from when near a skeleton master.",
+			category = "Dungeons",
+			subcategory = "Rendering"
+	)
+	public int skeletonRange = 0;
+	@Property(
+			type = PropertyType.SLIDER,
+			max = 10,
+			min = 1,
+			name = "Range to Remind Secret Bats",
+			description = "Specifies the range to play a sound from when near a bat secret.",
+			category = "Dungeons",
+			subcategory = "Rendering"
+	)
+	public int batRange = 0;
+	@Property(
+			type = PropertyType.SWITCH,
 			name = "Remove Messages about Bank",
 			description = "Removes all messages about bank withdrawals.",
 			category = "General",
 			subcategory = "Chat"
 	)
 	public boolean bankMsgs = false;
+	@Property(
+			type = PropertyType.SLIDER,
+			name = "X Value for Ghost Loot",
+			description = "Set the x value for the ghost loot gui display.",
+			category = "Dwarven Mines",
+			subcategory = "Combat",
+			max = 532
+	)
+	public int xVal = 0;
+	@Property(
+			type = PropertyType.SLIDER,
+			name = "Y Value for Ghost Loot",
+			description = "Set the Y value for the ghost loot gui display.",
+			category = "Dwarven Mines",
+			subcategory = "Combat",
+			min = 0,
+			max = 285
+	)
+	public int yVal = 0;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Overlay Mobs in Range of Hyperion",
@@ -82,7 +146,8 @@ public class Config extends Vigilant {
 			name = "Remove Titles from Raffles",
 			description = "Removes the annoying \"WON 3X EVENT REWARDS!\" titles.",
 			category = "Dwarven Mines",
-			subcategory = "Rendering"
+			subcategory = "Rendering",
+			hidden = true
 	)
 	public boolean removeRaffleTitles = false;
 	@Property(
@@ -93,14 +158,6 @@ public class Config extends Vigilant {
 			subcategory = "Farming"
 	)
 	public boolean removeRNGChat = false;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Create Waypoint at End Crystals",
-			description = "Creates a waypoint at End Crystal. §cUSE AT YOUR OWN RISK!",
-			category = "General",
-			subcategory = "Rendering"
-	)
-	public boolean endCrystalWaypoint = false;
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Chat from Skytils",
@@ -658,22 +715,6 @@ public class Config extends Vigilant {
 			subcategory = "Chat"
 	)
 	public boolean katMsg = false;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Secret Waypoints",
-			description = "Creates a waypoint to secrets like drops, bats, and chests. §cUSE AT YOUR OWN RISK!",
-			category = "Dungeons",
-			subcategory = "Secrets"
-	)
-	public boolean secretFinder = false;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Raffle Waypoint",
-			description = "Renders a waypoint where you have to deposit your tickets in the raffle event. §cUSE AT YOUR OWN RISK!",
-			category = "Dwarven Mines",
-			subcategory = "Rendering"
-	)
-	public boolean raffleWaypoint = false;
 	public ArrayList<String> toSearch = new ArrayList<String>();
 	@Property(
 			type = PropertyType.SWITCH,

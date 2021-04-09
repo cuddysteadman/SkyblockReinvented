@@ -1,3 +1,20 @@
+/*
+ * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
+ * Copyright (C) 2021 theCudster
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 package thecudster.sre.features.impl.filter;
 
 import net.minecraft.client.Minecraft;
@@ -11,6 +28,7 @@ import scala.collection.parallel.ParIterableLike;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.features.impl.qol.SlayerReminder;
 import thecudster.sre.util.ItemUtil;
+import thecudster.sre.util.LootTracker;
 import thecudster.sre.util.ScoreboardUtil;
 import thecudster.sre.util.Utils;
 
@@ -22,7 +40,8 @@ public class FilterHandler {
 			"you need wear Happy Mask!",
 			"go Dante in community center get Happy Mask!",
 			"you not happy? go get Happy Mask!",
-			"oi, where your Happy Mask?"
+			"oi, where your Happy Mask?",
+			"dante best"
 	};
 	public static final String[] seaCreatureList = {"A squid appeared.", 
 			"You caught a Sea Walker.",
@@ -192,6 +211,33 @@ public class FilterHandler {
 				}
 			}
 		}
+		if (SkyblockReinvented.config.ghostTracker) {
+			if (message.contains("RARE DROP!")) {
+
+				if (message.contains("Bag of Cash")) {
+					LootTracker.bagCash++;
+					return;
+				}
+				if (message.contains("Sorrow")) {
+					LootTracker.sorrow++;
+					LootTracker.ghostsSinceSorrow = 0;
+					Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("adsf"));
+					return;
+				}
+				if (message.contains("Plasma")) {
+					LootTracker.plasma++;
+					return;
+				}
+				if (message.contains("Volta")) {
+					LootTracker.volta++;
+					return;
+				}
+				if (message.contains("Ghostly Boots")) {
+					LootTracker.ghostlyBoots++;
+					return;
+				}
+			}
+		}
 		if (SkyblockReinvented.config.ticketMsgs) {
 			if (message.contains("You registered") && message.contains("in the raffle event!")) {
 				event.setCanceled(true);
@@ -199,11 +245,15 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.bankMsgs) {
-			if (message.contains("Deposited") && message.contains("coins! There's now ") && message.contains("coins in the account!"))  {
+			if (message.contains("Deposited") && message.contains("There's now ") && message.contains("coins in the account!"))  {
 				event.setCanceled(true);
 				return;
 			}
-			if (message.contains("Withdrew") && message.contains("coins! There's now ") && message.contains("coins in the account!"))  {
+			if (message.contains("Withdrew") && message.contains("There's now ") && message.contains("coins in the account!"))  {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("Withdrawing coins...") || message.contains("Depositing coins...")) {
 				event.setCanceled(true);
 				return;
 			}
@@ -218,6 +268,18 @@ public class FilterHandler {
 				return;
 			}
 			if (message.contains("you didnt find my things yet?")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("thanks thats probably what i needed")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("You received these rewards:") || message.contains("20,000 Coins") || message.contains("1,000 Mithril Powder")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("take some gifts!")) {
 				event.setCanceled(true);
 				return;
 			}

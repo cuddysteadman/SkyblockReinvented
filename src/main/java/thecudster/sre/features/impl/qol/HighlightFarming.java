@@ -1,3 +1,20 @@
+/*
+ * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
+ * Copyright (C) 2021 theCudster
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 package thecudster.sre.features.impl.qol;
 
 import net.minecraft.client.Minecraft;
@@ -43,7 +60,7 @@ public class HighlightFarming {
 
     }
     /*
-     * Modified/Improved/Reinvented (heh) from Nate's Skyblock Mod under GNU General Public License.
+     * Modified/Improved/Reinvented from Nate's Skyblock Mod under GNU General Public License.
      * https://github.com/Nat3z/SkyblockMod/blob/main/LICENSE
      * @author Nat3z
      */
@@ -131,6 +148,27 @@ public class HighlightFarming {
                                 }
                                 if (!found) {
                                     showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        Minecraft mc = Minecraft.getMinecraft();
+        if (mc.currentScreen instanceof GuiChest) {
+            GuiChest chest = (GuiChest) mc.currentScreen;
+            ContainerChest inventory = (ContainerChest) chest.inventorySlots;
+            String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
+            if (displayText.contains("Pets")) {
+                List<Slot> slots = chest.inventorySlots.inventorySlots;
+                for (Slot toCheck : slots) {
+                    if (toCheck.getStack() != null) {
+                        if (toCheck.getStack().getDisplayName() != null) {
+                            List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
+                            for (String s : lore) {
+                                if (s.contains("Click to despawn")) {
+                                    showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.green.getRGB());
                                 }
                             }
                         }

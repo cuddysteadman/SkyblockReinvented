@@ -4,7 +4,8 @@
     "refmap": "mixins.sre.refmap.json",
     "mixins": [
         "MixinGuiContainer",
-        "MixinNetworkManager"
+        "MixinNetworkManager",
+        "MixinPlayerControllerMP"
     ],
     "verbose": true
 }

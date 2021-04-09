@@ -25,24 +25,26 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import org.jetbrains.annotations.NotNull;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddItem implements ICommand {
+public class JoinDung implements ICommand {
     private final ArrayList<String> aliases = new ArrayList<String>();
-    public AddItem() {
-        aliases.add("s");
-        aliases.add("searchitem");
+    public JoinDung() {
+        aliases.add("dh");
+        aliases.add("dungeonhub");
+        aliases.add("dunghub");
     }
     @Override
     public String getCommandName() {
-        return "search";
+        return "dhub";
     }
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "Add/remove/clear an item from the list.";
+        return "Warp to dungeon hub.";
     }
 
     @Override
@@ -51,28 +53,9 @@ public class AddItem implements ICommand {
     }
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        if (args[0].equals("add")) {
-            SkyblockReinvented.config.toSearch.add(args[1]);
-        }
-        else if (args[0].equals("remove")) {
-            for (int i = 0; i < SkyblockReinvented.config.toSearch.size(); i++) {
-                if (SkyblockReinvented.config.toSearch.get(i).equals(args[1])) {
-                    SkyblockReinvented.config.toSearch.remove(i);
-                }
-            }
-        }
-        else if (args[0].equals("clear")) {
-            SkyblockReinvented.config.toSearch.clear();
-        }
-        else if (args[0].equals("current")) {
-            Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("Your current list is as follows:"));
-            for (String s : SkyblockReinvented.config.toSearch) {
-                Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(s));
-            }
-        }
-        else if (args[0].equals("search")) {
-            SkyblockReinvented.config.toSearch.clear();
-            SkyblockReinvented.config.toSearch.add(args[1]);
+        Utils.checkForSkyblock();
+        if (Utils.inSkyblock) {
+            Minecraft.getMinecraft().thePlayer.sendChatMessage("/warp dungeon_hub");
         }
     }
 

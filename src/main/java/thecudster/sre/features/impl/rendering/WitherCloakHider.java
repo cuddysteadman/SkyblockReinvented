@@ -1,6 +1,7 @@
 package thecudster.sre.features.impl.rendering;
 
 import java.awt.TextComponent;
+import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -16,6 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.settings.Config;
+import thecudster.sre.util.ScoreboardUtil;
 
 public class WitherCloakHider {
 	/**
@@ -28,6 +30,13 @@ public class WitherCloakHider {
 		if (!(event.entity instanceof EntityCreeper)) { return; }
 		EntityCreeper creeperEntity = (EntityCreeper) event.entity;
 		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+		List<String> scoreboard = ScoreboardUtil.getSidebarLines();
+		for (String s : scoreboard) {
+			ScoreboardUtil.cleanSB(s);
+			if (s.contains("Dwarven Mines") || s.contains("The Mist")) {
+				return;
+			}
+		}
 		if (event.entity.getDistance(player.posX, player.posY, player.posZ) <= 5) { return; }
 		
 			if (creeperEntity instanceof EntityCreeper && SkyblockReinvented.config.renderCreepers && creeperEntity.getPowered()) {
