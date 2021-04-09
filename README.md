@@ -64,7 +64,6 @@
 * Remove Healer Messages - Removes "you were tethered to x person", etc, and other useless messages
 * Removes Useless Dungeon Finder Messages - DOES NOT remove X joined the group messages, so shouldn't break mods
 * Hide your own spirit bats
-* Render Waypoints to Secrets - EXTREMELY use at your own risk
 * Remind Skeleton Masters: plays a sound and makes a title if you're near a skeleton master
 * Remind Bat Secrets: plays a sound and makes a title if you're near a bat that's a secret
 ### QOL
@@ -87,7 +86,7 @@
 #### Mining
 * Remove Compact Messages
 ### Dwarven Mines
-* Raffle Waypoints: shows a waypoint to the raffle box
+* Ghost Loot Tracker
 * Remove Puzzler Messages (except for the one that tells you where it is)
 * Remove Unimportant Fetchur Messages
 * Remove Golden Goblin Messages
