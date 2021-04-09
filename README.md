@@ -107,6 +107,7 @@
 * /f1, /f2, /f3, etc: join respective dungeon floors
 * /s: /s add, /s search, /s clear, /s remove: search for items in Wardrobe, Echest, and Accessory Bag.
 * /re: /re add, /re search, /re add, /re remove: add or remove specific players to the whitelist
+* /fragrun: automatically parties an online fragrun bot (aliases: /fr)
 ## This mod would not be possible without these wonderful people and their projects:
 * Sychic, My-Name-Is-Jeff, Angry-Pineapple3121, and AzuredBlue (Skytils: https://github.com/Skytils/SkytilsMod)
 * Moulberry (NEU: https://github.com/Moulberry/NotEnoughUpdates)
