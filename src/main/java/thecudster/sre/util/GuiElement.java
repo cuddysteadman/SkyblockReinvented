@@ -2,6 +2,7 @@ package thecudster.sre.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+
 /**
  * Modified from Skytils under GNU Affero General Public license.
  * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE

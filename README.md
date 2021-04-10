@@ -64,7 +64,6 @@
 * Remove Healer Messages - Removes "you were tethered to x person", etc, and other useless messages
 * Removes Useless Dungeon Finder Messages - DOES NOT remove X joined the group messages, so shouldn't break mods
 * Hide your own spirit bats
-* Render Waypoints to Secrets - EXTREMELY use at your own risk
 * Remind Skeleton Masters: plays a sound and makes a title if you're near a skeleton master
 * Remind Bat Secrets: plays a sound and makes a title if you're near a bat that's a secret
 ### QOL
@@ -87,7 +86,7 @@
 #### Mining
 * Remove Compact Messages
 ### Dwarven Mines
-* Raffle Waypoints: shows a waypoint to the raffle box
+* Ghost Loot Tracker
 * Remove Puzzler Messages (except for the one that tells you where it is)
 * Remove Unimportant Fetchur Messages
 * Remove Golden Goblin Messages
@@ -107,6 +106,7 @@
 * /f1, /f2, /f3, etc: join respective dungeon floors
 * /s: /s add, /s search, /s clear, /s remove: search for items in Wardrobe, Echest, and Accessory Bag.
 * /re: /re add, /re search, /re add, /re remove: add or remove specific players to the whitelist
+* /fragrun: automatically parties an online fragrun bot (aliases: /fr)
 ## This mod would not be possible without these wonderful people and their projects:
 * Sychic, My-Name-Is-Jeff, Angry-Pineapple3121, and AzuredBlue (Skytils: https://github.com/Skytils/SkytilsMod)
 * Moulberry (NEU: https://github.com/Moulberry/NotEnoughUpdates)

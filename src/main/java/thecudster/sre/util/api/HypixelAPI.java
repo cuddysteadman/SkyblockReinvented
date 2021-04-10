@@ -11,6 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.time.ZonedDateTime;
 import org.apache.http.util.EntityUtils;
+
 public class HypixelAPI {
     public CompletableFuture<SkyBlockAuctionsReply> getSkyBlockAuctions(int page) {
         return get(SkyBlockAuctionsReply.class, "skyblock/auctions", "page", page);
