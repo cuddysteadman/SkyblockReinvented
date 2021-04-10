@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 
 import java.util.Set;
+
 /**
  * Taken from NotEnoughUpdates under Creative Commons Attribution-NonCommercial 3.0
  * https://github.com/Moulberry/NotEnoughUpdates/blob/master/LICENSE

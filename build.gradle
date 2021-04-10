@@ -18,7 +18,7 @@ buildscript {
 apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: "org.spongepowered.mixin"
 
-version = "0.0.5"
+version = "0.0.6"
 group = "thecudster.sre"
 archivesBaseName = "sre"
 
@@ -49,6 +49,8 @@ configurations {
 
 
 dependencies {
+    compile 'org.json:json:20090211'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.29'
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"

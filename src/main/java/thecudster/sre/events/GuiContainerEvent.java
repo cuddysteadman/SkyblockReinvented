@@ -5,6 +5,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 import net.minecraftforge.fml.common.eventhandler.Event;
+
 /*
  * Taken from Skytils under GNU Affero Public license.
  * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE

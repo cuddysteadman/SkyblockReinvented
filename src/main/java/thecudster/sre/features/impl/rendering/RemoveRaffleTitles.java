@@ -11,6 +11,7 @@ import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.events.ReceivePacketEvent;
 import thecudster.sre.util.TabListUtils;
 import thecudster.sre.util.Utils;
+
 /**
  * Modified from Skytils under GNU Affero General Public license.
  * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE

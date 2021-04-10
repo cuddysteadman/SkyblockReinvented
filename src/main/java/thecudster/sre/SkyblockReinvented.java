@@ -1,8 +1,6 @@
 package thecudster.sre;
 
 
-import java.io.File;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -15,36 +13,46 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
-import thecudster.sre.commands.*;
-import thecudster.sre.commands.dungfloors.Floor1;
-import thecudster.sre.commands.dungfloors.Floor2;
-import thecudster.sre.commands.dungfloors.Floor3;
-import thecudster.sre.commands.dungfloors.Floor4;
-import thecudster.sre.commands.dungfloors.Floor5;
-import thecudster.sre.commands.dungfloors.Floor6;
-import thecudster.sre.commands.dungfloors.Floor7;
+import thecudster.sre.commands.AddItem;
+import thecudster.sre.commands.FragRun;
+import thecudster.sre.commands.JoinDung;
+import thecudster.sre.commands.Rendering;
+import thecudster.sre.commands.SBCommand;
+import thecudster.sre.commands.SBToggle;
+import thecudster.sre.commands.SRECommand;
+import thecudster.sre.commands.dungeons.Catacombs;
+import thecudster.sre.commands.dungeons.MasterMode;
+import thecudster.sre.events.Keybindings;
 import thecudster.sre.features.impl.dungeons.LockMort;
 import thecudster.sre.features.impl.filter.FilterHandler;
-import thecudster.sre.events.Keybindings;
 import thecudster.sre.features.impl.qol.GhostLoot;
 import thecudster.sre.features.impl.qol.HighlightFarming;
 import thecudster.sre.features.impl.qol.ItemDropStop;
 import thecudster.sre.features.impl.qol.MiscFarming;
-import thecudster.sre.features.impl.rendering.*;
+import thecudster.sre.features.impl.rendering.BlockPowerOrb;
+import thecudster.sre.features.impl.rendering.DeleteOwnSpiritBats;
+import thecudster.sre.features.impl.rendering.HyperionOverlay;
+import thecudster.sre.features.impl.rendering.MiscWaypoints;
+import thecudster.sre.features.impl.rendering.PlayerHider;
+import thecudster.sre.features.impl.rendering.RemoveRaffleTitles;
+import thecudster.sre.features.impl.rendering.RemoveVillagers;
+import thecudster.sre.features.impl.rendering.SkeletonMasterReminder;
+import thecudster.sre.features.impl.rendering.SlayerOverlays;
+import thecudster.sre.features.impl.rendering.WitherCloakHider;
 import thecudster.sre.features.impls.sounds.BlockCreeperSound;
 import thecudster.sre.settings.Config;
 import thecudster.sre.util.GuiManager;
 import thecudster.sre.util.LootTracker;
+
+import java.io.File;
 
 @Mod(modid = SkyblockReinvented.MODID, name = SkyblockReinvented.MOD_NAME, version = SkyblockReinvented.VERSION, acceptedMinecraftVersions = "[1.8.9]", clientSideOnly = true)
 public class SkyblockReinvented {
 	public static Config config = new Config();
 	public static final String MODID = "sre";
 	public static final String MOD_NAME = "SkyblockReinvented";
-	public static final String VERSION = "0.0.5";
+	public static final String VERSION = "0.0.6";
 	public static KeyBinding[] keyBindings = new KeyBinding[3];
 	public static boolean creeperActivated;
 	public static File modDir;
@@ -67,18 +75,13 @@ public class SkyblockReinvented {
         config.preload();
 		ClientCommandHandler.instance.registerCommand(new SRECommand());
 		ClientCommandHandler.instance.registerCommand(new SBCommand());
-		ClientCommandHandler.instance.registerCommand(new Floor1());
-		ClientCommandHandler.instance.registerCommand(new Floor2());
-		ClientCommandHandler.instance.registerCommand(new Floor3());
-		ClientCommandHandler.instance.registerCommand(new Floor4());
-		ClientCommandHandler.instance.registerCommand(new Floor5());
-		ClientCommandHandler.instance.registerCommand(new Floor6());
-		ClientCommandHandler.instance.registerCommand(new Floor7());
+		ClientCommandHandler.instance.registerCommand(new Catacombs());
 		ClientCommandHandler.instance.registerCommand(new SBToggle());
 		ClientCommandHandler.instance.registerCommand(new AddItem());
 		ClientCommandHandler.instance.registerCommand(new Rendering());
 		ClientCommandHandler.instance.registerCommand(new JoinDung());
 		ClientCommandHandler.instance.registerCommand(new FragRun());
+		ClientCommandHandler.instance.registerCommand(new MasterMode());
 
 		MinecraftForge.EVENT_BUS.register(new RemoveRaffleTitles());
 		MinecraftForge.EVENT_BUS.register(this);
