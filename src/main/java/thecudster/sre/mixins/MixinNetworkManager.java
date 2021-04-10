@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 /**
  * Taken from Skytils under GNU Affero General Public license.
  * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE

@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
+
 /*
  * Modified from Danker's Skyblock Mod under GNU General Public License.
  * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE

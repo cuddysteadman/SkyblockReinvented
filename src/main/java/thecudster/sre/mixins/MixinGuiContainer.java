@@ -11,6 +11,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraftforge.common.MinecraftForge;
 import thecudster.sre.events.GuiContainerEvent;
+
 /**
  * Taken from Skytils under GNU Affero General Public license.
  * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
