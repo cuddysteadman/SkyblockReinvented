@@ -44,7 +44,7 @@ public class SkyblockReinvented {
 	public static Config config = new Config();
 	public static final String MODID = "sre";
 	public static final String MOD_NAME = "SkyblockReinvented";
-	public static final String VERSION = "0.0.5";
+	public static final String VERSION = "0.0.5-pre1";
 	public static KeyBinding[] keyBindings = new KeyBinding[3];
 	public static boolean creeperActivated;
 	public static File modDir;

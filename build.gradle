@@ -18,7 +18,7 @@ buildscript {
 apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: "org.spongepowered.mixin"
 
-version = "0.0.5"
+version = "0.0.5-pre1"
 group = "thecudster.sre"
 archivesBaseName = "sre"
 
@@ -75,6 +75,7 @@ dependencies {
         exclude module: 'commons-io'
         exclude module: 'gson'
     }
+    implementation 'org.json:json:20171018'
     provided files("libs/modcore.jar")
     configurations.compile.extendsFrom(configurations.packageLib)
 }

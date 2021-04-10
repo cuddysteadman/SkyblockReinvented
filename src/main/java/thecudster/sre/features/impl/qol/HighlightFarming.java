@@ -36,6 +36,8 @@ import thecudster.sre.events.GuiContainerEvent;
 import thecudster.sre.util.ItemUtil;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 public class HighlightFarming {
@@ -59,13 +61,14 @@ public class HighlightFarming {
         GL11.glTranslated(0, 0, -1);
 
     }
+    boolean done = false;
     /*
      * Modified/Improved/Reinvented from Nate's Skyblock Mod under GNU General Public License.
      * https://github.com/Nat3z/SkyblockMod/blob/main/LICENSE
      * @author Nat3z
      */
     @SubscribeEvent
-    public void showScreen(GuiScreenEvent.BackgroundDrawnEvent event) {
+    public void showScreen(GuiScreenEvent.BackgroundDrawnEvent event) throws IOException {
         if (SkyblockReinvented.config.jacobRender) {
             Minecraft mc = Minecraft.getMinecraft();
             if (mc.currentScreen instanceof GuiChest) {
@@ -174,6 +177,25 @@ public class HighlightFarming {
                         }
                     }
                 }
+            }
+        }
+
+        if (mc.currentScreen instanceof GuiChest) {
+            GuiChest chest = (GuiChest) mc.currentScreen;
+            ContainerChest inventory = (ContainerChest) chest.inventorySlots;
+            String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
+
+            if (displayText.contains("Community Shop")) {
+                List<Slot> slots = chest.inventorySlots.inventorySlots;
+                for (Slot toCheck : slots) {
+                    if (!done) {
+                        done = true;
+                        BitsAvg.listBestItems();
+                    }
+                }
+            }
+            else {
+                done = false;
             }
         }
     }
