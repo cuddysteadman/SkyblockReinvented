@@ -13,10 +13,30 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 
 public class RemoveVillagers {
+    public static final String[] villagerNames = {
+            "Andrew",
+            "Jack",
+            "Jamie",
+            "Tom",
+            "Leo",
+            "Felix",
+            "Ryu",
+            "Duke",
+            "Lynn",
+            "Stella",
+            "Vex",
+            "Liam"
+    };
     @SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
     public void onCheckRender(RenderLivingEvent.Pre event) {
         if (event.entity.getCustomNameTag() != null) {
-            if (event.entity.getCustomNameTag().contains("Jerry")) {
+            boolean villager = false;
+            for (String s : villagerNames) {
+                if (event.entity.getCustomNameTag().contains(s)) {
+                    villager = true;
+                }
+            }
+            if (villager) {
                 event.setCanceled(true);
             }
             if (event.entity.getCustomNameTag().contains("NEW UPDATE")) {
@@ -33,12 +53,17 @@ public class RemoveVillagers {
                 }
             }
         }
-
         if (!(event.entity instanceof EntityVillager)) { return; }
         EntityVillager villagerEntity = (EntityVillager) event.entity;
+        boolean villager = false;
+        for (String s : villagerNames) {
+            if (event.entity.getCustomNameTag().contains(s)) {
+                villager = true;
+            }
+        }
         for (Entity entity : Minecraft.getMinecraft().theWorld.loadedEntityList) {
             if (entity instanceof EntityArmorStand) {
-                if (entity.getCustomNameTag().contains("Jerry")) {
+                if (villager) {
                     if (entity.getDistanceToEntity(villagerEntity) <= 2) {
                         event.setCanceled(true);
                     }

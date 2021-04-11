@@ -35,8 +35,6 @@ public class MiscWaypoints {
     }
     @SubscribeEvent
     public void onWorldRender(RenderWorldLastEvent event) {
-        Utils.checkForSkyblock();
-        Utils.checkForDungeons();
         /*
         if (Utils.inDungeons && SkyblockReinvented.config.secretFinder) {
             for (TileEntity o : Minecraft.getMinecraft().theWorld.loadedTileEntityList) {

@@ -134,6 +134,40 @@ public class Config extends Vigilant {
 	)
 	public int yVal = 0;
 	@Property(
+			type = PropertyType.SLIDER,
+			name = "Amount of Clicks to Stop From Opening Non-Profit Chest",
+			description = "The amount of clicks you need to stop you from opening chests at the end of dungeons if they aren't profit. BUGGY!",
+			category = "Dungeons",
+			subcategory = "Rendering",
+			min = 0,
+			max = 10
+	)
+	public int chestStop = 0;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Show Your Current Pet",
+			description = "Overlays your current pet as green in the Pet Menu.",
+			category = "General",
+			subcategory = "Rendering"
+	)
+	public boolean currentPet = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Stop Reforge Sounds",
+			description = "Removes all anvil noises when in reforge menu.",
+			category = "Hub",
+			subcategory = "Sounds"
+	)
+	public boolean reforgeSoundOff = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Show Items to Sell (addon to Skytils)",
+			description = "Renders a blue square over items you can sell to Ophelia. Addon to Skytils.",
+			category = "Dungeons",
+			subcategory = "Rendering"
+	)
+	public boolean moreSell = false;
+	@Property(
 			type = PropertyType.SWITCH,
 			name = "Overlay Mobs in Range of Hyperion",
 			description = "Overlays mobs that are in range of your hyperion with a green box around them.",
@@ -201,15 +235,6 @@ public class Config extends Vigilant {
 		subcategory = "Hypixel QOL"
 	)
 	public boolean gexpMsg = false;
-	@Property(
-		type = PropertyType.SWITCH,
-		name = "Remove Chat from SBA",
-		description = "Removes chat messages like \"A feature has prevented you from\", etc.",
-		category = "Chat",
-		hidden = true,
-		subcategory = "Warnings"
-	)
-	public boolean removeSBA = false;
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Too Fast Messages",
@@ -601,15 +626,6 @@ public class Config extends Vigilant {
 		subcategory = "Chat"
 	)
 	public boolean cantOpenWither = false;
-	
-	@Property(
-		type = PropertyType.SWITCH,
-		name = "Remove Revive Stone Messages", 
-		description = "Removes revive stone that you pick up messages.",
-		category = "Dungeons",
-		subcategory = "Chat"
-	)
-	public boolean reviveStone = false;
 	
 	@Property(
 		type = PropertyType.SWITCH,

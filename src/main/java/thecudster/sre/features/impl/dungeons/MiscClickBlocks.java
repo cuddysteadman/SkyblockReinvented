@@ -25,9 +25,12 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.events.GuiContainerEvent;
+import thecudster.sre.features.impl.qol.MiscGUIs;
+import thecudster.sre.util.DungeonChestUtils;
 import thecudster.sre.util.ItemUtil;
 import thecudster.sre.util.Utils;
 
@@ -37,12 +40,13 @@ import thecudster.sre.util.Utils;
  * @author My-Name-Is-Jeff
  * @author Sychic
  */
-public class LockMort {
+public class MiscClickBlocks {
+    int num = 0;
     public String supposedName;
 	@SubscribeEvent(receiveCanceled = true)
     public void onSlotClick(GuiContainerEvent.SlotClickEvent event) {
         // if (!Utils.inSkyblock) return;
-		
+
         if (event.container instanceof ContainerChest) {
             ContainerChest chest = (ContainerChest) event.container;
 
@@ -96,6 +100,30 @@ public class LockMort {
                 }
             }
         }
-	}
+        if (!Utils.inSkyblock) return;
+        if (!Utils.inDungeons) {return;}
+        /**
+         * Modified from Skytils under GNU Affero General Public license.
+         * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
+         */
+
+        if (event.container instanceof ContainerChest) {
+            if (MiscGUIs.found) {
+                num++;
+                int neededClick = SkyblockReinvented.config.chestStop - num;
+                if (neededClick > 0) {
+                    event.setCanceled(true);
+                    Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("You were stopped from opening this chest. Click " + (SkyblockReinvented.config.chestStop - num) + " more times to open the chest."));
+                    return;
+                }
+            }
+        }
+    }
+    @SubscribeEvent
+    public void onGuiOpen(GuiOpenEvent event) {
+	    MiscGUIs.found = false;
+        num = 0;
+        MiscGUIs.inReforge = false;
+    }
 
 }

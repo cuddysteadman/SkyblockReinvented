@@ -15,26 +15,14 @@ import thecudster.sre.util.Utils;
 public class DeleteOwnSpiritBats {
     @SubscribeEvent(receiveCanceled = true)
     public void onRender(RenderLivingEvent.Pre event) {
-        Utils.checkForDungeons();
-        Utils.checkForSkyblock();
             if (event.entity instanceof EntityBat) {
                 if (SkyblockReinvented.config.spiritBats) {
                     if (Minecraft.getMinecraft().thePlayer.getHeldItem() != null) {
                         if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()) != null) {
                             if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()).equals("BAT_WAND")) {
                                 Minecraft.getMinecraft().theWorld.removeEntity(event.entity);
-
-                            }
-                            else if(Utils.inDungeons) {
-                                DrawWaypoint.drawWaypoint(0.01f, event.entity.getPosition().down(),"Secret: Bat");
                             }
                         }
-                        else if(Utils.inDungeons) {
-                            DrawWaypoint.drawWaypoint(0.01f, event.entity.getPosition().down(),"Secret: Bat");
-                        }
-                    }
-                    else if(Utils.inDungeons) {
-                        DrawWaypoint.drawWaypoint(0.01f, event.entity.getPosition().down(),"Secret: Bat");
                     }
                 }
             }

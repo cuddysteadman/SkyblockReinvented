@@ -40,7 +40,6 @@ public class MiscFarming {
     private static final Minecraft mc = Minecraft.getMinecraft();
     @SubscribeEvent
     public void onBreak(DamageBlockEvent event) {
-        Utils.checkForSkyblock();
         if (!Utils.inSkyblock || mc.thePlayer == null || mc.theWorld == null) return;
         EntityPlayerSP p = mc.thePlayer;
         Block block = mc.theWorld.getBlockState(event.pos).getBlock();

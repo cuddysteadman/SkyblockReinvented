@@ -30,8 +30,6 @@ public class PlayerHider {
         if (this.isNPC(event.entity)) { return; }
         boolean found = false;
 		String str = ((EntityOtherPlayerMP) event.entity).getDisplayNameString();
-		Utils.checkForSkyblock();
-		Utils.checkForDungeons();
 		if (Utils.inDungeons) { return; }
 		if (str.contains("Goblin") || str.contains("Ice Walker")) {
 			return;
@@ -46,14 +44,12 @@ public class PlayerHider {
 		if (SkyblockReinvented.config.renderWaypointDungeons && Utils.inDungeons) {
 			DrawWaypoint.drawWaypoint(0.01f, event.entity.getPosition().down(), ((EntityOtherPlayerMP) event.entity).getDisplayNameString());
 		}
-		
-		
-		/**
-		 * Taken from SkyblockAddons under MIT License
-		 * https://github.com/BiscuitDevelopment/SkyblockAddons/blob/master/LICENSE
-		 * @author BiscuitDevelopment
-		 */
 	}
+	/**
+	 * Taken from SkyblockAddons under MIT License
+	 * https://github.com/BiscuitDevelopment/SkyblockAddons/blob/master/LICENSE
+	 * @author BiscuitDevelopment
+	 */
 	public boolean isNPC(Entity entity) {
         if (!(entity instanceof EntityOtherPlayerMP)) {
             return false;

@@ -21,7 +21,6 @@ public class GhostLoot {
 
     @SubscribeEvent
     public void onRender(RenderGameOverlayEvent.Pre event) {
-        Utils.checkForSkyblock();
         if (SkyblockReinvented.config.ghostTracker && Utils.inSkyblock) {
             new TextRenderer(Minecraft.getMinecraft(), LootTracker.display, SkyblockReinvented.config.xVal, SkyblockReinvented.config.yVal, 1);
         }

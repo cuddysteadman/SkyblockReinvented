@@ -1,4 +1,4 @@
-package thecudster.sre.features.impls.sounds;
+package thecudster.sre.features.impl.sounds;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.events.ReceivePacketEvent;
 import thecudster.sre.features.impl.filter.FilterHandler;
+import thecudster.sre.features.impl.qol.MiscGUIs;
 import thecudster.sre.util.ItemUtil;
 
 /*
@@ -16,7 +17,7 @@ import thecudster.sre.util.ItemUtil;
  * @author My-Name-Is-Jeff
  * @author Sychic
  */
-public class BlockCreeperSound {
+public class MiscSoundBlocks {
 	@SubscribeEvent(receiveCanceled=true)
 	public void onReceivePacket(ReceivePacketEvent event) {
 		if (event.packet instanceof S29PacketSoundEffect) {
@@ -27,6 +28,12 @@ public class BlockCreeperSound {
 			}
 			if (packet.getSoundName().equals("mob.skeleton.hurt") && FilterHandler.witherCloak) {
 				event.setCanceled(true);
+			}
+		}
+		if (MiscGUIs.inReforge) {
+			if (packet.getSoundName().equals("random.anvil_use")) {
+				event.setCanceled(true);
+				return;
 			}
 		}
 		if (SkyblockReinvented.config.jerryChine) {

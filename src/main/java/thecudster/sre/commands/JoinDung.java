@@ -53,7 +53,6 @@ public class JoinDung implements ICommand {
     }
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        Utils.checkForSkyblock();
         if (Utils.inSkyblock) {
             Minecraft.getMinecraft().thePlayer.sendChatMessage("/warp dungeon_hub");
         }
