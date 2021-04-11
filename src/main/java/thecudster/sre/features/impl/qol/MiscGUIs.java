@@ -23,9 +23,6 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
-import net.minecraft.util.ChatComponentText;
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
@@ -33,13 +30,11 @@ import org.lwjgl.opengl.GL11;
 import java.awt.Color;
 
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.events.GuiContainerEvent;
-import thecudster.sre.util.DungeonChestUtils;
-import thecudster.sre.util.ItemUtil;
+import thecudster.sre.util.sbutil.DungeonChestUtils;
+import thecudster.sre.util.sbutil.ItemUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 
 public class MiscGUIs {
@@ -226,6 +221,7 @@ public class MiscGUIs {
                                 boolean found = false;
                                 List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
                                 for (String s : lore) {
+                                    // TODO: Tripwire Hook, Lever
                                     if (s.contains("Infinite Quiver VI") || s.contains("No Pain No Gain") || s.contains("Ultimate Jerry") || s.contains("Bank") || s.contains("Feather Falling VI")) {
                                         showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
                                         found = true;

@@ -1,16 +1,12 @@
 package thecudster.sre.features.impl.rendering;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.gui.DrawWaypoint;
-import thecudster.sre.util.ItemUtil;
-import thecudster.sre.util.Utils;
+import thecudster.sre.util.sbutil.ItemUtil;
 
 public class DeleteOwnSpiritBats {
     @SubscribeEvent(receiveCanceled = true)

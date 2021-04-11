@@ -6,11 +6,9 @@ import net.minecraft.network.play.server.S45PacketTitle;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import scala.collection.parallel.ParIterableLike;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.events.ReceivePacketEvent;
 import thecudster.sre.util.TabListUtils;
-import thecudster.sre.util.Utils;
 
 /**
  * Modified from Skytils under GNU Affero General Public license.

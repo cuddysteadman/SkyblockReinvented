@@ -24,9 +24,9 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.features.impl.qol.SlayerReminder;
-import thecudster.sre.util.LootTracker;
-import thecudster.sre.util.ScoreboardUtil;
-import thecudster.sre.util.Utils;
+import thecudster.sre.util.sbutil.LootTracker;
+import thecudster.sre.util.sbutil.ScoreboardUtil;
+import thecudster.sre.util.sbutil.Utils;
 import java.util.List;
 
 public class FilterHandler {

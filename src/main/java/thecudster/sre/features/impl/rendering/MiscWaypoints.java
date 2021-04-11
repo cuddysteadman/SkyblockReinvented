@@ -1,27 +1,14 @@
 package thecudster.sre.features.impl.rendering;
 
-import net.minecraft.block.BlockJukebox;
-import net.minecraft.block.BlockLever;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityEnderCrystal;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityBat;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.S05PacketSpawnPosition;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.ScoreboardUtil;
 import thecudster.sre.util.gui.DrawWaypoint;
 import thecudster.sre.events.ReceivePacketEvent;
-import thecudster.sre.util.ItemUtil;
-import thecudster.sre.util.Utils;
+import thecudster.sre.util.sbutil.ItemUtil;
 
 public class MiscWaypoints {
     public BlockPos pos;

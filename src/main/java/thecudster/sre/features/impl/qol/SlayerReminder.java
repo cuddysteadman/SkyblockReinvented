@@ -17,10 +17,8 @@
  */
 package thecudster.sre.features.impl.qol;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ChatComponentText;
 import thecudster.sre.util.GuiManager;
-import thecudster.sre.util.Utils;
+import thecudster.sre.util.sbutil.Utils;
 
 public class SlayerReminder {
     public static void remindRevenant() throws InterruptedException {

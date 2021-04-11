@@ -1,4 +1,4 @@
-package thecudster.sre.util;
+package thecudster.sre.util.sbutil;
 
 public class DungeonChestUtils {
     public static final String[] notProfit = {

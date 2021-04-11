@@ -1,4 +1,4 @@
-package thecudster.sre.util;
+package thecudster.sre.util.sbutil;
 
 import net.minecraft.util.EnumChatFormatting;
 

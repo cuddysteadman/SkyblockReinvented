@@ -2,14 +2,12 @@ package thecudster.sre.features.impl.sounds;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
-import net.minecraft.scoreboard.Score;
-import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.events.ReceivePacketEvent;
 import thecudster.sre.features.impl.filter.FilterHandler;
 import thecudster.sre.features.impl.qol.MiscGUIs;
-import thecudster.sre.util.ItemUtil;
+import thecudster.sre.util.sbutil.ItemUtil;
 
 /*
  * Modified from Skytils under GNU Affero Public License.

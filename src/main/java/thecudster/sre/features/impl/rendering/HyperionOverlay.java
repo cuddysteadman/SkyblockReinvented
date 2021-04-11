@@ -8,7 +8,7 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraft.entity.monster.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.ItemUtil;
+import thecudster.sre.util.sbutil.ItemUtil;
 import thecudster.sre.util.gui.RenderUtil;
 
 import java.awt.*;

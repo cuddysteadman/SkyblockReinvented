@@ -1,17 +1,14 @@
 package thecudster.sre.features.impl.rendering;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityBat;
-import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.GuiManager;
-import thecudster.sre.util.ItemUtil;
-import thecudster.sre.util.TextRenderUtils;
-import thecudster.sre.util.Utils;
+import thecudster.sre.util.sbutil.ItemUtil;
+import thecudster.sre.util.sbutil.Utils;
 
 import java.util.Objects;
 

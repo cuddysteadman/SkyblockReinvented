@@ -27,7 +27,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.APIHandler;
+import thecudster.sre.util.api.APIHandler;
 
 public class UpdateChecker {
     public boolean updateChecked = false;

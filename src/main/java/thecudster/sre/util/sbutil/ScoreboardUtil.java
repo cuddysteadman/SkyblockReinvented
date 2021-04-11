@@ -1,4 +1,4 @@
-package thecudster.sre.util;
+package thecudster.sre.util.sbutil;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;

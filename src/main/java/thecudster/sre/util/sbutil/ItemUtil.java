@@ -1,4 +1,4 @@
-package thecudster.sre.util;
+package thecudster.sre.util.sbutil;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,8 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ItemUtil {
-    private static final Pattern RARITY_PATTERN = Pattern.compile("(§[0-9a-f]§l§ka§r )?([§0-9a-fk-or]+)(?<rarity>[A-Z]+)");
-    private static final Pattern PET_PATTERN = Pattern.compile("§7\\[Lvl \\d+\\] (?<color>§[0-9a-fk-or]).+");
+    private static final Pattern RARITY_PATTERN = Pattern.compile("(ï¿½[0-9a-f]ï¿½lï¿½kaï¿½r )?([ï¿½0-9a-fk-or]+)(?<rarity>[A-Z]+)");
+    private static final Pattern PET_PATTERN = Pattern.compile("ï¿½7\\[Lvl \\d+\\] (?<color>ï¿½[0-9a-fk-or]).+");
     public static final int NBT_INTEGER = 3;
     public static final int NBT_STRING = 8;
     public static final int NBT_LIST = 9;

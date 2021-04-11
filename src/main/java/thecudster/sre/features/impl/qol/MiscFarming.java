@@ -27,14 +27,9 @@ package thecudster.sre.features.impl.qol;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.events.DamageBlockEvent;
-import thecudster.sre.util.CancelParticle;
-import thecudster.sre.util.CancelParticleHelper;
-import thecudster.sre.util.Utils;
+import thecudster.sre.util.sbutil.Utils;
 
 public class MiscFarming {
     private static final Minecraft mc = Minecraft.getMinecraft();

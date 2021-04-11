@@ -1,6 +1,5 @@
-package thecudster.sre.util;
+package thecudster.sre.util.sbutil;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -11,7 +10,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class Utils {

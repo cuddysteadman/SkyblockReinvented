@@ -1,4 +1,4 @@
-package thecudster.sre.util;
+package thecudster.sre.util.sbutil;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;

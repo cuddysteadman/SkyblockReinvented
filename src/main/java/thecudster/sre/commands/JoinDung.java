@@ -22,10 +22,8 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
 import org.jetbrains.annotations.NotNull;
-import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.Utils;
+import thecudster.sre.util.sbutil.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,13 +5,11 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.event.ClickEvent;
-import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import org.json.JSONException;
-import thecudster.sre.util.ItemUtil;
 import thecudster.sre.util.fragbot.FragBot;
 import thecudster.sre.util.fragbot.FragStatus;
 

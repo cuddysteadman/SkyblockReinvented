@@ -29,7 +29,7 @@ import thecudster.sre.commands.dungeons.MasterMode;
 import thecudster.sre.features.impl.sounds.MiscSoundBlocks;
 import thecudster.sre.settings.Config;
 import thecudster.sre.util.GuiManager;
-import thecudster.sre.util.LootTracker;
+import thecudster.sre.util.sbutil.LootTracker;
 
 @Mod(modid = SkyblockReinvented.MODID, name = SkyblockReinvented.MOD_NAME, version = SkyblockReinvented.VERSION, acceptedMinecraftVersions = "[1.8.9]", clientSideOnly = true)
 public class SkyblockReinvented {

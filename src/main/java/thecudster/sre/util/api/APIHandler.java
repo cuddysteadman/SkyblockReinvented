@@ -1,4 +1,4 @@
-package thecudster.sre.util;
+package thecudster.sre.util.api;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

@@ -30,9 +30,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.events.GuiContainerEvent;
 import thecudster.sre.features.impl.qol.MiscGUIs;
-import thecudster.sre.util.DungeonChestUtils;
-import thecudster.sre.util.ItemUtil;
-import thecudster.sre.util.Utils;
+import thecudster.sre.util.sbutil.ItemUtil;
+import thecudster.sre.util.sbutil.Utils;
 
 /*
  * Modified from Skytils under GNU Affero Public license.
