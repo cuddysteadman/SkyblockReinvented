@@ -3,6 +3,7 @@
 SkyblockReinvented uses the following open source software:
 
 Software | License
+------------ | -------------
 [Apache Commons Lang](https://github.com/apache/commons-lang) | [Apache 2.0](../../dependencyLicenses/discordIPC/APACHE_2.0.txt)
 [Discord IPC](https://github.com/jagrosh/DiscordIPC) | [Apache 2.0](../../dependencyLicenses/discordIPC/APACHE_2.0.txt)
 [Gson](https://github.com/google/gson) | [Apache 2.0](../../dependencyLicenses/discordIPC/APACHE_2.0.txt)
