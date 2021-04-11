@@ -113,7 +113,7 @@
 * Cobble8 (SkyblockPersonalized: https://github.com/Cobble8/SkyblockPersonalized)
 * Biscuit (SkyblockAddons: https://github.com/BiscuitDevelopment/SkyblockAddons)
 * bowser0000 (Danker's Skyblock Mod: https://github.com/bowser0000/SkyblockMod)
-* Sk1er LLC (ModCore: https://github.com/Sk1erLLC (not exactly a github, but it was the closest I could find since the source code isn't public to my knowledge))
+* Sk1er LLC (ModCore: https://github.com/Sk1erLLC (not exactly a github, but it was the closest I could find since the source code isn't public to my knowledge))  
 For licenses and info, [click here](https://github.com/Skytils/SkytilsMod/blob/main/OPEN_SOURCE_SOFTWARE.md).
 #### Join the discord for support: 
 * https://discord.gg/xkeYgZrRbN
