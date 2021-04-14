@@ -23,6 +23,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
@@ -38,7 +39,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class MiscGUIs {
-    public static boolean found = false;
+    public static boolean foundBadItem = false;
     /*
      * Taken from Danker's Skyblock Mod under GPL 3.0 license.
      * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE
@@ -136,11 +137,10 @@ public class MiscGUIs {
                 String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
                 if (displayText.contains("Ender Chest") || displayText.contains("Accessory Bag") || displayText.contains("Wardrobe")) {
                     List<Slot> slots = chest.inventorySlots.inventorySlots;
-
+                    boolean found = false;
                     for (Slot toCheck : slots) {
                         if (toCheck.getStack() != null) {
                             if (toCheck.getStack().hasDisplayName()) {
-                                boolean found = false;
                                 String name = toCheck.getStack().getDisplayName();
                                 for (String s : SkyblockReinvented.config.toSearch) {
                                     if (StringUtils.containsIgnoreCase(name, s)) {
@@ -199,6 +199,17 @@ public class MiscGUIs {
                                     }
                                 }
                             }
+                            for (String s : DungeonChestUtils.sellableNames) {
+                                List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
+                                for (String s2 : lore) {
+                                    if (s2.contains(s)) {
+                                        showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, new Color(15, 233, 233, 225).getRGB());
+                                    }
+                                }
+                                if (toCheck.getStack().getDisplayName().contains(s)) {
+                                    showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, new Color(15, 233, 233, 225).getRGB());
+                                }
+                            }
                         }
                     }
                 }
@@ -206,6 +217,7 @@ public class MiscGUIs {
         }
         if (SkyblockReinvented.config.chestStop >= 0) {
             if (mc.currentScreen instanceof GuiChest) {
+                foundBadItem = false;
                 GuiChest chest = (GuiChest) mc.currentScreen;
                 ContainerChest inventory = (ContainerChest) chest.inventorySlots;
                 String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
@@ -217,38 +229,32 @@ public class MiscGUIs {
                         if (toCheck.getStack() != null) {
                             if (ItemUtil.getSkyBlockItemID(toCheck.getStack()) != null) {
                                 String id = ItemUtil.getSkyBlockItemID(toCheck.getStack());
-                                String displayName = toCheck.getStack().getDisplayName();
-                                boolean found = false;
+
                                 List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
                                 for (String s : lore) {
-                                    // TODO: Tripwire Hook, Lever
                                     if (s.contains("Infinite Quiver VI") || s.contains("No Pain No Gain") || s.contains("Ultimate Jerry") || s.contains("Bank") || s.contains("Feather Falling VI")) {
                                         showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
-                                        found = true;
+                                        foundBadItem = true;
                                     }
                                 }
 
                                 for (String check : DungeonChestUtils.notProfit) {
                                     if (id.equals(check)) {
-                                        found = true;
+                                        foundBadItem = true;
                                         showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
                                     }
                                 }
-                                if (found) {
-                                    if (toCheck.getStack().getDisplayName() != null) {
-                                        if (toCheck.getStack().getDisplayName().contains("Open Reward Chest")) {
-                                            showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
-
-                                        }
-                                    }
-                                } else {
-                                    if (toCheck.getStack().getDisplayName() != null) {
-                                        if (toCheck.getStack().getDisplayName().contains("Open Reward Chest")) {
-                                            showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.green.getRGB());
-                                        }
-                                    }
-                                }
                             }
+                        }
+                    }
+                    Slot chestSlot = slots.get(31);
+                    if (foundBadItem) {
+                        if (chestSlot != null) {
+                            showOnSlot(chest.inventorySlots.inventorySlots.size(), chestSlot.xDisplayPosition, chestSlot.yDisplayPosition, Color.red.getRGB());
+                        }
+                    } else {
+                        if (chestSlot != null) {
+                            showOnSlot(chest.inventorySlots.inventorySlots.size(), chestSlot.xDisplayPosition, chestSlot.yDisplayPosition, Color.green.getRGB());
                         }
                     }
                 }

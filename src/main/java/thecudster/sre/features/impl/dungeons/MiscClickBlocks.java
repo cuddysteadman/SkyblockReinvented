@@ -107,7 +107,7 @@ public class MiscClickBlocks {
          */
 
         if (event.container instanceof ContainerChest) {
-            if (MiscGUIs.found) {
+            if (MiscGUIs.foundBadItem) {
                 num++;
                 int neededClick = SkyblockReinvented.config.chestStop - num;
                 if (neededClick > 0) {
@@ -120,7 +120,7 @@ public class MiscClickBlocks {
     }
     @SubscribeEvent
     public void onGuiOpen(GuiOpenEvent event) {
-	    MiscGUIs.found = false;
+	    MiscGUIs.foundBadItem = false;
         num = 0;
         MiscGUIs.inReforge = false;
     }

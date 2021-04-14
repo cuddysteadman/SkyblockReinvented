@@ -33,8 +33,10 @@ public class HyperionOverlay {
                         if (event.entity instanceof EntityZombie || event.entity instanceof EntitySilverfish ||
                                 event.entity instanceof EntitySkeleton || event.entity instanceof EntityEnderman ||
                                 event.entity instanceof EntitySpider) {
-                            RenderUtil.drawFilledBoundingBox(event.entity.getEntityBoundingBox(), new Color(27, 255, 11, 255), 3);
-                            return;
+                            if (player.canEntityBeSeen(event.entity)) {
+                                RenderUtil.drawFilledBoundingBox(event.entity.getEntityBoundingBox(), new Color(27, 255, 11, 255), 3);
+                                return;
+                            }
                         }
                     }
                 }

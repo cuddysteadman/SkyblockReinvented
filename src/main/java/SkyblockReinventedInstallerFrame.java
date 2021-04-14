@@ -587,7 +587,7 @@ public class SkyblockReinventedInstallerFrame extends JFrame implements ActionLi
     }
 
     public void showMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "sre", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, "SkyblockReinvented Installer", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void showErrorMessage(String message) {

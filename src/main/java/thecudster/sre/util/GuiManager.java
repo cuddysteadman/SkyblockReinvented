@@ -95,7 +95,7 @@ public class GuiManager {
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.pushMatrix();
-            GlStateManager.scale(scale, scale, scale); // TODO Check if changing this scale breaks anything...
+            GlStateManager.scale(scale, scale, scale);
 
             mc.fontRendererObj.drawString(title, (float) (-mc.fontRendererObj.getStringWidth(title) / 2), -20.0F, 0xFF0000, true);
 
@@ -115,7 +115,7 @@ public class GuiManager {
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.pushMatrix();
-            GlStateManager.scale(scale, scale, scale);  // TODO Check if changing this scale breaks anything...
+            GlStateManager.scale(scale, scale, scale);
 
             mc.fontRendererObj.drawString(subtitle, -mc.fontRendererObj.getStringWidth(subtitle) / 2F, -23.0F,
                     0xFF0000, true);

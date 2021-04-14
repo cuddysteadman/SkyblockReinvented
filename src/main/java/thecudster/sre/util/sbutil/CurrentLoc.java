@@ -1,4 +1,7 @@
 package thecudster.sre.util.sbutil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChatComponentText;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.List;
 
@@ -7,10 +10,22 @@ public class CurrentLoc {
     public static final String[] locList = {
             "Dungeon Hub",
             "None",
-            "The Catacombs (F1)", // TODO: Rest of Dungeon Floors / Mastery Floors
+            "The Catacombs (F1)",
+            "The Catacombs (F2)",
+            "The Catacombs (F3)",
+            "The Catacombs (F4)",
+            "The Catacombs (F5)",
+            "The Catacombs (F6)",
+            "The Catacombs (F7)",
+            "The Catacombs (M1)",
+            "The Catacombs (M2)",
+            "The Catacombs (M3)",
+            "The Catacombs (M4)",
+            "The Catacombs (M5)",
+            "The Catacombs (M6)",
+            "The Catacombs (M7)",
             "Your Island",
             "Coal Mine",
-            "Village",
             "Private Island",
             "Forest",
             "Bank",
@@ -40,7 +55,10 @@ public class CurrentLoc {
             "Diamond Reserve",
             "Obsidian Sanctuary",
             "Dwarven Mines",
+            "Dwarven Village",
+            "Village",
             "Farm",
+            "The Lift",
             "The Barn",
             "Mushroom Desert",
             "Mountain",
@@ -75,12 +93,17 @@ public class CurrentLoc {
     };
     public static void checkLoc() {
         List<String> scoreboard = ScoreboardUtil.getSidebarLines();
+        boolean found = false;
         for (String s : scoreboard) {
-            s = ScoreboardUtil.cleanSB(s);
+            String cleaned = ScoreboardUtil.cleanSB(s);
             for (String loc : locList) {
-                if (s.contains(loc)) {
+                if (cleaned.contains(loc)) {
                     currentLoc = loc;
+                    found = true;
                 }
+            }
+            if (!found) {
+                currentLoc = "Not in Skyblock!";
             }
         }
     }

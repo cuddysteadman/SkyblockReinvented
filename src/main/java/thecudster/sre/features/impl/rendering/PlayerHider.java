@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.gui.DrawWaypoint;
+import thecudster.sre.util.sbutil.RenderWhitelist;
 import thecudster.sre.util.sbutil.Utils;
 
 public class PlayerHider {
@@ -26,8 +27,10 @@ public class PlayerHider {
         boolean found = false;
 		String str = ((EntityOtherPlayerMP) event.entity).getDisplayNameString();
 		if (Utils.inDungeons) { return; }
-		if (str.contains("Goblin") || str.contains("Ice Walker")) {
-			return;
+		for (String s : RenderWhitelist.renderWhitelist) {
+			if (str.contains(s)) {
+				return;
+			}
 		}
 		for (String s : SkyblockReinvented.config.listToRender) {
 			if (((EntityOtherPlayerMP) event.entity).getDisplayNameString().contains(s)) { found = true; }
@@ -35,7 +38,6 @@ public class PlayerHider {
 		if (!found && SkyblockReinvented.config.renderPlayers) {
 			event.setCanceled(true);
 		}
-
 		if (SkyblockReinvented.config.renderWaypointDungeons && Utils.inDungeons) {
 			DrawWaypoint.drawWaypoint(0.01f, event.entity.getPosition().down(), ((EntityOtherPlayerMP) event.entity).getDisplayNameString());
 		}

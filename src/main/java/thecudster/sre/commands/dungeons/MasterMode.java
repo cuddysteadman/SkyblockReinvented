@@ -36,7 +36,7 @@ public class MasterMode extends CommandBase {
   }
 
   @Override
-  public int getRequiredPermissionLevel() {
-    return 0;
+  public boolean canCommandSenderUseCommand(ICommandSender sender) {
+    return true;
   }
 }

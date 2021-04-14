@@ -57,31 +57,26 @@ public class SBCommand implements ICommand {
 
 	@Override
 	public String getCommandUsage(ICommandSender sender) {
-		// TODO Auto-generated method stub
 		return "Join skyblock quickly.";
 	}
 
 	@Override
 	public List<String> getCommandAliases() {
-		// TODO Auto-generated method stub
 		return aliases;
 	}
 
 	@Override
 	public boolean canCommandSenderUseCommand(ICommandSender sender) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean isUsernameIndex(String[] args, int index) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

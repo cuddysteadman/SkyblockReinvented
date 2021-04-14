@@ -44,15 +44,21 @@ public class DungeonChestUtils {
     };
     public static final String[] sellable = {
             "TRAINING_WEIGHTS",
-            "POTION",
             "SPIRIT_LEAP",
             "DUNGEON_LORE_PAPER",
             "ENCHANTED_ROTTEN_FLESH",
-            "ENCHANTED_BONE",
-            "ENCHANTED_BOOK-ULTIMATE_BANK-1",
-            "ENCHANTED_BOOK-ULTIMATE_NO_PAIN_NO_GAIN-1",
-            "ENCHANTED_BOOK-ULTIMATE_JERRY-1",
-            "ENCHANTED_BOOK-INFINITE_QUIVER-6",
-            "ENCHANTED_BOOK-FEATHER_FALLING-6"
+            "ENCHANTED_BONE"
     };
+    public static final String[] sellableNames = {
+            "Bank",
+            "Ultimate Jerry",
+            "Health Potion VIII Splash Potion",
+            "Tripwire Hook",
+            "Lever",
+            "Defuse Kit",
+            "Infinite Quiver VI",
+            "Rejuvenate I",
+            "Feather Falling VI"
+    };
+
 }

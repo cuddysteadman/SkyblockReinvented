@@ -17,9 +17,13 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import org.lwjgl.input.Keyboard;
 import thecudster.sre.commands.*;
+import thecudster.sre.events.CheckSkyblockTick;
+import thecudster.sre.features.impl.discord.DiscordRPC;
+import thecudster.sre.features.impl.dungeons.BoxUnkilledMobs;
 import thecudster.sre.features.impl.dungeons.MiscClickBlocks;
 import thecudster.sre.features.impl.filter.FilterHandler;
 import thecudster.sre.events.Keybindings;
+import thecudster.sre.features.impl.qol.BestiaryProgress;
 import thecudster.sre.features.impl.qol.GhostLoot;
 import thecudster.sre.features.impl.qol.MiscGUIs;
 import thecudster.sre.features.impl.qol.MiscFarming;
@@ -41,21 +45,25 @@ public class SkyblockReinvented {
 	public static boolean creeperActivated;
 	public static File modDir;
 	public static boolean foundSB;
+	public static DiscordRPC discordRPC;
 	public static GuiManager GUIMANAGER;
+	public static BestiaryProgress progress = new BestiaryProgress();;
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		modDir = new File(event.getModConfigurationDirectory(), "sre");
 		// GetSkyBlockAuctionsExample.printAuctions(0);
         if (!modDir.exists()) modDir.mkdirs();
         GUIMANAGER = new GuiManager();
-		
+		discordRPC = new DiscordRPC();
+		progress.placeItems();
+		progress.getThings();
 	}
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		System.out.println("initialized");
 		
 		ModCoreInstaller.initializeModCore(Minecraft.getMinecraft().mcDataDir);
-
+		discordRPC.start();
         config.preload();
 		ClientCommandHandler.instance.registerCommand(new SRECommand());
 		ClientCommandHandler.instance.registerCommand(new SBCommand());
@@ -86,7 +94,10 @@ public class SkyblockReinvented {
 		MinecraftForge.EVENT_BUS.register(new LootTracker());
 		MinecraftForge.EVENT_BUS.register(new MasterMode());
 		MinecraftForge.EVENT_BUS.register(new Catacombs());
+		MinecraftForge.EVENT_BUS.register(new CheckSkyblockTick());
 		MinecraftForge.EVENT_BUS.register(GUIMANAGER);
+		MinecraftForge.EVENT_BUS.register(new DragonArrowHitbox());
+		MinecraftForge.EVENT_BUS.register(new BoxUnkilledMobs());
 		keyBindings[0] = new KeyBinding("Open Bazaar", Keyboard.KEY_B, "SkyblockReinvented");
 		keyBindings[1] = new KeyBinding("Open AH", Keyboard.KEY_H, "SkyblockReinvented");
 		keyBindings[2] = new KeyBinding("Open PRTL", Keyboard.KEY_P, "SkyblockReinvented");
@@ -103,7 +114,7 @@ public class SkyblockReinvented {
 	}
 	@EventHandler
 	public void serverClose(FMLServerStoppingEvent event) {
-		
+		progress.getThings();
 	}
 
 	

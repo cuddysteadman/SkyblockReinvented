@@ -191,7 +191,7 @@ public class FilterHandler {
 			"Try again in a moment!",
 			"Please don't spam the command!",
 			"Oops! Couldn't find a SkyBlock server for you! Try again later!"
-	}; // TODO: move hyp overlay to items
+	};
 	public static final String[] threeWeirdosSolutions = {"One of us is telling the truth!",
 			"They are both telling the truth. The reward isn't in",
 			"We are all telling the truth!",
@@ -288,23 +288,24 @@ public class FilterHandler {
 	
 	@SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
 	public void onChat(ClientChatReceivedEvent event) {
-		if (event.type == 0x2) {
-			return;
-		}
+		//if (event.type == 0x2) {
+		//	return;
+		//}
 
-		if (!Utils.inSkyblock) { return; }
+		//if (!Utils.inSkyblock) { return; }
 		String message = event.message.getUnformattedText();
-		if (message.contains("Guild > ")) { return; }
-		if (message.contains("Party >")) { return; }
-		for (String player : SkyblockReinvented.config.listToRender) {
-			if (message.contains(player)) { return; }
-		}
 		if (SkyblockReinvented.config.removeWatcher) {
 			for (String watcherMsg : watcherQuotes) {
 				if (message.contains(watcherMsg)) {
 					event.setCanceled(true);
 					return;
 				}
+			}
+		}
+		if (SkyblockReinvented.config.journalMsg) {
+			if (message.contains("You have found page ")) {
+				event.setCanceled(true);
+				return;
 			}
 		}
 		if (SkyblockReinvented.config.danteMsgs) {
@@ -468,7 +469,7 @@ public class FilterHandler {
 												}
 											}
 											if (notClaimed || !found) {
-												SlayerReminder.remindTara();
+												SlayerReminder.remindRevenant();
 											}
 										}
 										catch (InterruptedException e) {
@@ -499,7 +500,7 @@ public class FilterHandler {
 												}
 											}
 											if (notClaimed || !found) {
-												SlayerReminder.remindTara();
+												SlayerReminder.remindSven();
 											}
 										}
 										catch (InterruptedException e) {
@@ -561,6 +562,10 @@ public class FilterHandler {
 		}
 		if (SkyblockReinvented.config.useless) {
 			if (message.contains("joined SkyBlock.")) {
+				event.setCanceled(true);
+				return;
+			}
+			if (message.contains("OpenGL Error: 1281 (Invalid value)")) {
 				event.setCanceled(true);
 				return;
 			}

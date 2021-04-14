@@ -4,10 +4,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.SmartFontRenderer;
 import thecudster.sre.util.sbutil.CurrentLoc;
 import thecudster.sre.util.sbutil.Utils;
+
 /* Modified from Wynntils under GNU Affero General Public License v3.0
 * https://github.com/Wynntils/Wynntils/blob/development/LICENSE
 * @author Wynntils
@@ -32,6 +35,14 @@ public class CheckSkyblockTick {
         }
 
         ticks++;
+    }
+    @SubscribeEvent
+    public static void onLeave(PlayerEvent.PlayerLoggedOutEvent event) {
+        SkyblockReinvented.discordRPC.stop();
+    }
+    @SubscribeEvent
+    public static void onJoin(PlayerEvent.PlayerLoggedInEvent event) {
+        SkyblockReinvented.discordRPC.start();
     }
     public static void refresh() {
         Minecraft mc = Minecraft.getMinecraft();

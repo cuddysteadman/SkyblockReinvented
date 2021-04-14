@@ -18,14 +18,6 @@ public class Config extends Vigilant {
 		subcategory = "Rendering"
 	)
 	public boolean renderCreepers = false;
-	@Property(
-		type = PropertyType.TEXT,
-		name = "List of Players to Render",
-		description = "List players that you want to render while not rendering others here separated by commas.",
-		category = "General",
-		hidden=true,
-		subcategory = "Rendering"
-	)
 	public ArrayList<String> listToRender = new ArrayList<String>();
 	@Property(
 		type = PropertyType.SWITCH,
@@ -356,7 +348,46 @@ public class Config extends Vigilant {
 			subcategory = "Chat"
 	)
 	public boolean journalMsg = false;
-
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Discord Rich Presence",
+			description = "Adds discord rich presence for skyblock. Working on image implementation!",
+			category = "General",
+			subcategory = "Misc"
+	)
+	public boolean discordRP = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Outline Hitboxes of Starred Mobs",
+			description = "Shows the hitboxes of all starred mobs that you haven't killed yet in Dungeons.",
+			category = "Dungeons",
+			subcategory = "Rendering"
+	)
+	public boolean outlineMobs = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Show Hitboxes of Special Zealots",
+			description = "Shows the hitbox of a special zealot when it spawns.",
+			category = "General",
+			subcategory = "Rendering"
+	)
+	public boolean specialHitbox = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Show Hitboxes of Drags & Golems",
+			description = "Shows the hitbox of a dragon / a golem when it spawns.",
+			category = "General",
+			subcategory = "Rendering"
+	)
+	public boolean endDragHitbox = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Hide Other People's Arrows",
+			description = "Hides all the arrows of other people while in the end.",
+			category = "General",
+			subcategory = "Rendering"
+	)
+	public boolean hideOtherArrows;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove Opening Messages",
