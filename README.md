@@ -24,6 +24,9 @@
 * Remove Creeper Sounds from Veil
 * Hide Jerry-chine Gun Sounds
 * Hyperion Overlay - Overlays mobs within Hyperion range
+* Show Cake year as stack size
+* Hide JerryChine gun heads
+* Remove Power Orb Particles & Nametags
 ### General
 * Remove "You're doing this too fast!" Messages
 * Remove Welcome Messages
@@ -36,8 +39,9 @@
 * Hyperion Overlay - Overlays mobs within Hyperion range
 * Remove Chat from Mods such as Skytils, SBA, etc.
 * Only Render Specific Players
-* Keybind for /visit prtl
-* Keybinds for /ah and /bz
+* Keybinds for TONS of different functions
+* Bestiary Info (very laggy atm and not too accurate)
+* Create Hitboxes around your arrows
 ### Your Island
 * Remove chat from Jerries
 * Remove Minion Inventory Warnings
@@ -77,12 +81,16 @@
 * Clean Maddox Batphone - Removes Useless Batphone Messages
 * Remind to Start New Slayer: reminds you to start a new slayer quest if you haven't started a new one after 5 seconds
 * Hide Sven Pups - stops sven pups from rendering
+* Slayer Tracker
 #### Fishing
 * Remove Sea Creature Messages
+* Warn when about to catch a fish (when particles spawn, not when you actually get the fish)
+* Fish Particles Scale slider
 #### Enchanting
 * Remove Experimentation Table Messages
 #### Farming
 * Remove RNG Messages from Dicer
+* Disable Farm Block Particles
 #### Mining
 * Remove Compact Messages
 ### Dwarven Mines
@@ -102,6 +110,7 @@
 * Clean Jerry's Workshop - Generally cleans up the chat of Jerry's Workshop
 ### Commands
 * /sre: main GUI (aliases: /SRE, /SkyblockReinvented)
+* /sre gui: edit GUI locations
 * /re: toggle whether to render players (aliases: /render)
 * /f1, /f2, /f3, etc: join respective dungeon floors
 * /s: /s add, /s search, /s clear, /s remove: search for items in Wardrobe, Echest, and Accessory Bag.
