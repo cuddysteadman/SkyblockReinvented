@@ -6,7 +6,7 @@ import net.minecraft.entity.passive.EntityBat;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.GuiManager;
+import thecudster.sre.util.gui.GuiManager;
 import thecudster.sre.util.sbutil.ItemUtil;
 import thecudster.sre.util.sbutil.Utils;
 
@@ -18,7 +18,7 @@ import java.util.Objects;
  * @author Moulberry
  */
 public class SkeletonMasterReminder {
-    int stopDestroyingMyFuckingEars = 600;
+    int stopDestroyingMyFuckingEars = 300;
     @SubscribeEvent
     public void onRenderLivingPre(RenderLivingEvent.Pre event) {
         if (event.entity.getDistanceToEntity(Minecraft.getMinecraft().thePlayer) <= SkyblockReinvented.config.skeletonRange && Utils.inDungeons && event.entity instanceof EntitySkeleton && SkyblockReinvented.config.warnSkeletonMasters && !event.entity.isInvisible() && Objects.equals(ItemUtil.getSkyBlockItemID(event.entity.getCurrentArmor(0)), "SKELETON_MASTER_BOOTS")) {

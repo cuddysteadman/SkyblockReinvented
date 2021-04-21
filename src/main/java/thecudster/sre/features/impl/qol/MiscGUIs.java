@@ -135,7 +135,7 @@ public class MiscGUIs {
                 GuiChest chest = (GuiChest) mc.currentScreen;
                 ContainerChest inventory = (ContainerChest) chest.inventorySlots;
                 String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
-                if (displayText.contains("Ender Chest") || displayText.contains("Accessory Bag") || displayText.contains("Wardrobe")) {
+                if (displayText.contains("Ender Chest") || displayText.contains("Accessory Bag") || displayText.contains("Wardrobe") || displayText.contains("Backpack")) {
                     List<Slot> slots = chest.inventorySlots.inventorySlots;
                     boolean found = false;
                     for (Slot toCheck : slots) {
@@ -148,7 +148,7 @@ public class MiscGUIs {
                                         showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.green.getRGB());
                                     }
                                 }
-                                if (!found) {
+                                if (!found && (ItemUtil.getSkyBlockItemID(toCheck.getStack()) != null)) {
                                     showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
                                 }
                             }
@@ -181,38 +181,44 @@ public class MiscGUIs {
             }
         }
         if (SkyblockReinvented.config.moreSell) {
-            if (mc.currentScreen instanceof GuiChest) {
-                GuiChest chest = (GuiChest) mc.currentScreen;
-                ContainerChest inventory = (ContainerChest) chest.inventorySlots;
-                String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
-                boolean trade = displayText.equals("Ophelia") || displayText.equals("Trades");
-                if (trade) {
-                    List<Slot> slots = chest.inventorySlots.inventorySlots;
-                    for (Slot toCheck : slots) {
-                        if (toCheck.getStack() != null) {
-                            if (ItemUtil.getSkyBlockItemID(toCheck.getStack()) != null) {
-                                String id = ItemUtil.getSkyBlockItemID(toCheck.getStack());
-                                for (String s : DungeonChestUtils.sellable) {
-                                    if (id.equals(s)) {
-                                        // colour the same as skytils to make it more seamless integration
-                                        showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, new Color(15, 233, 233, 225).getRGB());
+            try {
+                if (mc.currentScreen instanceof GuiChest) {
+                    GuiChest chest = (GuiChest) mc.currentScreen;
+                    ContainerChest inventory = (ContainerChest) chest.inventorySlots;
+                    String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
+                    boolean trade = displayText.equals("Ophelia") || displayText.equals("Trades");
+                    if (trade) {
+                        List<Slot> slots = chest.inventorySlots.inventorySlots;
+                        for (Slot toCheck : slots) {
+                            if (toCheck.getStack() != null) {
+                                if (!toCheck.getStack().getDisplayName().contains("Bonemerang") && !toCheck.getStack().getDisplayName().contains("Ice Spray Wand")) {
+                                    if (ItemUtil.getSkyBlockItemID(toCheck.getStack()) != null) {
+                                        String id = ItemUtil.getSkyBlockItemID(toCheck.getStack());
+                                        for (String s : DungeonChestUtils.sellable) {
+                                            if (id.equals(s)) {
+                                                // colour the same as skytils to make it more seamless integration
+                                                showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, new Color(15, 233, 233, 225).getRGB());
+                                            }
+                                        }
                                     }
-                                }
-                            }
-                            for (String s : DungeonChestUtils.sellableNames) {
-                                List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
-                                for (String s2 : lore) {
-                                    if (s2.contains(s)) {
-                                        showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, new Color(15, 233, 233, 225).getRGB());
+                                    for (String s : DungeonChestUtils.sellableNames) {
+                                        List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
+                                        for (String s2 : lore) {
+                                            if (s2.contains(s)) {
+                                                showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, new Color(15, 233, 233, 225).getRGB());
+                                            }
+                                        }
+                                        if (toCheck.getStack().getDisplayName().contains(s)) {
+                                            showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, new Color(15, 233, 233, 225).getRGB());
+                                        }
                                     }
-                                }
-                                if (toCheck.getStack().getDisplayName().contains(s)) {
-                                    showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, new Color(15, 233, 233, 225).getRGB());
                                 }
                             }
                         }
                     }
                 }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
             }
         }
         if (SkyblockReinvented.config.chestStop >= 0) {
@@ -245,16 +251,6 @@ public class MiscGUIs {
                                     }
                                 }
                             }
-                        }
-                    }
-                    Slot chestSlot = slots.get(31);
-                    if (foundBadItem) {
-                        if (chestSlot != null) {
-                            showOnSlot(chest.inventorySlots.inventorySlots.size(), chestSlot.xDisplayPosition, chestSlot.yDisplayPosition, Color.red.getRGB());
-                        }
-                    } else {
-                        if (chestSlot != null) {
-                            showOnSlot(chest.inventorySlots.inventorySlots.size(), chestSlot.xDisplayPosition, chestSlot.yDisplayPosition, Color.green.getRGB());
                         }
                     }
                 }

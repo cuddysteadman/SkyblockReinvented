@@ -30,6 +30,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.settings.LocationEditGUI;
 
 public class SRECommand implements ICommand {
 	private final ArrayList<String> aliases = new ArrayList<String>();
@@ -44,9 +45,13 @@ public class SRECommand implements ICommand {
 	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayerSP player = (EntityPlayerSP) sender;
 		
-		
-		ModCore.getInstance().getGuiHandler().open(SkyblockReinvented.config.gui());
-		
+		if (args.length > 0) {
+			if (args[0].equals("gui")) {
+				ModCore.getInstance().getGuiHandler().open(new LocationEditGUI());
+			}
+		} else {
+			ModCore.getInstance().getGuiHandler().open(SkyblockReinvented.config.gui());
+		}
 	}
 
 	@Override

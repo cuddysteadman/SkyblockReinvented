@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class Utils {
@@ -111,6 +112,10 @@ public class Utils {
         shouldBypassVolume = true;
         mc.thePlayer.playSound(sound, 2, (float) pitch);
         shouldBypassVolume = false;
+    }
+    // original
+    public static void sendMsg(String msg) {
+        Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(msg));
     }
     public static boolean checkIronman() {
         if (inSkyblock) {

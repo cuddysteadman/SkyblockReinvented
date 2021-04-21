@@ -1,4 +1,4 @@
-package thecudster.sre.util;
+package thecudster.sre.util.gui;
 /**
  * Taken from NotEnoughUpdates under Creative Commons Attribution-NonCommercial 3.0
  * https://github.com/Moulberry/NotEnoughUpdates/blob/master/LICENSE
@@ -11,6 +11,8 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import org.lwjgl.opengl.GL11;
+import thecudster.sre.util.StringUtils;
+import thecudster.sre.util.gui.RenderUtils;
 
 import java.util.ArrayList;
 import java.util.List;

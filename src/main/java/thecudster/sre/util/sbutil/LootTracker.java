@@ -15,13 +15,16 @@ public class LootTracker {
     public static int volta;
     public static int ghostlyBoots;
     public static int ghostsSinceSorrow;
-    public static String display = EnumChatFormatting.GREEN + "Sorrow: " + sorrow + "\nBag of Cash: " + bagCash + "\nPlasma: " + plasma + "\nVolta: "
-        + volta + "\nGhostly Boots: " + ghostlyBoots + "\nGhosts Since Sorrow: " + ghostsSinceSorrow;
+    public static String[] display = {EnumChatFormatting.GREEN + "Sorrow: " + sorrow, EnumChatFormatting.GREEN + "Bag of Cash: " + bagCash, EnumChatFormatting.GREEN +
+            "Plasma: " + plasma, EnumChatFormatting.GREEN + "Volta: "
+        + volta, EnumChatFormatting.GREEN + "Ghostly Boots: " + ghostlyBoots, EnumChatFormatting.GREEN + "Ghosts Since Sorrow: " + ghostsSinceSorrow};
     @SubscribeEvent
-    public void onRender(RenderGameOverlayEvent event) {
-        display = EnumChatFormatting.GREEN + "Sorrow: " + sorrow + "\n" + EnumChatFormatting.GREEN + "Bag of Cash: " + bagCash +
-                "\n" + EnumChatFormatting.GREEN + "Plasma: " + plasma + "\n" + EnumChatFormatting.GREEN + "Volta: " +
-                volta + "\n" + EnumChatFormatting.GREEN + "Ghostly Boots: " + ghostlyBoots + "\n" + EnumChatFormatting.GREEN +
-                "Ghosts Since Sorrow: " + ghostsSinceSorrow;
+    public void onRender(RenderLivingEvent.Pre event) {
+        display[0] = EnumChatFormatting.GREEN + "Sorrow: " + EnumChatFormatting.LIGHT_PURPLE + sorrow;
+        display[1] = EnumChatFormatting.GREEN + "Bag of Cash: " + EnumChatFormatting.LIGHT_PURPLE + bagCash;
+        display[2] = EnumChatFormatting.GREEN + "Plasma: " + EnumChatFormatting.LIGHT_PURPLE + plasma;
+        display[3] = EnumChatFormatting.GREEN + "Volta: " + EnumChatFormatting.LIGHT_PURPLE + volta;
+        display[4] = EnumChatFormatting.GREEN + "Ghostly Boots: " + EnumChatFormatting.LIGHT_PURPLE + ghostlyBoots;
+        display[5] = EnumChatFormatting.GREEN + "Ghosts Since Sorrow: " + EnumChatFormatting.LIGHT_PURPLE + ghostsSinceSorrow;
     }
 }

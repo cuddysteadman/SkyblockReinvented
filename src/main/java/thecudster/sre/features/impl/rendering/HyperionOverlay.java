@@ -3,6 +3,9 @@ package thecudster.sre.features.impl.rendering;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraft.entity.monster.*;
@@ -10,6 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.sbutil.ItemUtil;
 import thecudster.sre.util.gui.RenderUtil;
+import thecudster.sre.util.sbutil.Utils;
 
 import java.awt.*;
 
@@ -17,7 +21,6 @@ public class HyperionOverlay {
     public String name = "";
     @SubscribeEvent
     public void hyperionOverlay(RenderLivingEvent.Pre event) {
-
         if (event.entity instanceof EntityOtherPlayerMP) {
             return;
         }

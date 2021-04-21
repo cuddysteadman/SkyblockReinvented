@@ -5,7 +5,10 @@
     "mixins": [
         "MixinGuiContainer",
         "MixinNetworkManager",
-        "MixinPlayerControllerMP"
+        "MixinPlayerControllerMP",
+        "MixinEffectRenderer",
+        "MixinRenderItem",
+        "MixinMinecraft"
     ],
     "verbose": true
 }

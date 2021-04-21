@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.SmartFontRenderer;
+import thecudster.sre.util.gui.SmartFontRenderer;
 import thecudster.sre.util.sbutil.CurrentLoc;
 import thecudster.sre.util.sbutil.Utils;
 

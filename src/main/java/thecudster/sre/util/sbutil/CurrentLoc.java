@@ -89,7 +89,8 @@ public class CurrentLoc {
             "The Mist",
             "C&C Minecarts Co.",
             "Grand Library",
-            "Barracks of Heroes"
+            "Barracks of Heroes",
+            "Dragon's Nest"
     };
     public static void checkLoc() {
         List<String> scoreboard = ScoreboardUtil.getSidebarLines();

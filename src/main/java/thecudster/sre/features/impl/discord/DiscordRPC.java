@@ -48,9 +48,8 @@ public class DiscordRPC implements IPCListener {
         }
     }
     public void updatePresence() {
-        if (!SkyblockReinvented.config.discordRP) { return; }
         String location = CurrentLoc.currentLoc;
-        if (location.isEmpty()) {
+        if (location == null) {
             return;
         }
         RichPresence presence = new RichPresence.Builder()

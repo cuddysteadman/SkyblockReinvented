@@ -26,6 +26,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.events.GuiContainerEvent;
@@ -112,17 +114,44 @@ public class MiscClickBlocks {
                 int neededClick = SkyblockReinvented.config.chestStop - num;
                 if (neededClick > 0) {
                     event.setCanceled(true);
-                    Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("You were stopped from opening this chest. Click " + (SkyblockReinvented.config.chestStop - num) + " more times to open the chest."));
                     return;
                 }
             }
         }
     }
     @SubscribeEvent
-    public void onGuiOpen(GuiOpenEvent event) {
+    public void onGuiClose(GuiOpenEvent event) {
 	    MiscGUIs.foundBadItem = false;
         num = 0;
         MiscGUIs.inReforge = false;
+    }
+    /**
+     * Modified from Skytils under GNU Affero General Public license.
+     * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
+     * @author My-Name-Is-Jeff
+     * @author Sychic
+     */
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onTooltip(ItemTooltipEvent event) {
+        if (event.itemStack != null) {
+            if (SkyblockReinvented.config.chestStop > 0 && ItemUtil.getDisplayName(event.itemStack).contains("Open Reward Chest")) {
+                for (int i = 0; i < event.toolTip.size(); i++) {
+                    if (event.toolTip.get(i).contains("NOTE: Coins are withdrawn from")) {
+                        int neededClicks = SkyblockReinvented.config.chestStop - num;
+                        event.toolTip.set(i, "§eClick §a" + neededClicks + "§e times to open this chest!");
+                    }
+                    if (event.toolTip.get(i).contains("your bank") || event.toolTip.get(i).contains("Purchase this chest to receive") ||
+                            event.toolTip.get(i).contains("the rewards above") || event.toolTip.get(i).contains("open one chest") ||
+                            event.toolTip.get(i).contains("choose wisely") || event.toolTip.contains("per Dungeons run")) {
+                        event.toolTip.remove(i);
+                    }
+                }
+                event.toolTip.remove(0);
+                event.toolTip.remove(0);
+                event.toolTip.remove(0);
+                event.toolTip.remove(0);
+            }
+        }
     }
 
 }

@@ -25,12 +25,15 @@ public class RemoveVillagers {
             "Lynn",
             "Stella",
             "Vex",
-            "Liam"
+            "Liam",
+            "Jerry"
     };
     @SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
     public void onCheckRender(RenderLivingEvent.Pre event) {
+        if (!SkyblockReinvented.config.renderVillagers) { return; }
+        boolean villager = false;
         if (event.entity.getCustomNameTag() != null) {
-            boolean villager = false;
+
             for (String s : villagerNames) {
                 if (event.entity.getCustomNameTag().contains(s)) {
                     villager = true;
@@ -55,14 +58,14 @@ public class RemoveVillagers {
         }
         if (!(event.entity instanceof EntityVillager)) { return; }
         EntityVillager villagerEntity = (EntityVillager) event.entity;
-        boolean villager = false;
-        for (String s : villagerNames) {
-            if (event.entity.getCustomNameTag().contains(s)) {
-                villager = true;
-            }
-        }
+
         for (Entity entity : Minecraft.getMinecraft().theWorld.loadedEntityList) {
             if (entity instanceof EntityArmorStand) {
+                for (String s : villagerNames) {
+                    if (entity.getCustomNameTag().contains(s)) {
+                        villager = true;
+                    }
+                }
                 if (villager) {
                     if (entity.getDistanceToEntity(villagerEntity) <= 2) {
                         event.setCanceled(true);

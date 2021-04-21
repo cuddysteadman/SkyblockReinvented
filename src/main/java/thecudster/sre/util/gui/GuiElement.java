@@ -1,4 +1,4 @@
-package thecudster.sre.util;
+package thecudster.sre.util.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -16,7 +16,13 @@ public abstract class GuiElement {
     String name;
     float scale;
     FloatPair pos;
+    public float getActualHeight() {
+        return this.getHeight() * this.getScale();
+    }
 
+    public float getActualWidth() {
+        return this.getWidth() * this.getScale();
+    }
     public GuiElement(String name) {
         this(name, new FloatPair(0, 0));
     }

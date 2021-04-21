@@ -10,14 +10,14 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import org.json.JSONException;
-import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.features.impl.bestiary.BestiaryProgress;
 import thecudster.sre.util.fragbot.FragBot;
 import thecudster.sre.util.fragbot.FragStatus;
+import thecudster.sre.util.sbutil.Utils;
 
 import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class FragRun extends CommandBase {
     private String PREFIX = EnumChatFormatting.DARK_RED + "[FragRunner] " + EnumChatFormatting.GRAY;
@@ -48,7 +48,7 @@ public class FragRun extends CommandBase {
             try{
                 List<FragBot> fragBots = FragStatus.getBestBot(amount);
                 if(fragBots.size() == 0){
-                    sendMessage("Could not find any Bots. Open a Ticket on our partner's  " +  EnumChatFormatting.UNDERLINE + EnumChatFormatting.AQUA +" Discord");
+                    sendMessage("Could not find any Bots. Open a Ticket on our partner's " +  EnumChatFormatting.UNDERLINE + EnumChatFormatting.AQUA +" Discord");
                     return;
                 }
                 fragBots.forEach((fragBot) -> {
@@ -63,12 +63,11 @@ public class FragRun extends CommandBase {
                 sendMessage("These bots are provided by SkyblockReinvented's partner, Fragrunners. You can support them by joining their "
                         + EnumChatFormatting.UNDERLINE + EnumChatFormatting.AQUA+"Discord!");
             } catch (MalformedURLException | JSONException e) {
-                sendMessage("There was an Error fetching the Data. Open a Ticket on our Fragrunner's (our partner) "
+                sendMessage("There was an Error fetching the Data. Open a Ticket on Fragrunner's (our partner) "
                         +EnumChatFormatting.UNDERLINE + EnumChatFormatting.AQUA + "Discord!");
                 e.printStackTrace();
             }
         }).start();
-
     }
 
     @Override

@@ -47,7 +47,8 @@ public class DungeonChestUtils {
             "SPIRIT_LEAP",
             "DUNGEON_LORE_PAPER",
             "ENCHANTED_ROTTEN_FLESH",
-            "ENCHANTED_BONE"
+            "ENCHANTED_BONE",
+            "ICE"
     };
     public static final String[] sellableNames = {
             "Bank",

@@ -1,4 +1,4 @@
-package thecudster.sre.util;
+package thecudster.sre.util.gui;
 
 /**
  * Modified from Skytils under GNU Affero General Public license.
@@ -10,15 +10,20 @@ package thecudster.sre.util;
  */
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.sbutil.Utils;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +41,11 @@ public class GuiManager {
     public static String subtitle = null;
     public static int titleDisplayTicks = 0;
     public static int subtitleDisplayTicks = 0;
+    public GuiManager() {
+        positionFile  = new File(SkyblockReinvented.modDir, "guipositions.json");
+        GUIPOSITIONS = new HashMap<>();
+        readConfig();
+    }
     @SubscribeEvent
     public void renderPlayerInfo(final RenderGameOverlayEvent.Post event) {
         if (event.type != RenderGameOverlayEvent.ElementType.EXPERIENCE && event.type != RenderGameOverlayEvent.ElementType.JUMPBAR)
@@ -48,6 +58,17 @@ public class GuiManager {
             }
         }
         renderTitles(event.resolution);
+    }
+    public boolean registerElement(GuiElement e) {
+        try {
+            counter++;
+            elements.put(counter, e);
+            names.put(e.getName(), e);
+            return true;
+        } catch(Exception err) {
+            err.printStackTrace();
+            return false;
+        }
     }
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
@@ -73,7 +94,40 @@ public class GuiManager {
         GuiManager.title = title;
         GuiManager.titleDisplayTicks = ticks;
     }
+    public Map<Integer,GuiElement> getElements() {
+        return elements;
+    }
+    public static void readConfig() {
+        JsonObject file;
+        try (FileReader in = new FileReader(positionFile)) {
+            file = gson.fromJson(in, JsonObject.class);
+            for (Map.Entry<String, JsonElement> e : file.entrySet()) {
+                try {
+                    GUIPOSITIONS.put(e.getKey(), new FloatPair(e.getValue().getAsJsonObject().get("x").getAsJsonObject().get("value").getAsFloat(), e.getValue().getAsJsonObject().get("y").getAsJsonObject().get("value").getAsFloat()));
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+            GUIPOSITIONS = new HashMap<>();
+            try (FileWriter writer = new FileWriter(positionFile)) {
+                gson.toJson(GUIPOSITIONS, writer);
+            } catch (Exception ignored) {
 
+            }
+        }
+    }
+
+    public static void saveConfig() {
+        for (Map.Entry<String, GuiElement> e : names.entrySet()) {
+            GUIPOSITIONS.put(e.getKey(), e.getValue().getPos());
+        }
+        try (FileWriter writer = new FileWriter(positionFile)) {
+            gson.toJson(GUIPOSITIONS, writer);
+        } catch (Exception ignored) {
+
+        }
+    }
     private void renderTitles(ScaledResolution scaledResolution) {
         Minecraft mc = Minecraft.getMinecraft();
         if (mc.theWorld == null || mc.thePlayer == null || !Utils.inSkyblock) {

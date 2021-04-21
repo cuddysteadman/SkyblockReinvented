@@ -19,14 +19,15 @@ package thecudster.sre.features.impl.filter;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.features.impl.qol.SlayerReminder;
+import thecudster.sre.features.impl.slayer.SlayerReminder;
 import thecudster.sre.util.sbutil.LootTracker;
 import thecudster.sre.util.sbutil.ScoreboardUtil;
-import thecudster.sre.util.sbutil.Utils;
+
 import java.util.List;
 
 public class FilterHandler {
@@ -42,7 +43,7 @@ public class FilterHandler {
 			"Pitch Darkness reveals you've caught a Night Squid.",
 			"Frozen Steve fell into the pond long ago, never to resurface... until now!",
 			"A tiny fin emerges from the water, you've caught a Nurse Shark.",
-			"You've stumbled upon a Sea Guardian.",
+			"You stumbled upon a Sea Guardian.",
 			"Its a Snowman! It looks harmless.",
 			"Phew! It's only a scarecrow.",
 			"It looks like you've disrupted the Sea Witch's brewing session. Watch out, she's furious!",
@@ -446,7 +447,7 @@ public class FilterHandler {
 										}
 									}
 								},
-								6000
+								8000
 						);
 					}
 					if (message.contains("Zombie Slayer XP!")) {
@@ -477,7 +478,7 @@ public class FilterHandler {
 										}
 									}
 								},
-								6000
+								8000
 						);
 					}
 					if (message.contains("Wolf Slayer XP!")) {
@@ -508,7 +509,7 @@ public class FilterHandler {
 										}
 									}
 								},
-								6000
+								8000
 						);
 					}
 					event.setCanceled(true);
@@ -772,6 +773,19 @@ public class FilterHandler {
 				event.setCanceled(true);
 				return;
 			}
+		}
+		/**
+		 * Taken from Skytils under GNU Affero General Public license.
+		 * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
+		 * @author My-Name-Is-Jeff
+		 * @author Sychic
+		 */
+		if (message.startsWith("Your new API key is ")) {
+			String apiKey = event.message.getSiblings().get(0).getChatStyle().getChatClickEvent().getValue();
+			SkyblockReinvented.config.apiKey = apiKey;
+			SkyblockReinvented.config.markDirty();
+			SkyblockReinvented.config.writeData();
+			Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "SkyblockReinvented updated your set Hypixel API key to " + EnumChatFormatting.DARK_GREEN + apiKey));
 		}
 		if (SkyblockReinvented.config.katMsg) {
 			if (message.contains("I'm currently taking care of your ") && message.contains("You can pick it up in")) {

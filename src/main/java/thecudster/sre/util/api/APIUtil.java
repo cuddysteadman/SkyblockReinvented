@@ -23,11 +23,6 @@ import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Scanner;
-/*
-    * Taken from PublicAPI.
-    * @author HypixelDev
-     */
-
 
 public class APIUtil {
     /**
@@ -137,6 +132,10 @@ public class APIUtil {
         }
 
         return latestProfile;
+    }
+    public static String getUUID(String username) {
+        JsonObject uuidResponse = getJSONResponse("https://api.mojang.com/users/profiles/minecraft/" + username);
+        return uuidResponse.get("id").getAsString();
     }
 }
 

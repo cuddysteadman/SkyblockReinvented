@@ -2,6 +2,7 @@ package thecudster.sre.settings;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import club.sk1er.vigilance.Vigilant;
 import club.sk1er.vigilance.data.*;
@@ -23,11 +24,9 @@ public class Config extends Vigilant {
 		type = PropertyType.SWITCH,
 		name = "Remove Power Orbs from Rendering",
 		description = "Stops power orb nametags from rendering to improve visibility and FPS.",
-		category = "Rendering",
-		subcategory = "FPS Improvement",
-			hidden = true
+		category = "General",
+		subcategory = "Rendering"
 	)
-
 	public boolean renderPowerOrb = false;
 	@Property(
 			type = PropertyType.SWITCH,
@@ -106,25 +105,6 @@ public class Config extends Vigilant {
 			subcategory = "Chat"
 	)
 	public boolean bankMsgs = false;
-	@Property(
-			type = PropertyType.SLIDER,
-			name = "X Value for Ghost Loot",
-			description = "Set the x value for the ghost loot gui display.",
-			category = "Dwarven Mines",
-			subcategory = "Combat",
-			max = 532
-	)
-	public int xVal = 0;
-	@Property(
-			type = PropertyType.SLIDER,
-			name = "Y Value for Ghost Loot",
-			description = "Set the Y value for the ghost loot gui display.",
-			category = "Dwarven Mines",
-			subcategory = "Combat",
-			min = 0,
-			max = 285
-	)
-	public int yVal = 0;
 	@Property(
 			type = PropertyType.SLIDER,
 			name = "Amount of Clicks to Stop From Opening Non-Profit Chest",
@@ -283,6 +263,7 @@ public class Config extends Vigilant {
 			subcategory = "Chat"
 	)
 	public boolean warps;
+
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove Inventory Full Messages",
@@ -356,6 +337,88 @@ public class Config extends Vigilant {
 			subcategory = "Misc"
 	)
 	public boolean discordRP = false;
+	@Property(
+			type = PropertyType.TEXT,
+			name = "Hypixel API Key",
+			description = "Your Hypixel API key.",
+			category = "General",
+			subcategory = "Misc"
+	)
+	public String apiKey = "";
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Disable Farm Breaking Particles",
+			description = "Disables all particles from breaking farm blocks.",
+			category = "Your Island",
+			subcategory = "Misc"
+	)
+	public boolean disableFarmParticles = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Slayer Info",
+			description = "Tracks multiple things about slayers such as your RNGesus meter and your XP to next level.",
+			category = "Skills",
+			subcategory = "Slayer"
+	)
+	public boolean slayerInfo = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Item Frame Names",
+			description = "Removes all item frame names.",
+			category = "Your Island",
+			subcategory = "Misc"
+	)
+	public boolean itemFrameNames = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Create Hitboxes Around your Arrows",
+			description = "Creates white hitboxes around your arrows.",
+			category = "General",
+			subcategory = "Rendering"
+	)
+	public boolean arrowHitboxes = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Warn When Near Fish",
+			description = "Warns you when you are about to catch a fish.",
+			category = "General",
+			subcategory = "Rendering"
+	)
+	public boolean fishWarning = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Hide Jerry Heads",
+			description = "Hides your jerry heads.",
+			category = "General",
+			subcategory = "Rendering"
+	)
+	public boolean hideJerry = false;
+	@Property(
+			type = PropertyType.SLIDER,
+			name = "Fish Particles Scale",
+			description = "The scale to render fish particles at.",
+			category = "Skills",
+			subcategory = "Fishing",
+			min = 0,
+			max = 300
+	)
+	public Integer fishScale = 100;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Show Cake Year",
+			description = "Shows the cake year as the stack size of the cake.",
+			category = "General",
+			subcategory = "Misc"
+	)
+	public boolean cakeStackSize = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Bestiary Info",
+			description = "Tracks multiple things about Bestiary such as your kills until next level and your current level.",
+			category = "Skills",
+			subcategory = "Bestiary"
+	)
+	public boolean bestiaryInfo = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Outline Hitboxes of Starred Mobs",
