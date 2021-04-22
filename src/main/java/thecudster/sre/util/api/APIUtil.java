@@ -31,7 +31,7 @@ public class APIUtil {
      * @author My-Name-Is-Jeff
      * @author Sychic
      */
-    public static CloseableHttpClient client = HttpClients.custom().setUserAgent("Skytils/" + SkyblockReinvented.VERSION).addInterceptorFirst((HttpRequestInterceptor) (request, context) -> {
+    public static CloseableHttpClient client = HttpClients.custom().setUserAgent("SkyblockReinvented/" + SkyblockReinvented.VERSION).addInterceptorFirst((HttpRequestInterceptor) (request, context) -> {
         if (!request.containsHeader("Pragma")) request.addHeader("Pragma", "no-cache");
         if (!request.containsHeader("Cache-Control")) request.addHeader("Cache-Control", "no-cache");
     }).build();
