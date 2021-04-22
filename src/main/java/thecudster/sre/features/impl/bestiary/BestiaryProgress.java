@@ -144,8 +144,11 @@ public class BestiaryProgress {
         try {
             String uuid = APIUtil.getUUID(Minecraft.getMinecraft().thePlayer.getName());
             String apiKey = SkyblockReinvented.config.apiKey;
+            if (uuid == null || apiKey == null) { return; }
             String latestProfile = APIUtil.getLatestProfileID(uuid, apiKey);
+            if (latestProfile == null) { return; }
             JsonObject profileResponse = APIUtil.getJSONResponse("https://api.hypixel.net/skyblock/profile?profile=" + latestProfile + "&key=" + apiKey);
+            if (profileResponse == null) { return; }
             if (!profileResponse.get("success").getAsBoolean()) {
                 String reason = profileResponse.get("cause").getAsString();
                 Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Failed getting bestiary info with reason: " + reason));
@@ -157,7 +160,9 @@ public class BestiaryProgress {
                 return;
             }
             JsonObject statsObject = playerObject.get("stats").getAsJsonObject();
+            if (statsObject == null) { return; }
             for (Map.Entry<String, Double> alsdkjf : things.entrySet()) {
+                if (!things.containsKey(alsdkjf.getKey())) { break; }
                 things.replace(alsdkjf.getKey(), Double.parseDouble(statsObject.get(alsdkjf.getKey()).toString().substring(statsObject.get(alsdkjf.getKey()).toString().indexOf(":") + 1)));
             }
         }

@@ -14,11 +14,10 @@ buildscript {
         classpath "org.spongepowered:mixingradle:0.6-SNAPSHOT"
     }
 }
-
 apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: "org.spongepowered.mixin"
 
-version = "0.0.5-pre2"
+version = "0.0.6-pre1"
 group = "thecudster.sre"
 archivesBaseName = "sre"
 
@@ -40,6 +39,7 @@ minecraft {
 
 repositories {
     jcenter()
+    mavenCentral()
     maven { url "https://repo.spongepowered.org/repository/maven-public/" }
 }
 
@@ -77,7 +77,8 @@ dependencies {
         exclude module: 'commons-io'
         exclude module: 'gson'
     }
-    provided files ("libs/DiscordIPC-0.4.jar")
+    packageLib(files("libs/DiscordIPC-0.4.jar"))
+
     provided files("libs/modcore.jar")
     configurations.compile.extendsFrom(configurations.packageLib)
 }
@@ -86,7 +87,6 @@ mixin {
     add sourceSets.main, "mixins.sre.refmap.json"
 }
 jar {
-
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     manifest.attributes(

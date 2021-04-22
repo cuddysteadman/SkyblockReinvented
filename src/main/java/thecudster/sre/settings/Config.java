@@ -6,7 +6,6 @@ import java.util.Locale;
 
 import club.sk1er.vigilance.Vigilant;
 import club.sk1er.vigilance.data.*;
-import org.checkerframework.checker.units.qual.A;
 import scala.sys.Prop;
 
 

@@ -9,12 +9,9 @@ import java.util.zip.GZIPInputStream;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class JSONReader {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(JSONReader.class);
 
   public static JSONObject urlToJson(URL urlString) {
     StringBuilder sb = null;
@@ -26,10 +23,8 @@ public class JSONReader {
       BufferedReader in = null;
       if (urlCon.getHeaderField("Content-Encoding") != null
           && urlCon.getHeaderField("Content-Encoding").equals("gzip")) {
-        LOGGER.info("reading data from URL as GZIP Stream");
         in = new BufferedReader(new InputStreamReader(new GZIPInputStream(urlCon.getInputStream())));
       } else {
-        LOGGER.info("reading data from URL as InputStream");
         in = new BufferedReader(new InputStreamReader(urlCon.getInputStream()));
       }
       String inputLine;
@@ -40,7 +35,6 @@ public class JSONReader {
       }
       in.close();
     } catch (IOException e) {
-      LOGGER.info("Exception while reading JSON from URL - {}", e);
     }
     if (sb != null) {
       try {
@@ -50,7 +44,6 @@ public class JSONReader {
         e.printStackTrace();
       }
     } else {
-      LOGGER.warn("No JSON Found in given URL");
       try {
         return new JSONObject("");
       } catch (JSONException e) {

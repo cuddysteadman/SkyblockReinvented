@@ -21,6 +21,7 @@ import thecudster.sre.commands.*;
 import thecudster.sre.events.CheckSkyblockTick;
 import thecudster.sre.features.impl.bestiary.BestiaryHelper;
 import thecudster.sre.features.impl.discord.DiscordRPC;
+import thecudster.sre.features.impl.dragons.DragTracker;
 import thecudster.sre.features.impl.dungeons.BoxUnkilledMobs;
 import thecudster.sre.features.impl.dungeons.MiscClickBlocks;
 import thecudster.sre.features.impl.filter.FilterHandler;
@@ -43,7 +44,7 @@ public class SkyblockReinvented {
 	public static Config config = new Config();
 	public static final String MODID = "sre";
 	public static final String MOD_NAME = "SkyblockReinvented";
-	public static final String VERSION = "0.0.5-pre2";
+	public static final String VERSION = "0.0.6-pre1";
 	public static KeyBinding[] keyBindings = new KeyBinding[12];
 	public static boolean creeperActivated;
 	public static File modDir = new File(new File(Minecraft.getMinecraft().mcDataDir, "config"), "SRE");
@@ -102,6 +103,7 @@ public class SkyblockReinvented {
 		MinecraftForge.EVENT_BUS.register(new BestiaryProgress());
 		MinecraftForge.EVENT_BUS.register(new JerrychineHider());
 		MinecraftForge.EVENT_BUS.register(new CakeStackSize());
+		MinecraftForge.EVENT_BUS.register(new DragTracker());
 
 		keyBindings[0] = new KeyBinding("Open Bazaar", Keyboard.KEY_B, "SkyblockReinvented");
 		keyBindings[1] = new KeyBinding("Open AH", Keyboard.KEY_H, "SkyblockReinvented");

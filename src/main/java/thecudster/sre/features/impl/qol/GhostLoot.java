@@ -27,6 +27,7 @@ public class GhostLoot {
         }
         @Override
         public void render() {
+            if (!this.getToggled()) { return; }
             ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
             boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
             for (int i = 0; i < LootTracker.display.length; i++) {
@@ -39,6 +40,7 @@ public class GhostLoot {
         public void demoRender() {
             ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
             boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
+            if (!this.getToggled()) { return; }
             for (int i = 0; i < LootTracker.display.length; i++) {
                 SmartFontRenderer.TextAlignment alignment = leftAlign ? SmartFontRenderer.TextAlignment.LEFT_RIGHT : SmartFontRenderer.TextAlignment.RIGHT_LEFT;
                 ScreenRenderer.fontRenderer.drawString(LootTracker.display[i], leftAlign ? this.getActualX() : this.getActualX() + this.getWidth(), this.getActualY() + i * ScreenRenderer.fontRenderer.FONT_HEIGHT, CommonColors.WHITE, alignment, SmartFontRenderer.TextShadow.NORMAL);

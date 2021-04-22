@@ -19,7 +19,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraft.entity.IProjectile;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.checkerframework.checker.units.qual.C;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.gui.RenderUtil;
 import thecudster.sre.util.sbutil.CurrentLoc;
