@@ -11,7 +11,10 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import thecudster.sre.events.JoinSkyblockEvent;
+import thecudster.sre.events.LeaveSkyblockEvent;
 
 public class Utils {
 
@@ -39,6 +42,28 @@ public class Utils {
             e.printStackTrace();
             return false;
         }
+    }
+    /**
+     * Taken from Danker's Skyblock Mod under GPL 3.0 license
+     * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE
+     * @author bowser0000
+     */
+    public static void checkForSkyblock() {
+        if (isOnHypixel()) {
+            ScoreObjective scoreboardObj = mc.theWorld.getScoreboard().getObjectiveInDisplaySlot(1);
+            if (scoreboardObj != null) {
+                String scObjName = scoreboardObj.getDisplayName();
+                if (scObjName.contains("SKYBLOCK")) {
+                    if (!inSkyblock) {
+                        MinecraftForge.EVENT_BUS.post(new JoinSkyblockEvent());
+                    }
+                    inSkyblock = true;
+                    return;
+                }
+            }
+            MinecraftForge.EVENT_BUS.post(new LeaveSkyblockEvent());
+        }
+        inSkyblock = false;
     }
     /**
      * Modified from Skytils under GNU Affero General Public license.
@@ -84,25 +109,6 @@ public class Utils {
         return false;
     }
 
-
-    /**
-     * Taken from Danker's Skyblock Mod under GPL 3.0 license
-     * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE
-     * @author bowser0000
-    */
-    public static void checkForSkyblock() {
-        if (isOnHypixel()) {
-            ScoreObjective scoreboardObj = mc.theWorld.getScoreboard().getObjectiveInDisplaySlot(1);
-            if (scoreboardObj != null) {
-                String scObjName = scoreboardObj.getDisplayName();
-                if (scObjName.contains("SKYBLOCK")) {
-                    inSkyblock = true;
-                    return;
-                }
-            }
-        }
-        inSkyblock = false;
-    }
     /**
      * Taken from SkyblockAddons under MIT License
      * https://github.com/BiscuitDevelopment/SkyblockAddons/blob/master/LICENSE

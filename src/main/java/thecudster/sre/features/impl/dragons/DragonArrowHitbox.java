@@ -1,4 +1,4 @@
-package thecudster.sre.features.impl.rendering;
+package thecudster.sre.features.impl.dragons;
 import net.minecraft.block.BlockEndPortal;
 import net.minecraft.block.BlockEndPortalFrame;
 import net.minecraft.client.Minecraft;
@@ -43,8 +43,10 @@ public class DragonArrowHitbox {
         if (SkyblockReinvented.config.specialHitbox) {
             if (event.entity instanceof EntityEnderman) {
                 EntityEnderman enderman = (EntityEnderman) event.entity;
-                if (enderman.getHeldItem().getItem().equals(BlockEndPortalFrame.blockRegistry)) {
-                    if (Minecraft.getMinecraft().thePlayer.canEntityBeSeen(enderman)) {
+                if (enderman == null) { return; }
+                if (enderman.getHeldItem() == null) { return; }
+                if (enderman.getHeldItem().getItem() != null) {
+                    if (Minecraft.getMinecraft().thePlayer.canEntityBeSeen(enderman) && enderman.getHeldItem().getItem().equals(BlockEndPortalFrame.blockRegistry)) {
                         RenderUtil.drawOutlinedBoundingBox(enderman.getEntityBoundingBox(), new Color(255, 255, 255, 255), 3, 1f);
                         return;
                     }

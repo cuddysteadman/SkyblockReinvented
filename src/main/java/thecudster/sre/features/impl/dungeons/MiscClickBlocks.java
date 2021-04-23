@@ -133,8 +133,25 @@ public class MiscClickBlocks {
      */
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onTooltip(ItemTooltipEvent event) {
+        if (!ItemUtil.getDisplayName(event.itemStack).contains("Open Reward Chest") || event.itemStack == null) { return; }
+        if (MiscGUIs.woodenChest || !MiscGUIs.foundBadItem) {
+            for (int i = 0; i < event.toolTip.size(); i++) {
+                if (event.toolTip.get(i).contains("your bank") || event.toolTip.get(i).contains("Purchase this chest to receive") ||
+                        event.toolTip.get(i).contains("the rewards above") || event.toolTip.get(i).contains("open one chest") ||
+                        event.toolTip.get(i).contains("choose wisely") || event.toolTip.contains("per Dungeons run")) {
+                    event.toolTip.remove(i);
+                }
+            }
+            event.toolTip.remove(0);
+            event.toolTip.remove(0);
+            event.toolTip.remove(0);
+            event.toolTip.remove(0);
+            event.toolTip.remove(3);
+            event.toolTip.remove(2);
+            return;
+        }
         if (event.itemStack != null) {
-            if (SkyblockReinvented.config.chestStop > 0 && ItemUtil.getDisplayName(event.itemStack).contains("Open Reward Chest")) {
+            if (SkyblockReinvented.config.chestStop > 0 && MiscGUIs.foundBadItem && ItemUtil.getDisplayName(event.itemStack).contains("Open Reward Chest")) {
                 for (int i = 0; i < event.toolTip.size(); i++) {
                     if (event.toolTip.get(i).contains("NOTE: Coins are withdrawn from")) {
                         int neededClicks = SkyblockReinvented.config.chestStop - num;

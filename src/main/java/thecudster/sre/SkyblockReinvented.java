@@ -15,13 +15,14 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
-import scala.collection.parallel.ParIterableLike;
 import thecudster.sre.commands.*;
-import thecudster.sre.events.CheckSkyblockTick;
-import thecudster.sre.features.impl.bestiary.BestiaryHelper;
+import thecudster.sre.events.JoinSkyblockEvent;
+import thecudster.sre.events.LeaveSkyblockEvent;
 import thecudster.sre.features.impl.discord.DiscordRPC;
-import thecudster.sre.features.impl.dragons.DragTracker;
+import thecudster.sre.features.impl.dragons.DragonArrowHitbox;
 import thecudster.sre.features.impl.dungeons.BoxUnkilledMobs;
 import thecudster.sre.features.impl.dungeons.MiscClickBlocks;
 import thecudster.sre.features.impl.filter.FilterHandler;
@@ -36,8 +37,11 @@ import thecudster.sre.commands.dungeons.MasterMode;
 import thecudster.sre.features.impl.sounds.MiscSoundBlocks;
 import thecudster.sre.settings.Config;
 import thecudster.sre.util.gui.GuiManager;
+import thecudster.sre.util.gui.ScreenRenderer;
+import thecudster.sre.util.sbutil.CurrentLoc;
 import thecudster.sre.util.sbutil.LootTracker;
 import thecudster.sre.features.impl.slayer.SlayerTracker;
+import thecudster.sre.util.sbutil.Utils;
 
 @Mod(modid = SkyblockReinvented.MODID, name = SkyblockReinvented.MOD_NAME, version = SkyblockReinvented.VERSION, acceptedMinecraftVersions = "[1.8.9]", clientSideOnly = true)
 public class SkyblockReinvented {
@@ -50,6 +54,7 @@ public class SkyblockReinvented {
 	public static File modDir = new File(new File(Minecraft.getMinecraft().mcDataDir, "config"), "SRE");
 	public static boolean foundSB;
 	public static DiscordRPC discordRPC;
+	public static final Minecraft mc = Minecraft.getMinecraft();
 	public static GuiManager GUIMANAGER;
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -95,7 +100,6 @@ public class SkyblockReinvented {
 		MinecraftForge.EVENT_BUS.register(new MasterMode());
 		MinecraftForge.EVENT_BUS.register(new Catacombs());
 		MinecraftForge.EVENT_BUS.register(new RemoveItemFrameNames());
-		MinecraftForge.EVENT_BUS.register(new CheckSkyblockTick());
 		MinecraftForge.EVENT_BUS.register(GUIMANAGER);
 		MinecraftForge.EVENT_BUS.register(new DragonArrowHitbox());
 		MinecraftForge.EVENT_BUS.register(new BoxUnkilledMobs());
@@ -103,7 +107,6 @@ public class SkyblockReinvented {
 		MinecraftForge.EVENT_BUS.register(new BestiaryProgress());
 		MinecraftForge.EVENT_BUS.register(new JerrychineHider());
 		MinecraftForge.EVENT_BUS.register(new CakeStackSize());
-		MinecraftForge.EVENT_BUS.register(new DragTracker());
 
 		keyBindings[0] = new KeyBinding("Open Bazaar", Keyboard.KEY_B, "SkyblockReinvented");
 		keyBindings[1] = new KeyBinding("Open AH", Keyboard.KEY_H, "SkyblockReinvented");
@@ -123,9 +126,6 @@ public class SkyblockReinvented {
 	}
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		if (config.discordRP) {
-			discordRPC.start();
-		}
 	}
 	@EventHandler
 	public void serverInit(FMLServerStartingEvent event) {
@@ -133,6 +133,38 @@ public class SkyblockReinvented {
 	}
 	@EventHandler
 	public void serverClose(FMLServerStoppingEvent event) {
+	}
+	public static int ticks = 0;
+	@SubscribeEvent
+	public void onTick(TickEvent.ClientTickEvent event) {
+		if (event.phase != TickEvent.Phase.START) return;
+		// ScreenRenderer.refresh();
+		if (ticks % 5 == 0) {
+			if (mc.thePlayer != null) {
+			}
+		}
+		if (ticks % 20 == 0) {
+			if (mc.thePlayer == null) { return; }
+			ScreenRenderer.refresh();
+			Utils.checkForDungeons();
+			CurrentLoc.checkLoc();
+			FilterHandler.updateGui();
+			ticks = 0;
+		}
+
+		ticks++;
+	}
+	@SubscribeEvent
+	public void onLeave(LeaveSkyblockEvent event) {
+		this.discordRPC.stop();
+		Utils.inSkyblock = false;
+	}
+	@SubscribeEvent
+	public void onJoin(JoinSkyblockEvent event) {
+		Utils.inSkyblock = true;
+		if (config.discordRP) {
+			this.discordRPC.start();
+		}
 	}
 
 	

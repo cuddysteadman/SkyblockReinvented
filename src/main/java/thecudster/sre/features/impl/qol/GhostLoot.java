@@ -43,7 +43,7 @@ public class GhostLoot {
             if (!this.getToggled()) { return; }
             for (int i = 0; i < LootTracker.display.length; i++) {
                 SmartFontRenderer.TextAlignment alignment = leftAlign ? SmartFontRenderer.TextAlignment.LEFT_RIGHT : SmartFontRenderer.TextAlignment.RIGHT_LEFT;
-                ScreenRenderer.fontRenderer.drawString(LootTracker.display[i], leftAlign ? this.getActualX() : this.getActualX() + this.getWidth(), this.getActualY() + i * ScreenRenderer.fontRenderer.FONT_HEIGHT, CommonColors.WHITE, alignment, SmartFontRenderer.TextShadow.NORMAL);
+                ScreenRenderer.fontRenderer.drawString(LootTracker.display[i], leftAlign ? 0 : this.getActualWidth(), i * ScreenRenderer.fontRenderer.FONT_HEIGHT, CommonColors.WHITE, alignment, SmartFontRenderer.TextShadow.NORMAL);
             }
         }
 

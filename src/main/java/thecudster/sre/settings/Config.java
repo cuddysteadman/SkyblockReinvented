@@ -668,9 +668,38 @@ public class Config extends Vigilant {
 	
 	public boolean threeWeirdosIncorrect = false;
 	
-	
-	
-	
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "Ignore",
+			category = "Ignore",
+			hidden = true,
+			max = 1000
+	)
+	public int dragsSinceSup;
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "Ignore2",
+			category = "Ignore",
+			hidden = true,
+			max = 1000
+	)
+	public int dragsSinceAotd;
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "Ignore3",
+			category = "Ignore",
+			hidden = true,
+			max = 1000
+	)
+	public int dragsSincePet;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Dragon Tracker",
+			description = "Displays info about recent dragons, dragons since a drop, and more.",
+			category = "General",
+			subcategory = "Misc"
+	)
+	public boolean dragTracker = false;
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Change Damage Milestone Messages",

@@ -40,6 +40,7 @@ import java.util.List;
 
 public class MiscGUIs {
     public static boolean foundBadItem = false;
+    public static boolean woodenChest = false;
     /*
      * Taken from Danker's Skyblock Mod under GPL 3.0 license.
      * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE
@@ -227,9 +228,14 @@ public class MiscGUIs {
                 GuiChest chest = (GuiChest) mc.currentScreen;
                 ContainerChest inventory = (ContainerChest) chest.inventorySlots;
                 String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
+                if (displayText.equals("Wood Chest")) {
+                    woodenChest = true;
+                    return;
+                }
                 boolean dungeonChest = displayText.equals("Emerald Chest") || displayText.equals("Obsidian Chest") || displayText.equals("Gold Chest")
-                        || displayText.equals("Wood Chest") || displayText.equals("Diamond Chest");
+                        || displayText.equals("Diamond Chest");
                 if (dungeonChest) {
+                    woodenChest = false;
                     List<Slot> slots = chest.inventorySlots.inventorySlots;
                     for (Slot toCheck : slots) {
                         if (toCheck.getStack() != null) {

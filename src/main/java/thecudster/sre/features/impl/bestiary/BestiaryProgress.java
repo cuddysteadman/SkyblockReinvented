@@ -203,10 +203,19 @@ public class BestiaryProgress {
         }
     }*/
     @SubscribeEvent
-    public void onWorldChange(WorldEvent.Load event) {
+    public void onWorldChange(WorldEvent.Load event) throws InterruptedException {
+
         if (SkyblockReinvented.config.bestiaryInfo) {
             this.getThings();
         }
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        Utils.checkForSkyblock();
+                    }
+            },4000
+        );
     }
     static {
         new BestiaryKills();
