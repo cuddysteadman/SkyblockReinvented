@@ -1,10 +1,30 @@
+/*
+ * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
+ *  Copyright (C) 2021 theCudster
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 package thecudster.sre.features.impl.discord;
+
 import com.jagrosh.discordipc.IPCClient;
 import com.jagrosh.discordipc.IPCListener;
 import com.jagrosh.discordipc.entities.RichPresence;
-import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.sbutil.CurrentLoc;
 import org.json.JSONObject;
+import thecudster.sre.util.sbutil.CurrentLoc;
+
 import java.time.OffsetDateTime;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -55,12 +75,13 @@ public class DiscordRPC implements IPCListener {
         RichPresence presence = new RichPresence.Builder()
                 .setState("Playing Skyblock")
                 .setDetails("In " + location)
+                .setLargeImage("logodiscord")
                 .setStartTimestamp(startTimestamp)
                 .build();
         client.sendRichPresence(presence);
     }
     public boolean isActive() {
-        return client != null && connected;
+        return client != null;
     }
     @Override
     public void onReady(IPCClient client) {

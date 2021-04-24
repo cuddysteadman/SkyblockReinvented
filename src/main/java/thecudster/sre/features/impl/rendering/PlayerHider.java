@@ -1,3 +1,22 @@
+/*
+ * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
+ *  Copyright (C) 2021 theCudster
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 package thecudster.sre.features.impl.rendering;
 
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -8,19 +27,13 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.gui.DrawWaypoint;
 import thecudster.sre.util.sbutil.RenderWhitelist;
 import thecudster.sre.util.sbutil.Utils;
 
 public class PlayerHider {
-	/**
-     * Modified from SkyblockBonus under GNU General Public license.
-     * https://github.com/TGMDevelopment/SkyBlockBonus/blob/main/LICENSE
-     * @author MatthewTGM
-     */
-
 	@SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
 	public void onEntityRender(RenderLivingEvent.Pre event) {
+		if (!Utils.inSkyblock) { return; }
 		if (event.entity instanceof EntityPlayerSP) return;
         if (!(event.entity instanceof EntityOtherPlayerMP)) return;
         if (this.isNPC(event.entity)) { return; }
@@ -37,9 +50,6 @@ public class PlayerHider {
 		}
 		if (!found && SkyblockReinvented.config.renderPlayers) {
 			event.setCanceled(true);
-		}
-		if (SkyblockReinvented.config.renderWaypointDungeons && Utils.inDungeons) {
-			DrawWaypoint.drawWaypoint(0.01f, event.entity.getPosition().down(), ((EntityOtherPlayerMP) event.entity).getDisplayNameString());
 		}
 	}
 	/**

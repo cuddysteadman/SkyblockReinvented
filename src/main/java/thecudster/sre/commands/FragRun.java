@@ -1,3 +1,22 @@
+/*
+ * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
+ *  Copyright (C) 2021 theCudster
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 package thecudster.sre.commands;
 
 import net.minecraft.client.Minecraft;
@@ -10,20 +29,18 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import org.json.JSONException;
-import thecudster.sre.features.impl.bestiary.BestiaryProgress;
 import thecudster.sre.util.fragbot.FragBot;
 import thecudster.sre.util.fragbot.FragStatus;
-import thecudster.sre.util.sbutil.Utils;
 
 import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.List;
 
 public class FragRun extends CommandBase {
-    private String PREFIX = EnumChatFormatting.DARK_RED + "[FragRunner] " + EnumChatFormatting.GRAY;
+    private final String PREFIX = EnumChatFormatting.DARK_RED + "[FragRunner] " + EnumChatFormatting.GRAY;
     @Override
     public String getCommandName() {
-        return "fragrun";
+        return "frags";
     }
 
     @Override

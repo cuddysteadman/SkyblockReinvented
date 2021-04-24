@@ -1,23 +1,34 @@
+/*
+ * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
+ *  Copyright (C) 2021 theCudster
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 package thecudster.sre.features.impl.dragons;
-import net.minecraft.block.BlockEndPortal;
+
 import net.minecraft.block.BlockEndPortalFrame;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
-import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityIronGolem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.client.event.RenderWorldEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraft.entity.IProjectile;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.gui.RenderUtil;
@@ -29,6 +40,7 @@ import java.awt.*;
 public class DragonArrowHitbox {
     @SubscribeEvent
     public void onRender(RenderLivingEvent.Pre event) {
+        if (!Utils.inSkyblock) { return; }
         if (CurrentLoc.currentLoc != "The End" && CurrentLoc.currentLoc != "Dragon's Nest") {
             return;
         }
@@ -57,6 +69,7 @@ public class DragonArrowHitbox {
             for (Entity e : Minecraft.getMinecraft().theWorld.loadedEntityList) {
                 if (e instanceof EntityArrow) {
                     EntityArrow arrow = (EntityArrow) e;
+                    if (arrow.shootingEntity == null || Minecraft.getMinecraft().thePlayer == null) { return; }
                     if (((EntityArrow) e).shootingEntity.equals(Minecraft.getMinecraft().thePlayer)) {
                         RenderUtil.drawOutlinedBoundingBox(e.getEntityBoundingBox(), new Color(255, 255, 255, 255), 3, 1f);
                     }

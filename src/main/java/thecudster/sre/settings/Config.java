@@ -1,12 +1,30 @@
+/*
+ * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
+ *  Copyright (C) 2021 theCudster
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 package thecudster.sre.settings;
+
+import club.sk1er.vigilance.Vigilant;
+import club.sk1er.vigilance.data.Property;
+import club.sk1er.vigilance.data.PropertyType;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Locale;
-
-import club.sk1er.vigilance.Vigilant;
-import club.sk1er.vigilance.data.*;
-import scala.sys.Prop;
 
 
 public class Config extends Vigilant {
@@ -498,14 +516,6 @@ public class Config extends Vigilant {
 		subcategory = "Chat"
 	)
 	public boolean visitIsland = false;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Render Waypoints to Teammates",
-			description = "Render a waypoint at teammates while in a dungeon.",
-			category = "Dungeons",
-			subcategory = "Rendering"
-	)
-	public boolean renderWaypointDungeons = false;
 
 	@Property(
 			type = PropertyType.SWITCH,
@@ -535,7 +545,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Show Gift Compass Waypoints",
 			description = "Shows waypoints for where to go when Gift Compass is held in hand.",
-			category = "Jerry Island",
+			category = "General",
 			subcategory = "Rendering"
 	)
 	public boolean giftCompassWaypoints = false;
@@ -576,7 +586,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Clean Jerry's Workshop",
 			description = "Cleans many useless Jerry's Workshop messages.",
-			category = "Jerry Island",
+			category = "General",
 			subcategory = "Chat"
 	)
 	public boolean cleanJerry = false;
@@ -590,12 +600,20 @@ public class Config extends Vigilant {
 	public boolean spiritBats = false;
 	@Property(
 			type = PropertyType.SWITCH,
-			name = "Remove JerryChine Gun Sounds",
-			description = "Removes your jerrychine gun sounds.",
-			category = "Items",
-			subcategory = "Sounds"
+			name = "Remove Combat Warp Messages",
+			description = "Removes all messages about how you can't be in combat.",
+			category = "General",
+			subcategory = "Chat"
 	)
-	public boolean jerryChine;
+	public boolean warpCombat = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Pickup Stash Messages and Keybind",
+			description = "Creates a title and plays a sound when you need to pickupstash.",
+			category = "General",
+			subcategory = "Misc"
+	)
+	public boolean stash = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Hide Dumb Slayer Drops",

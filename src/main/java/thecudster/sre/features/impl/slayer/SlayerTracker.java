@@ -1,18 +1,37 @@
+/*
+ * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
+ *  Copyright (C) 2021 theCudster
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 package thecudster.sre.features.impl.slayer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.Util;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.gui.*;
+import thecudster.sre.util.gui.FloatPair;
+import thecudster.sre.util.gui.GuiElement;
+import thecudster.sre.util.gui.ScreenRenderer;
+import thecudster.sre.util.gui.SmartFontRenderer;
 import thecudster.sre.util.gui.colours.CommonColors;
 import thecudster.sre.util.sbutil.Utils;
 
@@ -21,14 +40,10 @@ public class SlayerTracker {
     public static String xpLeft = EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!";
     public static String currentSlayer = EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!";
     public static String display = EnumChatFormatting.GREEN + "XP Until Next Level: " + xpLeft + "\nRNGesus Meter " + rngesusMeter;
-    public static String displayXP = EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!";;
-    public static String rngesus = EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!";;
+    public static String displayXP = EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!";
+    public static String rngesus = EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!";
     public static String current = EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!";
-    private String meterText = "RNGesus Meter: -------------------- ";
-    private int nxtLvl = " - Next LVL in ".length();
-    private String xpLeftRev = "   Zombie Slayer LVL ";
-    private String xpLeftTara = "   Spider Slayer LVL ";
-    private String xpLeftSven = "   Wolf Slayer LVL ";
+    private final int nxtLvl = " - Next LVL in ".length();
     private static final Minecraft mc = Minecraft.getMinecraft();
     @SubscribeEvent
     public void onRender(RenderGameOverlayEvent event) {
@@ -43,12 +58,14 @@ public class SlayerTracker {
     public void onChat(ClientChatReceivedEvent event) {
         if (SkyblockReinvented.config.slayerInfo) {
             String unformatted = event.message.getUnformattedText();
+            String meterText = "RNGesus Meter: -------------------- ";
             if (unformatted.contains(meterText)) {
                 unformatted = EnumChatFormatting.LIGHT_PURPLE + unformatted.substring(meterText.length() + 3);
                 SlayerTracker.rngesusMeter = unformatted;
                 event.setCanceled(true);
                 return;
             }
+            String xpLeftRev = "   Zombie Slayer LVL ";
             if (unformatted.contains(xpLeftRev)) {
                 SlayerTracker.currentSlayer = EnumChatFormatting.LIGHT_PURPLE + "Revenant";
                 unformatted = unformatted.substring(xpLeftRev.length() + nxtLvl + 1, unformatted.length() - 1);
@@ -56,6 +73,7 @@ public class SlayerTracker {
                 event.setCanceled(true);
                 return;
             }
+            String xpLeftTara = "   Spider Slayer LVL ";
             if (unformatted.contains(xpLeftTara)) {
                 SlayerTracker.currentSlayer = EnumChatFormatting.LIGHT_PURPLE + "Tarantula";
                 unformatted = unformatted.substring(xpLeftTara.length() + nxtLvl + 1, unformatted.length() - 1);
@@ -63,6 +81,7 @@ public class SlayerTracker {
                 event.setCanceled(true);
                 return;
             }
+            String xpLeftSven = "   Wolf Slayer LVL ";
             if (unformatted.contains(xpLeftSven)) {
                 SlayerTracker.currentSlayer = EnumChatFormatting.LIGHT_PURPLE + "Sven";
                 unformatted = unformatted.substring(xpLeftSven.length() + nxtLvl + 1, unformatted.length() - 1);
@@ -134,7 +153,7 @@ public class SlayerTracker {
 
         @Override
         public boolean getToggled() {
-            return SkyblockReinvented.config.slayerInfo;
+            return SkyblockReinvented.config.slayerInfo && !Utils.inDungeons;
         }
 
         @Override

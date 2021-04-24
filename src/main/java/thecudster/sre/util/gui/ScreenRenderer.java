@@ -1,3 +1,22 @@
+/*
+ * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
+ *  Copyright (C) 2021 theCudster
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 package thecudster.sre.util.gui;
 
 import net.minecraft.client.Minecraft;
@@ -28,9 +47,6 @@ public class ScreenRenderer {
     public static Minecraft mc;
     public static ScaledResolution screen = null;
     private static boolean rendering = false;
-    private static float scale = 1.0f;
-    private static float rotation = 0;
-    private static boolean mask = false;
     private static boolean scissorTest = false;
     private static Point drawingOrigin = new Point(0, 0); public static Point drawingOrigin() { return drawingOrigin; }
     private static Point transformationOrigin = new Point(0, 0);
@@ -38,9 +54,15 @@ public class ScreenRenderer {
     private static RenderItem itemRenderer = null;
 
     public static boolean isRendering() { return rendering; }
-    public static float getScale() { return scale; }
-    public static float getRotation() { return rotation; }
-    public static boolean isMasking() { return mask; }
+    public static float getScale() {
+        float scale = 1.0f;
+        return scale; }
+    public static float getRotation() {
+        float rotation = 0;
+        return rotation; }
+    public static boolean isMasking() {
+        boolean mask = false;
+        return mask; }
 
     /** refresh
      * Triggered by a slower loop(client tick), refresh

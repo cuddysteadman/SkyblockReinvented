@@ -1,19 +1,20 @@
 /*
  * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
- * Copyright (C) 2021 theCudster
+ *  Copyright (C) 2021 theCudster
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
  */
 package thecudster.sre.events;
 
@@ -21,6 +22,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.features.impl.qol.Stash;
 import thecudster.sre.util.sbutil.Utils;
 
 public class Keybindings {
@@ -64,6 +66,11 @@ public class Keybindings {
         if (SkyblockReinvented.keyBindings[11].isPressed()) {
             Minecraft.getMinecraft().thePlayer.sendChatMessage("/dh");
             Minecraft.getMinecraft().thePlayer.sendChatMessage("/dh");
+        }
+        if (SkyblockReinvented.keyBindings[12].isPressed()) {
+            if (Stash.needsToPickup) {
+                Minecraft.getMinecraft().thePlayer.sendChatMessage("/pickupstash");
+            }
         }
 
     }

@@ -1,29 +1,45 @@
+/*
+ * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
+ *  Copyright (C) 2021 theCudster
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 package thecudster.sre.mixins;
 
-import jdk.nashorn.internal.codegen.CompilerConstants;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.particle.EffectRenderer;
-import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.particle.EntityBlockDustFX;
+import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.particle.EntityFishWakeFX;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import scala.collection.parallel.ParIterableLike;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.gui.GuiManager;
 import thecudster.sre.util.sbutil.Utils;
-import net.minecraft.client.particle.EntityFishWakeFX;
+
 @Mixin(EffectRenderer.class)
 public class MixinEffectRenderer {
     @Inject(method = "addBlockHitEffects", at = @At("HEAD"), cancellable = true)
@@ -49,9 +65,13 @@ public class MixinEffectRenderer {
     int stopDestroyingMyFuckingEars = 60;
     @Inject(method = "addEffect", at = @At("HEAD"), cancellable = true)
     private void addEffect(EntityFX effect, CallbackInfo ci) {
+        if (!Utils.inSkyblock || !Utils.inDungeons) { return; }
         if (effect instanceof EntityFishWakeFX) {
             if (SkyblockReinvented.config.fishWarning) {
                 EntityFishWakeFX fish = (EntityFishWakeFX) effect;
+                Utils.sendMsg("Red: " + fish.getRedColorF());
+                Utils.sendMsg("Blue: " + fish.getBlueColorF());
+                Utils.sendMsg("Green: " + fish.getGreenColorF());
                 boolean found = false;
                 for (Entity e : Minecraft.getMinecraft().theWorld.loadedEntityList) {
                     if (e instanceof EntityFishHook) {

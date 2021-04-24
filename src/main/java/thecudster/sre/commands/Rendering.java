@@ -1,19 +1,20 @@
 /*
  * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
- * Copyright (C) 2021 theCudster
+ *  Copyright (C) 2021 theCudster
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
  */
 package thecudster.sre.commands;
 
@@ -23,8 +24,10 @@ import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import org.jetbrains.annotations.NotNull;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.util.sbutil.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,8 +83,7 @@ public class Rendering implements ICommand {
             SkyblockReinvented.config.listToRender.add(args[1]);
         }
         else {
-            Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("Invalid arguments! The valid arguments are current, clear, search, remove, and add."));
-
+            Utils.sendMsg(EnumChatFormatting.RED + "Invalid arguments! Valid arguments are search, current, clear, add, and remove.");
         }
     }
 

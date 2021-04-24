@@ -1,19 +1,20 @@
 /*
  * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
- * Copyright (C) 2021 theCudster
+ *  Copyright (C) 2021 theCudster
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
  */
 package thecudster.sre.features.impl.dungeons;
 
@@ -24,7 +25,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -46,7 +46,7 @@ public class MiscClickBlocks {
     public String supposedName;
 	@SubscribeEvent(receiveCanceled = true)
     public void onSlotClick(GuiContainerEvent.SlotClickEvent event) {
-        // if (!Utils.inSkyblock) return;
+        if (!Utils.inSkyblock) return;
 
         if (event.container instanceof ContainerChest) {
             ContainerChest chest = (ContainerChest) event.container;
@@ -106,6 +106,8 @@ public class MiscClickBlocks {
         /**
          * Modified from Skytils under GNU Affero General Public license.
          * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
+         * @author Sychic
+         * @author My-Name-Is-Jeff
          */
 
         if (event.container instanceof ContainerChest) {
@@ -133,6 +135,7 @@ public class MiscClickBlocks {
      */
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onTooltip(ItemTooltipEvent event) {
+        if (!Utils.inSkyblock || !Utils.inDungeons) { return; }
         if (!ItemUtil.getDisplayName(event.itemStack).contains("Open Reward Chest") || event.itemStack == null) { return; }
         if (MiscGUIs.woodenChest || !MiscGUIs.foundBadItem) {
             for (int i = 0; i < event.toolTip.size(); i++) {

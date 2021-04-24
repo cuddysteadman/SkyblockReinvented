@@ -16,45 +16,50 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
+
 package thecudster.sre.commands;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
-import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.util.BlockPos;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.util.EnumChatFormatting;
+import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.features.impl.dragons.DragTracker;
 import thecudster.sre.util.sbutil.Utils;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class JoinDung implements ICommand {
-    private final ArrayList<String> aliases = new ArrayList<String>();
-    public JoinDung() {
-        aliases.add("dh");
-        aliases.add("dungeonhub");
-        aliases.add("dunghub");
-    }
+public class DragCommand extends CommandBase {
     @Override
     public String getCommandName() {
-        return "dhub";
+        return "drag";
     }
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/dhub";
+        return "/drag";
+    }
+
+    @Override
+    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+        if (args.length == 0) {
+            SkyblockReinvented.config.dragTracker = !SkyblockReinvented.config.dragTracker;
+        } else if (args[0].equals("clear")) {
+            SkyblockReinvented.config.dragsSinceAotd = 0;
+            SkyblockReinvented.config.dragsSincePet = 0;
+            SkyblockReinvented.config.dragsSinceSup = 0;
+            DragTracker.recentDrags.clear();
+            SkyblockReinvented.config.writeData();
+            SkyblockReinvented.config.markDirty();
+        } else {
+            Utils.sendMsg(EnumChatFormatting.RED + "Invalid usage! Use either /drag or /drag clear.");
+        }
     }
 
     @Override
     public List<String> getCommandAliases() {
-        return aliases;
-    }
-    @Override
-    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        if (Utils.inSkyblock) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/warp dungeon_hub");
-        }
+        return Arrays.asList("dragon", "drags", "dr");
     }
 
     @Override
@@ -62,18 +67,4 @@ public class JoinDung implements ICommand {
         return true;
     }
 
-    @Override
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
-        return null;
-    }
-
-    @Override
-    public boolean isUsernameIndex(String[] args, int index) {
-        return false;
-    }
-
-    @Override
-    public int compareTo(@NotNull ICommand o) {
-        return 0;
-    }
 }

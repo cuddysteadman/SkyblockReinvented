@@ -22,11 +22,11 @@
 * Remove Guardian Chestplate Messages
 * Remove Wither Cloak Creepers Except your Own
 * Remove Creeper Sounds from Veil
-* Hide Jerry-chine Gun Sounds
 * Hyperion Overlay - Overlays mobs within Hyperion range
 * Show Cake year as stack size
 * Hide JerryChine gun heads
 * Remove Power Orb Particles & Nametags
+* Remove Item Frame Display Names
 ### General
 * Remove "You're doing this too fast!" Messages
 * Remove Welcome Messages
@@ -37,11 +37,13 @@
 * Remove Potion Buff Messages
 * Remove Generally Useless Messages
 * Hyperion Overlay - Overlays mobs within Hyperion range
-* Remove Chat from Mods such as Skytils, SBA, etc.
 * Only Render Specific Players
 * Keybinds for TONS of different functions
 * Bestiary Info (very laggy atm and not too accurate)
 * Create Hitboxes around your arrows
+* Dragon Tracker
+* Auto notify when stash full + remove stash messages
+* "You need to be out of combat" spam hider
 ### Your Island
 * Remove chat from Jerries
 * Remove Minion Inventory Warnings
@@ -116,8 +118,9 @@
 * /s: /s add, /s search, /s clear, /s remove: search for items in Wardrobe, Echest, and Accessory Bag.
 * /re: /re add, /re search, /re add, /re remove: add or remove specific players to the whitelist
 * /fragrun: automatically parties an online fragrun bot (aliases: /fr)
+* /drag command: /drag clear (clear current dragon tracker info), /drag (toggle gui display element)
 ## This mod would not be possible without these wonderful people and their projects:
-* Sychic, My-Name-Is-Jeff, Angry-Pineapple3121, and AzuredBlue (Skytils: https://github.com/Skytils/SkytilsMod)
+* Sychic & My-Name-Is-Jeff (Skytils: https://github.com/Skytils/SkytilsMod)
 * Moulberry (NEU: https://github.com/Moulberry/NotEnoughUpdates)
 * Cobble8 (SkyblockPersonalized: https://github.com/Cobble8/SkyblockPersonalized)
 * Biscuit (SkyblockAddons: https://github.com/BiscuitDevelopment/SkyblockAddons)

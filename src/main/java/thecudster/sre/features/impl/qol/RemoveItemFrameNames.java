@@ -16,25 +16,21 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.features.impl.slayer;
 
-import thecudster.sre.util.gui.GuiManager;
+package thecudster.sre.features.impl.qol;
+
+import net.minecraftforge.client.event.RenderItemInFrameEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.util.sbutil.CurrentLoc;
 import thecudster.sre.util.sbutil.Utils;
 
-public class SlayerReminder {
-    public static void remindRevenant() throws InterruptedException {
-        Thread.sleep(5000);
-        Utils.playLoudSound("random.orb", 0.5);
-        GuiManager.createTitle("§cStart a new Revenant slayer!", 20);
-    }
-    public static void remindTara() throws InterruptedException {
-        Thread.sleep(5000);
-        Utils.playLoudSound("random.orb", 0.5);
-        GuiManager.createTitle("§cStart a new Tarantula slayer!", 20);
-    }
-    public static void remindSven() throws InterruptedException {
-        Thread.sleep(5000);
-        Utils.playLoudSound("random.orb", 0.5);
-        GuiManager.createTitle("§cStart a new Sven slayer!", 20);
+public class RemoveItemFrameNames {
+    @SubscribeEvent
+    public void onRender(RenderItemInFrameEvent event) {
+        if (!Utils.inSkyblock) { return; }
+        if (!CurrentLoc.currentLoc.equals("Your Island"))
+        if (!SkyblockReinvented.config.itemFrameNames) { return; }
+        event.item.setStackDisplayName("");
     }
 }

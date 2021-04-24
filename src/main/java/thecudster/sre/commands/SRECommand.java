@@ -1,36 +1,33 @@
 /*
  * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
- * Copyright (C) 2021 theCudster
+ *  Copyright (C) 2021 theCudster
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
  */
 package thecudster.sre.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import club.sk1er.mods.core.ModCore;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.settings.LocationEditGUI;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SRECommand implements ICommand {
 	private final ArrayList<String> aliases = new ArrayList<String>();
@@ -43,8 +40,6 @@ public class SRECommand implements ICommand {
 	}
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-		EntityPlayerSP player = (EntityPlayerSP) sender;
-		
 		if (args.length > 0) {
 			if (args[0].equals("gui")) {
 				ModCore.getInstance().getGuiHandler().open(new LocationEditGUI());
@@ -66,7 +61,7 @@ public class SRECommand implements ICommand {
 
 	@Override
 	public String getCommandUsage(ICommandSender sender) {
-		return "Open SRE menu.";
+		return "/sre";
 	}
 
 	@Override

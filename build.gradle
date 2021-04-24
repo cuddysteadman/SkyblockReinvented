@@ -78,6 +78,7 @@ dependencies {
         exclude module: 'gson'
     }
     packageLib(files("libs/DiscordIPC-0.4.jar"))
+    packageLib(files("libs/json-20210307.jar"))
 
     provided files("libs/modcore.jar")
     configurations.compile.extendsFrom(configurations.packageLib)

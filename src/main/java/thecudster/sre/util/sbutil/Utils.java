@@ -1,7 +1,23 @@
-package thecudster.sre.util.sbutil;
+/*
+ * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
+ *  Copyright (C) 2021 theCudster
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
 
-import java.util.List;
-import java.util.Random;
+package thecudster.sre.util.sbutil;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -16,6 +32,9 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import thecudster.sre.events.JoinSkyblockEvent;
 import thecudster.sre.events.LeaveSkyblockEvent;
 
+import java.util.List;
+import java.util.Random;
+
 public class Utils {
 
     private static final Minecraft mc = Minecraft.getMinecraft();
@@ -28,6 +47,8 @@ public class Utils {
     /**
      * Taken from Skytils under GNU Affero General Public license.
      * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
+     * @author Sychic
+     * @author My-Name-Is-Jeff
      */
     public static boolean isOnHypixel() {
         try {
@@ -54,20 +75,20 @@ public class Utils {
             if (scoreboardObj != null) {
                 String scObjName = scoreboardObj.getDisplayName();
                 if (scObjName.contains("SKYBLOCK")) {
-                    if (!inSkyblock) {
-                        MinecraftForge.EVENT_BUS.post(new JoinSkyblockEvent());
-                    }
+                    MinecraftForge.EVENT_BUS.post(new JoinSkyblockEvent());
                     inSkyblock = true;
                     return;
                 }
             }
-            MinecraftForge.EVENT_BUS.post(new LeaveSkyblockEvent());
         }
+        MinecraftForge.EVENT_BUS.post(new LeaveSkyblockEvent());
         inSkyblock = false;
     }
     /**
      * Modified from Skytils under GNU Affero General Public license.
      * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
+     * @author Sychic
+     * @author My-Name-Is-Jeff
      */
     public static void checkForDungeons() {
         if (inSkyblock) {

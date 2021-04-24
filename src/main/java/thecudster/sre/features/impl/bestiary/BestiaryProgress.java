@@ -1,26 +1,37 @@
+/*
+ * SkyblockReinvented - Hypixel Skyblock Improvement Modification for Minecraft
+ *  Copyright (C) 2021 theCudster
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 package thecudster.sre.features.impl.bestiary;
 
 import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.server.gui.MinecraftServerGui;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StringUtils;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.features.impl.slayer.SlayerTracker;
 import thecudster.sre.util.api.APIUtil;
 import thecudster.sre.util.gui.*;
 import thecudster.sre.util.gui.colours.CommonColors;
@@ -29,9 +40,8 @@ import thecudster.sre.util.sbutil.Utils;
 import java.util.*;
 
 public class BestiaryProgress {
+    public static String mobName = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + "Not detected yet!";
     public static HashMap<String, Double> things = new LinkedHashMap<String, Double>();
-    public static String display = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + "Not detected yet!\n" + EnumChatFormatting.RED +
-            "Kills to next level: " + EnumChatFormatting.GOLD + "Not detected yet!";
     public static String kills = EnumChatFormatting.RED +
             "Kills to next level: " + EnumChatFormatting.GOLD + "Not detected yet!";
     public static String current = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + "Not detected yet!";
@@ -162,7 +172,7 @@ public class BestiaryProgress {
             JsonObject statsObject = playerObject.get("stats").getAsJsonObject();
             if (statsObject == null) { return; }
             for (Map.Entry<String, Double> alsdkjf : things.entrySet()) {
-                if (!things.containsKey(alsdkjf.getKey())) { break; }
+                if (!things.containsKey(alsdkjf.getKey())) { return; }
                 things.replace(alsdkjf.getKey(), Double.parseDouble(statsObject.get(alsdkjf.getKey()).toString().substring(statsObject.get(alsdkjf.getKey()).toString().indexOf(":") + 1)));
             }
         }
@@ -181,40 +191,35 @@ public class BestiaryProgress {
                     if (!e.getCustomNameTag().contains("§f/§a")) { return; }
                     if (e.getDistanceToEntity(Minecraft.getMinecraft().thePlayer) > 20) { return; }
                     System.out.println(e.getCustomNameTag());
-                    String mobName = e.getCustomNameTag().substring(e.getCustomNameTag().indexOf(" §c") + 1);
+                    mobName = e.getCustomNameTag().substring(e.getCustomNameTag().indexOf(" §c") + 1);
                     mobName = mobName.substring(0, mobName.indexOf(" §a"));
                     mobName = StringUtils.stripControlCodes(mobName);
                     String current = "kills_" + BestiaryHelper.getCorrectName(mobName);
                     this.things.put(current, this.things.get(current) + 1);
                     int numKills = this.things.get(current).intValue();
                     kills = BestiaryHelper.updateKills(numKills);
-                    current = BestiaryHelper.updateCurrent(mobName);
+                    mobName = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + mobName;
                     } catch (NullPointerException ex) {
                     ex.printStackTrace();
                 }
             }
         }
-    }/*
-    @SubscribeEvent
-    public void onRender(RenderGameOverlayEvent.Text event) {
-        if (SkyblockReinvented.config.bestiaryInfo) {
-            new TextRenderer(Minecraft.getMinecraft(), this.display, SkyblockReinvented.config.bestiaryInfoX, SkyblockReinvented.config.bestiaryInfoY, 1);
-            Minecraft.getMinecraft().getTextureManager().bindTexture(Gui.icons);
-        }
-    }*/
+    }
+
     @SubscribeEvent
     public void onWorldChange(WorldEvent.Load event) throws InterruptedException {
-
-        if (SkyblockReinvented.config.bestiaryInfo) {
-            this.getThings();
-        }
         new java.util.Timer().schedule(
+
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
+                        if (SkyblockReinvented.config.bestiaryInfo && Utils.inSkyblock) {
+                            getThings();
+                        }
+                        Utils.checkForDungeons();
                         Utils.checkForSkyblock();
                     }
-            },4000
+            },3000
         );
     }
     static {
@@ -243,7 +248,7 @@ public class BestiaryProgress {
 
         @Override
         public boolean getToggled() {
-            return SkyblockReinvented.config.bestiaryInfo;
+            return SkyblockReinvented.config.bestiaryInfo && !Utils.inDungeons && Utils.inSkyblock;
         }
 
         @Override
@@ -267,7 +272,7 @@ public class BestiaryProgress {
             ScaledResolution sr = new ScaledResolution(mc);
             if (this.getToggled() && player != null && mc.theWorld != null) {
                 boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
-                ScreenRenderer.fontRenderer.drawString(current, leftAlign ? this.getActualX() : this.getActualX() + this.getWidth(), this.getActualY(), CommonColors.WHITE, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NORMAL);
+                ScreenRenderer.fontRenderer.drawString(mobName, leftAlign ? this.getActualX() : this.getActualX() + this.getWidth(), this.getActualY(), CommonColors.WHITE, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NORMAL);
             }
         }
 
@@ -278,7 +283,7 @@ public class BestiaryProgress {
 
         @Override
         public boolean getToggled() {
-            return SkyblockReinvented.config.bestiaryInfo;
+            return SkyblockReinvented.config.bestiaryInfo && !Utils.inDungeons && Utils.inSkyblock;
         }
 
         @Override
