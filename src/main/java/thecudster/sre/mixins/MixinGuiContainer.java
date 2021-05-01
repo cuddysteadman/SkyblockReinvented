@@ -40,7 +40,7 @@ import thecudster.sre.events.GuiContainerEvent;
  * @author My-Name-Is-Jeff
  */
 @Mixin(GuiContainer.class)
-public class MixinGuiContainer {
+public abstract class MixinGuiContainer {
 
     @Shadow public Container inventorySlots;
 
@@ -51,7 +51,7 @@ public class MixinGuiContainer {
         try {
             MinecraftForge.EVENT_BUS.post(new GuiContainerEvent.CloseWindowEvent(that, inventorySlots));
         } catch (Throwable e) {
-            Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText("§cSkyblockReinvented caught and logged an exception at GuiContainerEvent.CloseWindowEvent. Please report this on the Discord server."));
+            Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText("§SkyblockReinvented caught and logged an exception at GuiContainerEvent.CloseWindowEvent. Please report this on the Discord server."));
             e.printStackTrace();
         }
     }

@@ -24,14 +24,10 @@ import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SBCommand implements ICommand {
-	private final ArrayList<String> aliases = new ArrayList<String>();
-	public SBCommand() {
-		aliases.add("skyblock");
-	}
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
 		Minecraft.getMinecraft().thePlayer.sendChatMessage("/play skyblock");
@@ -55,7 +51,7 @@ public class SBCommand implements ICommand {
 
 	@Override
 	public List<String> getCommandAliases() {
-		return aliases;
+		return Arrays.asList("skyblock");
 	}
 
 	@Override

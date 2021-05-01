@@ -84,7 +84,7 @@ public class APIUtil {
 
                 return gson.fromJson(r.toString(), JsonObject.class);
             } else {
-                if (urlString.startsWith("https://api.hypixel.net/") || urlString.equals("https://sky.shiiyu.moe/api/v2/")) {
+                if (urlString.startsWith("https://api.hypixel.net/") || urlString.startsWith("https://sky.shiiyu.moe/api/v2/")) {
                     InputStream errorStream = entity.getContent();
                     try (Scanner scanner = new Scanner(errorStream)) {
                         scanner.useDelimiter("\\Z");

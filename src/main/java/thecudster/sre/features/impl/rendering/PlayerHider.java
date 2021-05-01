@@ -49,7 +49,7 @@ public class PlayerHider {
 			if (((EntityOtherPlayerMP) event.entity).getDisplayNameString().contains(s)) { found = true; }
 		}
 		if (!found && SkyblockReinvented.config.renderPlayers) {
-			event.setCanceled(true);
+			event.entity.setInvisible(true);
 		}
 	}
 	/**

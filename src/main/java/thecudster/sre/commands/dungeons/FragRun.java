@@ -17,7 +17,7 @@
  *
  */
 
-package thecudster.sre.commands;
+package thecudster.sre.commands.dungeons;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;

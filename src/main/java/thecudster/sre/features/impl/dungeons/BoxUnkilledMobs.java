@@ -20,7 +20,6 @@
 package thecudster.sre.features.impl.dungeons;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.client.event.RenderLivingEvent;
@@ -45,9 +44,9 @@ public class BoxUnkilledMobs {
         if (SkyblockReinvented.config.outlineMobs) {
             String name = StringUtils.stripControlCodes(event.entity.getCustomNameTag());
             if (name.startsWith("✯ ") && name.contains("❤")) {
-                if (name.contains("Lost Adventurer") || name.contains("Angry Archaeologist") || name.contains("Lurker") || name.contains("Dreadlord") || name.contains("Souleater") || name.contains("Zombie") || name.contains("Skeleton") || name.contains("Skeletor") || name.contains("Sniper") || name.contains("Super Archer") || name.contains("Spider") || name.contains("Fels") || name.contains("Withermancer")) {
+                if (name.contains("Lost Adventurer") || name.contains("Angry Archeologist") || name.contains("Lurker") || name.contains("Dreadlord") || name.contains("Souleater") || name.contains("Zombie") || name.contains("Skeleton") || name.contains("Skeletor") || name.contains("Sniper") || name.contains("Super Archer") || name.contains("Spider") || name.contains("Fels") || name.contains("Withermancer")) {
                     for (Entity e : Minecraft.getMinecraft().theWorld.loadedEntityList) {
-                        if (!(e instanceof EntityPlayerSP)) {
+                        if (!(e.equals(Minecraft.getMinecraft().thePlayer)) && !e.isInvisible()) {
                             if (e.getDistanceToEntity(event.entity) <= 3) {
                                 RenderUtil.drawOutlinedBoundingBox(e.getEntityBoundingBox(), new Color(255, 0, 0, 255), 3f, 1f);
                             }

@@ -1,4 +1,5 @@
 {
+    "required": true,
     "compatibilityLevel": "JAVA_8",
     "package": "thecudster.sre.mixins",
     "refmap": "mixins.sre.refmap.json",
@@ -7,8 +8,7 @@
         "MixinNetworkManager",
         "MixinPlayerControllerMP",
         "MixinEffectRenderer",
-        "MixinRenderItem",
-        "MixinMinecraft"
+        "MixinRenderItem"
     ],
     "verbose": true
 }

@@ -24,10 +24,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.particle.EffectRenderer;
-import net.minecraft.client.particle.EntityBlockDustFX;
-import net.minecraft.client.particle.EntityFX;
-import net.minecraft.client.particle.EntityFishWakeFX;
+import net.minecraft.client.particle.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.util.BlockPos;
@@ -41,7 +38,7 @@ import thecudster.sre.util.gui.GuiManager;
 import thecudster.sre.util.sbutil.Utils;
 
 @Mixin(EffectRenderer.class)
-public class MixinEffectRenderer {
+public abstract class MixinEffectRenderer {
     @Inject(method = "addBlockHitEffects", at = @At("HEAD"), cancellable = true)
     private void addBlockHitEffects(BlockPos pos, EnumFacing directionFacing, CallbackInfo ci) {
         if (!SkyblockReinvented.config.disableFarmParticles) { return; }
@@ -97,7 +94,7 @@ public class MixinEffectRenderer {
                 }
             }
         }
-        else if (effect instanceof EntityBlockDustFX) {
+        else if (effect instanceof EntityBlockDustFX || effect instanceof EntityFootStepFX) {
             if (SkyblockReinvented.config.renderPlayers) {
                 ci.cancel();
                 return;

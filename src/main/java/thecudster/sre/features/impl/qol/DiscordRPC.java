@@ -17,13 +17,19 @@
  *
  */
 
-package thecudster.sre.features.impl.discord;
+package thecudster.sre.features.impl.qol;
 
 import com.jagrosh.discordipc.IPCClient;
 import com.jagrosh.discordipc.IPCListener;
 import com.jagrosh.discordipc.entities.RichPresence;
+import com.jagrosh.discordipc.entities.User;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.StringUtils;
 import org.json.JSONObject;
+import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.sbutil.CurrentLoc;
+import thecudster.sre.util.sbutil.ItemUtil;
+import thecudster.sre.util.sbutil.Utils;
 
 import java.time.OffsetDateTime;
 import java.util.Timer;
@@ -39,6 +45,10 @@ public class DiscordRPC implements IPCListener {
     private IPCClient client;
     private OffsetDateTime startTimestamp;
     private Timer updateTimer;
+    public static String profile = "";
+    public static String state = "Playing Skyblock";
+    public static int partySize = 1;
+    public static int partyMax = 5;
 
     private boolean connected;
     public void start() {
@@ -72,16 +82,46 @@ public class DiscordRPC implements IPCListener {
         if (location == null) {
             return;
         }
+        switch (SkyblockReinvented.config.discordMode) {
+            case 0:
+                break;
+            case 1:
+                state = Minecraft.getMinecraft().thePlayer.getName();
+                break;
+            case 2:
+                if (Minecraft.getMinecraft().thePlayer.getHeldItem() != null) {
+                    if (ItemUtil.getDisplayName(Minecraft.getMinecraft().thePlayer.getHeldItem()) != null) {
+                        state = StringUtils.stripControlCodes(ItemUtil.getDisplayName(Minecraft.getMinecraft().thePlayer.getHeldItem()));
+                        break;
+                    }
+                }
+                state = "Not Holding an Item!";
+                break;
+            case 3:
+                state = "Playing Skyblock";
+                break;
+            case 4:
+                state = SkyblockReinvented.config.discordCustomText;
+                break;
+        }
         RichPresence presence = new RichPresence.Builder()
-                .setState("Playing Skyblock")
+                .setState(state)
                 .setDetails("In " + location)
                 .setLargeImage("logodiscord")
                 .setStartTimestamp(startTimestamp)
+//                .setParty("Skyblock Party", partySize, partyMax)
+  //              .setInstance(true)
+    //            .setMatchSecret("SRE")
+      //          .setJoinSecret("SRE")
                 .build();
         client.sendRichPresence(presence);
     }
     public boolean isActive() {
         return client != null;
+    }
+    @Override
+    public void onActivityJoinRequest(IPCClient client, String secret, User user) {
+        Utils.sendMsg(user.getName() + " joined the party!");
     }
     @Override
     public void onReady(IPCClient client) {

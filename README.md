@@ -28,6 +28,10 @@
 * Remove Power Orb Particles & Nametags
 * Remove Item Frame Display Names
 ### General
+* Configurable Discord Rich Presence 
+* Treasure Hunter Waypoints
+* Jerry Timer
+* Auto Update Checker / clickable chat message
 * Remove "You're doing this too fast!" Messages
 * Remove Welcome Messages
 * Remove You are playing on profile Messages
@@ -52,6 +56,10 @@
 * Hide Useless Jacob Messages - Removes Useless Jacob's Event Messages
 * Remove Minion XP Messages
 ### Dungeons
+* Watcher Ready Title
+* Hide Incorrect Livids
+* Right/Left Click anywhere in dungeon chest to auto press escape 
+* Spam hider for selling dungeon items
 * Remove "You hear the sound of something opening" Messages
 * Remove Dungeon Potion Messages
 * Remove Wither Skulls Messages
@@ -78,7 +86,8 @@
 * Remove Warnings about Hubs
 ### Skills
 #### Slayer
-* Clean Maddox Batphone - Removes Useless Batphone Messages
+* Clean Maddox Batphone - Removes Useless Batphone Messages 
+* Maddox click message (just taken from DSM, for all of you that don't have DSM but want to use the slayer cleaner. get DSM though)
 * Hide Useless Slayer Drop Messages - Removes useless (<15k coinsish) slayer drop messages
 * Clean Maddox Batphone - Removes Useless Batphone Messages
 * Remind to Start New Slayer: reminds you to start a new slayer quest if you haven't started a new one after 5 seconds
@@ -105,13 +114,13 @@
 * Hub Overlay: overlays hubs that you can join in green and hubs that you can't join in red
 * Jacob's Contest Overlay - Shows which you haven't claimed
 * Remove Messages from Kat
-* Remove Messages from Dante's goons
 * Remove Messages about Bank Withdrawals/Deposits
 ### Jerry Island
 * Gift Waypoints - Displays Gift Waypoints when holding Gift Compass
 * Clean Jerry's Workshop - Generally cleans up the chat of Jerry's Workshop
 ### Commands
-* /sre: main GUI (aliases: /SRE, /SkyblockReinvented)
+* /sre: main GUI (aliases: /SRE, /SkyblockReinvented) 
+* /sre help: displays all commands
 * /sre gui: edit GUI locations
 * /re: toggle whether to render players (aliases: /render)
 * /f1, /f2, /f3, etc: join respective dungeon floors

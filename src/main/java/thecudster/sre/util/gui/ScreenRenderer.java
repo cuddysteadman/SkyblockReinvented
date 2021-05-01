@@ -24,7 +24,6 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.item.ItemStack;
 import thecudster.sre.util.gui.colours.CustomColor;
 
@@ -43,8 +42,8 @@ import java.util.Arrays;
  */
 public class ScreenRenderer {
 
-    public static SmartFontRenderer fontRenderer = null;
-    public static Minecraft mc;
+    public static SmartFontRenderer fontRenderer = new SmartFontRenderer();
+    public static Minecraft mc = Minecraft.getMinecraft();
     public static ScaledResolution screen = null;
     private static boolean rendering = false;
     private static boolean scissorTest = false;
@@ -71,24 +70,7 @@ public class ScreenRenderer {
      * Do not call this method from anywhere in the mod!
      */
     public static void refresh() {
-        mc = Minecraft.getMinecraft();
         screen = new ScaledResolution(mc);
-        if (fontRenderer == null) {
-            try {
-                fontRenderer = new SmartFontRenderer();
-            } catch (Throwable ignored) {
-            } finally {
-                if (fontRenderer != null) {
-                    if (mc.gameSettings.language != null) {
-                        fontRenderer.setUnicodeFlag(mc.isUnicode());
-                        fontRenderer.setBidiFlag(mc.getLanguageManager().isCurrentLanguageBidirectional());
-                    }
-                    ((IReloadableResourceManager)mc.getResourceManager()).registerReloadListener(fontRenderer);
-                }
-            }
-        }
-        if (itemRenderer == null)
-            itemRenderer = Minecraft.getMinecraft().getRenderItem();
     }
 
 //    /** void beginGL

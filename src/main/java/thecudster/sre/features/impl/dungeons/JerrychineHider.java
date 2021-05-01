@@ -40,7 +40,7 @@ public class JerrychineHider {
                 if (entity.getCurrentArmor(0) != null || entity.getCurrentArmor(1) != null || entity.getCurrentArmor(2) != null) { return; }
                 if (headSlot != null && headSlot.getItem() == Items.skull && headSlot.hasTagCompound()) {
                     if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()).equals("JERRY_STAFF")) {
-                        event.setCanceled(true);
+                        event.entity.setInvisible(true);
                     }
                 }
             }

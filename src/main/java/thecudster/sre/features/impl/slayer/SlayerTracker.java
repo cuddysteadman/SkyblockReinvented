@@ -118,7 +118,7 @@ public class SlayerTracker {
 
         @Override
         public boolean getToggled() {
-            return SkyblockReinvented.config.slayerInfo;
+            return SkyblockReinvented.config.slayerInfo && Utils.inSkyblock && !Utils.inDungeons;
         }
 
         @Override
@@ -153,7 +153,7 @@ public class SlayerTracker {
 
         @Override
         public boolean getToggled() {
-            return SkyblockReinvented.config.slayerInfo && !Utils.inDungeons;
+            return SkyblockReinvented.config.slayerInfo && Utils.inSkyblock && !Utils.inDungeons;
         }
 
         @Override
@@ -188,7 +188,7 @@ public class SlayerTracker {
 
         @Override
         public boolean getToggled() {
-            return SkyblockReinvented.config.slayerInfo;
+            return SkyblockReinvented.config.slayerInfo && Utils.inSkyblock && !Utils.inDungeons;
         }
 
         @Override

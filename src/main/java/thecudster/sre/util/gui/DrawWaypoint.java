@@ -58,5 +58,38 @@ public class DrawWaypoint {
         GlStateManager.enableDepth();
         GlStateManager.enableCull();
     }
+    /*
+     * Modified from Skytils under GNU Affero Public License.
+     * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
+     * @author Sychic
+     * @author My-Name-Is-Jeff
+     */
+    public static void drawWaypointExtras(float partialTicks, BlockPos pos, String text, Color color, boolean drawBeam) {
+
+        Entity viewer = Minecraft.getMinecraft().getRenderViewEntity();
+        double viewerX = viewer.lastTickPosX + (viewer.posX - viewer.lastTickPosX) * partialTicks;
+        double viewerY = viewer.lastTickPosY + (viewer.posY - viewer.lastTickPosY) * partialTicks;
+        double viewerZ = viewer.lastTickPosZ + (viewer.posZ - viewer.lastTickPosZ) * partialTicks;
+
+
+        double x = pos.getX() - viewerX;
+        double y = pos.getY() - viewerY;
+        double z = pos.getZ() - viewerZ;
+        double distSq = x*x + y*y + z*z;
+
+        GlStateManager.disableDepth();
+        GlStateManager.disableCull();
+        RenderUtil.drawFilledBoundingBox(new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1), color, 1f);
+
+        if (!drawBeam || text == null) {         GlStateManager.enableDepth();
+            GlStateManager.enableCull(); return; }
+        GlStateManager.disableTexture2D();
+        if (distSq > 5*5) RenderUtil.renderBeaconBeam(x, y + 2, z, color.getRGB(), 1.0f, partialTicks);
+        RenderUtil.renderWaypointText(text, pos.up(5), partialTicks);
+        GlStateManager.disableLighting();
+        GlStateManager.enableTexture2D();
+        GlStateManager.enableDepth();
+        GlStateManager.enableCull();
+    }
 
 }

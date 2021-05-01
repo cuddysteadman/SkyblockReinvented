@@ -29,17 +29,10 @@ import org.jetbrains.annotations.NotNull;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.sbutil.Utils;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Rendering implements ICommand {
-    private final ArrayList<String> aliases = new ArrayList<String>();
-    public Rendering() {
-        aliases.add("render");
-        aliases.add("rendering");
-        aliases.add("re");
-        aliases.add("re");
-    }
     @Override
     public String getCommandName() {
         return "rend";
@@ -52,7 +45,7 @@ public class Rendering implements ICommand {
 
     @Override
     public List<String> getCommandAliases() {
-        return aliases;
+        return Arrays.asList("render", "rendering", "re");
     }
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {

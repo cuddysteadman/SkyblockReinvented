@@ -84,7 +84,7 @@ public class DragonArrowHitbox {
             if (event.entity instanceof EntityArrow) {
                 EntityArrow arrow = (EntityArrow) event.entity;
                 if (arrow.shootingEntity instanceof EntityOtherPlayerMP) {
-                    event.setCanceled(true);
+                    event.entity.setInvisible(true);
                     return;
                 }
             }

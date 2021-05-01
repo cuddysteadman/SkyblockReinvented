@@ -29,30 +29,268 @@ import java.util.ArrayList;
 
 public class Config extends Vigilant {
 	@Property(
-		type = PropertyType.SWITCH,
-		name = "Remove Wither Cloak Creepers",
-		description = "Removes all Creeper Veil Creepers except your own.",
-		category = "Items",
-		subcategory = "Rendering"
-	)
-	public boolean renderCreepers = false;
-	public ArrayList<String> listToRender = new ArrayList<String>();
-	@Property(
-		type = PropertyType.SWITCH,
-		name = "Remove Power Orbs from Rendering",
-		description = "Stops power orb nametags from rendering to improve visibility and FPS.",
-		category = "General",
-		subcategory = "Rendering"
-	)
-	public boolean renderPowerOrb = false;
-	@Property(
 			type = PropertyType.SWITCH,
-			name = "Remove Dante Goon Messages",
-			description = "Removes all messages from Dante's goons.",
-			category = "Hub",
+			name = "Remove Wither Skulls Messages",
+			description = "Removes messages from wither skulls.",
+			category = "Dungeons",
 			subcategory = "Chat"
 	)
-	public boolean danteMsgs = false;
+	public boolean witherSkulls = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Dungeon Potion Messages",
+			description = "Removes messages about potions when entering dungeons.",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean dungeonPotionMsg = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Doubled Messages",
+			description = "Removes messages about how your stats are doubled in dungeons.",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean doubleMsg = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Opening Messages",
+			description = "Removes all \"You hear the sound of something opening\" messages.",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean openMsg = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Journal Messages",
+			description = "Removes messages about you picking up a journal.",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean journalMsg = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Crypt Wither Skull Messages",
+			description = "Removes all \"A crypt wither skull exploded\" messages from chat.",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean cryptWitherSkull = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Change Damage Milestone Messages",
+			description = "Changes Damage Milestone Messages to a HUD element. \n�cUnimplemented!",
+			category = "Dungeons",
+			subcategory = "Chat",
+			hidden = true
+	)
+	public boolean damageMilestones = false;
+
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Lost Adventurer Messages",
+			description = "Removes Lost Adventurer messages like \"Lost Adventurer used Dragon's Breath on you!\"",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean dragonsBreath = false;
+
+
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Wither Essence Messages",
+			description = "Removes \"x found a Wither Essence! Everyone Gains an extra essence!\" messages.",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+
+	public boolean essenceMessages = false;
+
+
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Wither Door Opened Messages",
+			description = "Removes \"x opened a WITHER door!\" messages. \n§cRecommended to not use this with don't have key message remover.",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean openWither = false;
+
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Can't Open Wither Door Messages", // could be causing errors
+			description = "Removes \"x opened a WITHER door!\" messages. \n§cRecommended to not use this with opened wither door message remover.",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean cantOpenWither = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Bone Plating Messages",
+			description = "Removes bone plating messages that say \"Your bone plating reduced the damage you took by\".",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean bonePlating = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Clean Ending of Dungeon",
+			description = "Gives a clean end to the dungeon (chat). \n§cMay break mods that shows summary of score!",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean cleanEnd = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Orb Messages",
+			description = "Removes messages about picking up orbs from players.",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean damageOrbs = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Healer Messages",
+			description = "Removes all useless healer messages.",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean healerMsg = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Dungeon Finder Messages",
+			description = "Removes useless dungeon finder messages.",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean dungeonFinder;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Watcher Messages",
+			description = "Removes all watcher messages except Blood Door open messages. \n§cCould cause errors with other timers in mods, hasn't been tested!",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean removeWatcher = false;
+	@Property(
+			type = PropertyType.SLIDER,
+			name = "Amount of Clicks to Stop From Opening Non-Profit Chest",
+			description = "The amount of clicks you need to stop you from opening chests at the end of dungeons if they aren't profit. BUGGY!",
+			category = "Dungeons",
+			subcategory = "Misc",
+			min = 0,
+			max = 10
+	)
+	public int chestStop = 0;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Right/Left Click in Dungeon Chest",
+			description = "Right or left click anywhere to exit the chest. Not a macro, you can yell at me on discord if you want.",
+			category = "Dungeons",
+			subcategory = "Misc"
+	)
+	public boolean clickDungeonChest = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Set Livids Invisible",
+			description = "Sets all incorrect invisible to make visibility better in livid fights.",
+			category = "Dungeons",
+			subcategory = "Misc"
+	)
+	public boolean hideLivids = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Incorrect Three Weirdos Messages",
+			description = "Removes all incorrect Three Weirdos messages. Solvers should still work. \n§cUntested!",
+			category = "Dungeons",
+			subcategory = "Misc"
+	)
+	public boolean threeWeirdosIncorrect = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Watcher Title Reminder",
+			description = "Plays a noise and shows text when the watcher is ready.",
+			category = "Dungeons",
+			subcategory = "Misc"
+	)
+	public boolean watcherTitle = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Better Creeper Solver",
+			description = "Edit to Danker's Skyblock Mod creeper solver to make it more intuitive and to only show one combo at a time.",
+			category = "Dungeons",
+			subcategory = "QOL"
+	)
+	public boolean betterCreeper = false;
+	@Property(
+			type = PropertyType.SLIDER,
+			name = "Dungeon Floor Lock",
+			description = "Only allows you to enter a certain floor of dungeons.",
+			category = "Dungeons",
+			subcategory = "QOL",
+			max = 7
+	)
+	public int floorLock = 0;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Show Items to Sell (addon to Skytils)",
+			description = "Renders a blue square over items you can sell to Ophelia. Addon to Skytils.",
+			category = "Dungeons",
+			subcategory = "QOL"
+	)
+	public boolean moreSell = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remind Skeleton Masters",
+			description = "Plays a sound when you are near a skeleton master.",
+			category = "Dungeons",
+			subcategory = "Rendering"
+	)
+	public boolean warnSkeletonMasters = false;
+	@Property(
+			type = PropertyType.SLIDER,
+			max = 10,
+			min = 1,
+			name = "Range to Remind Skeleton Masters",
+			description = "Specifies the range to play a sound from when near a skeleton master.",
+			category = "Dungeons",
+			subcategory = "Rendering"
+	)
+	public int skeletonRange = 0;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remind Bat Secrets",
+			description = "Plays a sound when you are near a bat secret.",
+			category = "Dungeons",
+			subcategory = "Rendering"
+	)
+	public boolean warnBatSecrets = false;
+	@Property(
+			type = PropertyType.SLIDER,
+			max = 10,
+			min = 1,
+			name = "Range to Remind Secret Bats",
+			description = "Specifies the range to play a sound from when near a bat secret.",
+			category = "Dungeons",
+			subcategory = "Rendering"
+	)
+	public int batRange = 0;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Outline Hitboxes of Starred Mobs",
+			description = "Shows the hitboxes of all starred mobs that you haven't killed yet in Dungeons.",
+			category = "Dungeons",
+			subcategory = "Rendering"
+	)
+	public boolean outlineMobs = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Hide your Spirit Bats",
+			description = "Hides your spirit bats.",
+			category = "Dungeons",
+			subcategory = "Rendering"
+	)
+	public boolean spiritBats = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove Ghost Titles",
@@ -72,20 +310,28 @@ public class Config extends Vigilant {
 	public boolean ticketMsgs = false;
 	@Property(
 			type = PropertyType.SWITCH,
-			name = "Remind Skeleton Masters",
-			description = "Plays a sound when you are near a skeleton master.",
-			category = "Dungeons",
-			subcategory = "Rendering"
+			name = "Remove Unimportant Fetchur Messages",
+			description = "Removes all unimportant fetchur messages.",
+			category = "Dwarven Mines",
+			subcategory = "Chat"
 	)
-	public boolean warnSkeletonMasters = false;
+	public boolean showFetchur = false;
 	@Property(
 			type = PropertyType.SWITCH,
-			name = "Remind Bat Secrets",
-			description = "Plays a sound when you are near a bat secret.",
-			category = "Dungeons",
-			subcategory = "Rendering"
+			name = "Remove Puzzler Messages",
+			description = "Removes puzzler messages.",
+			category = "Dwarven Mines",
+			subcategory = "Chat"
 	)
-	public boolean warnBatSecrets = false;
+	public boolean removePuzzler = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Remove Golden Goblin Messages",
+			description = "Removes all messages from golden goblins.",
+			category = "Dwarven Mines",
+			subcategory = "Chat"
+	)
+	public boolean goldenGoblin = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Ghost Loot Tracker",
@@ -95,25 +341,23 @@ public class Config extends Vigilant {
 	)
 	public boolean ghostTracker = false;
 	@Property(
-			type = PropertyType.SLIDER,
-			max = 10,
-			min = 1,
-			name = "Range to Remind Skeleton Masters",
-			description = "Specifies the range to play a sound from when near a skeleton master.",
-			category = "Dungeons",
-			subcategory = "Rendering"
+			type = PropertyType.SWITCH,
+			name = "Remove Titles from Raffles",
+			description = "Removes the annoying \"WON 3X EVENT REWARDS!\" titles.",
+			category = "Dwarven Mines",
+			subcategory = "Rendering",
+			hidden = true
 	)
-	public int skeletonRange = 0;
+	public boolean removeRaffleTitles = false;
+	public ArrayList<String> listToRender = new ArrayList<String>();
 	@Property(
-			type = PropertyType.SLIDER,
-			max = 10,
-			min = 1,
-			name = "Range to Remind Secret Bats",
-			description = "Specifies the range to play a sound from when near a bat secret.",
-			category = "Dungeons",
-			subcategory = "Rendering"
+		type = PropertyType.SWITCH,
+		name = "Remove Power Orbs from Rendering",
+		description = "Stops power orb nametags from rendering to improve visibility and FPS.",
+		category = "General",
+		subcategory = "Rendering"
 	)
-	public int batRange = 0;
+	public boolean renderPowerOrb = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove Messages about Bank",
@@ -122,16 +366,7 @@ public class Config extends Vigilant {
 			subcategory = "Chat"
 	)
 	public boolean bankMsgs = false;
-	@Property(
-			type = PropertyType.SLIDER,
-			name = "Amount of Clicks to Stop From Opening Non-Profit Chest",
-			description = "The amount of clicks you need to stop you from opening chests at the end of dungeons if they aren't profit. BUGGY!",
-			category = "Dungeons",
-			subcategory = "Rendering",
-			min = 0,
-			max = 10
-	)
-	public int chestStop = 0;
+
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Show Your Current Pet",
@@ -150,14 +385,6 @@ public class Config extends Vigilant {
 	public boolean reforgeSoundOff = false;
 	@Property(
 			type = PropertyType.SWITCH,
-			name = "Show Items to Sell (addon to Skytils)",
-			description = "Renders a blue square over items you can sell to Ophelia. Addon to Skytils.",
-			category = "Dungeons",
-			subcategory = "Rendering"
-	)
-	public boolean moreSell = false;
-	@Property(
-			type = PropertyType.SWITCH,
 			name = "Overlay Mobs in Range of Hyperion",
 			description = "Overlays mobs that are in range of your hyperion with a green box around them.",
 			category = "Items",
@@ -166,13 +393,12 @@ public class Config extends Vigilant {
 	public boolean hyperionOverlay = false;
 	@Property(
 			type = PropertyType.SWITCH,
-			name = "Remove Titles from Raffles",
-			description = "Removes the annoying \"WON 3X EVENT REWARDS!\" titles.",
-			category = "Dwarven Mines",
-			subcategory = "Rendering",
-			hidden = true
+			name = "Remove GEXP Messages",
+			description = "Removes messages that say \"You earned x GEXP from playing SkyBlock!\".",
+			category = "QOL",
+			subcategory = "Hypixel QOL"
 	)
-	public boolean removeRaffleTitles = false;
+	public boolean gexpMsg = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove RNG Titles from Dicer",
@@ -198,16 +424,6 @@ public class Config extends Vigilant {
 		subcategory = "Chat"
 	)
 	public boolean removeMinionWarnings = false;
-	
-	@Property(
-		type = PropertyType.SLIDER,
-        name = "Dungeon Floor Lock",
-        description = "Only allows you to enter a certain floor of dungeons.",
-        category = "Dungeons",
-        subcategory = "QOL",
-        max = 7
-	)
-	public int floorLock = 0;
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Chat from Jerries",
@@ -216,14 +432,6 @@ public class Config extends Vigilant {
 		subcategory = "Chat"
 	)
 	public boolean jerryMsg = false;
-	@Property(
-		type = PropertyType.SWITCH,
-		name = "Remove GEXP Messages",
-		description = "Removes messages that say \"You earned x GEXP from playing SkyBlock!\".",
-		category = "QOL",
-		subcategory = "Hypixel QOL"
-	)
-	public boolean gexpMsg = false;
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Too Fast Messages",
@@ -306,22 +514,7 @@ public class Config extends Vigilant {
 			subcategory = "Chat"
 	)
 	public boolean potionMsg = false;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Remove Wither Skulls Messages",
-			description = "Removes messages from wither skulls.",
-			category = "Dungeons",
-			subcategory = "Chat"
-	)
-	public boolean witherSkulls = false;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Remove Dungeon Potion Messages",
-			description = "Removes messages about potions when entering dungeons.",
-			category = "Dungeons",
-			subcategory = "Chat"
-	)
-	public boolean dungeonPotionMsg = false;
+
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove Watchdog Announcements",
@@ -332,28 +525,30 @@ public class Config extends Vigilant {
 	public boolean watchdogAnnouncement = false;
 	@Property(
 			type = PropertyType.SWITCH,
-			name = "Remove Doubled Messages",
-			description = "Removes messages about how your stats are doubled in dungeons.",
-			category = "Dungeons",
-			subcategory = "Chat"
-	)
-	public boolean doubleMsg = false;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Remove Journal Messages",
-			description = "Removes messages about you picking up a journal.",
-			category = "Dungeons",
-			subcategory = "Chat"
-	)
-	public boolean journalMsg = false;
-	@Property(
-			type = PropertyType.SWITCH,
 			name = "Discord Rich Presence",
 			description = "Adds discord rich presence for skyblock. Working on image implementation!",
 			category = "General",
 			subcategory = "Misc"
 	)
 	public boolean discordRP = false;
+	@Property(
+			type = PropertyType.SELECTOR,
+			name = "Discord RP Second Line",
+			description = "Sets the second line for discord rich presence.",
+			category = "General",
+			subcategory = "Misc",
+			options = {"Profile", "Name", "Held Item", "Playing Skyblock","Custom"}
+	)
+	public int discordMode = 0;
+	@Property(
+			type = PropertyType.TEXT,
+			name = "Discord RP Custom Text",
+			description = "Custom text for Discord RP. If you don't have custom enabled this does nothing.",
+			category = "General",
+			subcategory = "Misc",
+			hidden = true
+	)
+	public String discordCustomText = "";
 	@Property(
 			type = PropertyType.TEXT,
 			name = "Hypixel API Key",
@@ -422,6 +617,31 @@ public class Config extends Vigilant {
 	public Integer fishScale = 100;
 	@Property(
 			type = PropertyType.SWITCH,
+			name = "Treasure Hunter Waypoints",
+			description = "Shows a waypoint to the treasure hunter quest you are currently doing.",
+			category = "General",
+			subcategory = "Misc"
+	)
+	public boolean treasureWaypoints = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Hide Sellable Names",
+			description = "Hides all messages about selling x for x coins in Dungeons.",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean sellable = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Hide Struck Messages",
+			description = "Hides all messages about \"X struck you for x damage!\"",
+			category = "Dungeons",
+			subcategory = "Chat"
+	)
+	public boolean struckYou = false;
+
+	@Property(
+			type = PropertyType.SWITCH,
 			name = "Show Cake Year",
 			description = "Shows the cake year as the stack size of the cake.",
 			category = "General",
@@ -438,12 +658,12 @@ public class Config extends Vigilant {
 	public boolean bestiaryInfo = false;
 	@Property(
 			type = PropertyType.SWITCH,
-			name = "Outline Hitboxes of Starred Mobs",
-			description = "Shows the hitboxes of all starred mobs that you haven't killed yet in Dungeons.",
-			category = "Dungeons",
+			name = "Remove Wither Cloak Creepers",
+			description = "Removes all Creeper Veil Creepers except your own.",
+			category = "Items",
 			subcategory = "Rendering"
 	)
-	public boolean outlineMobs = false;
+	public boolean renderCreepers = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Show Hitboxes of Special Zealots",
@@ -469,14 +689,6 @@ public class Config extends Vigilant {
 	)
 	public boolean hideOtherArrows;
 	@Property(
-			type = PropertyType.SWITCH,
-			name = "Remove Opening Messages",
-			description = "Removes all \"You hear the sound of something opening\" messages.",
-			category = "Dungeons",
-			subcategory = "Chat"
-	)
-	public boolean openMsg = false;
-	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Sea Creature Messages",
 		description = "Removes all messages from sea creatures.",
@@ -500,14 +712,6 @@ public class Config extends Vigilant {
 		subcategory = "Chat"
 	)
 	public boolean slowDown = false;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Remove Unimportant Fetchur Messages",
-			description = "Removes all unimportant fetchur messages.",
-			category = "Dwarven Mines",
-			subcategory = "Chat"
-	)
-	public boolean showFetchur = false;
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Island Visit Messages",
@@ -567,15 +771,6 @@ public class Config extends Vigilant {
 	public boolean reskinJacob = false;
 	@Property(
 			type = PropertyType.SWITCH,
-			name = "Remove Crypt Wither Skull Messages",
-			description = "Removes all \"A crypt wither skull exploded\" messages from chat.",
-			category = "Dungeons",
-			subcategory = "Chat"
-	)
-	public boolean cryptWitherSkull = false;
-	// public String APIKey = "don't steal my api key <3";
-	@Property(
-			type = PropertyType.SWITCH,
 			name = "Hide Useless Jacob's Messages",
 			description = "Hides all useless Jacob's Farming Event messages.",
 			category = "Your Island",
@@ -592,12 +787,21 @@ public class Config extends Vigilant {
 	public boolean cleanJerry = false;
 	@Property(
 			type = PropertyType.SWITCH,
-			name = "Hide your Spirit Bats",
-			description = "Hides your spirit bats.",
-			category = "Dungeons",
-			subcategory = "Rendering"
+			name = "Skyblock Updates",
+			description = "Sends a message in chat when skyblock updates.",
+			category = "General",
+			subcategory = "Misc"
 	)
-	public boolean spiritBats = false;
+	public boolean skyblockUpdates = false;
+	@Property(
+			type = PropertyType.TEXT,
+			name = "Latest Version",
+			description = "Helper for feature. Ignore!",
+			category = "Hidden",
+			subcategory = "Hidden",
+			hidden = true
+	)
+	public String version = "0";
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove Combat Warp Messages",
@@ -639,6 +843,14 @@ public class Config extends Vigilant {
 	)
 	public boolean maddoxMsg = false;
 	@Property(
+			type = PropertyType.SWITCH,
+			name = "Maddox Clickable Message",
+			description = "Makes a clickable message to open maddox batphone. Should not be used with DSM! Taken from DSM, download DSM.",
+			category = "Skills",
+			subcategory = "Slayer"
+	)
+	public boolean maddoxClickable = false;
+	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove all Chat if Ironman",
 		description = "Removes all chat if you are on an ironman profile. (Not working)",
@@ -656,8 +868,15 @@ public class Config extends Vigilant {
 			hidden = true
 	)
 	public boolean joinSB = false;
-	
-	
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Jerry Timer",
+			description = "Displays a timer for when your next Jerry will spawn. ",
+			category = "General",
+			subcategory = "Misc"
+	)
+	public boolean jerry = false;
+
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Minion XP",
@@ -674,18 +893,7 @@ public class Config extends Vigilant {
 		hidden=true,
 		subcategory = "Other Players"
 	)
-	public boolean hideNons = false; 
-	
-	@Property(
-		type = PropertyType.SWITCH,
-		name = "Remove Incorrect Three Weirdos Messages",
-		description = "Removes all incorrect Three Weirdos messages. Solvers should still work. \n§cUntested!",
-		category = "Dungeons",
-		subcategory = "Chat"
-	)
-	
-	public boolean threeWeirdosIncorrect = false;
-	
+	public boolean hideNons = false;
 	@Property(
 			type = PropertyType.NUMBER,
 			name = "Ignore",
@@ -720,63 +928,6 @@ public class Config extends Vigilant {
 	public boolean dragTracker = false;
 	@Property(
 		type = PropertyType.SWITCH,
-		name = "Change Damage Milestone Messages",
-		description = "Changes Damage Milestone Messages to a HUD element. \n�cUnimplemented!",
-		category = "Dungeons",
-		subcategory = "Chat",
-			hidden = true
-	)
-	public boolean damageMilestones = false;
-	
-	@Property(
-		type = PropertyType.SWITCH,
-		name = "Remove Lost Adventurer Messages",
-		description = "Removes Lost Adventurer messages like \"Lost Adventurer used Dragon's Breath on you!\"",
-		category = "Dungeons",
-		subcategory = "Chat"
-	)
-	public boolean dragonsBreath = false;
-	
-	
-	@Property(
-		type = PropertyType.SWITCH,
-		name = "Remove Wither Essence Messages",
-		description = "Removes \"x found a Wither Essence! Everyone Gains an extra essence!\" messages.",
-		category = "Dungeons",
-		subcategory = "Chat"
-	)
-
-	public boolean essenceMessages = false;
-	
-	
-	@Property(
-		type = PropertyType.SWITCH,
-		name = "Remove Wither Door Opened Messages",
-		description = "Removes \"x opened a WITHER door!\" messages. \n§cRecommended to not use this with don't have key message remover.",
-		category = "Dungeons",
-		subcategory = "Chat"
-	)
-	public boolean openWither = false;
-	
-	@Property(
-		type = PropertyType.SWITCH,
-		name = "Remove Can't Open Wither Door Messages", // could be causing errors
-		description = "Removes \"x opened a WITHER door!\" messages. \n§cRecommended to not use this with opened wither door message remover.",
-		category = "Dungeons",
-		subcategory = "Chat"
-	)
-	public boolean cantOpenWither = false;
-	
-	@Property(
-		type = PropertyType.SWITCH,
-		name = "Remove Watcher Messages", 
-		description = "Removes all watcher messages except Blood Door open messages. \n§cCould cause errors with other timers in mods, hasn't been tested!",
-		category = "Dungeons",
-		subcategory = "Chat"
-	)
-	public boolean removeWatcher = false;
-	@Property(
-		type = PropertyType.SWITCH,
 		name = "Remove Reforge Chat",
 		description = "Removes \"You reforged x into x\" from chat.",
 		category = "Hub",
@@ -790,31 +941,7 @@ public class Config extends Vigilant {
 			category = "General",
 			subcategory = "Chat"
 	)
-	public boolean useless;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Remove Puzzler Messages",
-			description = "Removes puzzler messages.",
-			category = "Dwarven Mines",
-			subcategory = "Chat"
-	)
-	public boolean removePuzzler;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Remove Bone Plating Messages",
-			description = "Removes bone plating messages that say \"Your bone plating reduced the damage you took by\".",
-			category = "Dungeons",
-			subcategory = "Chat"
-	)
-	public boolean bonePlating = false;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Clean Ending of Dungeon",
-			description = "Gives a clean end to the dungeon (chat). \n§cMay break mods that shows summary of score!",
-			category = "Dungeons",
-			subcategory = "Chat"
-	)
-	public boolean cleanEnd = false;
+	public boolean useless = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Hub Overlay",
@@ -823,14 +950,6 @@ public class Config extends Vigilant {
 			subcategory = "Rendering"
 	)
 	public boolean hubOverlay = false;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Remove Golden Goblin Messages",
-			description = "Removes all messages from golden goblins.",
-			category = "Dwarven Mines",
-			subcategory = "Chat"
-	)
-	public boolean goldenGoblin = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove Compact Messages",
@@ -849,14 +968,6 @@ public class Config extends Vigilant {
 	public boolean experimentationTable = false;
 	@Property(
 			type = PropertyType.SWITCH,
-			name = "Remove Orb Messages",
-			description = "Removes messages about picking up orbs from players.",
-			category = "Dungeons",
-			subcategory = "Chat"
-	)
-	public boolean damageOrbs = false;
-	@Property(
-			type = PropertyType.SWITCH,
 			name = "Remove Warnings about Hubs",
 			description = "Removes all warnings about joining Skyblock and others.",
 			category = "QOL",
@@ -872,22 +983,6 @@ public class Config extends Vigilant {
 	)
 	public boolean katMsg = false;
 	public ArrayList<String> toSearch = new ArrayList<String>();
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Remove Healer Messages",
-			description = "Removes all useless healer messages.",
-			category = "Dungeons",
-			subcategory = "Chat"
-	)
-	public boolean healerMsg = false;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Remove Dungeon Finder Messages",
-			description = "Removes useless dungeon finder messages.",
-			category = "Dungeons",
-			subcategory = "Chat"
-	)
-	public boolean dungeonFinder;
 	@Property(
 		type = PropertyType.SWITCH,
 		name = "Remove Bazaar Chat",

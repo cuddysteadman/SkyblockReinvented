@@ -43,8 +43,7 @@ public class RemoveVillagers {
             "Lynn",
             "Stella",
             "Vex",
-            "Liam",
-            "Jerry"
+            "Liam"
     };
     @SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
     public void onCheckRender(RenderLivingEvent.Pre event) {
@@ -52,22 +51,26 @@ public class RemoveVillagers {
         boolean villager = false;
         if (event.entity.getCustomNameTag() != null) {
             if (CurrentLoc.currentLoc.equals("Jerry's Workshop") || CurrentLoc.currentLoc.equals("Jerry Pond")) { return; }
+            if (event.entity.getCustomNameTag().contains("Jerry") && CurrentLoc.currentLoc.equals("Your Island")) {
+                villager = true;
+            }
             for (String s : villagerNames) {
                 if (event.entity.getCustomNameTag().contains(s)) {
                     villager = true;
                 }
             }
             if (villager) {
-                event.setCanceled(true);
+                event.entity.setInvisible(true);
+                event.entity.setAlwaysRenderNameTag(false);
             }
             if (event.entity.getCustomNameTag().contains("NEW UPDATE")) {
-                event.setCanceled(true);
+                event.setCanceled(true); // shouldn't be bannable cause not cancelling clicks and just hiding the nametag; the clickable villager entity is still there
             }
             if (event.entity.getCustomNameTag().contains("CLICK")) {
                 for (Entity entity : Minecraft.getMinecraft().theWorld.loadedEntityList) {
                     if (entity instanceof EntityVillager) {
                         if (entity.getDistanceToEntity(event.entity) <= 2) {
-                            event.setCanceled(true);
+                            event.setCanceled(true); // same as above
                         }
                     }
 
@@ -86,7 +89,7 @@ public class RemoveVillagers {
                 }
                 if (villager) {
                     if (entity.getDistanceToEntity(villagerEntity) <= 2) {
-                        event.setCanceled(true);
+                        event.entity.setInvisible(true);
                     }
                 }
             }

@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.sbutil.DungeonChestUtils;
+import thecudster.sre.util.sbutil.DungeonUtils;
 import thecudster.sre.util.sbutil.ItemUtil;
 import thecudster.sre.util.sbutil.Utils;
 
@@ -40,6 +40,7 @@ import java.util.List;
 public class MiscGUIs {
     public static boolean foundBadItem = false;
     public static boolean woodenChest = false;
+    public static boolean inDungeonChest = false;
     /*
      * Taken from Danker's Skyblock Mod under GPL 3.0 license.
      * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE
@@ -61,14 +62,14 @@ public class MiscGUIs {
 
     }
     public static boolean inReforge = false;
-    boolean done = false;
-    /*
-     * Modified/Improved/Reinvented from Nate's Skyblock Mod under GNU General Public License.
-     * https://github.com/Nat3z/SkyblockMod/blob/main/LICENSE
-     * @author Nat3z
-     */
+    public boolean done = false;
     @SubscribeEvent
     public void showScreen(GuiScreenEvent.BackgroundDrawnEvent event) throws IOException {
+        /*
+         * Modified/Improved/Reinvented from Nate's Skyblock Mod under GNU General Public License.
+         * https://github.com/Nat3z/SkyblockMod/blob/main/LICENSE
+         * @author Nat3z
+         */
         if (!Utils.inSkyblock) { return; }
         if (SkyblockReinvented.config.jacobRender) {
             Minecraft mc = Minecraft.getMinecraft();
@@ -147,19 +148,14 @@ public class MiscGUIs {
                 String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
                 if (displayText.contains("Ender Chest") || displayText.contains("Accessory Bag") || displayText.contains("Wardrobe") || displayText.contains("Backpack")) {
                     List<Slot> slots = chest.inventorySlots.inventorySlots;
-                    boolean found = false;
                     for (Slot toCheck : slots) {
                         if (toCheck.getStack() != null) {
                             if (toCheck.getStack().hasDisplayName()) {
                                 String name = toCheck.getStack().getDisplayName();
                                 for (String s : SkyblockReinvented.config.toSearch) {
                                     if (StringUtils.containsIgnoreCase(name, s)) {
-                                        found = true;
                                         showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.green.getRGB());
                                     }
-                                }
-                                if (!found && (ItemUtil.getSkyBlockItemID(toCheck.getStack()) != null)) {
-                                    showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
                                 }
                             }
                         }
@@ -204,18 +200,19 @@ public class MiscGUIs {
                                 if (!toCheck.getStack().getDisplayName().contains("Bonemerang") && !toCheck.getStack().getDisplayName().contains("Ice Spray Wand")) {
                                     if (ItemUtil.getSkyBlockItemID(toCheck.getStack()) != null) {
                                         String id = ItemUtil.getSkyBlockItemID(toCheck.getStack());
-                                        for (String s : DungeonChestUtils.sellable) {
+                                        for (String s : DungeonUtils.sellable) {
                                             if (id.equals(s)) {
                                                 // colour the same as skytils to make it more seamless integration
                                                 showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, new Color(15, 233, 233, 225).getRGB());
                                             }
                                         }
                                     }
-                                    for (String s : DungeonChestUtils.sellableNames) {
+                                    for (String s : DungeonUtils.sellableNames) {
                                         List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
                                         for (String s2 : lore) {
                                             if (s2.contains(s)) {
                                                 showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, new Color(15, 233, 233, 225).getRGB());
+                                                break;
                                             }
                                         }
                                         if (toCheck.getStack().getDisplayName().contains(s)) {
@@ -259,7 +256,7 @@ public class MiscGUIs {
                                     }
                                 }
 
-                                for (String check : DungeonChestUtils.notProfit) {
+                                for (String check : DungeonUtils.notProfit) {
                                     if (id.equals(check)) {
                                         foundBadItem = true;
                                         showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
@@ -276,8 +273,33 @@ public class MiscGUIs {
                 GuiChest chest = (GuiChest) mc.currentScreen;
                 ContainerChest inventory = (ContainerChest) chest.inventorySlots;
                 String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
-                if (displayText.equals("Reforge Item")) {
+                if (displayText.equals("Reforge Item") || displayText.equals("Reforge Accessory Bag")) {
                     inReforge = true;
+                }
+            }
+        }
+        if (mc.currentScreen instanceof GuiChest) {
+            GuiChest chest = (GuiChest) mc.currentScreen;
+            ContainerChest inventory = (ContainerChest) chest.inventorySlots;
+            String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
+            if (displayText.equals("Chest") && Utils.inDungeons && Utils.inSkyblock) {
+                inDungeonChest = true;
+            }
+        }
+        if (mc.currentScreen instanceof GuiChest && SkyblockReinvented.config.discordMode == 0) {
+            GuiChest chest = (GuiChest) mc.currentScreen;
+            ContainerChest inventory = (ContainerChest) chest.inventorySlots;
+            String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
+            if (displayText.equals("SkyBlock Menu")) {
+                try {
+                    for (String s : ItemUtil.getItemLore(inventory.inventorySlots.get(48).getStack())) {
+                        if (s.contains("Playing on: ")) {
+                            DiscordRPC.state = "Profile: " + net.minecraft.util.StringUtils.stripControlCodes(s.substring(s.indexOf(": ") + 2));
+                            break;
+                        }
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
         }

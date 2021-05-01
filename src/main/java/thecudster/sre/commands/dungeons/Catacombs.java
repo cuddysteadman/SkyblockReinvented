@@ -51,7 +51,7 @@ public class Catacombs extends CommandBase {
   }
   @Override
   public List<String> getCommandAliases() {
-    return Arrays.asList("f", "catafloor");
+    return Arrays.asList("fl", "catafloor");
   }
 
   @Override

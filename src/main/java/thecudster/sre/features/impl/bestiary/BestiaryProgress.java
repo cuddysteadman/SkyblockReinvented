@@ -29,15 +29,19 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.api.APIUtil;
-import thecudster.sre.util.gui.*;
+import thecudster.sre.util.gui.FloatPair;
+import thecudster.sre.util.gui.GuiElement;
+import thecudster.sre.util.gui.ScreenRenderer;
+import thecudster.sre.util.gui.SmartFontRenderer;
 import thecudster.sre.util.gui.colours.CommonColors;
 import thecudster.sre.util.sbutil.Utils;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class BestiaryProgress {
     public static String mobName = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + "Not detected yet!";
@@ -195,6 +199,10 @@ public class BestiaryProgress {
                     mobName = mobName.substring(0, mobName.indexOf(" §a"));
                     mobName = StringUtils.stripControlCodes(mobName);
                     String current = "kills_" + BestiaryHelper.getCorrectName(mobName);
+                    if (!things.containsKey(current)) {
+                        mobName = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + mobName;
+                        return;
+                    }
                     this.things.put(current, this.things.get(current) + 1);
                     int numKills = this.things.get(current).intValue();
                     kills = BestiaryHelper.updateKills(numKills);
@@ -206,22 +214,6 @@ public class BestiaryProgress {
         }
     }
 
-    @SubscribeEvent
-    public void onWorldChange(WorldEvent.Load event) throws InterruptedException {
-        new java.util.Timer().schedule(
-
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-                        if (SkyblockReinvented.config.bestiaryInfo && Utils.inSkyblock) {
-                            getThings();
-                        }
-                        Utils.checkForDungeons();
-                        Utils.checkForSkyblock();
-                    }
-            },3000
-        );
-    }
     static {
         new BestiaryKills();
         new BestiaryCurrent();

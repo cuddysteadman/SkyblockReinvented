@@ -19,23 +19,17 @@
 
 package thecudster.sre.util.sbutil;
 
-public class DungeonChestUtils {
+public class DungeonUtils {
     public static final String[] notProfit = {
-            "ENCHANTED_BOOK-INFINITE_QUIVER-6",
-            "ENCHANTED_BOOK-FEATHER_FALLING-6",
-            "ENCHANTED_BOOK-ULTIMATE_NO_PAIN_NO_GAIN-1",
             "HOT_POTATO_BOOK",
             "SCARF_STUDIES",
             "ADAPTIVE_BOOTS",
-            "ENCHANTED_BOOK-ULTIMATE_WISDOM-1",
-            "ENCHANTED_BOOK-ULTIMATE_REND-1",
             "DARK_ORB",
             "GIANT_TOOTH",
             "PRECURSOR_GEAR",
             "BONZO_MASK",
             "PET-SPIRIT-LEGENDARY",
             "PET-SPIRIT-EPIC",
-            "ENCHANTED_BOOK-OVERLOAD-1",
             "RED_NOSE",
             "BONZO_STAFF",
             "STONE_BLADE",
@@ -78,7 +72,17 @@ public class DungeonChestUtils {
             "Defuse Kit",
             "Infinite Quiver VI",
             "Rejuvenate I",
-            "Feather Falling VI"
+            "Feather Falling VI",
+            "Revive Stone"
+    };
+    public static final String[] blockedNames = {
+            "Revive Stone",
+            "Zombie Soldier Cutlass",
+            "Skeleton Grunt Helmet",
+            "Water Bottle",
+            "Enchanted Rotten Flesh",
+            "Spirit Leap",
+            "Machine Gun Bow"
     };
 
 }

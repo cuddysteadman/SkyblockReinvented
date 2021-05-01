@@ -19,6 +19,7 @@
 package thecudster.sre.features.impl.dungeons;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
@@ -44,10 +45,18 @@ import thecudster.sre.util.sbutil.Utils;
 public class MiscClickBlocks {
     int num = 0;
     public String supposedName;
-	@SubscribeEvent(receiveCanceled = true)
+	@SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
     public void onSlotClick(GuiContainerEvent.SlotClickEvent event) {
+        if (SkyblockReinvented.config.clickDungeonChest) {
+            if (Utils.inDungeons && Utils.inSkyblock && event.gui instanceof GuiChest) {
+                String chest = ((ContainerChest) ((GuiChest)event.gui).inventorySlots).getLowerChestInventory().getDisplayName().getUnformattedText();
+                if (chest.equals("Chest")) {
+                    Minecraft.getMinecraft().thePlayer.closeScreen();
+                    event.setCanceled(true);
+                }
+            }
+        }
         if (!Utils.inSkyblock) return;
-
         if (event.container instanceof ContainerChest) {
             ContainerChest chest = (ContainerChest) event.container;
 
@@ -120,11 +129,13 @@ public class MiscClickBlocks {
                 }
             }
         }
-    }
+	}
+
     @SubscribeEvent
-    public void onGuiClose(GuiOpenEvent event) {
+    public void onGuiOpen(GuiOpenEvent event) {
 	    MiscGUIs.foundBadItem = false;
         num = 0;
+        MiscGUIs.inDungeonChest = false;
         MiscGUIs.inReforge = false;
     }
     /**

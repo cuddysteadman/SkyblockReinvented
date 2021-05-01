@@ -29,15 +29,10 @@ import org.jetbrains.annotations.NotNull;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.sbutil.Utils;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AddItem implements ICommand {
-    private final ArrayList<String> aliases = new ArrayList<String>();
-    public AddItem() {
-        aliases.add("s");
-        aliases.add("searchitem");
-    }
     @Override
     public String getCommandName() {
         return "search";
@@ -50,7 +45,7 @@ public class AddItem implements ICommand {
 
     @Override
     public List<String> getCommandAliases() {
-        return aliases;
+        return Arrays.asList("s", "searchitem");
     }
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
@@ -60,7 +55,15 @@ public class AddItem implements ICommand {
         }
         switch (args[0]) {
             case "add":
-                SkyblockReinvented.config.toSearch.add(args[1]);
+                String toReturn = "";
+                args[0] = "";
+                toReturn += args[1];
+                args[1] = "";
+                for (String s : args) {
+                    toReturn += s;
+
+                }
+                SkyblockReinvented.config.toSearch.add(toReturn);
                 break;
             case "remove":
                 for (int i = 0; i < SkyblockReinvented.config.toSearch.size(); i++) {
@@ -79,8 +82,16 @@ public class AddItem implements ICommand {
                 }
                 break;
             case "search":
+                String searchReturn = "";
+                args[0] = "";
+                searchReturn += args[1];
+                args[1] = "";
+                for (String s : args) {
+                    searchReturn += s;
+
+                }
                 SkyblockReinvented.config.toSearch.clear();
-                SkyblockReinvented.config.toSearch.add(args[1]);
+                SkyblockReinvented.config.toSearch.add(searchReturn);
                 break;
             default:
                 Utils.sendMsg(EnumChatFormatting.RED + "Invalid arguments! Valid arguments are search, current, clear, add, and remove.");

@@ -16,44 +16,56 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
+
 package thecudster.sre.commands;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumChatFormatting;
 import org.jetbrains.annotations.NotNull;
+import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.sbutil.Utils;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class JoinDung implements ICommand {
-    private final ArrayList<String> aliases = new ArrayList<String>();
-    public JoinDung() {
-        aliases.add("dh");
-        aliases.add("dungeonhub");
-        aliases.add("dunghub");
-    }
+public class SetStatus implements ICommand {
     @Override
     public String getCommandName() {
-        return "dhub";
+        return "discord";
     }
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/dhub";
+        return "/discord";
     }
 
     @Override
     public List<String> getCommandAliases() {
-        return aliases;
+        return Arrays.asList("da", "disc", "dset", "discset", "rp", "rpset");
     }
+
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        if (Utils.inSkyblock) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/warp dungeon_hub");
+        if (!Utils.inSkyblock) { Utils.sendMsg(EnumChatFormatting.RED + "Use this command in Skyblock!"); return; }
+        if (!SkyblockReinvented.config.discordRP) { Utils.sendMsg(EnumChatFormatting.RED + "You do not have discord rich presence on, so this command will do nothing."); return; }
+        if (!(SkyblockReinvented.config.discordMode == 4)) { Utils.sendMsg(EnumChatFormatting.RED + "You do not have the custom discord rich presence setting on, so this command will do nothing."); return; }
+        if (args.length > 0) {
+            String toReturn = "";
+            toReturn += args[0];
+            args[0] = "";
+            for (String s : args) {
+                toReturn += " ";
+                toReturn += s;
+            }
+            SkyblockReinvented.config.discordCustomText = toReturn;
+            SkyblockReinvented.config.writeData();
+            SkyblockReinvented.config.markDirty();
+            Utils.sendMsg(EnumChatFormatting.GREEN + "You set your custom status to: " + EnumChatFormatting.LIGHT_PURPLE + toReturn);
+        } else {
+            Utils.sendMsg(EnumChatFormatting.RED + "Improper usage! /discord {custom status}");
         }
     }
 

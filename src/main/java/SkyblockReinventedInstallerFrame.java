@@ -103,7 +103,7 @@ public class SkyblockReinventedInstallerFrame extends JFrame implements ActionLi
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             SkyblockReinventedInstallerFrame frame = new SkyblockReinventedInstallerFrame();
             frame.centerFrame(frame);
-            frame.show();
+            frame.setVisible(true);
 
         } catch (Exception ex) {
             showErrorPopup(ex);
@@ -436,10 +436,7 @@ public class SkyblockReinventedInstallerFrame extends JFrame implements ActionLi
         File thisFile = getThisFile();
 
         if (thisFile != null) {
-            boolean inSubFolder = false;
-            if (IN_MODS_SUBFOLDER.matcher(modsFolder.getPath()).find()) {
-                inSubFolder = true;
-            }
+            boolean inSubFolder = IN_MODS_SUBFOLDER.matcher(modsFolder.getPath()).find();
 
             File newFile = new File(modsFolder, "sre-"+getVersionFromMcmodInfo()+".jar");
             if (thisFile.equals(newFile)) {

@@ -19,14 +19,19 @@
 package thecudster.sre.features.impl.filter;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StringUtils;
+import net.minecraft.client.gui.GuiChat;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.util.*;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.lwjgl.input.Mouse;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.features.impl.qol.GiftCompassWaypoints;
 import thecudster.sre.features.impl.slayer.SlayerReminder;
+import thecudster.sre.util.gui.GuiManager;
+import thecudster.sre.util.sbutil.DungeonUtils;
 import thecudster.sre.util.sbutil.LootTracker;
 import thecudster.sre.util.sbutil.ScoreboardUtil;
 import thecudster.sre.util.sbutil.Utils;
@@ -85,7 +90,8 @@ public class FilterHandler {
 			"How does a lobster answer? Shello!",
 			"ey what do you need",
 			"You hear the line pick up...",
-			"You again? What do you want this time?"
+			"You again? What do you want this time?",
+			"Hey what you do you need?"
 	};
 	public static final String[] maddoxFails = {
 			"Please leave your message after the beep.",
@@ -177,12 +183,12 @@ public class FilterHandler {
 			"You feel your Gift Compass pull towards a new location...",
 			"You have already found this Gift this year!",
 			"mounted a Snow Cannon!",
-			"GIFT! You hound a White Gift!",
+			"GIFT! You found a White Gift!",
 			"It doesn't seem there are any unopened presents nearby...",
-			"§e[NPC] §cSt. Jerry§f: You found all of the Gifts!",
 			"§e[NPC] §cSt. Jerry§f: Take this §aGreen Gift§r! You'll hopefully find something nicer than what was in those White Gifts!",
 			"§e[NPC] §cSt. Jerry§f: If you haven't already, be sure to give your other Gifts away to others. Giving Gifts benefits both you and the receiver!",
 			"You claimed Green Gift!",
+			"You found all of the Gifts!",
 			"to shoot. Move cursor to aim.",
 			"The Snow Cannon is reloading!",
 			"You dismounted the Snow Cannon!"
@@ -201,7 +207,7 @@ public class FilterHandler {
 			"We are all telling the truth!",
 			"is telling the truth and the reward is",
 			"My chest doesn't have the reward. At least one of the others is telling the truth!",
-			"One of the others is lying.",
+			"One of the others is lying!",
 			"They are both telling the truth, the reward is in",
 			"They are both lying, the reward is in my chest!",
 			"The reward is in my chest.",
@@ -289,6 +295,8 @@ public class FilterHandler {
 			"Whow! Slow down there!",
 			"Slow down"
 	};
+	static String lastMaddoxCommand = "/cb placeholder";
+	static double lastMaddoxTime = 0;
 	@SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
 	public void onChat(ClientChatReceivedEvent event) {
 		if (event.type == 0x2) {
@@ -311,14 +319,6 @@ public class FilterHandler {
 			if (message.contains("You have found page ")) {
 				event.setCanceled(true);
 				return;
-			}
-		}
-		if (SkyblockReinvented.config.danteMsgs) {
-			for (String s : danteList) {
-				if (message.contains(s)) {
-					event.setCanceled(true);
-					return;
-				}
 			}
 		}
 		if (SkyblockReinvented.config.warpCombat) {
@@ -403,6 +403,29 @@ public class FilterHandler {
 				}
 			}
 		}
+		if (SkyblockReinvented.config.maddoxClickable) {
+			/*
+			 * Taken from Danker's Skyblock Mod under GPL 3.0 license.
+			 * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE
+			 * @author bowser0000
+			 */
+
+			if (unformatted.contains("[OPEN MENU]")) {
+				event.setCanceled(true);
+				List<IChatComponent> listOfSiblings = event.message.getSiblings();
+				for (IChatComponent sibling : listOfSiblings) {
+					if (sibling.getUnformattedText().contains("[OPEN MENU]")) {
+						lastMaddoxCommand = sibling.getChatStyle().getChatClickEvent().getValue();
+						lastMaddoxTime = System.currentTimeMillis() / 1000;
+					}
+				}
+				if (SkyblockReinvented.config.maddoxMsg)
+					Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Open chat then click anywhere on-screen to open Maddox (this message is by SRE, taken from DSM.)"));
+				Utils.sendMsg(EnumChatFormatting.GREEN + "Please download DSM to support them so that you don't have to use this feature anymore!");
+				Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(EnumChatFormatting.GRAY + "https://github.com/bowser0000/SkyblockMod/releases/").setChatStyle(new ChatStyle()
+						.setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/bowser0000/SkyblockMod/releases/"))));
+			}
+		}
 		if (SkyblockReinvented.config.maddoxMsg) {
 			for (String s : maddoxFails) {
 				if (message.contains(s)) {
@@ -411,12 +434,7 @@ public class FilterHandler {
 					return;
 				}
 			}
-			for (String s : maddoxQuotes) {
-				if (message.contains(s)) {
-					event.setCanceled(true);
-					return;
-				}
-			}
+
 			for (String s : cleanSlayer) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
@@ -563,9 +581,15 @@ public class FilterHandler {
 				return;
 			}
 		}
+		if (SkyblockReinvented.config.giftCompassWaypoints) {
+			if (message.contains("§e[NPC] §cSt. Jerry§f: You found all of the Gifts!")) {
+				GiftCompassWaypoints.found = true;
+				return;
+			}
+		}
 		if (SkyblockReinvented.config.cleanJerry) {
 			for (String s : cleanJerry) {
-				if (message.contains(s)) {
+				if (unformatted.contains(s)) {
 					event.setCanceled(true);
 					return;
 				}
@@ -717,6 +741,10 @@ public class FilterHandler {
 				event.setCanceled(true);
 				return;
 			}
+			if (message.contains("Lost Adventurer") && message.contains("struck you for ") && message.contains("damage!")) {
+				event.setCanceled(true);
+				return;
+			}
 		}
 		if (SkyblockReinvented.config.essenceMessages) {
 		if (message.contains("found a Wither Essence! Everyone gains an extra essence!")) {
@@ -782,6 +810,11 @@ public class FilterHandler {
 			if (message.contains("picked up your ") && message.contains("Orb!")) {
 				event.setCanceled(true);
 				return;
+			}
+		}
+		if (SkyblockReinvented.config.watcherTitle) {
+			if (StringUtils.stripControlCodes(message).contains("The Watcher: That will be enough for now.")) {
+				GuiManager.createTitle("Wathcer Ready!", 20);
 			}
 		}
 		/**
@@ -856,6 +889,10 @@ public class FilterHandler {
 				event.setCanceled(true);
 				return;
 			}
+			if (message.contains("You applied the ") && message.contains("reforge to ") && message.contains("accessories in your Accessory Bag!")) {
+				event.setCanceled(true);
+				return;
+			}
 		}
 		if (SkyblockReinvented.config.removeCreeperVeil) {
 			if ((message.contains("Creeper Veil De-activated"))) {
@@ -927,6 +964,31 @@ public class FilterHandler {
 			if (message.contains("You need to have a class at level") && message.contains("or higher to join this group!")) {
 				event.setCanceled(true);
 				return;
+			}
+		}
+		if (SkyblockReinvented.config.sellable) {
+			if (unformatted.contains("You sold ") && unformatted.contains("for ") && unformatted.contains("Coins!") && Utils.inSkyblock && Utils.inSkyblock) {
+				for (String s : DungeonUtils.sellableNames) {
+					if (unformatted.contains(s)) {
+						event.setCanceled(true);
+						return;
+					}
+				}
+			}
+		}
+		if (SkyblockReinvented.config.struckYou) {
+			if (unformatted.contains("struck you for ") && unformatted.contains("damage!") && Utils.inSkyblock && Utils.inDungeons) {
+				event.setCanceled(true);
+				return;
+			}
+		}
+	}
+	@SubscribeEvent
+	public void onMouseInputPost(GuiScreenEvent.MouseInputEvent.Post event) {
+		if (!Utils.inSkyblock) return;
+		if (Mouse.getEventButton() == 0 && event.gui instanceof GuiChat) {
+			if (SkyblockReinvented.config.maddoxClickable && System.currentTimeMillis() / 1000 - lastMaddoxTime < 10) {
+				Minecraft.getMinecraft().thePlayer.sendChatMessage(lastMaddoxCommand);
 			}
 		}
 	}

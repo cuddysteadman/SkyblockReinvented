@@ -19,14 +19,17 @@
 
 package thecudster.sre.util.sbutil;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Slot;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import thecudster.sre.events.JoinSkyblockEvent;
@@ -65,7 +68,7 @@ public class Utils {
         }
     }
     /**
-     * Taken from Danker's Skyblock Mod under GPL 3.0 license
+     * Modified from Danker's Skyblock Mod under GPL 3.0 license
      * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE
      * @author bowser0000
      */
@@ -129,6 +132,54 @@ public class Utils {
         }
         return false;
     }
+    /**
+     * Taken from Danker's Skyblock Mod under GPL 3.0 license
+     * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE
+     * @author bowser0000
+     */
+    public static BlockPos getNearbyBlock(Minecraft mc, BlockPos pos, Block... blockTypes) {
+        if (pos == null) return null;
+        BlockPos pos1 = new BlockPos(pos.getX() - 2, pos.getY() - 3, pos.getZ() - 2);
+        BlockPos pos2 = new BlockPos(pos.getX() + 2, pos.getY() + 3, pos.getZ() + 2);
+
+        BlockPos closestBlock = null;
+        double closestBlockDistance = 99;
+        Iterable<BlockPos> blocks = BlockPos.getAllInBox(pos1, pos2);
+
+        for (BlockPos block : blocks) {
+            for (Block blockType : blockTypes) {
+                if (mc.theWorld.getBlockState(block).getBlock() == blockType && block.distanceSq(pos) < closestBlockDistance) {
+                    closestBlock = block;
+                    closestBlockDistance = block.distanceSq(pos);
+                }
+            }
+        }
+
+        return closestBlock;
+    }
+    /**
+     * Taken from Danker's Skyblock Mod under GPL 3.0 license
+     * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE
+     * @author bowser0000
+     */
+    public static BlockPos getFirstBlockPosAfterVectors(Minecraft mc, Vec3 pos1, Vec3 pos2, int strength, int distance) {
+        double x = pos2.xCoord - pos1.xCoord;
+        double y = pos2.yCoord - pos1.yCoord;
+        double z = pos2.zCoord - pos1.zCoord;
+
+        for (int i = strength; i < distance * strength; i++) { // Start at least 1 strength away
+            double newX = pos1.xCoord + ((x / strength) * i);
+            double newY = pos1.yCoord + ((y / strength) * i);
+            double newZ = pos1.zCoord + ((z / strength) * i);
+
+            BlockPos newBlock = new BlockPos(newX, newY, newZ);
+            if (mc.theWorld.getBlockState(newBlock).getBlock() != Blocks.air) {
+                return newBlock;
+            }
+        }
+
+        return null;
+    }
 
     /**
      * Taken from SkyblockAddons under MIT License
@@ -142,7 +193,7 @@ public class Utils {
     }
     // original
     public static void sendMsg(String msg) {
-        Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(msg));
+        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(msg));
     }
     public static boolean checkIronman() {
         if (inSkyblock) {
@@ -156,5 +207,4 @@ public class Utils {
         }
         return false;
     }
-
 }

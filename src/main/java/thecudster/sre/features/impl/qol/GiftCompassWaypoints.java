@@ -27,11 +27,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.events.ReceivePacketEvent;
 import thecudster.sre.util.gui.DrawWaypoint;
+import thecudster.sre.util.sbutil.CurrentLoc;
 import thecudster.sre.util.sbutil.ItemUtil;
 import thecudster.sre.util.sbutil.Utils;
 
 public class GiftCompassWaypoints {
     public BlockPos pos;
+    public static boolean found = false;
     @SubscribeEvent(receiveCanceled=true)
     public void onReceivePacket(ReceivePacketEvent event) {
         if (!Utils.inSkyblock) { return; }
@@ -44,10 +46,11 @@ public class GiftCompassWaypoints {
     @SubscribeEvent
     public void onWorldRender(RenderWorldLastEvent event) {
         if (!Utils.inSkyblock) { return; }
+        if (!(CurrentLoc.currentLoc.equals("Jerry's Workshop") || CurrentLoc.currentLoc.equals("Jerry Pond"))) { return; }
         if (Minecraft.getMinecraft().thePlayer.getHeldItem() != null && ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()) != null) {
                 if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()).equals("GIFT_COMPASS")) {
                     if (pos != null) {
-                        if (SkyblockReinvented.config.giftCompassWaypoints) {
+                        if (SkyblockReinvented.config.giftCompassWaypoints && !found) {
                             DrawWaypoint.drawWaypoint(event.partialTicks, pos, "Gift");
                         }
                     }

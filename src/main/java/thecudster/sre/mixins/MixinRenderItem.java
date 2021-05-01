@@ -37,7 +37,7 @@ import thecudster.sre.events.GuiRenderItemEvent;
  * @author Sychic
  */
 @Mixin(RenderItem.class)
-public class MixinRenderItem {
+public abstract class MixinRenderItem {
     @Inject(method = "renderItemOverlayIntoGUI", at = @At("RETURN"))
     private void renderItemOverlayPost(FontRenderer fr, ItemStack stack, int xPosition, int yPosition, String text, CallbackInfo ci) {
         try {

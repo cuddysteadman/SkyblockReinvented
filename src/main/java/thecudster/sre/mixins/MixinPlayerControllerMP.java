@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import thecudster.sre.events.DamageBlockEvent;
 
 @Mixin(PlayerControllerMP.class)
-public class MixinPlayerControllerMP {
+public abstract class MixinPlayerControllerMP {
 
     @Final
     @Shadow
