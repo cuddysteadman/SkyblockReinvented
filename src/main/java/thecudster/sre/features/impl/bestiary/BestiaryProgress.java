@@ -306,7 +306,7 @@ public class BestiaryProgress {
                     String currentKills = "kills_" + getCorrectName(mobName);
                     if (!things.containsKey(currentKills) || things.get(currentKills) == 0) {
                         current[0] = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + mobName;
-                        current[1] = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + "Undetected or this is your first kill of the mob.";
+                        current[1] = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + "Undetected / first kill.";
                         return;
                     }
                     this.things.put(currentKills, this.things.get(currentKills) + 1);

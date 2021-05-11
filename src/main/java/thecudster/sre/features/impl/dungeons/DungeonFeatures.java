@@ -83,7 +83,7 @@ public class DungeonFeatures {
             }
         }
         if (isSkeletonMaster(event.entity)) {
-            stopDestroyingMyFuckingEars = 290;
+            stopDestroyingMyFuckingEars = 250;
         }
     }
     public static boolean isSkeletonMaster(Entity e) {
