@@ -53,19 +53,23 @@ public class SetStatus implements ICommand {
         if (!SkyblockReinvented.config.discordRP) { Utils.sendMsg(EnumChatFormatting.RED + "You do not have discord rich presence on, so this command will do nothing."); return; }
         if (!(SkyblockReinvented.config.discordMode == 4)) { Utils.sendMsg(EnumChatFormatting.RED + "You do not have the custom discord rich presence setting on, so this command will do nothing."); return; }
         if (args.length > 0) {
-            String toReturn = "";
-            toReturn += args[0];
-            args[0] = "";
-            for (String s : args) {
-                toReturn += " ";
-                toReturn += s;
+            if (!(args[0].equals("current"))) {
+                String toReturn = "";
+                toReturn += args[0];
+                args[0] = "";
+                for (String s : args) {
+                    toReturn += " ";
+                    toReturn += s;
+                }
+                SkyblockReinvented.config.discordCustomText = toReturn;
+                SkyblockReinvented.config.writeData();
+                SkyblockReinvented.config.markDirty();
+                Utils.sendMsg(EnumChatFormatting.GREEN + "You set your custom status to: " + EnumChatFormatting.LIGHT_PURPLE + toReturn);
+            } else {
+                Utils.sendMsg(EnumChatFormatting.GREEN + "Your current discord status is: " + EnumChatFormatting.LIGHT_PURPLE + SkyblockReinvented.config.discordCustomText);
             }
-            SkyblockReinvented.config.discordCustomText = toReturn;
-            SkyblockReinvented.config.writeData();
-            SkyblockReinvented.config.markDirty();
-            Utils.sendMsg(EnumChatFormatting.GREEN + "You set your custom status to: " + EnumChatFormatting.LIGHT_PURPLE + toReturn);
         } else {
-            Utils.sendMsg(EnumChatFormatting.RED + "Improper usage! /discord {custom status}");
+            Utils.sendMsg(EnumChatFormatting.RED + "Improper usage! /discord {custom status}, /discord current");
         }
     }
 

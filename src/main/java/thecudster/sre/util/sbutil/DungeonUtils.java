@@ -78,11 +78,16 @@ public class DungeonUtils {
     public static final String[] blockedNames = {
             "Revive Stone",
             "Zombie Soldier Cutlass",
-            "Skeleton Grunt Helmet",
+            "Skeleton Grunt",
             "Water Bottle",
             "Enchanted Rotten Flesh",
             "Spirit Leap",
-            "Machine Gun Bow"
+            "Machine Gun Bow",
+            "Dreadlord Sword",
+            "Rotten ",
+            "Journal Entry",
+            "Training Weights",
+            "Heavy"
     };
 
 }

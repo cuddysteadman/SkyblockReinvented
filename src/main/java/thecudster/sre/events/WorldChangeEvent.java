@@ -46,6 +46,7 @@ public class WorldChangeEvent {
                     @Override
                     public void run() {
                         CreeperSolver.finishedPuzzle = false;
+                        CreeperSolver.solved = 0;
                         HideIncorrectLivids.foundLivid = false;
                         HideIncorrectLivids.livid = null;
                         check();

@@ -57,6 +57,7 @@
 * Remove Minion XP Messages
 ### Dungeons
 * Watcher Ready Title
+* Hide Guided Sheep
 * Hide Incorrect Livids
 * Right/Left Click anywhere in dungeon chest to auto press escape 
 * Spam hider for selling dungeon items

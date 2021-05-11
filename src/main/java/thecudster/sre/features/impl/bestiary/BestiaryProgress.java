@@ -21,8 +21,6 @@ package thecudster.sre.features.impl.bestiary;
 
 import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.util.ChatComponentText;
@@ -31,13 +29,8 @@ import net.minecraft.util.StringUtils;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.events.SecondPassedEvent;
 import thecudster.sre.util.api.APIUtil;
-import thecudster.sre.util.gui.FloatPair;
-import thecudster.sre.util.gui.GuiElement;
-import thecudster.sre.util.gui.ScreenRenderer;
-import thecudster.sre.util.gui.SmartFontRenderer;
-import thecudster.sre.util.gui.colours.CommonColors;
-import thecudster.sre.util.sbutil.Utils;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -46,10 +39,8 @@ import java.util.Map;
 public class BestiaryProgress {
     public static String mobName = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + "Not detected yet!";
     public static HashMap<String, Double> things = new LinkedHashMap<String, Double>();
-    public static String kills = EnumChatFormatting.RED +
-            "Kills to next level: " + EnumChatFormatting.GOLD + "Not detected yet!";
-    public static String current = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + "Not detected yet!";
-    private static final Minecraft mc = Minecraft.getMinecraft();
+    public static String[] current = {EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + "Not detected yet!", EnumChatFormatting.RED + "Kills to next level: " + EnumChatFormatting.GOLD + "Not detected yet!"};
+    public static int secondsSinceKill = 10;
     public static void placeItems() {
         things.put("kills_invisible_creeper", new Double(0.0));
         things.put("kills_diamond_zombie", new Double(0.0));
@@ -155,37 +146,151 @@ public class BestiaryProgress {
          * @author My-Name-Is-Jeff
          * @author Sychic
          */
-        try {
-            String uuid = APIUtil.getUUID(Minecraft.getMinecraft().thePlayer.getName());
-            String apiKey = SkyblockReinvented.config.apiKey;
-            if (uuid == null || apiKey == null) { return; }
-            String latestProfile = APIUtil.getLatestProfileID(uuid, apiKey);
-            if (latestProfile == null) { return; }
-            JsonObject profileResponse = APIUtil.getJSONResponse("https://api.hypixel.net/skyblock/profile?profile=" + latestProfile + "&key=" + apiKey);
-            if (profileResponse == null) { return; }
-            if (!profileResponse.get("success").getAsBoolean()) {
-                String reason = profileResponse.get("cause").getAsString();
-                Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Failed getting bestiary info with reason: " + reason));
-                return;
+        new Thread(() ->{
+            try {
+                String uuid = APIUtil.getUUID(Minecraft.getMinecraft().thePlayer.getName());
+                String apiKey = SkyblockReinvented.config.apiKey;
+                if (uuid == null || apiKey == null) {
+                    return;
+                }
+                String latestProfile = APIUtil.getLatestProfileID(uuid, apiKey);
+                if (latestProfile == null) {
+                    return;
+                }
+                JsonObject profileResponse = APIUtil.getJSONResponse("https://api.hypixel.net/skyblock/profile?profile=" + latestProfile + "&key=" + apiKey);
+                if (profileResponse == null) {
+                    return;
+                }
+                if (!profileResponse.get("success").getAsBoolean()) {
+                    String reason = profileResponse.get("cause").getAsString();
+                    Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Failed getting bestiary info with reason: " + reason));
+                    return;
+                }
+                JsonObject playerObject = profileResponse.get("profile").getAsJsonObject().get("members").getAsJsonObject().get(uuid).getAsJsonObject();
+                if (!playerObject.has("stats")) {
+                    Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Failed getting stats with reason: No stats object."));
+                    return;
+                }
+                JsonObject statsObject = playerObject.get("stats").getAsJsonObject();
+                if (statsObject == null) {
+                    return;
+                }
+                for (Map.Entry<String, Double> alsdkjf : things.entrySet()) {
+                    if (things.containsKey(alsdkjf.getKey())) {
+                        things.replace(alsdkjf.getKey(), Double.parseDouble(statsObject.get(alsdkjf.getKey()).toString().substring(statsObject.get(alsdkjf.getKey()).toString().indexOf(":") + 1)));
+                    }
+                }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
             }
-            JsonObject playerObject = profileResponse.get("profile").getAsJsonObject().get("members").getAsJsonObject().get(uuid).getAsJsonObject();
-            if (!playerObject.has("stats")) {
-                Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Failed getting stats with reason: No stats object."));
-                return;
-            }
-            JsonObject statsObject = playerObject.get("stats").getAsJsonObject();
-            if (statsObject == null) { return; }
-            for (Map.Entry<String, Double> alsdkjf : things.entrySet()) {
-                if (!things.containsKey(alsdkjf.getKey())) { return; }
-                things.replace(alsdkjf.getKey(), Double.parseDouble(statsObject.get(alsdkjf.getKey()).toString().substring(statsObject.get(alsdkjf.getKey()).toString().indexOf(":") + 1)));
-            }
-        }
-        catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+        }).start();
     }
     public Map<String, Double> getStats() {
         return things;
+    }
+    private static final int[] killsLvling = {10, 25, 75, 150, 250, 500, 1500, 2500, 5000, 15000, 25000, 50000, 100000};
+    public static String getCorrectName(String name) {
+        switch (name) {
+            case "Crypt Ghoul":
+                return "unburried_zombie";
+            case "Zombie":
+                return "zombie";
+            case "Skeleton":
+                return "skeleton";
+            case "Spider":
+                return "spider";
+            case "Enderman":
+                return "enderman";
+            case "Witch":
+                return "witch";
+            case "Zombie Villager":
+                return "zombie_villager";
+            case "Wolf":
+                return "ruin_wolf";
+            case "Old Wolf":
+                return "old_wolf";
+            case "Dasher Spider":
+                return "dasher_spider";
+            case "Spider Jockey":
+                return "spider_jockey";
+            case "Weaver Spider":
+                return "weaver_spider";
+            case "Voracious Spider":
+                return "voracious_spider";
+            case "Splitter Spider":
+                return "splitter_spider";
+            case "Rain Slime":
+                return "random_slime";
+            case "Magma Cube":
+                return "magma_cube";
+            case "Blaze":
+                return "blaze";
+            case "Wither Skeleton":
+                return "wither_skeleton";
+            case "Pigman":
+                return "pigman";
+            case "Ghast":
+                return "ghast";
+            case "Obsidian Defender":
+                return "obsidian_wither";
+            case "Zealot":
+                return "zealot_enderman";
+            case "Endermite":
+                return "endermite";
+            case "Sneaky Creeper":
+                return "invisible_creeper";
+            case "Lapis Zombie":
+                return "lapis_zombie";
+            case "Redstone Pigman":
+                return "redstone_pigman";
+            case "Emerald Slime":
+                return "emerald_slime";
+            case "Miner Zombie":
+                return "diamond_zombie";
+            case "miner Skeleton":
+                return "diamond_skeleton";
+            case "Ghost":
+                return "creeper"; // i think?
+            case "Goblin":
+                return "goblin";
+            case "Treasure Hoarder":
+                return "treasure_hoarder";
+            case "Ice Walker":
+                return "ice_walker";
+            case "Pack Spirit":
+                return "pack_spirit";
+            case "Howling Spirit":
+                return "howling_spirit";
+            case "Soul of the Alpha":
+                return "soul_of_the_alpha";
+            case "Trick or Treater":
+                return "trick_or_treater";
+            case "Wither Gourd":
+                return "wither_gourd";
+            case "Phantom Spirit":
+                return "phantom_spirit";
+            case "Scary Jerry":
+                return "scary_jerry";
+            case "Wraith":
+                return "wraith";
+            case "Crazy Witch":
+                return "batty_witch";
+            case "watcher":
+                return "watcher";
+            default:
+                return null;
+        }
+    }
+    public static String updateKills(int kills) {
+        String toReturn = "";
+        for (int i : killsLvling) {
+            if (!(kills - i >= 0)) {
+                toReturn += EnumChatFormatting.RED + "Kills to next milestone: " + EnumChatFormatting.GOLD + "" + (i - kills);
+                return toReturn;
+            }
+            kills -= i;
+        }
+        return toReturn;
     }
     @SubscribeEvent
     public void onEntityDeath(LivingDeathEvent event) {
@@ -194,98 +299,28 @@ public class BestiaryProgress {
                 try {
                     if (!e.getCustomNameTag().contains("§f/§a")) { return; }
                     if (e.getDistanceToEntity(Minecraft.getMinecraft().thePlayer) > 20) { return; }
-                    System.out.println(e.getCustomNameTag());
+                    secondsSinceKill = 0;
                     mobName = e.getCustomNameTag().substring(e.getCustomNameTag().indexOf(" §c") + 1);
                     mobName = mobName.substring(0, mobName.indexOf(" §a"));
                     mobName = StringUtils.stripControlCodes(mobName);
-                    String current = "kills_" + BestiaryHelper.getCorrectName(mobName);
-                    if (!things.containsKey(current)) {
-                        mobName = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + mobName;
+                    String currentKills = "kills_" + getCorrectName(mobName);
+                    if (!things.containsKey(currentKills) || things.get(currentKills) == 0) {
+                        current[0] = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + mobName;
+                        current[1] = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + "Undetected or this is your first kill of the mob.";
                         return;
                     }
-                    this.things.put(current, this.things.get(current) + 1);
-                    int numKills = this.things.get(current).intValue();
-                    kills = BestiaryHelper.updateKills(numKills);
-                    mobName = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + mobName;
-                    } catch (NullPointerException ex) {
+                    this.things.put(currentKills, this.things.get(currentKills) + 1);
+                    int numKills = this.things.get(currentKills).intValue();
+                    current[0] = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + mobName;
+                    current[1] = updateKills(numKills);
+                } catch (NullPointerException ex) {
                     ex.printStackTrace();
                 }
             }
         }
     }
-
-    static {
-        new BestiaryKills();
-        new BestiaryCurrent();
-    }
-    public static class BestiaryKills extends GuiElement {
-        public BestiaryKills() {
-            super("Bestiary Kills", new FloatPair(0.004687f, 0.25639135f));
-            SkyblockReinvented.GUIMANAGER.registerElement(this);
-        }
-        @Override
-        public void render() {
-            EntityPlayerSP player = mc.thePlayer;
-            ScaledResolution sr = new ScaledResolution(mc);
-            if (this.getToggled() && player != null && mc.theWorld != null) {
-                boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
-                ScreenRenderer.fontRenderer.drawString(kills, leftAlign ? this.getActualX() : this.getActualX() + this.getWidth(), this.getActualY(), CommonColors.WHITE, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NORMAL);
-            }
-        }
-
-        @Override
-        public void demoRender() {
-            ScreenRenderer.fontRenderer.drawString(kills, 0.004687f, 0.25639135f, CommonColors.WHITE, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NORMAL);
-        }
-
-        @Override
-        public boolean getToggled() {
-            return SkyblockReinvented.config.bestiaryInfo && !Utils.inDungeons && Utils.inSkyblock;
-        }
-
-        @Override
-        public int getHeight() {
-            return ScreenRenderer.fontRenderer.FONT_HEIGHT;
-        }
-
-        @Override
-        public int getWidth() {
-            return ScreenRenderer.fontRenderer.getStringWidth(kills);
-        }
-    }
-    public static class BestiaryCurrent extends GuiElement {
-        public BestiaryCurrent() {
-            super("Bestiary Current", new FloatPair(0.0026041507f, 0.21804328f));
-            SkyblockReinvented.GUIMANAGER.registerElement(this);
-        }
-        @Override
-        public void render() {
-            EntityPlayerSP player = mc.thePlayer;
-            ScaledResolution sr = new ScaledResolution(mc);
-            if (this.getToggled() && player != null && mc.theWorld != null) {
-                boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
-                ScreenRenderer.fontRenderer.drawString(mobName, leftAlign ? this.getActualX() : this.getActualX() + this.getWidth(), this.getActualY(), CommonColors.WHITE, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NORMAL);
-            }
-        }
-
-        @Override
-        public void demoRender() {
-            ScreenRenderer.fontRenderer.drawString(current, 0.0026041507f, 0.21804328f, CommonColors.WHITE, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NORMAL);
-        }
-
-        @Override
-        public boolean getToggled() {
-            return SkyblockReinvented.config.bestiaryInfo && !Utils.inDungeons && Utils.inSkyblock;
-        }
-
-        @Override
-        public int getHeight() {
-            return ScreenRenderer.fontRenderer.FONT_HEIGHT;
-        }
-
-        @Override
-        public int getWidth() {
-            return ScreenRenderer.fontRenderer.getStringWidth(current);
-        }
+    @SubscribeEvent
+    public void second(SecondPassedEvent event) {
+        secondsSinceKill++;
     }
 }

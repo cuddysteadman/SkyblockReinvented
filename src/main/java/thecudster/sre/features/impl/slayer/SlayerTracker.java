@@ -39,20 +39,17 @@ public class SlayerTracker {
     public static String rngesusMeter = EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!";
     public static String xpLeft = EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!";
     public static String currentSlayer = EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!";
-    public static String display = EnumChatFormatting.GREEN + "XP Until Next Level: " + xpLeft + "\nRNGesus Meter " + rngesusMeter;
-    public static String displayXP = EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!";
-    public static String rngesus = EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!";
     public static String current = EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!";
+    public static String[] displayText = {EnumChatFormatting.GREEN + "XP Until Next Level: " + EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!",
+            EnumChatFormatting.GREEN + "RNGesus Meter: " + EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!",
+            EnumChatFormatting.GREEN + "Current Slayer: " + EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!"};
     private final int nxtLvl = " - Next LVL in ".length();
     private static final Minecraft mc = Minecraft.getMinecraft();
     @SubscribeEvent
     public void onRender(RenderGameOverlayEvent event) {
-        display = EnumChatFormatting.GREEN + "XP Until Next Level: " + xpLeft + "\n" + EnumChatFormatting.GREEN + "RNGesus Meter: " + rngesusMeter + "\n"
-                + EnumChatFormatting.GREEN + "Current Slayer: " + currentSlayer;
-        displayXP = EnumChatFormatting.GREEN + "XP Until Next Level: " + xpLeft;
-        current = EnumChatFormatting.GREEN + "Current Slayer: " + currentSlayer;
-        rngesus = EnumChatFormatting.GREEN + "RNGesus Meter: " + rngesusMeter;
-
+        displayText[0] = EnumChatFormatting.GREEN + "XP Until Next Level: " + xpLeft;
+        displayText[1] = EnumChatFormatting.GREEN + "RNGesus Meter: " + rngesusMeter;
+        displayText[2] = EnumChatFormatting.GREEN + "Current Slayer: " + currentSlayer;
     }
     @SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
     public void onChat(ClientChatReceivedEvent event) {
@@ -92,12 +89,10 @@ public class SlayerTracker {
         }
     }
     static {
-        new SlayerXPGuiElement();
-        new SlayerCurrentGuiElement();
-        new SlayerRNGGuiElement();
+        new SlayerGuiElement();
     }
-    public static class SlayerXPGuiElement extends GuiElement {
-        public SlayerXPGuiElement() {
+    public static class SlayerGuiElement extends GuiElement {
+        public SlayerGuiElement() {
             super("Slayer XP", new FloatPair(0.00625f, 0.14626351f));
             SkyblockReinvented.GUIMANAGER.registerElement(this);
         }
@@ -107,98 +102,38 @@ public class SlayerTracker {
             ScaledResolution sr = new ScaledResolution(mc);
             if (this.getToggled() && player != null && mc.theWorld != null) {
                 boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
-                ScreenRenderer.fontRenderer.drawString(displayXP, leftAlign ? this.getActualX() : this.getActualX() + this.getWidth(), this.getActualY(), CommonColors.WHITE, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NORMAL);
+                for (int i = 0; i < 3; i++) {
+                    SmartFontRenderer.TextAlignment alignment = leftAlign ? SmartFontRenderer.TextAlignment.LEFT_RIGHT : SmartFontRenderer.TextAlignment.RIGHT_LEFT;
+                    ScreenRenderer.fontRenderer.drawString(displayText[i], leftAlign ? this.getActualX() : this.getActualX() + this.getWidth(), this.getActualY() + i * ScreenRenderer.fontRenderer.FONT_HEIGHT, CommonColors.WHITE, alignment, SmartFontRenderer.TextShadow.NORMAL);
+                }
             }
         }
 
         @Override
         public void demoRender() {
-            ScreenRenderer.fontRenderer.drawString(displayXP, 0.00625f, 0.14626351f, CommonColors.WHITE, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NORMAL);
-        }
-
-        @Override
-        public boolean getToggled() {
-            return SkyblockReinvented.config.slayerInfo && Utils.inSkyblock && !Utils.inDungeons;
-        }
-
-        @Override
-        public int getHeight() {
-            return ScreenRenderer.fontRenderer.FONT_HEIGHT;
-        }
-
-        @Override
-        public int getWidth() {
-            return ScreenRenderer.fontRenderer.getStringWidth(displayXP);
-        }
-    }
-    public static class SlayerRNGGuiElement extends GuiElement {
-        public SlayerRNGGuiElement() {
-            super("Slayer RNG", new FloatPair(0.005208337f, 0.18264504f));
-            SkyblockReinvented.GUIMANAGER.registerElement(this);
-        }
-        @Override
-        public void render() {
-            EntityPlayerSP player = mc.thePlayer;
             ScaledResolution sr = new ScaledResolution(mc);
-            if (this.getToggled() && player != null && mc.theWorld != null) {
+            if (Utils.inSkyblock && !Utils.inDungeons && SkyblockReinvented.config.slayerInfo) {
                 boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
-                ScreenRenderer.fontRenderer.drawString(rngesus, leftAlign ? this.getActualX() : this.getActualX() + this.getWidth(), this.getActualY(), CommonColors.WHITE, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NORMAL);
+                for (int i = 0; i < 3; i++) {
+                    SmartFontRenderer.TextAlignment alignment = leftAlign ? SmartFontRenderer.TextAlignment.LEFT_RIGHT : SmartFontRenderer.TextAlignment.RIGHT_LEFT;
+                    ScreenRenderer.fontRenderer.drawString(displayText[i], leftAlign ? 0 : this.getActualWidth(), i * ScreenRenderer.fontRenderer.FONT_HEIGHT, CommonColors.WHITE, alignment, SmartFontRenderer.TextShadow.NORMAL);
+                }
             }
         }
 
         @Override
-        public void demoRender() {
-            ScreenRenderer.fontRenderer.drawString(rngesus, 0.005208337f, 0.18264504f, CommonColors.WHITE, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NORMAL);
-        }
-
-        @Override
         public boolean getToggled() {
-            return SkyblockReinvented.config.slayerInfo && Utils.inSkyblock && !Utils.inDungeons;
+            return SkyblockReinvented.config.slayerInfo && Utils.inSkyblock && !Utils.inDungeons && Utils.inLoc(SlayerFeatures.slayerLocs);
         }
 
         @Override
         public int getHeight() {
-            return ScreenRenderer.fontRenderer.FONT_HEIGHT;
+            return ScreenRenderer.fontRenderer.FONT_HEIGHT * 3;
         }
 
         @Override
         public int getWidth() {
-            return ScreenRenderer.fontRenderer.getStringWidth(rngesus);
-        }
-    }
-    public static class SlayerCurrentGuiElement extends GuiElement {
-        public SlayerCurrentGuiElement() {
-            super("Slayer Current", new FloatPair(0.004687488f, 0.106932156f));
-            SkyblockReinvented.GUIMANAGER.registerElement(this);
-        }
-        @Override
-        public void render() {
-            EntityPlayerSP player = mc.thePlayer;
-            ScaledResolution sr = new ScaledResolution(mc);
-            if (this.getToggled() && player != null && mc.theWorld != null) {
-                boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
-                ScreenRenderer.fontRenderer.drawString(current, leftAlign ? this.getActualX() : this.getActualX() + this.getWidth(), this.getActualY(), CommonColors.WHITE, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NORMAL);
-            }
-        }
-
-        @Override
-        public void demoRender() {
-            ScreenRenderer.fontRenderer.drawString(current, 0.004687488f, 0.106932156f, CommonColors.WHITE, SmartFontRenderer.TextAlignment.LEFT_RIGHT, SmartFontRenderer.TextShadow.NORMAL);
-        }
-
-        @Override
-        public boolean getToggled() {
-            return SkyblockReinvented.config.slayerInfo && Utils.inSkyblock && !Utils.inDungeons;
-        }
-
-        @Override
-        public int getHeight() {
-            return ScreenRenderer.fontRenderer.FONT_HEIGHT;
-        }
-
-        @Override
-        public int getWidth() {
-            return ScreenRenderer.fontRenderer.getStringWidth(current);
+            return ScreenRenderer.fontRenderer.getStringWidth(displayText[0]);
         }
     }
 }

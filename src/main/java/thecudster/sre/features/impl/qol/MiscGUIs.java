@@ -24,6 +24,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.Slot;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.StringUtils;
@@ -99,45 +100,51 @@ public class MiscGUIs {
             }
         }
         if (SkyblockReinvented.config.hubOverlay) {
-            Minecraft mc = Minecraft.getMinecraft();
-            if (mc.currentScreen instanceof GuiChest) {
-                GuiChest chest = (GuiChest) mc.currentScreen;
-                ContainerChest inventory = (ContainerChest) chest.inventorySlots;
+            try {
+                Minecraft mc = Minecraft.getMinecraft();
+                if (mc.currentScreen instanceof GuiChest) {
+                    GuiChest chest = (GuiChest) mc.currentScreen;
+                    ContainerChest inventory = (ContainerChest) chest.inventorySlots;
 
-                if (inventory.getLowerChestInventory().getDisplayName().getUnformattedText().equals("SkyBlock Hub Selector")) {
-                    List<Slot> slots = chest.inventorySlots.inventorySlots;
+                    if (inventory.getLowerChestInventory().getDisplayName().getUnformattedText().equals("SkyBlock Hub Selector")) {
+                        List<Slot> slots = chest.inventorySlots.inventorySlots;
 
-                    for (Slot toCheck : slots) {
-                        if (toCheck.getStack() != null) {
-                            if (toCheck.getStack().hasDisplayName()) {
-                                String name = toCheck.getStack().getDisplayName();
-                                if (name.contains("SkyBlock Hub")) {
-                                    List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
-                                    boolean found = false;
-                                    boolean foundYellow = false;
-                                    for (String s : lore) {
-                                        if (s.contains("Full!") || s.contains("Already connected!")) {
-                                            found = true;
-                                            showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
-                                        } else if (s.contains("Players: ")) {
-                                            System.out.println(s);
-                                            s = s.substring(11, 13);
-                                            if (Integer.parseInt(s) > 70) {
-                                                foundYellow = true;
+                        for (Slot toCheck : slots) {
+                            if (toCheck.getStack() != null) {
+                                if (toCheck.getStack().hasDisplayName()) {
+                                    String name = toCheck.getStack().getDisplayName();
+                                    if (name.contains("SkyBlock Hub")) {
+                                        List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
+                                        boolean found = false;
+                                        boolean foundYellow = false;
+                                        for (String s : lore) {
+                                            if (s.contains("Full!") || s.contains("Already connected!")) {
+                                                found = true;
+                                                showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
+                                            } else if (s.contains("Players: ")) {
+                                                System.out.println(s);
+                                                s = s.substring(11, 13);
+                                                s = s.replace("/", "");
+                                                if (Integer.parseInt(s) > 70) {
+                                                    foundYellow = true;
+                                                }
                                             }
                                         }
-                                    }
-                                    if (!found && !foundYellow) {
-                                        showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.green.getRGB());
-                                    } else if (foundYellow) {
-                                        showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.yellow.getRGB());
+                                        if (!found && !foundYellow) {
+                                            showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.green.getRGB());
+                                        } else if (foundYellow) {
+                                            showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.yellow.getRGB());
+                                        }
                                     }
                                 }
                             }
                         }
+                        return;
                     }
-                    return;
                 }
+            } catch (NumberFormatException ex) {
+                Utils.sendMsg(EnumChatFormatting.RED + "SRE caught and logged an exception. Please report this.");
+                ex.printStackTrace(); // temp fix
             }
         }
         if (SkyblockReinvented.config.toSearch != null && !SkyblockReinvented.config.toSearch.isEmpty()) {

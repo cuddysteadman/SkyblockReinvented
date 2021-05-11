@@ -48,7 +48,7 @@ public class WitherCloakHider {
 		if (event.entity.getDistance(player.posX, player.posY, player.posZ) <= 5) { return; }
 		
 			if (creeperEntity instanceof EntityCreeper && SkyblockReinvented.config.renderCreepers && creeperEntity.getPowered()) {
-				event.entity.setInvisible(true);
+				event.setCanceled(true); // TODO max health
 			}
 		
 		

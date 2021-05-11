@@ -409,15 +409,6 @@ public class Config extends Vigilant {
 	public boolean removeRNGChat = false;
 	@Property(
 		type = PropertyType.SWITCH,
-		name = "Remove Chat from Skytils",
-		description = "Removes chat messages like \"Skytils has prevented you from\", etc.",
-		category = "Chat",
-		hidden = true,
-		subcategory = "Warnings"
-	)
-	public boolean removeSkytils = false;
-	@Property(
-		type = PropertyType.SWITCH,
 		name = "Remove Minion Inventory Warnings",
 		description = "Removes chat messages from minions and inventory warnings.",
 		category = "Your Island",
@@ -589,14 +580,16 @@ public class Config extends Vigilant {
 			subcategory = "Rendering"
 	)
 	public boolean arrowHitboxes = false;
+	/*
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Warn When Near Fish",
 			description = "Warns you when you are about to catch a fish.",
-			category = "General",
-			subcategory = "Rendering"
+			category = "Skills",
+			subcategory = "Fishing"
 	)
 	public boolean fishWarning = false;
+	 */
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Hide Jerry Heads",
@@ -605,6 +598,7 @@ public class Config extends Vigilant {
 			subcategory = "Rendering"
 	)
 	public boolean hideJerry = false;
+	/*
 	@Property(
 			type = PropertyType.SLIDER,
 			name = "Fish Particles Scale",
@@ -615,6 +609,7 @@ public class Config extends Vigilant {
 			max = 300
 	)
 	public Integer fishScale = 100;
+	*/
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Treasure Hunter Waypoints",
@@ -639,7 +634,14 @@ public class Config extends Vigilant {
 			subcategory = "Chat"
 	)
 	public boolean struckYou = false;
-
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Hide Guided Sheeps",
+			description = "Sets all guided sheeps invisible.",
+			category = "Dungeons",
+			subcategory = "Misc"
+	)
+	public boolean sheep = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Show Cake Year",

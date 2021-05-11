@@ -102,7 +102,8 @@ public class FilterHandler {
 			"No answer.",
 			"Seems like it's not picking up!",
 			"\"Your call is important to us, please stay on the line\", so you hang up.",
-			"HEY IT'S NOT PICKING UP STOP TRYING!"
+			"HEY IT'S NOT PICKING UP STOP TRYING!",
+			"The line is dead."
 	};
 	public static final String[] fetchurQuotes = {
 			"hi i need your help maybe",
@@ -206,6 +207,7 @@ public class FilterHandler {
 			"They are both telling the truth. The reward isn't in",
 			"We are all telling the truth!",
 			"is telling the truth and the reward is",
+			"The reward isn't in any of our chests.",
 			"My chest doesn't have the reward. At least one of the others is telling the truth!",
 			"One of the others is lying!",
 			"They are both telling the truth, the reward is in",
@@ -278,7 +280,8 @@ public class FilterHandler {
 			"Attempting to add you to the party...",
 			"Please wait a few seconds between refreshing!",
 			"Refreshing...",
-			"You are already in a party!"
+			"You are already in a party!",
+			"This group is full!"
 	};
 	public static final String[] experimentationTable = {
 			"You removed a Experimentation Table. (",
@@ -356,6 +359,9 @@ public class FilterHandler {
 		}
 		if (SkyblockReinvented.config.ticketMsgs) {
 			if (message.contains("You registered") && message.contains("in the raffle event!")) {
+				event.setCanceled(true);
+				return;
+			} if (message.contains("No tickets to put in the box...")) {
 				event.setCanceled(true);
 				return;
 			}
@@ -967,8 +973,8 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.sellable) {
-			if (unformatted.contains("You sold ") && unformatted.contains("for ") && unformatted.contains("Coins!") && Utils.inSkyblock && Utils.inSkyblock) {
-				for (String s : DungeonUtils.sellableNames) {
+			if (unformatted.contains("You sold ") && unformatted.contains("for ") && unformatted.contains("Coins!") && Utils.inSkyblock) {
+				for (String s : DungeonUtils.blockedNames) {
 					if (unformatted.contains(s)) {
 						event.setCanceled(true);
 						return;

@@ -31,6 +31,7 @@ public class RemoveItemFrameNames {
         if (!Utils.inSkyblock) { return; }
         if (!CurrentLoc.currentLoc.equals("Your Island"))
         if (!SkyblockReinvented.config.itemFrameNames) { return; }
-        event.item.setStackDisplayName("");
+        event.entityItemFrame.setAlwaysRenderNameTag(false);
+        event.entityItemFrame.getDisplayedItem().setStackDisplayName("");
     }
 }

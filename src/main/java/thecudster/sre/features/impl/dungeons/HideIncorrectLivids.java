@@ -21,6 +21,7 @@ package thecudster.sre.features.impl.dungeons;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import thecudster.sre.SkyblockReinvented;
@@ -45,8 +46,8 @@ public class HideIncorrectLivids {
                     if (name.contains("Livid") && name.length() > 5) {
                         if (!loadedLivids.contains(entity)) {
                             loadedLivids.add(entity);
-                        } else if (!entity.equals(livid)) {
-                            entity.setInvisible(true);
+                        } else if (!entity.equals(livid) && foundLivid) {
+                            Minecraft.getMinecraft().theWorld.removeEntity(entity);
                         }
                     }
                 }
@@ -55,6 +56,12 @@ public class HideIncorrectLivids {
                     foundLivid = true;
                 }
             }
+        }
+    }
+    @SubscribeEvent
+    public void onRender(RenderLivingEvent.Pre event) {
+        if (loadedLivids.contains(event.entity) && foundLivid && !(event.entity.equals(livid)) && SkyblockReinvented.config.hideLivids) {
+            event.setCanceled(true);
         }
     }
 }

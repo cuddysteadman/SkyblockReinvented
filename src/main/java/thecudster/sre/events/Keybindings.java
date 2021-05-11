@@ -18,60 +18,18 @@
  */
 package thecudster.sre.events;
 
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.features.impl.qol.Stash;
 import thecudster.sre.util.sbutil.Utils;
 
 public class Keybindings {
     @SubscribeEvent
     public void onKey(KeyInputEvent event) {
-        if (!Utils.inSkyblock) { return; }
         if (SkyblockReinvented.keyBindings[0].isPressed()) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/bz");
+            Utils.checkForDungeons();
+            Utils.checkForSkyblock();
+            Utils.checkIronman();
         }
-        if (SkyblockReinvented.keyBindings[1].isPressed()) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/ah");
-        }
-        if (SkyblockReinvented.keyBindings[2].isPressed()) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/visit prtl");
-        }
-        if (SkyblockReinvented.keyBindings[3].isPressed()) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/pets");
-        }
-        if (SkyblockReinvented.keyBindings[4].isPressed()) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/echest");
-        }
-        if (SkyblockReinvented.keyBindings[5].isPressed()) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/wd");
-        }
-        if (SkyblockReinvented.keyBindings[6].isPressed()) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/craftingmenu");
-        }
-        if (SkyblockReinvented.keyBindings[7].isPressed()) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/sbmenu");
-        }
-        if (SkyblockReinvented.keyBindings[8].isPressed()) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/skills");
-        }
-        if (SkyblockReinvented.keyBindings[9].isPressed()) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/hotm");
-        }
-        if (SkyblockReinvented.keyBindings[10].isPressed()) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/warp hub");
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/warp hub");
-        }
-        if (SkyblockReinvented.keyBindings[11].isPressed()) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/dh");
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/dh");
-        }
-        if (SkyblockReinvented.keyBindings[12].isPressed()) {
-            if (Stash.needsToPickup) {
-                Minecraft.getMinecraft().thePlayer.sendChatMessage("/pickupstash");
-            }
-        }
-
     }
 }

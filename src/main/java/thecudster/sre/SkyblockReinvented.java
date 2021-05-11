@@ -33,6 +33,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
 import thecudster.sre.commands.*;
@@ -40,6 +41,7 @@ import thecudster.sre.commands.dungeons.Catacombs;
 import thecudster.sre.commands.dungeons.FragRun;
 import thecudster.sre.commands.dungeons.MasterMode;
 import thecudster.sre.events.*;
+import thecudster.sre.features.impl.bestiary.BestiaryGUI;
 import thecudster.sre.features.impl.bestiary.BestiaryProgress;
 import thecudster.sre.features.impl.dragons.DragTracker;
 import thecudster.sre.features.impl.dragons.DragonArrowHitbox;
@@ -51,6 +53,7 @@ import thecudster.sre.features.impl.qol.*;
 import thecudster.sre.features.impl.rendering.HyperionOverlay;
 import thecudster.sre.features.impl.rendering.PlayerHider;
 import thecudster.sre.features.impl.rendering.RemoveVillagers;
+import thecudster.sre.features.impl.slayer.SlayerFeatures;
 import thecudster.sre.features.impl.slayer.SlayerTracker;
 import thecudster.sre.features.impl.sounds.MiscSoundBlocks;
 import thecudster.sre.settings.Config;
@@ -66,8 +69,8 @@ public class SkyblockReinvented {
 	public static Config config = new Config();
 	public static final String MODID = "sre";
 	public static final String MOD_NAME = "SkyblockReinvented";
-	public static final String VERSION = "0.0.6";
-	public static KeyBinding[] keyBindings = new KeyBinding[13];
+	public static final String VERSION = "0.0.7-pre1";
+	public static KeyBinding[] keyBindings = new KeyBinding[1];
 	public static File modDir = new File(new File(Minecraft.getMinecraft().mcDataDir, "config"), "SRE");
 	public static DiscordRPC discordRPC;
 	public static final Minecraft mc = Minecraft.getMinecraft();
@@ -87,12 +90,13 @@ public class SkyblockReinvented {
         config.preload();
 
 		ClientCommandHandler.instance.registerCommand(new SRECommand());
-		ClientCommandHandler.instance.registerCommand(new SBCommand());
 		ClientCommandHandler.instance.registerCommand(new AddItem());
 		ClientCommandHandler.instance.registerCommand(new Rendering());
 		ClientCommandHandler.instance.registerCommand(new FragRun());
 		ClientCommandHandler.instance.registerCommand(new DragCommand());
 		ClientCommandHandler.instance.registerCommand(new SetStatus());
+		ClientCommandHandler.instance.registerCommand(new MasterMode());
+		ClientCommandHandler.instance.registerCommand(new Catacombs());
 
 		MinecraftForge.EVENT_BUS.register(new RemoveRaffleTitles());
 		MinecraftForge.EVENT_BUS.register(this);
@@ -102,33 +106,32 @@ public class SkyblockReinvented {
 		MinecraftForge.EVENT_BUS.register(new BlockPowerOrb());
 		MinecraftForge.EVENT_BUS.register(new WitherCloakHider());
 		MinecraftForge.EVENT_BUS.register(new RemoveVillagers());
-		MinecraftForge.EVENT_BUS.register(new DeleteOwnSpiritBats());
 		MinecraftForge.EVENT_BUS.register(new HyperionOverlay());
 		MinecraftForge.EVENT_BUS.register(new MiscSoundBlocks());
 		MinecraftForge.EVENT_BUS.register(new Keybindings());
 		MinecraftForge.EVENT_BUS.register(new MiscClickBlocks());
 		MinecraftForge.EVENT_BUS.register(new MiscGUIs());
-		MinecraftForge.EVENT_BUS.register(new SkeletonMasterReminder());
 		MinecraftForge.EVENT_BUS.register(new GhostLoot());
 		MinecraftForge.EVENT_BUS.register(new LootTracker());
-		MinecraftForge.EVENT_BUS.register(new MasterMode());
-		MinecraftForge.EVENT_BUS.register(new Catacombs());
 		MinecraftForge.EVENT_BUS.register(new RemoveItemFrameNames());
 		MinecraftForge.EVENT_BUS.register(GUIMANAGER);
 		MinecraftForge.EVENT_BUS.register(new DragonArrowHitbox());
 		MinecraftForge.EVENT_BUS.register(new BoxUnkilledMobs());
 		MinecraftForge.EVENT_BUS.register(new SlayerTracker());
 		MinecraftForge.EVENT_BUS.register(new BestiaryProgress());
+		MinecraftForge.EVENT_BUS.register(new BestiaryGUI());
 		MinecraftForge.EVENT_BUS.register(new JerrychineHider());
 		MinecraftForge.EVENT_BUS.register(new CakeStackSize());
 		MinecraftForge.EVENT_BUS.register(new DragTracker());
 		MinecraftForge.EVENT_BUS.register(new Stash());
-		MinecraftForge.EVENT_BUS.register(new SolvedCreeperSounds());
 		MinecraftForge.EVENT_BUS.register(new CreeperSolver());
 		MinecraftForge.EVENT_BUS.register(new WorldChangeEvent());
 		MinecraftForge.EVENT_BUS.register(new JerryTimer());
 		MinecraftForge.EVENT_BUS.register(new HideIncorrectLivids());
 		MinecraftForge.EVENT_BUS.register(new TreasureLocs());
+		MinecraftForge.EVENT_BUS.register(new DungeonFeatures());
+		MinecraftForge.EVENT_BUS.register(new SlayerFeatures());
+
 		if (Minecraft.getMinecraft().gameSettings.language != null) {
 			ScreenRenderer.fontRenderer.setUnicodeFlag(Minecraft.getMinecraft().isUnicode());
 			ScreenRenderer.fontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
@@ -136,19 +139,7 @@ public class SkyblockReinvented {
 		TreasureLocs.init();
 		IReloadableResourceManager mgr = (IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager();
 		mgr.registerReloadListener(ScreenRenderer.fontRenderer);
-		keyBindings[0] = new KeyBinding("Open Bazaar", Keyboard.KEY_B, "SkyblockReinvented");
-		keyBindings[1] = new KeyBinding("Open AH", Keyboard.KEY_H, "SkyblockReinvented");
-		keyBindings[2] = new KeyBinding("Open PRTL", Keyboard.KEY_P, "SkyblockReinvented");
-		keyBindings[3] = new KeyBinding("Open Pets", Keyboard.KEY_NONE, "SkyblockReinvented");
-		keyBindings[4] = new KeyBinding("Open EChest", Keyboard.KEY_NONE, "SkyblockReinvented");
-		keyBindings[5] = new KeyBinding("Open Wardrobe", Keyboard.KEY_NONE, "SkyblockReinvented");
-		keyBindings[6] = new KeyBinding("Open Crafting Menu", Keyboard.KEY_NONE, "SkyblockReinvented");
-		keyBindings[7] = new KeyBinding("Open SB Menu", Keyboard.KEY_NONE, "SkyblockReinvented");
-		keyBindings[8] = new KeyBinding("Open Skills", Keyboard.KEY_NONE, "SkyblockReinvented");
-		keyBindings[9] = new KeyBinding("Open HOTM", Keyboard.KEY_NONE, "SkyblockReinvented");
-		keyBindings[10] = new KeyBinding("Warp Hub", Keyboard.KEY_NONE, "SkyblockReinvented");
-		keyBindings[11] = new KeyBinding("Warp Dungeon Hub", Keyboard.KEY_NONE, "SkyblockReinvented");
-		keyBindings[12] = new KeyBinding("Pickup Stash", Keyboard.KEY_P, "SkyblockReinvented");
+		keyBindings[0] = new KeyBinding("Refresh Location", Keyboard.KEY_H, "SkyblockReinvented");
 		for (KeyBinding keyBinding : keyBindings) {
 			ClientRegistry.registerKeyBinding(keyBinding);
 		}
@@ -158,6 +149,10 @@ public class SkyblockReinvented {
 	}
 	@EventHandler
 	public void serverClose(FMLServerStoppingEvent event) {
+	}
+	@SubscribeEvent
+	public void onLogout(PlayerEvent.PlayerLoggedOutEvent event) {
+		MinecraftForge.EVENT_BUS.post(new LeaveSkyblockEvent());
 	}
 	public static int ticks = 0;
 	@SubscribeEvent

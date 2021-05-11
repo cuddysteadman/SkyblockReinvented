@@ -17,43 +17,29 @@
  *
  */
 
-package thecudster.sre.features.impl.dungeons;
+package thecudster.sre.features.impl.slayer;
 
-import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.sbutil.Utils;
 
-public class DeleteOwnSpiritBats {
-    @SubscribeEvent(receiveCanceled = true)
-    public void onRender(RenderLivingEvent.Pre event) {
-        if (!Utils.inSkyblock || !Utils.inDungeons) { return; }
-            if (event.entity instanceof EntityBat) {
-                if (SkyblockReinvented.config.spiritBats) {
-                    if (isSpiritBat((EntityBat) event.entity)) {
-                        event.entity.setInvisible(true);
-                        return;
-                    }
-                }
-            }
-
+public class SlayerFeatures {
+    public static final String[] svenLocs = {"Ruins", "Howling Cave"};
+    public static final String[] taraLocs = {"Spider's Den"};
+    public static final String[] revLocs = {"Graveyard", "Coal Mine"};
+    public static final String[] slayerLocs = {"Graveyard", "Coal Mine", "Spider's Den", "Ruins", "Howling Cave"};
+    @SubscribeEvent
+    public void onEntity(RenderLivingEvent.Pre event) {
         if (SkyblockReinvented.config.svenPups) {
             if (event.entity instanceof EntityWolf) {
                 EntityWolf wolf = ((EntityWolf) event.entity);
-                if (wolf.isChild()) {
-                    wolf.setInvisible(true);
+                if (wolf.isChild() && Utils.inLoc(svenLocs)) {
+                    event.setCanceled(true);
                     return;
                 }
-
             }
         }
-    }
-
-    public static boolean isSpiritBat(EntityBat e) {
-        if (!Utils.inSkyblock) { return false; }
-        if (Utils.inDungeons && e.getMaxHealth() == 100) { return false; }
-        return true;
     }
 }

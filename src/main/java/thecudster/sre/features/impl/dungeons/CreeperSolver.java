@@ -26,6 +26,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.init.Blocks;
+import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
@@ -34,6 +35,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.events.ReceivePacketEvent;
 import thecudster.sre.util.gui.DrawWaypoint;
 import thecudster.sre.util.sbutil.Utils;
 
@@ -119,6 +121,22 @@ public class CreeperSolver {
                 }
             }
 
+        }
+    }
+    @SubscribeEvent
+    public void onReceivePacket (ReceivePacketEvent event) {
+        if (!Utils.inSkyblock || !Utils.inDungeons) { return; }
+        if (event.packet instanceof S29PacketSoundEffect) {
+            S29PacketSoundEffect packet = (S29PacketSoundEffect) event.packet;
+            if (packet.getSoundName().equals("mob.creeper.say")) {
+                if (packet.getPitch() == packet.getVolume() && packet.getVolume() == 1.0f) {
+                    this.solved++;
+                }
+            } else if (packet.getSoundName().equals("creeper.primed")) {
+                if (packet.getPitch() == 0.4920635f && packet.getVolume() == 1.0f) {
+                    this.finishedPuzzle = true;
+                }
+            }
         }
     }
 

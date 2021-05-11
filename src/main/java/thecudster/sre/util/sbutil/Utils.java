@@ -207,4 +207,12 @@ public class Utils {
         }
         return false;
     }
+    public static boolean inLoc(String[] locs) {
+        for (String s : locs) {
+            if (CurrentLoc.currentLoc.equals(s)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

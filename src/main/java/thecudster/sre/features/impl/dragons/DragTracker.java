@@ -24,6 +24,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.gui.FloatPair;
 import thecudster.sre.util.gui.GuiElement;
@@ -107,13 +108,13 @@ public class DragTracker {
             return ScreenRenderer.fontRenderer.getStringWidth(dragDemo[3]);
         }
     }
+    @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
         if (event.type == 0x2) {
             return;
         }
         if (!Utils.inSkyblock) { return; }
         String unformatted = StringUtils.stripControlCodes(event.message.getUnformattedText());
-        System.out.println(unformatted);
         if (SkyblockReinvented.config.dragTracker && CurrentLoc.currentLoc.equals("Dragon's Nest") && !Utils.inDungeons) {
             if (unformatted.contains("The ") && unformatted.contains(" Dragon") && unformatted.contains("has spawned!")) {
                 unformatted = unformatted.substring(unformatted.indexOf("The ") + 4, unformatted.indexOf(" Dragon"));

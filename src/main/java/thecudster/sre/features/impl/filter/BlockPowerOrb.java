@@ -27,7 +27,7 @@ import thecudster.sre.util.CancelParticle;
 import thecudster.sre.util.sbutil.Utils;
 
 public class BlockPowerOrb {
-	public boolean isOrb = false;
+	public static boolean isOrb = false;
 	@SubscribeEvent()
 	public void onRender(RenderLivingEvent.Pre<EntityArmorStand> event) {
 	if (!SkyblockReinvented.config.renderPowerOrb || !Utils.inSkyblock) { return; }
@@ -35,9 +35,9 @@ public class BlockPowerOrb {
 			EntityArmorStand entity = (EntityArmorStand) event.entity;
 			String name = entity.getCustomNameTag();
 			if (name != null) {
-				isOrb = name.contains("Radiant") || name.contains("Mana Flux") || name.contains("Overflux") || name.contains("Plasmaflux");
-				if (isOrb) {
-					event.entity.setInvisible(true);
+				isOrb = (name.contains("Radiant") || name.contains("Mana Flux") || name.contains("Overflux") || name.contains("Plasmaflux"));
+				if (isOrb && event.entity.getMaxHealth() == 20.0) {
+					event.entity.setAlwaysRenderNameTag(false);
 					CancelParticle.cancel();
 				}
 			}

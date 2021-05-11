@@ -180,7 +180,7 @@ public class SkyblockReinventedInstallerFrame extends JFrame implements ActionLi
                 versionInfo.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
                 versionInfo.setHorizontalAlignment(SwingConstants.CENTER);
                 versionInfo.setPreferredSize(new Dimension(w, h));
-                versionInfo.setText("v"+getVersionFromMcmodInfo()+" by the SRE Team - for Minecraft 1.8.9");
+                versionInfo.setText("v0.0.7-pre1 by the SRE Team - for Minecraft 1.8.9");
 
                 y += h;
             } catch (Throwable ivjExc) {
@@ -438,7 +438,7 @@ public class SkyblockReinventedInstallerFrame extends JFrame implements ActionLi
         if (thisFile != null) {
             boolean inSubFolder = IN_MODS_SUBFOLDER.matcher(modsFolder.getPath()).find();
 
-            File newFile = new File(modsFolder, "sre-"+getVersionFromMcmodInfo()+".jar");
+            File newFile = new File(modsFolder, "sre-0.0.7-pre1.jar");
             if (thisFile.equals(newFile)) {
                 showErrorMessage("You are opening this file from where the file should be installed... there's nothing to be done!");
                 return;

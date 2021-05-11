@@ -18,12 +18,10 @@
  */
 package thecudster.sre.commands;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import org.jetbrains.annotations.NotNull;
 import thecudster.sre.SkyblockReinvented;
@@ -76,9 +74,9 @@ public class AddItem implements ICommand {
                 SkyblockReinvented.config.toSearch.clear();
                 break;
             case "current":
-                Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("Your current list is as follows:"));
+                Utils.sendMsg(EnumChatFormatting.GOLD + "Your current list is as follows:");
                 for (String s : SkyblockReinvented.config.toSearch) {
-                    Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(s));
+                    Utils.sendMsg(EnumChatFormatting.GREEN + " • " + s);
                 }
                 break;
             case "search":

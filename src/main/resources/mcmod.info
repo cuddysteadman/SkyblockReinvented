@@ -3,7 +3,7 @@
   "modid": "sre",
   "name": "SkyblockReinvented",
   "description": "A mod with tons of useful features for Hypixel Skyblock!",
-  "version": "0.0.6",
+  "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "https://github.com/theCudster/SkyblockReinvented",
   "updateUrl": "https://github.com/theCudster/SkyblockReinvented/releases/latest",

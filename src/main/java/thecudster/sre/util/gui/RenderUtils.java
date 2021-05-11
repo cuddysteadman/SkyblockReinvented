@@ -23,6 +23,7 @@ package thecudster.sre.util.gui;
  * https://github.com/Moulberry/NotEnoughUpdates/blob/master/LICENSE
  * @author Moulberry
  */
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -33,6 +34,8 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
+
+import java.awt.*;
 
 public class RenderUtils {
 
@@ -160,5 +163,12 @@ public class RenderUtils {
         GlStateManager.enableAlpha();
         GlStateManager.enableTexture2D();
     }
-
+    // original
+    public static void progressBar(double left, double top, double right, double bottom, Color color, double progress) {
+        RenderUtil.drawRect( left + 1, top - 1, (right * progress) - 1, bottom - 1, color.getRGB());
+        RenderUtil.drawRect(left, top, right, bottom, new Color(0, 0, 0).getRGB());
+    }
+    public static void progressBar(double left, double bottom, double scale, Color color, double progress) {
+        progressBar(left, bottom + scale, left + 2 * scale, bottom, color, progress);
+    }
 }

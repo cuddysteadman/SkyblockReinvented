@@ -22,11 +22,7 @@ package thecudster.sre.mixins;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityOtherPlayerMP;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.particle.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.projectile.EntityFishHook;
+import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,8 +30,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.gui.GuiManager;
-import thecudster.sre.util.sbutil.Utils;
 
 @Mixin(EffectRenderer.class)
 public abstract class MixinEffectRenderer {
@@ -59,10 +53,11 @@ public abstract class MixinEffectRenderer {
             return;
         }
     }
+    /*
     int stopDestroyingMyFuckingEars = 60;
     @Inject(method = "addEffect", at = @At("HEAD"), cancellable = true)
     private void addEffect(EntityFX effect, CallbackInfo ci) {
-        if (!Utils.inSkyblock || !Utils.inDungeons) { return; }
+        if (!Utils.inSkyblock || Utils.inDungeons || !SkyblockReinvented.config.fishWarning || SkyblockReinvented.config.fishScale == 100 || !(Minecraft.getMinecraft().thePlayer.getHeldItem().getItem() instanceof ItemFishingRod)) { return; }
         if (effect instanceof EntityFishWakeFX) {
             if (SkyblockReinvented.config.fishWarning) {
                 EntityFishWakeFX fish = (EntityFishWakeFX) effect;
@@ -83,7 +78,7 @@ public abstract class MixinEffectRenderer {
                 }
                 if (!found) { return; }
                 float scale = SkyblockReinvented.config.fishScale / 100f;
-                fish.multipleParticleScaleBy(scale);
+                // fish.multipleParticleScaleBy(scale);
                 if (fish.getDistanceToEntity(Minecraft.getMinecraft().thePlayer) < 7) {
                     if (stopDestroyingMyFuckingEars > 120) {
                         GuiManager.createTitle("Fish near Hook!", 20);
@@ -96,9 +91,10 @@ public abstract class MixinEffectRenderer {
         }
         else if (effect instanceof EntityBlockDustFX || effect instanceof EntityFootStepFX) {
             if (SkyblockReinvented.config.renderPlayers) {
-                ci.cancel();
+                // ci.cancel();
                 return;
             }
         }
-    }
+
+    }*/
 }

@@ -32,15 +32,23 @@ import thecudster.sre.util.sbutil.Utils;
 public class JerrychineHider {
     @SubscribeEvent
     public void onRender(RenderLivingEvent.Pre<EntityArmorStand> event) {
-        if (!SkyblockReinvented.config.hideJerry || !Utils.inSkyblock) { return; }
+        if (!SkyblockReinvented.config.hideJerry || !Utils.inSkyblock || Utils.inDungeons) { return; }
         try {
             if (event.entity instanceof EntityArmorStand) {
                 EntityArmorStand entity = ((EntityArmorStand) event.entity);
                 ItemStack headSlot = entity.getCurrentArmor(3);
                 if (entity.getCurrentArmor(0) != null || entity.getCurrentArmor(1) != null || entity.getCurrentArmor(2) != null) { return; }
                 if (headSlot != null && headSlot.getItem() == Items.skull && headSlot.hasTagCompound()) {
-                    if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()).equals("JERRY_STAFF")) {
-                        event.entity.setInvisible(true);
+                    if (event.entity.getCustomNameTag() == null) {
+                        if (Minecraft.getMinecraft().thePlayer.getHeldItem() != null) {
+                            if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()) != null) {
+                                if (ItemUtil.getSkyBlockItemID(Minecraft.getMinecraft().thePlayer.getHeldItem()).equals("JERRY_STAFF")) {
+                                    if (event.entity.getMaxHealth() == 20.0 && event.entity.getName().equals("Armor Stand")) {
+                                        event.setCanceled(true);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
