@@ -71,9 +71,6 @@ public class RemoveVillagers {
     };
     @SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
     public void onCheckRender(RenderLivingEvent.Pre event) {
-        if (found.size() > 16) {
-            return;
-        }
         if (!SkyblockReinvented.config.renderVillagers || !Utils.inSkyblock || CurrentLoc.currentLoc.equals("Jerry's Workshop") || CurrentLoc.currentLoc.equals("Jerry Pond")) {
             return;
         }
@@ -81,7 +78,7 @@ public class RemoveVillagers {
         boolean villager = false;
         if (event.entity.getCustomNameTag() != null) {
             List<EntityArmorStand> entitiesWithinRange = Minecraft.getMinecraft().theWorld.getEntitiesWithinAABB(EntityArmorStand.class, AxisAlignedBB.fromBounds(event.entity.posX, event.entity.posY, event.entity.posZ,
-                    (event.entity.posX + 3),(event.entity.posY + 3),(event.entity.posZ + 3)));
+                    (event.entity.posX + 1),(event.entity.posY + 1),(event.entity.posZ + 1)));
             for (String s : whitelist) {
                 if (event.entity.getCustomNameTag().contains(s)) {
                     return;

@@ -70,7 +70,7 @@ public class SkyblockReinvented {
 	public static final String MODID = "sre";
 	public static final String MOD_NAME = "SkyblockReinvented";
 	public static final String VERSION = "0.0.7-pre1";
-	public static KeyBinding[] keyBindings = new KeyBinding[1];
+	public static KeyBinding[] keyBindings = new KeyBinding[2];
 	public static File modDir = new File(new File(Minecraft.getMinecraft().mcDataDir, "config"), "SRE");
 	public static DiscordRPC discordRPC;
 	public static final Minecraft mc = Minecraft.getMinecraft();
@@ -126,7 +126,6 @@ public class SkyblockReinvented {
 		MinecraftForge.EVENT_BUS.register(new Stash());
 		MinecraftForge.EVENT_BUS.register(new CreeperSolver());
 		MinecraftForge.EVENT_BUS.register(new WorldChangeEvent());
-		MinecraftForge.EVENT_BUS.register(new JerryTimer());
 		MinecraftForge.EVENT_BUS.register(new HideIncorrectLivids());
 		MinecraftForge.EVENT_BUS.register(new TreasureLocs());
 		MinecraftForge.EVENT_BUS.register(new DungeonFeatures());
@@ -140,6 +139,7 @@ public class SkyblockReinvented {
 		IReloadableResourceManager mgr = (IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager();
 		mgr.registerReloadListener(ScreenRenderer.fontRenderer);
 		keyBindings[0] = new KeyBinding("Refresh Location", Keyboard.KEY_H, "SkyblockReinvented");
+		keyBindings[1] = new KeyBinding("Pickup Stash", Keyboard.KEY_G, "SkyblockReinvented");
 		for (KeyBinding keyBinding : keyBindings) {
 			ClientRegistry.registerKeyBinding(keyBinding);
 		}

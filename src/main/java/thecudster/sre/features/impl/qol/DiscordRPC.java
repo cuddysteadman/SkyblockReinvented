@@ -109,10 +109,6 @@ public class DiscordRPC implements IPCListener {
                 .setDetails("In " + location)
                 .setLargeImage("logodiscord")
                 .setStartTimestamp(startTimestamp)
-//                .setParty("Skyblock Party", partySize, partyMax)
-  //              .setInstance(true)
-    //            .setMatchSecret("SRE")
-      //          .setJoinSecret("SRE")
                 .build();
         client.sendRichPresence(presence);
     }

@@ -23,15 +23,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StringUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.lwjgl.Sys;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.gui.FloatPair;
-import thecudster.sre.util.gui.GuiElement;
-import thecudster.sre.util.gui.ScreenRenderer;
-import thecudster.sre.util.gui.SmartFontRenderer;
+import thecudster.sre.util.gui.*;
 import thecudster.sre.util.gui.colours.CommonColors;
 import thecudster.sre.util.sbutil.Utils;
 
@@ -43,8 +42,14 @@ public class SlayerTracker {
     public static String[] displayText = {EnumChatFormatting.GREEN + "XP Until Next Level: " + EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!",
             EnumChatFormatting.GREEN + "RNGesus Meter: " + EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!",
             EnumChatFormatting.GREEN + "Current Slayer: " + EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!"};
+    public static final double[] revLeveling = {15.0, 200.0, 1000.0, 5000.0, 20000.0, 100000.0, 400000.0, 1000000.0};
+    public static final double[] taraLeveling = {25.0, 200.0, 1000.0, 5000.0, 20000.0, 100000.0, 400000.0, 1000000.0};
+    public static final double[] svenLeveling = {30.0, 250.0, 1500.0, 5000.0, 20000.0, 100000.0, 400000.0, 1000000.0};
     private final int nxtLvl = " - Next LVL in ".length();
     private static final Minecraft mc = Minecraft.getMinecraft();
+    String xpLeftSven = "   Wolf Slayer LVL ";
+    String xpLeftTara = "   Spider Slayer LVL ";
+    String xpLeftRev =  "   Zombie Slayer LVL ";
     @SubscribeEvent
     public void onRender(RenderGameOverlayEvent event) {
         displayText[0] = EnumChatFormatting.GREEN + "XP Until Next Level: " + xpLeft;
@@ -58,32 +63,48 @@ public class SlayerTracker {
             String meterText = "RNGesus Meter: -------------------- ";
             if (unformatted.contains(meterText)) {
                 unformatted = EnumChatFormatting.LIGHT_PURPLE + unformatted.substring(meterText.length() + 3);
-                SlayerTracker.rngesusMeter = unformatted;
+                if (SkyblockReinvented.config.slayerMode == 1) {
+                    unformatted = unformatted.substring(2, unformatted.length() - 1);
+                    String meter = RenderUtils.progressBar(30, Double.parseDouble(StringUtils.stripControlCodes(unformatted)) / 100, EnumChatFormatting.LIGHT_PURPLE);
+                    SlayerTracker.rngesusMeter = meter;
+                } else {
+                    SlayerTracker.rngesusMeter = unformatted;
+                }
                 event.setCanceled(true);
                 return;
             }
-            String xpLeftRev = "   Zombie Slayer LVL ";
             if (unformatted.contains(xpLeftRev)) {
                 SlayerTracker.currentSlayer = EnumChatFormatting.LIGHT_PURPLE + "Revenant";
-                unformatted = unformatted.substring(xpLeftRev.length() + nxtLvl + 1, unformatted.length() - 1);
-                SlayerTracker.xpLeft = EnumChatFormatting.LIGHT_PURPLE + unformatted;
                 event.setCanceled(true);
+                if (SkyblockReinvented.config.slayerMode == 1) {
+                    progressBarSlayer(unformatted, revLeveling, false, EnumChatFormatting.GREEN);
+                } else {
+                    unformatted = unformatted.substring(xpLeftRev.length() + nxtLvl + 1, unformatted.length() - 1);
+                    SlayerTracker.xpLeft = EnumChatFormatting.LIGHT_PURPLE + unformatted;
+                }
                 return;
             }
-            String xpLeftTara = "   Spider Slayer LVL ";
             if (unformatted.contains(xpLeftTara)) {
                 SlayerTracker.currentSlayer = EnumChatFormatting.LIGHT_PURPLE + "Tarantula";
-                unformatted = unformatted.substring(xpLeftTara.length() + nxtLvl + 1, unformatted.length() - 1);
-                SlayerTracker.xpLeft = EnumChatFormatting.LIGHT_PURPLE + unformatted;
                 event.setCanceled(true);
+                if (SkyblockReinvented.config.slayerMode == 1) {
+                    progressBarSlayer(unformatted, taraLeveling, false, EnumChatFormatting.GREEN);
+                } else {
+                    unformatted = unformatted.substring(xpLeftTara.length() + nxtLvl + 1, unformatted.length() - 1);
+                    SlayerTracker.xpLeft = EnumChatFormatting.LIGHT_PURPLE + unformatted;
+                }
+
                 return;
             }
-            String xpLeftSven = "   Wolf Slayer LVL ";
             if (unformatted.contains(xpLeftSven)) {
                 SlayerTracker.currentSlayer = EnumChatFormatting.LIGHT_PURPLE + "Sven";
-                unformatted = unformatted.substring(xpLeftSven.length() + nxtLvl + 1, unformatted.length() - 1);
-                SlayerTracker.xpLeft = EnumChatFormatting.LIGHT_PURPLE + unformatted;
                 event.setCanceled(true);
+                if (SkyblockReinvented.config.slayerMode == 1) {
+                    progressBarSlayer(unformatted, svenLeveling, true, EnumChatFormatting.GREEN);
+                } else {
+                    unformatted = unformatted.substring(xpLeftSven.length() + nxtLvl + 1, unformatted.length() - 1);
+                    SlayerTracker.xpLeft = EnumChatFormatting.LIGHT_PURPLE + unformatted;
+                }
                 return;
             }
         }
@@ -134,6 +155,27 @@ public class SlayerTracker {
         @Override
         public int getWidth() {
             return ScreenRenderer.fontRenderer.getStringWidth(displayText[0]);
+        }
+    }
+    public void progressBarSlayer(String unformatted, double[] levelingInfo, boolean sven, EnumChatFormatting colour) {
+        try {
+            int lvl;
+            int xp;
+            if (sven) {
+                lvl = Integer.parseInt(unformatted.substring(xpLeftSven.length(), xpLeftSven.length() + 1));
+                xp = Integer.parseInt(unformatted.substring(xpLeftSven.length() + nxtLvl + 1, unformatted.length() - 4).replace(",", ""));
+            } else {
+                lvl = Integer.parseInt(unformatted.substring(xpLeftRev.length(), xpLeftRev.length() + 1));
+                xp = Integer.parseInt(unformatted.substring(xpLeftRev.length() + nxtLvl + 1, unformatted.length() - 4).replace(",", ""));
+            }
+            if (lvl == 9) {
+                SlayerTracker.xpLeft = EnumChatFormatting.GOLD + "MAX LEVEL";
+                return;
+            }
+            SlayerTracker.xpLeft = RenderUtils.progressBar(30, 1.0 - xp / levelingInfo[lvl - 1], colour);
+        } catch (Exception ex) {
+            Utils.sendMsg(EnumChatFormatting.RED + "SkyblockReinvented caught and logged an exception at SlayerTracker. Please report this!");
+            ex.printStackTrace();
         }
     }
 }

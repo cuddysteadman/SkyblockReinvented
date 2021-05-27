@@ -32,6 +32,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.EnumChatFormatting;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
@@ -163,12 +164,24 @@ public class RenderUtils {
         GlStateManager.enableAlpha();
         GlStateManager.enableTexture2D();
     }
-    // original
-    public static void progressBar(double left, double top, double right, double bottom, Color color, double progress) {
-        RenderUtil.drawRect( left + 1, top - 1, (right * progress) - 1, bottom - 1, color.getRGB());
-        RenderUtil.drawRect(left, top, right, bottom, new Color(0, 0, 0).getRGB());
-    }
-    public static void progressBar(double left, double bottom, double scale, Color color, double progress) {
-        progressBar(left, bottom + scale, left + 2 * scale, bottom, color, progress);
+    public static String progressBar(int size, double progress, EnumChatFormatting chatFormatting) {
+        if (size < 5) {
+            return "ERROR";
+        }
+        String toReturn = EnumChatFormatting.AQUA +  "[" + EnumChatFormatting.func_175744_a(chatFormatting.getColorIndex());
+
+        int temp = size;
+
+        temp -= 2;
+        int total = (int) (temp * progress);
+        for (int i = 0; i < total; i++) {
+            toReturn += "|";
+        }
+        toReturn += EnumChatFormatting.GRAY;
+        for (int i = 0; i < temp - total; i++) {
+            toReturn += "|";
+        }
+        toReturn += EnumChatFormatting.AQUA + "] " + EnumChatFormatting.GOLD;
+        return toReturn;
     }
 }

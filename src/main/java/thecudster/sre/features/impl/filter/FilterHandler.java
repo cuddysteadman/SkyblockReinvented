@@ -212,7 +212,7 @@ public class FilterHandler {
 			"One of the others is lying!",
 			"They are both telling the truth, the reward is in",
 			"They are both lying, the reward is in my chest!",
-			"The reward is in my chest.",
+			"The reward is in my chest!",
 			"The reward is not in my chest. They are both lying.",
 			"My chest has the reward!",
 			"is telling the truth."
@@ -268,7 +268,7 @@ public class FilterHandler {
 			"[Archer]",
 			"[Mage]",
 			"[Tank]",
-			"[Berserker]",
+			"[Berserk]",
 			"[Healer]"
 	};
 	public static final String[] healerMsg = {
@@ -371,7 +371,7 @@ public class FilterHandler {
 				event.setCanceled(true);
 				return;
 			}
-			if (message.contains("Withdrew") && message.contains("There's now ") && message.contains("coins in the account!"))  {
+			if (message.contains("Withdrew") && message.contains("There's now ") && message.contains("coins left in the account!"))  {
 				event.setCanceled(true);
 				return;
 			}
@@ -708,13 +708,16 @@ public class FilterHandler {
 				return;
 			}
 		}
-		if (SkyblockReinvented.config.threeWeirdosIncorrect) {
+		if (SkyblockReinvented.config.threeWeirdosIncorrect == 1 || SkyblockReinvented.config.threeWeirdosIncorrect == 2) {
 			for (String wrongAnswer : threeWeirdosSolutions) {
 				if (message.contains(wrongAnswer)) {
 					event.setCanceled(true);
 					return;
 				}
 			}
+		}
+		if (SkyblockReinvented.config.threeWeirdosIncorrect == 2) {
+			// TODO
 		}
 		if (SkyblockReinvented.config.openMsg) {
 			if (message.contains("You hear the sound of something opening")) {

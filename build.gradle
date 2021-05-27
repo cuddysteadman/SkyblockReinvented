@@ -66,12 +66,11 @@ configurations {
     packageLib
 }
 
-
 dependencies {
-    implementation('org.json:json:20090211') {
+    implementation (group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.29') {
         transitive = false
     }
-    implementation (group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.29') {
+    implementation('org.json:json:20090211') {
         transitive = false
     }
     packageLib('com.github.stleary:JSON-java:fa46da4') {

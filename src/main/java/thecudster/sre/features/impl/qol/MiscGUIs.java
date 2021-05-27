@@ -63,7 +63,6 @@ public class MiscGUIs {
 
     }
     public static boolean inReforge = false;
-    public boolean done = false;
     @SubscribeEvent
     public void showScreen(GuiScreenEvent.BackgroundDrawnEvent event) throws IOException {
         /*
@@ -122,7 +121,6 @@ public class MiscGUIs {
                                                 found = true;
                                                 showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
                                             } else if (s.contains("Players: ")) {
-                                                System.out.println(s);
                                                 s = s.substring(11, 13);
                                                 s = s.replace("/", "");
                                                 if (Integer.parseInt(s) > 70) {
@@ -191,48 +189,6 @@ public class MiscGUIs {
                         }
                     }
                 }
-            }
-        }
-        if (SkyblockReinvented.config.moreSell) {
-            try {
-                if (mc.currentScreen instanceof GuiChest) {
-                    GuiChest chest = (GuiChest) mc.currentScreen;
-                    ContainerChest inventory = (ContainerChest) chest.inventorySlots;
-                    String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
-                    boolean trade = displayText.equals("Ophelia") || displayText.equals("Trades");
-                    if (trade) {
-                        List<Slot> slots = chest.inventorySlots.inventorySlots;
-                        for (Slot toCheck : slots) {
-                            if (toCheck.getStack() != null) {
-                                if (!toCheck.getStack().getDisplayName().contains("Bonemerang") && !toCheck.getStack().getDisplayName().contains("Ice Spray Wand")) {
-                                    if (ItemUtil.getSkyBlockItemID(toCheck.getStack()) != null) {
-                                        String id = ItemUtil.getSkyBlockItemID(toCheck.getStack());
-                                        for (String s : DungeonUtils.sellable) {
-                                            if (id.equals(s)) {
-                                                // colour the same as skytils to make it more seamless integration
-                                                showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, new Color(15, 233, 233, 225).getRGB());
-                                            }
-                                        }
-                                    }
-                                    for (String s : DungeonUtils.sellableNames) {
-                                        List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
-                                        for (String s2 : lore) {
-                                            if (s2.contains(s)) {
-                                                showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, new Color(15, 233, 233, 225).getRGB());
-                                                break;
-                                            }
-                                        }
-                                        if (toCheck.getStack().getDisplayName().contains(s)) {
-                                            showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, new Color(15, 233, 233, 225).getRGB());
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            } catch (NullPointerException e) {
-                e.printStackTrace();
             }
         }
         if (SkyblockReinvented.config.chestStop >= 0 && Utils.inDungeons) {

@@ -19,15 +19,11 @@
 
 package thecudster.sre.util.gui.colours;
 
-import thecudster.sre.util.gui.colours.CustomColor;
-
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 /**
- * Represents an ordered set of colors
- *
  * Taken from Wynntils under GNU AGPL v3.0
  * https://github.com/Wynntils/Wynntils/blob/development/LICENSE
  * @author Wynntils
@@ -52,18 +48,6 @@ public class ColorSet<T extends CustomColor> {
     }
 
     /**
-     * Map text formatting colour codes to the respective CustomColor in the set
-     *
-     * Returns null if invalid.
-     */
-    public T fromCode(int code) {
-        if (code < 0 || colors.length <= code) {
-            return null;
-        }
-        return colors[code];
-    }
-
-    /**
      * Returns the colour code for a CustomColor if it is in the set, -1 if it isn't.
      */
     public int getCode(CustomColor c) {
@@ -75,13 +59,6 @@ public class ColorSet<T extends CustomColor> {
             }
         }
         return -1;
-    }
-
-    /**
-     * Shorthand for `getCode(fromName(name))`
-     */
-    public int getCode(String name) {
-        return getCode(fromName(name));
     }
 
     /**
@@ -111,14 +88,6 @@ public class ColorSet<T extends CustomColor> {
         return nameMap.getOrDefault(name, null);
     }
 
-    /**
-     * Returns the canonical name for a common colour (All caps, space -> underscore, will be a field name).
-     * Null if this isn't the name of a common colour.
-     */
-    public String canonicalize(String name) {
-        return getName(fromName(name));
-    }
-
     public boolean has(String name) {
         return fromName(name) != null;
     }
@@ -131,18 +100,6 @@ public class ColorSet<T extends CustomColor> {
         return getCode(c) != -1;
     }
 
-    public T valueOf(String name) {
-        return fromName(name);
-    }
-
-    public T valueOf(int code) {
-        return fromCode(code);
-    }
-
-    public T valueOf(CustomColor c) {
-        return fromCode(getCode(c));  // Becomes null if not in the set, and also returns reference to color in set
-    }
-
     /**
      * `size() - 1` is the maximum value for `fromCode`.
      *
@@ -150,24 +107,6 @@ public class ColorSet<T extends CustomColor> {
      */
     public int size() {
         return colors.length;
-    }
-
-    /**
-     * @return the aliases for the colour with a given code
-     */
-//    public Set<String> getAliases(int code) {
-//        return Collections.unmodifiableSet(aliases[code]);
-//    }
-
-    /**
-     * @return a copy of the colours in the set (that can be modified)
-     */
-    public CustomColor[] copySet() {
-        CustomColor[] colors = new CustomColor[this.colors.length];
-        for (int i = 0; i < colors.length; ++i) {
-            colors[i] = new CustomColor(this.colors[i]);
-        }
-        return colors;
     }
 
     /**

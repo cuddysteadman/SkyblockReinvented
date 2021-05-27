@@ -51,7 +51,6 @@ import java.util.List;
 public class CreeperSolver {
     public static int solved = 0;
     public static boolean finishedPuzzle = false;
-    // amogus colours
     public static Color[] colourList = {new Color(117, 219, 244), new Color(255, 222, 42), new Color(242, 23, 23),
             new Color(80, 239, 57), new Color(239, 125, 21), new Color(214, 224, 240)};
     static boolean drawCreeperLines = false;

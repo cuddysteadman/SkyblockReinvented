@@ -38,7 +38,7 @@ public class Stash {
         unformatted = StringUtils.stripControlCodes(unformatted);
         if (unformatted.contains("You have ") && unformatted.contains("item stashed away!!")) {
             event.setCanceled(true);
-            GuiManager.createTitle("Pick up your stash using " + Keyboard.getKeyName(SkyblockReinvented.keyBindings[12].getKeyCode()), 20);
+            GuiManager.createTitle("Pick up your stash using " + Keyboard.getKeyName(SkyblockReinvented.keyBindings[1].getKeyCode()), 20);
             needsToPickup = true;
         }
         if (unformatted.contains("You picked up all items from your item stash!")) {
