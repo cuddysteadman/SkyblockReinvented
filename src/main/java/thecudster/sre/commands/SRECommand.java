@@ -42,40 +42,37 @@ public class SRECommand implements ICommand {
 			if (args[0].equals("gui")) {
 				ModCore.getInstance().getGuiHandler().open(new LocationEditGUI());
 			} else if (args[0].equals("help")) {
-				Utils.sendMsg(EnumChatFormatting.GOLD + "✰ SkyblockReinvented Commands & Help");
-				Utils.sendMsg("");
-				Utils.sendMsg(EnumChatFormatting.GOLD + "✰ Settings");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /sre: open the main config GUI");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /sre gui: open GUI editing screen");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /discord {status}: sets your custom status in discord (if you are using that setting)");
-				Utils.sendMsg(EnumChatFormatting.GRAY + "     (Aliases: /da, /disc, /discset, /dset, /rp, /rpset)");
-				Utils.sendMsg(EnumChatFormatting.GOLD + "✰ General");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /re: toggle whether to render players " + EnumChatFormatting.GRAY + "(Aliases: /render)");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /re add: add a player to the whitelist of rendered players");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /re search: removes all players from the whitelist then adds the player you specify");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /re remove: removes a certain player from the whitelist");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /re clear: clears the whitelist");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /s add: adds an item name to the whitelist of what to search for");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /s search: removes all item names from the whitelist then adds the item name you specify");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /s clear: clears the whitelist");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /sb: joins skyblock");
-				Utils.sendMsg(EnumChatFormatting.GOLD + "✰ Dungeons");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /floor 1, /floor 2, /floor 3, etc: join a dungeon floor" +
-						EnumChatFormatting.GRAY + " (Aliases: /fl, /catafloor)");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /master 1, /master 2, /master 3, etc: joins a master dungeon floor " +
-						EnumChatFormatting.GRAY + "(Aliases: /m, /mcata)");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /fragrun: parties an online fragrunning bot " +
-						EnumChatFormatting.GRAY + "(Aliases: /fr, /frags)");
-				Utils.sendMsg(EnumChatFormatting.GOLD + "✰ Features:");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /drag: toggles the dragon tracker GUI element " +
-						EnumChatFormatting.GRAY + "(Aliases: /dr, /drags)");
-				Utils.sendMsg(EnumChatFormatting.AQUA + "   • /drag clear: clears current dragon tracker info " +
-						EnumChatFormatting.GRAY + "(Aliases: /dr clear, /drags clear)");
+				Utils.sendMsg(EnumChatFormatting.GOLD + "✰ SkyblockReinvented Commands & Help\n" +
+						EnumChatFormatting.GOLD + "✰ Settings\n" +
+						EnumChatFormatting.AQUA + "   • /sre: open the main config GUI\n" +
+						EnumChatFormatting.AQUA + "   • /sre gui: open GUI editing screen\n" +
+						EnumChatFormatting.AQUA + "   • /discord {status}: sets your custom status in discord (if you are using that setting)\n" +
+						EnumChatFormatting.GRAY + "     (Aliases: /da, /disc, /discset, /dset, /rp, /rpset)\n" +
+						EnumChatFormatting.GOLD + "✰ General\n" +
+						EnumChatFormatting.AQUA + "   • /re: toggle whether to render players " + EnumChatFormatting.GRAY + "(Aliases: /render)\n" +
+						EnumChatFormatting.AQUA + "   • /re add: add a player to the whitelist of rendered players" +
+						EnumChatFormatting.AQUA + "   • /re search: removes all players from the whitelist then adds the player you specify\n" +
+						EnumChatFormatting.AQUA + "   • /re remove: removes a certain player from the whitelist\n" +
+						EnumChatFormatting.AQUA + "   • /re clear: clears the whitelist\n" +
+						EnumChatFormatting.AQUA + "   • /s add: adds an item name to the whitelist of what to search for\n" +
+						EnumChatFormatting.AQUA + "   • /s search: removes all item names from the whitelist then adds the item name you specify\n" +
+						EnumChatFormatting.AQUA + "   • /s clear: clears the whitelist\n" +
+						EnumChatFormatting.GOLD + "✰ Dungeons\n" +
+						EnumChatFormatting.AQUA + "   • /floor 1, /floor 2, /floor 3, etc: join a dungeon floor" + EnumChatFormatting.GRAY + " (Aliases: /fl, /catafloor)\n" +
+						EnumChatFormatting.AQUA + "   • /master 1, /master 2, /master 3, etc: joins a master dungeon floor " + EnumChatFormatting.GRAY + "(Aliases: /m, /mcata)\n" +
+						EnumChatFormatting.AQUA + "   • /fragrun: parties an online fragrunning bot " + EnumChatFormatting.GRAY + "(Aliases: /fr, /frags)\n" +
+						EnumChatFormatting.GOLD + "✰ Features:\n" +
+						EnumChatFormatting.AQUA + "   • /drag: toggles the dragon tracker GUI element " + EnumChatFormatting.GRAY + "(Aliases: /dr, /drags)\n" +
+						EnumChatFormatting.AQUA + "   • /drag clear: clears current dragon tracker info " + EnumChatFormatting.GRAY + "(Aliases: /dr clear, /drags clear)");
 
 				Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(EnumChatFormatting.GOLD +
 						"Join the" + EnumChatFormatting.AQUA + " discord!").setChatStyle(new ChatStyle()
 						.setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,
 								"https://discord.gg/xkeYgZrRbN"))));
+			} else if (args[0].equals("config")) {
+				ModCore.getInstance().getGuiHandler().open(SkyblockReinvented.config.gui());
+			} else {
+				Utils.sendMsg(EnumChatFormatting.RED + "Unknown argument! Acceptable parameters are config, help, and gui.");
 			}
 		} else {
 			ModCore.getInstance().getGuiHandler().open(SkyblockReinvented.config.gui());

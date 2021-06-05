@@ -17,7 +17,7 @@
  *
  */
 
-package thecudster.sre.features.impl.bestiary;
+package thecudster.sre.features.impl.skills.bestiary;
 
 import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;

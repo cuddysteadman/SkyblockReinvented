@@ -23,6 +23,10 @@ package thecudster.sre;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.scoreboard.Score;
+import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.util.StringUtils;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -40,9 +44,11 @@ import thecudster.sre.commands.*;
 import thecudster.sre.commands.dungeons.Catacombs;
 import thecudster.sre.commands.dungeons.FragRun;
 import thecudster.sre.commands.dungeons.MasterMode;
+import thecudster.sre.commands.dungeons.PingCommand;
 import thecudster.sre.events.*;
-import thecudster.sre.features.impl.bestiary.BestiaryGUI;
-import thecudster.sre.features.impl.bestiary.BestiaryProgress;
+import thecudster.sre.features.impl.skills.SkillXPTracker;
+import thecudster.sre.features.impl.skills.bestiary.BestiaryGUI;
+import thecudster.sre.features.impl.skills.bestiary.BestiaryProgress;
 import thecudster.sre.features.impl.dragons.DragTracker;
 import thecudster.sre.features.impl.dragons.DragonArrowHitbox;
 import thecudster.sre.features.impl.dungeons.*;
@@ -53,14 +59,16 @@ import thecudster.sre.features.impl.qol.*;
 import thecudster.sre.features.impl.rendering.HyperionOverlay;
 import thecudster.sre.features.impl.rendering.PlayerHider;
 import thecudster.sre.features.impl.rendering.RemoveVillagers;
-import thecudster.sre.features.impl.slayer.SlayerFeatures;
-import thecudster.sre.features.impl.slayer.SlayerTracker;
+import thecudster.sre.features.impl.skills.slayer.SlayerFeatures;
+import thecudster.sre.features.impl.skills.slayer.SlayerTracker;
 import thecudster.sre.features.impl.sounds.MiscSoundBlocks;
 import thecudster.sre.settings.Config;
 import thecudster.sre.util.gui.GuiManager;
 import thecudster.sre.util.gui.ScreenRenderer;
+import thecudster.sre.util.sbutil.ArrStorage;
 import thecudster.sre.util.sbutil.CurrentLoc;
 import thecudster.sre.util.sbutil.LootTracker;
+import thecudster.sre.util.sbutil.Utils;
 
 import java.io.File;
 
@@ -69,7 +77,7 @@ public class SkyblockReinvented {
 	public static Config config = new Config();
 	public static final String MODID = "sre";
 	public static final String MOD_NAME = "SkyblockReinvented";
-	public static final String VERSION = "0.0.7-pre1";
+	public static final String VERSION = "0.0.7-pre2";
 	public static KeyBinding[] keyBindings = new KeyBinding[2];
 	public static File modDir = new File(new File(Minecraft.getMinecraft().mcDataDir, "config"), "SRE");
 	public static DiscordRPC discordRPC;
@@ -81,6 +89,9 @@ public class SkyblockReinvented {
         GUIMANAGER = new GuiManager();
 		discordRPC = new DiscordRPC();
 		BestiaryProgress.placeItems();
+		FetchurSolver.init();
+		TreasureLocs.init();
+		ArrStorage.init();
 	}
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
@@ -97,9 +108,11 @@ public class SkyblockReinvented {
 		ClientCommandHandler.instance.registerCommand(new SetStatus());
 		ClientCommandHandler.instance.registerCommand(new MasterMode());
 		ClientCommandHandler.instance.registerCommand(new Catacombs());
+		ClientCommandHandler.instance.registerCommand(new PingCommand());
 
 		MinecraftForge.EVENT_BUS.register(new RemoveRaffleTitles());
 		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(new SkillXPTracker());
 		MinecraftForge.EVENT_BUS.register(new FilterHandler());
 		MinecraftForge.EVENT_BUS.register(new PlayerHider());
 		MinecraftForge.EVENT_BUS.register(new GiftCompassWaypoints());
@@ -113,7 +126,7 @@ public class SkyblockReinvented {
 		MinecraftForge.EVENT_BUS.register(new MiscGUIs());
 		MinecraftForge.EVENT_BUS.register(new GhostLoot());
 		MinecraftForge.EVENT_BUS.register(new LootTracker());
-		MinecraftForge.EVENT_BUS.register(new RemoveItemFrameNames());
+		MinecraftForge.EVENT_BUS.register(new MiscFeatures());
 		MinecraftForge.EVENT_BUS.register(GUIMANAGER);
 		MinecraftForge.EVENT_BUS.register(new DragonArrowHitbox());
 		MinecraftForge.EVENT_BUS.register(new BoxUnkilledMobs());
@@ -123,19 +136,18 @@ public class SkyblockReinvented {
 		MinecraftForge.EVENT_BUS.register(new JerrychineHider());
 		MinecraftForge.EVENT_BUS.register(new CakeStackSize());
 		MinecraftForge.EVENT_BUS.register(new DragTracker());
-		MinecraftForge.EVENT_BUS.register(new Stash());
 		MinecraftForge.EVENT_BUS.register(new CreeperSolver());
 		MinecraftForge.EVENT_BUS.register(new WorldChangeEvent());
 		MinecraftForge.EVENT_BUS.register(new HideIncorrectLivids());
 		MinecraftForge.EVENT_BUS.register(new TreasureLocs());
 		MinecraftForge.EVENT_BUS.register(new DungeonFeatures());
 		MinecraftForge.EVENT_BUS.register(new SlayerFeatures());
+		MinecraftForge.EVENT_BUS.register(new FetchurSolver());
 
 		if (Minecraft.getMinecraft().gameSettings.language != null) {
 			ScreenRenderer.fontRenderer.setUnicodeFlag(Minecraft.getMinecraft().isUnicode());
 			ScreenRenderer.fontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
 		}
-		TreasureLocs.init();
 		IReloadableResourceManager mgr = (IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager();
 		mgr.registerReloadListener(ScreenRenderer.fontRenderer);
 		keyBindings[0] = new KeyBinding("Refresh Location", Keyboard.KEY_H, "SkyblockReinvented");
@@ -158,6 +170,25 @@ public class SkyblockReinvented {
 	@SubscribeEvent
 	public void onTick(TickEvent.ClientTickEvent event) {
 		if (event.phase != TickEvent.Phase.START) return;
+		try {
+			if (mc == null) { return; }
+			if (mc.theWorld == null) { return; }
+			if (mc.theWorld.getScoreboard() == null) { return; }
+			Scoreboard scoreboard = mc.theWorld.getScoreboard();
+			for (Score score : scoreboard.getSortedScores(scoreboard.getObjectiveInDisplaySlot(1))) {
+				String name = StringUtils.stripControlCodes(ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()), score.getPlayerName()));
+				if (name.contains("Ironman") && SkyblockReinvented.config.removeIronmanScoreboard) {
+					scoreboard.removeTeam(scoreboard.getPlayersTeam(score.getPlayerName()));
+					Utils.ironmanProfile = true;
+				} else if (name.contains("Mithril") && SkyblockReinvented.config.hideMithrilPowder) {
+					scoreboard.removeTeam(scoreboard.getPlayersTeam(score.getPlayerName()));
+				} else if (name.equals(" ") || name == null || score == null) {
+					scoreboard.removeTeam(scoreboard.getPlayersTeam(score.getPlayerName()));
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 		if (ticks % 20 == 0) {
 			if (mc.thePlayer == null) { return; }
 			CurrentLoc.checkLoc();

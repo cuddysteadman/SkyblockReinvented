@@ -17,21 +17,26 @@
  *
  */
 
-package thecudster.sre.features.impl.qol;
+package thecudster.sre.features.impl.skills.slayer;
 
-import net.minecraftforge.client.event.RenderItemInFrameEvent;
+import net.minecraft.entity.passive.EntityWolf;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.sbutil.CurrentLoc;
+import thecudster.sre.util.sbutil.ArrStorage;
 import thecudster.sre.util.sbutil.Utils;
 
-public class RemoveItemFrameNames {
+public class SlayerFeatures {
     @SubscribeEvent
-    public void onRender(RenderItemInFrameEvent event) {
-        if (!Utils.inSkyblock) { return; }
-        if (!CurrentLoc.currentLoc.equals("Your Island"))
-        if (!SkyblockReinvented.config.itemFrameNames) { return; }
-        event.entityItemFrame.setAlwaysRenderNameTag(false);
-        event.entityItemFrame.getDisplayedItem().setStackDisplayName("");
+    public void onEntity(RenderLivingEvent.Pre event) {
+        if (SkyblockReinvented.config.svenPups) {
+            if (event.entity instanceof EntityWolf) {
+                EntityWolf wolf = ((EntityWolf) event.entity);
+                if (wolf.isChild() && Utils.inLoc(ArrStorage.svenLocs)) {
+                    event.setCanceled(true);
+                    return;
+                }
+            }
+        }
     }
 }

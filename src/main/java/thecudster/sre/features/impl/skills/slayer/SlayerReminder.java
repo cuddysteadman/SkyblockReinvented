@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.features.impl.slayer;
+package thecudster.sre.features.impl.skills.slayer;
 
 import thecudster.sre.util.gui.GuiManager;
 import thecudster.sre.util.sbutil.Utils;

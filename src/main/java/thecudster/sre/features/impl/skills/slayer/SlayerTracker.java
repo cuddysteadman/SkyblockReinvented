@@ -17,7 +17,7 @@
  *
  */
 
-package thecudster.sre.features.impl.slayer;
+package thecudster.sre.features.impl.skills.slayer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -28,10 +28,10 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.lwjgl.Sys;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.gui.*;
 import thecudster.sre.util.gui.colours.CommonColors;
+import thecudster.sre.util.sbutil.ArrStorage;
 import thecudster.sre.util.sbutil.Utils;
 
 public class SlayerTracker {
@@ -42,9 +42,6 @@ public class SlayerTracker {
     public static String[] displayText = {EnumChatFormatting.GREEN + "XP Until Next Level: " + EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!",
             EnumChatFormatting.GREEN + "RNGesus Meter: " + EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!",
             EnumChatFormatting.GREEN + "Current Slayer: " + EnumChatFormatting.LIGHT_PURPLE + "Not detected yet!"};
-    public static final double[] revLeveling = {15.0, 200.0, 1000.0, 5000.0, 20000.0, 100000.0, 400000.0, 1000000.0};
-    public static final double[] taraLeveling = {25.0, 200.0, 1000.0, 5000.0, 20000.0, 100000.0, 400000.0, 1000000.0};
-    public static final double[] svenLeveling = {30.0, 250.0, 1500.0, 5000.0, 20000.0, 100000.0, 400000.0, 1000000.0};
     private final int nxtLvl = " - Next LVL in ".length();
     private static final Minecraft mc = Minecraft.getMinecraft();
     String xpLeftSven = "   Wolf Slayer LVL ";
@@ -77,7 +74,7 @@ public class SlayerTracker {
                 SlayerTracker.currentSlayer = EnumChatFormatting.LIGHT_PURPLE + "Revenant";
                 event.setCanceled(true);
                 if (SkyblockReinvented.config.slayerMode == 1) {
-                    progressBarSlayer(unformatted, revLeveling, false, EnumChatFormatting.GREEN);
+                    progressBarSlayer(unformatted, ArrStorage.revLeveling, false, EnumChatFormatting.GREEN);
                 } else {
                     unformatted = unformatted.substring(xpLeftRev.length() + nxtLvl + 1, unformatted.length() - 1);
                     SlayerTracker.xpLeft = EnumChatFormatting.LIGHT_PURPLE + unformatted;
@@ -88,7 +85,7 @@ public class SlayerTracker {
                 SlayerTracker.currentSlayer = EnumChatFormatting.LIGHT_PURPLE + "Tarantula";
                 event.setCanceled(true);
                 if (SkyblockReinvented.config.slayerMode == 1) {
-                    progressBarSlayer(unformatted, taraLeveling, false, EnumChatFormatting.GREEN);
+                    progressBarSlayer(unformatted, ArrStorage.taraLeveling, false, EnumChatFormatting.GREEN);
                 } else {
                     unformatted = unformatted.substring(xpLeftTara.length() + nxtLvl + 1, unformatted.length() - 1);
                     SlayerTracker.xpLeft = EnumChatFormatting.LIGHT_PURPLE + unformatted;
@@ -100,7 +97,7 @@ public class SlayerTracker {
                 SlayerTracker.currentSlayer = EnumChatFormatting.LIGHT_PURPLE + "Sven";
                 event.setCanceled(true);
                 if (SkyblockReinvented.config.slayerMode == 1) {
-                    progressBarSlayer(unformatted, svenLeveling, true, EnumChatFormatting.GREEN);
+                    progressBarSlayer(unformatted, ArrStorage.svenLeveling, true, EnumChatFormatting.GREEN);
                 } else {
                     unformatted = unformatted.substring(xpLeftSven.length() + nxtLvl + 1, unformatted.length() - 1);
                     SlayerTracker.xpLeft = EnumChatFormatting.LIGHT_PURPLE + unformatted;
@@ -144,7 +141,7 @@ public class SlayerTracker {
 
         @Override
         public boolean getToggled() {
-            return SkyblockReinvented.config.slayerInfo && Utils.inSkyblock && !Utils.inDungeons && Utils.inLoc(SlayerFeatures.slayerLocs);
+            return SkyblockReinvented.config.slayerInfo && Utils.inSkyblock && !Utils.inDungeons && Utils.inLoc(ArrStorage.slayerLocs);
         }
 
         @Override

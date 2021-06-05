@@ -80,7 +80,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Dungeon Potion Messages",
 			description = "Removes messages about potions when entering dungeons.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean dungeonPotionMsg = false;
@@ -96,7 +96,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Doubled Messages",
 			description = "Removes messages about how your stats are doubled in dungeons.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean doubleMsg = false;
@@ -104,7 +104,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Opening Messages",
 			description = "Removes all \"You hear the sound of something opening\" messages.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean openMsg = false;
@@ -112,7 +112,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Journal Messages",
 			description = "Removes messages about you picking up a journal.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean journalMsg = false;
@@ -120,7 +120,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Crypt Wither Skull Messages",
 			description = "Removes all \"A crypt wither skull exploded\" messages from chat.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean cryptWitherSkull = false;
@@ -129,17 +129,17 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Change Damage Milestone Messages",
 			description = "Changes Damage Milestone Messages to a HUD element. \n�cUnimplemented!",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons",
 			hidden = true
 	)
-	public boolean damageMilestones = false; // TODO damage milestone spam hider
+	public boolean damageMilestones = false; // TODO damage milestone Spam
 
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove Lost Adventurer Messages",
 			description = "Removes Lost Adventurer messages like \"Lost Adventurer used Dragon's Breath on you!\"",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean dragonsBreath = false;
@@ -149,7 +149,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Wither Essence Messages",
 			description = "Removes \"x found a Wither Essence! Everyone Gains an extra essence!\" messages.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 
@@ -160,7 +160,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Wither Door Opened Messages",
 			description = "Removes \"x opened a WITHER door!\" messages. \n§cRecommended to not use this with don't have key message remover.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean openWither = false;
@@ -169,7 +169,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Can't Open Wither Door Messages", // could be causing errors
 			description = "Removes \"x opened a WITHER door!\" messages. \n§cRecommended to not use this with opened wither door message remover.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean cantOpenWither = false;
@@ -177,7 +177,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Bone Plating Messages",
 			description = "Removes bone plating messages that say \"Your bone plating reduced the damage you took by\".",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean bonePlating = false;
@@ -185,7 +185,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Clean Ending of Dungeon",
 			description = "Gives a clean end to the dungeon (chat).",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean cleanEnd = false;
@@ -201,15 +201,15 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Bazaar Messages",
 			description = "Removes messages about putting coins in escrow, etc.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Hub"
 	)
-	public boolean bazaarMsg = false; // TODO bazaar spam hider
+	public boolean bazaarMsg = false; // TODO bazaar Spam
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove Orb Messages",
 			description = "Removes messages about picking up orbs from players.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean damageOrbs = false;
@@ -217,7 +217,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Healer Messages",
 			description = "Removes all useless healer messages.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean healerMsg = false;
@@ -225,7 +225,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Dungeon Finder Messages",
 			description = "Removes useless dungeon finder messages.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean dungeonFinder;
@@ -233,7 +233,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Watcher Messages",
 			description = "Removes all watcher messages except Blood Door open messages.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean removeWatcher = false;
@@ -241,16 +241,16 @@ public class Config extends Vigilant {
 			type = PropertyType.SELECTOR,
 			name = "Remove Incorrect Three Weirdos Messages",
 			description = "Removes all incorrect or all Three Weirdos messages. Solvers still work.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons",
 			options = {"Off", "Incorrect Answers", "All"}
 	)
-	public int threeWeirdosIncorrect = 0; // TODO three weirdos multiple modes
+	public int threeWeirdosIncorrect = 0;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove Wither Skulls Messages",
 			description = "Removes messages from wither skulls.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean witherSkulls = false;
@@ -258,7 +258,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Hide Sellable Names",
 			description = "Hides all messages about selling x for x coins in Dungeons.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean sellable = false;
@@ -266,7 +266,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Hide Struck Messages",
 			description = "Hides all messages about \"X struck you for x damage!\"",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dungeons"
 	)
 	public boolean struckYou = false;
@@ -274,23 +274,24 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Raffle Messages",
 			description = "Removes all messages about registering tickets in the raffle event.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dwarven Mines"
 	)
 	public boolean ticketMsgs = false;
 	@Property(
-			type = PropertyType.SWITCH,
-			name = "Remove Unimportant Fetchur Messages",
-			description = "Removes all unimportant fetchur messages.",
-			category = "Spam Hider",
-			subcategory = "Dwarven Mines"
+			type = PropertyType.SELECTOR,
+			name = "Fetchur Solver or Spam",
+			description = "Can be configured as either a Spam (hides unimportant messages) or a solver (hides unimportant messages AND solves).",
+			category = "Dwarven Mines",
+			subcategory = "General",
+			options = {"Off", "Spam", "Solver"}
 	)
-	public boolean showFetchur = false;
+	public int showFetchur = 0;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove Puzzler Messages",
 			description = "Removes puzzler messages.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dwarven Mines"
 	)
 	public boolean removePuzzler = false;
@@ -298,7 +299,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Golden Goblin Messages",
 			description = "Removes all messages from golden goblins.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Dwarven Mines"
 	)
 	public boolean goldenGoblin = false;
@@ -309,12 +310,12 @@ public class Config extends Vigilant {
 			category = "Dwarven Mines",
 			subcategory = "General"
 	)
-	public boolean goblinAlert = false;// TODO golden goblin alert
+	public boolean goblinAlert = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove Messages about Bank",
 			description = "Removes all messages about bank withdrawals.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Hub"
 	)
 	public boolean bankMsgs = false;
@@ -322,7 +323,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove GEXP Messages",
 			description = "Removes messages that say \"You earned x GEXP from playing SkyBlock!\".",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Hypixel"
 	)
 	public boolean gexpMsg = false;
@@ -330,7 +331,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove RNG Titles from Dicer",
 			description = "Removes all titles from dicer that say \"Dicer dropped 64x Pumpkin\", for example.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Farming"
 	)
 	public boolean removeRNGChat = false;
@@ -338,7 +339,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Minion Inventory Warnings",
 			description = "Removes chat messages from minions and inventory warnings.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Your Island"
 	)
 	public boolean removeMinionWarnings = false;
@@ -346,7 +347,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Chat from Jerries",
 			description = "Removes chat messages like \"Your 1 extra Jerry packed his stuff and left!\".",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Your Island"
 	)
 	public boolean jerryMsg = false;
@@ -354,7 +355,7 @@ public class Config extends Vigilant {
 		type = PropertyType.SWITCH,
 		name = "Remove Too Fast Messages",
 		description = "Removes chat messages such as \"You're clicking too fast!\".",
-		category = "Spam Hider",
+		category = "Spam",
 		subcategory = "General"
 	)
 	public boolean removeTooFast;
@@ -362,7 +363,7 @@ public class Config extends Vigilant {
 		type = PropertyType.SWITCH,
 		name = "Remove Creeper Veil Messages",
 		description = "Removes Creeper Veil activation/deactivation messages.",
-		category = "Spam Hider",
+		category = "Spam",
 		subcategory = "Items"
 	)
 	public boolean removeCreeperVeil;
@@ -370,7 +371,7 @@ public class Config extends Vigilant {
 		type = PropertyType.SWITCH,
 		name = "Remove Skeleton Hat Messages",
 		description = "Removes all messages from the Skeleton Hat.",
-		category = "Spam Hider",
+		category = "Spam",
 		subcategory = "Items"
 	)
 	public boolean skeletonHat = false;
@@ -378,7 +379,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Welcome Messages",
 			description = "Removes all messages that say \"Welcome to Hypixel Skyblock!\".",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "General"
 	)
 	public boolean welcomeMsg = false;
@@ -386,7 +387,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Profile Messages",
 			description = "Removes all messages that say \"You are playing on profile\" or changing profile messages.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "General"
 	)
 	public boolean profileMsg = false;
@@ -394,7 +395,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Warp Messages",
 			description = "Removes all messages that say \"Warping you to the hub island\" etc.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "General"
 	)
 	public boolean warps;
@@ -406,7 +407,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Headless Horseman Spawn Messages",
 			description = "Removes all messages about players killing the headless horseman boss.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Your Island"
 	)
 	public boolean headlessHorseman = false; // TODO headless horseman alert
@@ -422,7 +423,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Inventory Full Messages",
 			description = "Removes messages that say \"Your inventory is full!\" Should only be used with SBA.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "General"
 	)
 	public boolean inventoryFull = false;
@@ -431,7 +432,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Guardian Chestplate Messages",
 			description = "Removes all messages from the Guardian Chestplate.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Items"
 	)
 	public boolean guardianChestplate = false;
@@ -439,7 +440,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Potion Buff Messages",
 			description = "Removes all buff messages from potions.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Items"
 	)
 	public boolean potionMsg = false;
@@ -447,7 +448,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Watchdog Announcements",
 			description = "Removes announcements about how many players have been banned.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Hypixel"
 	)
 	public boolean watchdogAnnouncement = false;
@@ -455,7 +456,7 @@ public class Config extends Vigilant {
 		type = PropertyType.SWITCH,
 		name = "Remove Sea Creature Messages",
 		description = "Removes all messages from sea creatures.",
-		category = "Spam Hider",
+		category = "Spam",
 		subcategory = "Fishing"
 	)
 	public boolean seaCreatures = false;
@@ -471,7 +472,7 @@ public class Config extends Vigilant {
 		type = PropertyType.SWITCH,
 		name = "Remove Slow Down Messages",
 		description = "Removes all messages that say, \"Whow! Slow down there.\" or \"Slow down!\".",
-		category = "Spam Hider",
+		category = "Spam",
 		subcategory = "General"
 	)
 	public boolean slowDown = false;
@@ -479,7 +480,7 @@ public class Config extends Vigilant {
 		type = PropertyType.SWITCH,
 		name = "Remove Island Visit Messages",
 		description = "Removes all messages that say, \"X is visiting your island!\".",
-		category = "Spam Hider",
+		category = "Spam",
 		subcategory = "Your Island"
 	)
 	public boolean visitIsland = false;
@@ -489,7 +490,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Hide Hub Warp Warnings/Messages",
 			description = "Hides all annoying warp warnings/messages.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Hub"
 	)
 	public boolean hubWarnings = false;
@@ -506,7 +507,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Hide Useless Jacob's Messages",
 			description = "Hides all useless Jacob's Farming Event messages.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Your Island"
 	)
 	public boolean uselessJacob = false;
@@ -514,7 +515,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Clean Jerry's Workshop",
 			description = "Cleans many useless Jerry's Workshop messages.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "General"
 	)
 	public boolean cleanJerry = false;
@@ -522,24 +523,39 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Combat Warp Messages",
 			description = "Removes all messages about how you can't be in combat.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "General"
 	)
 	public boolean warpCombat = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remove all Chat if Ironman",
-			description = "Removes all chat if you are on an ironman profile. (Not working)",
-			category = "Spam Hider",
-			subcategory = "General",
-			hidden=true
+			description = "Removes all chat if you are on an ironman profile.",
+			category = "Spam",
+			subcategory = "General"
 	)
-	public boolean hideIronman = false; // TODO hide ironman
+	public boolean hideIronman = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Hide Mithril Powder in Scoreboard",
+			description = "Hides the mithril powder display on your scoreboard. Mainly a fix for Apec. \n§cShould only be used with mods such as NEU that display your Mithril Powder!",
+			category = "Dwarven Mines",
+			subcategory = "General"
+	)
+	public boolean hideMithrilPowder = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Hide Ironman in Scoreboard",
+			description = "Hides the mithril powder display on your scoreboard. Mainly a fix for Apec.",
+			category = "General",
+			subcategory = "General"
+	)
+	public boolean removeIronmanScoreboard = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Hide Dumb Slayer Drops",
 			description = "Hides useless/worthless slayer drops.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Slayer"
 	)
 	public boolean dumbSlayerDrops = false;
@@ -547,7 +563,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Minion XP",
 			description = "Removes chat from Minion XP (coop members collecting minions).",
-			category="Spam Hider",
+			category="Spam",
 			subcategory = "Your Island"
 	)
 	public boolean minionXP = false;
@@ -555,7 +571,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Maddox Messages",
 			description = "Hides all annoying Maddox messages when you use Maddox batphone.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Slayer"
 	)
 	public boolean maddoxMsg = false;
@@ -563,7 +579,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Reforge Chat",
 			description = "Removes \"You reforged x into x\" from chat.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "General"
 	)
 	public boolean reforge = false;
@@ -571,7 +587,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Generally Useless Messages",
 			description = "Removes generally useless messages. If your favorite chat messages are missing, just turn this off and see if that fixes it.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "General"
 	)
 	public boolean useless = false;
@@ -579,7 +595,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Compact Messages",
 			description = "Removes all messages from compact.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Mining"
 	)
 	public boolean compactMsg = false;
@@ -587,7 +603,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Experimentation Table Messages",
 			description = "Removes all messages from placing/removing the experimentation table.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Enchanting"
 	)
 	public boolean experimentationTable = false;
@@ -595,7 +611,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Warnings about Hubs",
 			description = "Removes all warnings about joining Skyblock and others.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Hypixel"
 	)
 	public boolean serverFull = false;
@@ -603,7 +619,7 @@ public class Config extends Vigilant {
 			type = PropertyType.SWITCH,
 			name = "Remove Messages from Kat",
 			description = "Removes all messages from Kat.",
-			category = "Spam Hider",
+			category = "Spam",
 			subcategory = "Hub"
 	)
 	public boolean katMsg = false;
@@ -631,7 +647,7 @@ public class Config extends Vigilant {
 		category = "QOL",
 		subcategory = "Skyblock QOL"
 	)
-	public boolean joinSB = false; // TODO auto join sb
+	public boolean joinSB = false;
 	@Property(
 			type = PropertyType.NUMBER,
 			name = "Ignore",
@@ -691,8 +707,8 @@ public class Config extends Vigilant {
 	public boolean giftCompassWaypoints = false;
 	@Property(
 			type = PropertyType.SLIDER,
-			name = "Amount of Clicks to Stop From Opening Non-Profit Chest",
-			description = "The amount of clicks you need to stop you from opening chests at the end of dungeons if they aren't profit. BUGGY!",
+			name = "Amt Clicks to Stop From Opening Chest",
+			description = "The amount of clicks you need to stop you from opening chests at the end of dungeons.",
 			category = "Dungeons",
 			subcategory = "Misc",
 			min = 0,
@@ -707,6 +723,31 @@ public class Config extends Vigilant {
 			subcategory = "Rendering"
 	)
 	public boolean renderPlayers = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Stop Rendering XP While in Dwarven Mines",
+			description = "Stops all XP orbs from rendering while in Dwarven Mines areas.",
+			category = "Dwarven Mines",
+			subcategory = "General"
+	)
+	public boolean stopRenderXP = false;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Stop Rendering Player Armour",
+			description = "Stops rendering all armour on other players except in dungeons.",
+			category = "General",
+			subcategory = "Rendering"
+	)
+	public boolean renderPlayerArmor = false;
+	@Property(
+			type = PropertyType.SELECTOR,
+			name = "Skill XP Tracker",
+			description = "Tracks all of your skill XP to level 50 or level 60.",
+			category = "General",
+			subcategory = "Rendering",
+			options = {"Off", "Level 50", "Level 60"}
+	)
+	public int skillXPTracker = 0;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Discord Rich Presence",
@@ -895,7 +936,7 @@ public class Config extends Vigilant {
 			category = "Dungeons",
 			subcategory = "Rendering"
 	)
-	public int skeletonRange = 0;
+	public int skeletonRange = 1;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Remind Bat Secrets",
@@ -913,7 +954,7 @@ public class Config extends Vigilant {
 			category = "Dungeons",
 			subcategory = "Rendering"
 	)
-	public int batRange = 0;
+	public int batRange = 1;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Outline Hitboxes of Starred Mobs",

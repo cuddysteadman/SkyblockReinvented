@@ -110,7 +110,7 @@ public class MiscClickBlocks {
          */
 
         if (event.container instanceof ContainerChest) {
-            if (MiscGUIs.foundBadItem) {
+            if (MiscGUIs.inDungeonChest && !MiscGUIs.woodenChest) {
                 num++;
                 int neededClick = SkyblockReinvented.config.chestStop - num;
                 if (neededClick > 0) {

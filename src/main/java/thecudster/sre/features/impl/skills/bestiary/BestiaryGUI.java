@@ -17,7 +17,7 @@
  *
  */
 
-package thecudster.sre.features.impl.bestiary;
+package thecudster.sre.features.impl.skills.bestiary;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -31,7 +31,7 @@ import thecudster.sre.util.gui.SmartFontRenderer;
 import thecudster.sre.util.gui.colours.CommonColors;
 import thecudster.sre.util.sbutil.Utils;
 
-import static thecudster.sre.features.impl.bestiary.BestiaryProgress.current;
+import static thecudster.sre.features.impl.skills.bestiary.BestiaryProgress.current;
 
 public class BestiaryGUI {
     private static final Minecraft mc = Minecraft.getMinecraft();

@@ -29,6 +29,7 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.util.sbutil.ArrStorage;
 import thecudster.sre.util.sbutil.CurrentLoc;
 import thecudster.sre.util.sbutil.Utils;
 
@@ -36,39 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RemoveVillagers {
-    public static final String[] villagerNames = {
-            "Andrew",
-            "Jack",
-            "Jamie",
-            "Tom",
-            "Leo",
-            "Felix",
-            "Ryu",
-            "Duke",
-            "Lynn",
-            "Stella",
-            "Vex",
-            "Liam"
-    };
     ArrayList<EntityVillager> found = new ArrayList<EntityVillager>();
     ArrayList<EntityArmorStand> foundNames = new ArrayList<EntityArmorStand>();
-    public static final String[] whitelist = {
-            "Blacksmith",
-            "St. Jerry"
-    };
-    public static final String[] hubLocs = {
-            "Coal Mine",
-            "Private Island",
-            "Forest",
-            "Bank",
-            "Library",
-            "Auction House",
-            "Flower House",
-            "Bazaar Alley",
-            "Community Center",
-            "Builder's House",
-            "Village"
-    };
     @SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
     public void onCheckRender(RenderLivingEvent.Pre event) {
         if (!SkyblockReinvented.config.renderVillagers || !Utils.inSkyblock || CurrentLoc.currentLoc.equals("Jerry's Workshop") || CurrentLoc.currentLoc.equals("Jerry Pond")) {
@@ -79,19 +49,19 @@ public class RemoveVillagers {
         if (event.entity.getCustomNameTag() != null) {
             List<EntityArmorStand> entitiesWithinRange = Minecraft.getMinecraft().theWorld.getEntitiesWithinAABB(EntityArmorStand.class, AxisAlignedBB.fromBounds(event.entity.posX, event.entity.posY, event.entity.posZ,
                     (event.entity.posX + 1),(event.entity.posY + 1),(event.entity.posZ + 1)));
-            for (String s : whitelist) {
+            for (String s : ArrStorage.whitelist) {
                 if (event.entity.getCustomNameTag().contains(s)) {
                     return;
                 }
             }
-            for (String s : whitelist) {
+            for (String s : ArrStorage.whitelist) {
                 for (Entity e : entitiesWithinRange) {
                     if (event.entity.getDistanceToEntity(e) < 2 && event.entity instanceof EntityVillager && e.getCustomNameTag().contains(s)) {
                         return;
                     }
                 }
             }
-            if (!Utils.inLoc(hubLocs)) {
+            if (!Utils.inLoc(ArrStorage.hubLocs)) {
                 if (!CurrentLoc.currentLoc.equals("Your Island")) { return; }
                 if (event.entity.getCustomNameTag().contains("NEW UPDATE")) {
                     event.entity.setAlwaysRenderNameTag(false);
@@ -125,7 +95,7 @@ public class RemoveVillagers {
                 return;
             }
             if (event.entity instanceof EntityArmorStand) {
-                for (String s : villagerNames) {
+                for (String s : ArrStorage.villagerNames) {
                     if (event.entity.getCustomNameTag().contains(s)) {
                         villager = true;
                     }
@@ -145,7 +115,7 @@ public class RemoveVillagers {
             }
             EntityVillager villagerEntity = (EntityVillager) event.entity;
             for (EntityArmorStand e : entitiesWithinRange) {
-                for (String s : villagerNames) {
+                for (String s : ArrStorage.villagerNames) {
                     if (e.getCustomNameTag().contains(s)) {
                         villager = true;
                     }

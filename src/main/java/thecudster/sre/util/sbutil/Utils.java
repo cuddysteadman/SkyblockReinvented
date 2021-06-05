@@ -26,14 +26,18 @@ import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Slot;
+import net.minecraft.network.play.server.S02PacketChat;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StringUtils;
 import net.minecraft.util.Vec3;
+import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import thecudster.sre.events.JoinSkyblockEvent;
 import thecudster.sre.events.LeaveSkyblockEvent;
+import thecudster.sre.events.PacketEvent;
 
 import java.util.List;
 import java.util.Random;
@@ -132,6 +136,17 @@ public class Utils {
         }
         return false;
     }
+    public static boolean isInTablist(String playerName){
+        if (mc.isSingleplayer()) {
+            return true;
+        }
+        for (NetworkPlayerInfo pi : mc.getNetHandler().getPlayerInfoMap()) {
+            if (pi.getGameProfile().getName().equalsIgnoreCase(playerName)) {
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * Taken from Danker's Skyblock Mod under GPL 3.0 license
      * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE
@@ -180,7 +195,18 @@ public class Utils {
 
         return null;
     }
-
+    /**
+     * Taken from Skytils under GNU Affero General Public license.
+     * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
+     * @author Sychic
+     * @author My-Name-Is-Jeff
+     */
+    public static void cancelChatPacket(PacketEvent.ReceiveEvent ReceivePacketEvent) {
+        if (!(ReceivePacketEvent.packet instanceof S02PacketChat)) return;
+        ReceivePacketEvent.setCanceled(true);
+        S02PacketChat packet = ((S02PacketChat) ReceivePacketEvent.packet);
+        MinecraftForge.EVENT_BUS.post(new ClientChatReceivedEvent(packet.getType(), packet.getChatComponent()));
+    }
     /**
      * Taken from SkyblockAddons under MIT License
      * https://github.com/BiscuitDevelopment/SkyblockAddons/blob/master/LICENSE
@@ -192,8 +218,12 @@ public class Utils {
         shouldBypassVolume = false;
     }
     // original
+    public static boolean ironmanProfile = false;
     public static void sendMsg(String msg) {
         Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(msg));
+    }
+    public static void sendCommand(String command) {
+        Minecraft.getMinecraft().thePlayer.sendChatMessage("/" + command);
     }
     public static boolean checkIronman() {
         if (inSkyblock) {
@@ -201,7 +231,8 @@ public class Utils {
             for (String s : scoreboard) {
                 String sCleaned = ScoreboardUtil.cleanSB(s);
                 if (sCleaned.contains("Ironman")) {
-                    return true;
+                    ironmanProfile = true;
+                    return ironmanProfile;
                 }
             }
         }
@@ -214,5 +245,8 @@ public class Utils {
             }
         }
         return false;
+    }
+    public static String getUnformattedChat(ClientChatReceivedEvent event) {
+        return StringUtils.stripControlCodes(event.message.getUnformattedTextForChat());
     }
 }

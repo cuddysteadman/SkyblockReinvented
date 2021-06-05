@@ -30,7 +30,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.sbutil.DungeonUtils;
 import thecudster.sre.util.sbutil.ItemUtil;
 import thecudster.sre.util.sbutil.Utils;
 
@@ -193,7 +192,6 @@ public class MiscGUIs {
         }
         if (SkyblockReinvented.config.chestStop >= 0 && Utils.inDungeons) {
             if (mc.currentScreen instanceof GuiChest) {
-                foundBadItem = false;
                 GuiChest chest = (GuiChest) mc.currentScreen;
                 ContainerChest inventory = (ContainerChest) chest.inventorySlots;
                 String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
@@ -205,29 +203,6 @@ public class MiscGUIs {
                         || displayText.equals("Diamond Chest");
                 if (dungeonChest) {
                     woodenChest = false;
-                    List<Slot> slots = chest.inventorySlots.inventorySlots;
-                    for (Slot toCheck : slots) {
-                        if (toCheck.getStack() != null) {
-                            if (ItemUtil.getSkyBlockItemID(toCheck.getStack()) != null) {
-                                String id = ItemUtil.getSkyBlockItemID(toCheck.getStack());
-
-                                List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
-                                for (String s : lore) {
-                                    if (s.contains("Infinite Quiver VI") || s.contains("No Pain No Gain") || s.contains("Ultimate Jerry") || s.contains("Bank") || s.contains("Feather Falling VI")) {
-                                        showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
-                                        foundBadItem = true;
-                                    }
-                                }
-
-                                for (String check : DungeonUtils.notProfit) {
-                                    if (id.equals(check)) {
-                                        foundBadItem = true;
-                                        showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.red.getRGB());
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }

@@ -29,275 +29,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Mouse;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.features.impl.qol.GiftCompassWaypoints;
-import thecudster.sre.features.impl.slayer.SlayerReminder;
+import thecudster.sre.features.impl.skills.slayer.SlayerReminder;
 import thecudster.sre.util.gui.GuiManager;
-import thecudster.sre.util.sbutil.DungeonUtils;
-import thecudster.sre.util.sbutil.LootTracker;
-import thecudster.sre.util.sbutil.ScoreboardUtil;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.sbutil.*;
 
 import java.util.List;
 
 public class FilterHandler {
-	public static final String[] danteList = {
-			"you need wear Happy Mask!",
-			"go Dante in community center get Happy Mask!",
-			"you not happy? go get Happy Mask!",
-			"oi, where your Happy Mask?",
-			"dante best"
-	};
-	public static final String[] seaCreatureList = {"A squid appeared.", 
-			"You caught a Sea Walker.",
-			"Pitch Darkness reveals you've caught a Night Squid.",
-			"Frozen Steve fell into the pond long ago, never to resurface... until now!",
-			"A tiny fin emerges from the water, you've caught a Nurse Shark.",
-			"You stumbled upon a Sea Guardian.",
-			"Its a Snowman! It looks harmless.",
-			"Phew! It's only a scarecrow.",
-			"It looks like you've disrupted the Sea Witch's brewing session. Watch out, she's furious!",
-			"You spot a fin as blue as the water it came from, it's a Blue Shark.",
-			"You reeled in a Sea Archer.",
-			"The Monster of The Deep emerges from the dark depths...",
-			"The Grinch stole Jerry's Gifts...get them back!",
-			"Huh? A Catfish!",
-			"You hear trotting from beneath the waves, you caught a Nightmare",
-			"Is this even a Fish? It's the Carrot King!",
-			"Gross! A Sea Leech!",
-			"You've discovered a Guardian Defender of the sea.",
-			"It must be a full moon, it's a Werewolf!",
-			"A striped beast bounds from the depths, the wild Tiger Shark!",
-			"You have awoken the Deep Sea Protector, prepare for a battle!",
-			"The Water Hydra has come to test your Strength.",
-			"The Sea Emperor arises from the depths...",
-			"The spirit of a long lost Phantom Fisher has come to haunt you.",
-			"Hide no longer, a Great White Shark has tracked your scent and thirsts for your blood!",
-			"What is this creature!?",
-			"This can't be! The manifestation of death himself!"};
-	public static final String[] boneShieldList = {"Bone Shield Health: 66%",
-			"Bone Shield Health: 33%",
-			"Your Bone Shield gained an extra bone!",
-			"Your Bone Shield gained an extra bone! It cannot gain anymore bones.",
-			"Your Bone Shield was destroyed!"};
+
 	public static boolean witherCloak;
-	public static final String[] witherSkullList = {"You need a Wither Key to open this door!",
-			"That's a door, and I keep the door...there.",
-			"If you didn't find the Wither Key yet, it probably means you need to go back!",
-			"Death awaits you on this path, and everywhere else to be fair.",
-			"Monsters with a star next to their name have Wither Keys...sometimes."
-	};
-	public static final String[] maddoxQuotes = {"Hello?",
-			"Someone answers!",
-			"How does a lobster answer? Shello!",
-			"ey what do you need",
-			"You hear the line pick up...",
-			"You again? What do you want this time?",
-			"Hey what you do you need?"
-	};
-	public static final String[] maddoxFails = {
-			"Please leave your message after the beep.",
-			"How can you tell if a bee is on the phone? You get a buzzy signal!",
-			"The phone keeps ringing, is it broken?",
-			"The phone picks up but it immediately hangs up!",
-			"What did the cat say on the phone? Can you hear meow?",
-			"No answer.",
-			"Seems like it's not picking up!",
-			"\"Your call is important to us, please stay on the line\", so you hang up.",
-			"HEY IT'S NOT PICKING UP STOP TRYING!",
-			"The line is dead."
-	};
-	public static final String[] fetchurQuotes = {
-			"hi i need your help maybe",
-			"im looking for some stuff, dont remember the name tbh",
-			"you didnt find my things yet?",
-			"thanks thats probably what i needed",
-			"You received these rewards",
-			"20,000 Coins",
-			"1,000 Mithril Powder",
-			"take some gifts!"
-	};
-	public static final String[] watcherQuotes = {"You have failed to prove yourself, and have paid with your lives. You will make an excellent addition to my collection.",
-		"You have proven yourself. You may pass.",
-		"A shiver runs down your spine...",
-		"I am not your enemy",
-		"Stop Attacking me",
-		"Don't make me zap you",
-		"Ouch, just kidding",
-		"We're always watching. Come down from there!",
-		"Don't try to sneak anything past my Watchful Eyes. They see you up there!",
-		"My Watchful Eyes see you up there! Come down and fight!",
-		"A Wandering Soul? Poor Guy.",
-		"A Wandering Soul? Don't you guys have a Healer?",
-		"Oof.",
-		"Oops. Wasn't meant to revive that one.",
-		"This one looks like a fighter.",
-		"You'll do",
-		"Let's see how you can handle this",
-		"Go, fight!",
-		"Go and live again!",
-		"Hmm... This one!",
-		"That one was weak anyway.",
-		"I'm Impressed.",
-		"Not bad.",
-		"Very nice.",
-		"Aw, I liked that one.",
-		"Welcome back to the realm of the living, ",
-		"So your name is Sadan, I see...",
-		"Ah, you've finally arrived. I have watching you closely since we last met. ",
-		"I don't know if you are ready for what's behind this door. So I will decide if you are strong enough.",
-		"Ah, we meet again... I have done some experiments to develop new abilities for my Skulls. Let's see how you handle this!",
-		"So you made it this far... interesting. You are much stronger than I was expecting. Not to worry,",
-		"I recently added a very fine piece to my collection!",
-		"You've managed to scratch and claw your way here, eh? Don't even think about trying to outwit me this time!",
-		"My Watchful Eyes are keeping their ...eyes... on you!",
-		"I'm starting to get tired of seeing you around here... This time I've imbued my minions with special properties! These will",
-		"Oh... hello? You've arrived too early, I haven't even set up... Anyway, let's fight... I guess",
-		"Things feel a little more roomy now, eh? I've knocked down those pillars to go for a more... open concept.",
-		"Plus I needed to give my new friends some space to roam..."
-	};
-	public static final String[] cleanSlayer = {
-			"Open chat then click anywhere on-screen to open Maddox",
-			"SLAYER QUEST STARTED!",
-			"Ring...",
-			"NICE! SLAYER BOSS SLAIN!",
-			"SLAYER QUEST COMPLETE"
-	};
-	public static final String[] cleanJacob = {
-			"[NPC] Jacob: The Farming Contest is over!",
-			"[NPC] Jacob: Let me count the final results eh?",
-			"[NPC] Jacob: Come see me in the Hub to claim your reward!",
-			"[NPC] Jacob: You scored"
-	};
-	public static final String[] hubWarnings = {
-			"Couldn't warp you!",
-			"This island has had too many recent visits!",
-			"This ability is disabled while guesting!",
-			"Finding player...",
-			"Sending a visit request...",
-			"You can't fast travel while in combat!",
-			"Warping...",
-			"Request join for",
-			"Warping you to"
-	};
-	public static final String[] cleanJerry = {
-			"[NPC] Baker:",
-			"You claimed New Year Cake!",
-			"You feel your Gift Compass pull towards a new location...",
-			"You have already found this Gift this year!",
-			"mounted a Snow Cannon!",
-			"GIFT! You found a White Gift!",
-			"It doesn't seem there are any unopened presents nearby...",
-			"§e[NPC] §cSt. Jerry§f: Take this §aGreen Gift§r! You'll hopefully find something nicer than what was in those White Gifts!",
-			"§e[NPC] §cSt. Jerry§f: If you haven't already, be sure to give your other Gifts away to others. Giving Gifts benefits both you and the receiver!",
-			"You claimed Green Gift!",
-			"You found all of the Gifts!",
-			"to shoot. Move cursor to aim.",
-			"The Snow Cannon is reloading!",
-			"You dismounted the Snow Cannon!"
-	};
-	public static final String[] warningServers = {
-			"You are trying to do that too fast. Try again in a moment.",
-			"There was a problem joining SkyBlock, try again in a moment!",
-			"Oops! Couldn't find a SkyBlock server for you! Try again later!",
-			"There was an error queuing into SkyBlock!",
-			"Try again in a moment!",
-			"Please don't spam the command!",
-			"Oops! Couldn't find a SkyBlock server for you! Try again later!"
-	};
-	public static final String[] threeWeirdosSolutions = {"One of us is telling the truth!",
-			"They are both telling the truth. The reward isn't in",
-			"We are all telling the truth!",
-			"is telling the truth and the reward is",
-			"The reward isn't in any of our chests.",
-			"My chest doesn't have the reward. At least one of the others is telling the truth!",
-			"One of the others is lying!",
-			"They are both telling the truth, the reward is in",
-			"They are both lying, the reward is in my chest!",
-			"The reward is in my chest!",
-			"The reward is not in my chest. They are both lying.",
-			"My chest has the reward!",
-			"is telling the truth."
-	}; // i got these from an old forum post, might be outdated lmk
-	public static final String[] dumbSlayerDrops = {
-			"Pestilence Rune I",
-			"Undead Catalyst",
-			"Smite VI",
-			"Beheaded Horror",
-			"Revenant Catalyst",
-			"Snake Rune",
-			"Bite Rune I",
-			"Spider Catalyst",
-			"Bane of Arthropods VI",
-			"Fly Swatter",
-			"Spirit Rune I",
-			"Critical VI",
-			"Red Claw Egg",
-			"Couture Rune I",
-			"Grizzly Bait"
-	};
-	public static final String[] cleanEndDungeon = {
-			"                          The Catacombs - Floor I",
-			"                          The Catacombs - Floor II",
-			"                          The Catacombs - Floor III",
-			"                          The Catacombs - Floor IV",
-			"                          The Catacombs - Floor V",
-			"                          The Catacombs - Floor VI",
-			"                          The Catacombs - Floor VII",
-			"                          Master Mode Catacombs - Floor I",
-			"                          Master Mode Catacombs - Floor II",
-			"                          Master Mode Catacombs - Floor III",
-			"                          Master Mode Catacombs - Floor IV",
-			"                          Master Mode Catacombs - Floor V",
-			"                          Master Mode Catacombs - Floor VI",
-			"                          Master Mode Catacombs - Floor VII",
-			"Experience (Team Bonus)",
-			"§6> §e§lEXTRA STATS §6<",
-			"Defeated Bonzo in ",
-			"Defeated Scarf in ",
-			"Defeated The Professor in ",
-			"Defeated Thorn in ",
-			"Defeated Livid in ",
-			"Defeated Sadan in ",
-			"Defeated Necron in "
-	};
-	public static final String[] tooFast = {
-			"You are sending commands too fast",
-			"You're clicking too fast"
-	};
-	public static final String[] doubleMsg = {
-			"stats are doubled because you are the only player using this class!",
-			"[Archer]",
-			"[Mage]",
-			"[Tank]",
-			"[Berserk]",
-			"[Healer]"
-	};
-	public static final String[] healerMsg = {
-			"You formed a tether with",
-			"Your fairy healed yourself for"
-	};
-	public static final String[] dungeonFinder = {
-			"This group is full and has been de-listed!",
-			"Attempting to add you to the party...",
-			"Please wait a few seconds between refreshing!",
-			"Refreshing...",
-			"You are already in a party!",
-			"This group is full!"
-	};
-	public static final String[] experimentationTable = {
-			"You removed a Experimentation Table. (",
-			"You placed a Experimentation Table. ("
-	};
-	public static final String[] profileMsg = {
-			"You are playing on profile",
-			"witching to profile",
-			"our profile was changed to: ",
-			"is the profile you are playing on!",
-			"f you want to delete this profile, switch to another one first!"
-	};
-	public static final String[] slowDown = {
-			"Whow! Slow down there!",
-			"Slow down"
-	};
 	static String lastMaddoxCommand = "/cb placeholder";
 	static double lastMaddoxTime = 0;
 	@SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
@@ -306,12 +46,10 @@ public class FilterHandler {
 			return;
 		}
 		if (!Utils.inSkyblock) { return; }
-		String unformatted = StringUtils.stripControlCodes(event.message.getUnformattedText());
-		System.out.println(unformatted);
-		if (!Utils.inSkyblock) { return; }
+		String unformatted = Utils.getUnformattedChat(event);
 		String message = event.message.getUnformattedText();
 		if (SkyblockReinvented.config.removeWatcher) {
-			for (String watcherMsg : watcherQuotes) {
+			for (String watcherMsg : ArrStorage.watcherQuotes) {
 				if (message.contains(watcherMsg)) {
 					event.setCanceled(true);
 					return;
@@ -380,14 +118,6 @@ public class FilterHandler {
 				return;
 			}
 		}
-		if (SkyblockReinvented.config.showFetchur) {
-			for (String s : fetchurQuotes) {
-				if (message.contains(s)) {
-					event.setCanceled(true);
-					return;
-				}
-			}
-		}
 		if (SkyblockReinvented.config.warps) {
 			if (message.contains("Warping you to the") || message.contains("Sending to server")) {
 				event.setCanceled(true);
@@ -402,7 +132,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.serverFull) {
-			for (String s : warningServers) {
+			for (String s : ArrStorage.warningServers) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
 					return;
@@ -433,7 +163,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.maddoxMsg) {
-			for (String s : maddoxFails) {
+			for (String s : ArrStorage.maddoxFails) {
 				if (message.contains(s)) {
 					Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("§cMaddox batphone on cooldown!"));
 					event.setCanceled(true);
@@ -441,7 +171,7 @@ public class FilterHandler {
 				}
 			}
 
-			for (String s : cleanSlayer) {
+			for (String s : ArrStorage.cleanSlayer) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
 					return;
@@ -552,7 +282,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.uselessJacob) {
-			for (String s : cleanJacob) {
+			for (String s : ArrStorage.cleanJacob) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
 					return;
@@ -562,22 +292,22 @@ public class FilterHandler {
 		if (SkyblockReinvented.config.reskinJacob) {
 			if (message.contains("[NPC] Jacob: You earned a GOLD medal in the ")) {
 				event.setCanceled(true);
-				Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("You got gold, you actual sweat."));
+				Utils.sendMsg(EnumChatFormatting.GOLD + "You got gold, you actual sweat.");
 				return;
 			}
 			if (message.contains("[NPC] Jacob: You earned a SILVER medal in the ")) {
 				event.setCanceled(true);
-				Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("You got silver! Not bad."));
+				Utils.sendMsg(EnumChatFormatting.GRAY + "You got silver! Not bad.");
 				return;
 			}
 			if (message.contains("[NPC] Jacob: You earned a BRONZE medal in the ")) {
 				event.setCanceled(true);
-				Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("You got bronze! What are you doing m8."));
+				Utils.sendMsg(EnumChatFormatting.YELLOW + "You got bronze! What are you doing m8.");
 				return;
 			}
 			if (message.contains("[NPC] Jacob: You didn't earn a medal, but you may claim a participation reward in the ")) {
 				event.setCanceled(true);
-				Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("bruh. f in the chat."));
+				Utils.sendMsg(EnumChatFormatting.RED + "bruh. f in the chat.");
 				return;
 			}
 		}
@@ -594,7 +324,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.cleanJerry) {
-			for (String s : cleanJerry) {
+			for (String s : ArrStorage.cleanJerry) {
 				if (unformatted.contains(s)) {
 					event.setCanceled(true);
 					return;
@@ -648,7 +378,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.cleanEnd) {
-			for (String s : cleanEndDungeon) {
+			for (String s : ArrStorage.cleanEndDungeon) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
 					return;
@@ -660,7 +390,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.hubWarnings) {
-			for (String s : hubWarnings) {
+			for (String s : ArrStorage.hubWarnings) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
 					return;
@@ -668,7 +398,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.dumbSlayerDrops) {
-			for (String s : dumbSlayerDrops) {
+			for (String s : ArrStorage.dumbSlayerDrops) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
 					return;
@@ -709,15 +439,21 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.threeWeirdosIncorrect == 1 || SkyblockReinvented.config.threeWeirdosIncorrect == 2) {
-			for (String wrongAnswer : threeWeirdosSolutions) {
+			for (String wrongAnswer : ArrStorage.threeWeirdosIncorrect) {
 				if (message.contains(wrongAnswer)) {
 					event.setCanceled(true);
 					return;
 				}
 			}
-		}
-		if (SkyblockReinvented.config.threeWeirdosIncorrect == 2) {
-			// TODO
+			if (SkyblockReinvented.config.threeWeirdosIncorrect == 2) {
+				for (String solution : ArrStorage.threeWeirdosSolutions) {
+					if (message.contains(solution)) {
+						event.setCanceled(true);
+						return;
+					}
+				}
+
+			}
 		}
 		if (SkyblockReinvented.config.openMsg) {
 			if (message.contains("You hear the sound of something opening")) {
@@ -732,7 +468,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.witherSkulls) {
-				for (String msg : witherSkullList) {
+				for (String msg : ArrStorage.witherSkullList) {
 					if (message.contains(msg)) {
 						event.setCanceled(true);
 						return;
@@ -768,7 +504,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.doubleMsg) {
-			for (String s : doubleMsg) {
+			for (String s : ArrStorage.doubleMsg) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
 					return;
@@ -788,7 +524,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.profileMsg) {
-			for (String s : profileMsg) {
+			for (String s : ArrStorage.profileMsg) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
 					return;
@@ -796,7 +532,12 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.seaCreatures) {
-			for (String fishingMsg : seaCreatureList) { if (message.contains(fishingMsg)) { event.setCanceled(true); return; } }
+			for (String fishingMsg : ArrStorage.seaCreatureList) {
+				if (message.contains(fishingMsg)) {
+					event.setCanceled(true);
+					return;
+				}
+			}
 		}
 		if (SkyblockReinvented.config.visitIsland) {
 			if (message.contains("is visiting Your Island!")) {
@@ -805,7 +546,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.skeletonHat) {
-			for (String skelMsg : boneShieldList) {
+			for (String skelMsg : ArrStorage.boneShieldList) {
 				if (message.contains(skelMsg)) {
 					event.setCanceled(true);
 				}
@@ -846,7 +587,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.slowDown) {
-			for (String s : slowDown) {
+			for (String s : ArrStorage.slowDown) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
 					return;
@@ -865,23 +606,50 @@ public class FilterHandler {
 				return;
 			}
 		}
-		if (SkyblockReinvented.config.goldenGoblin) {
-			if (message.contains("A Golden Goblin has spawned from the earth!")) {
+		if (message.contains("A Golden Goblin has spawned from the earth!")) {
+			if (SkyblockReinvented.config.goblinAlert && SkyblockReinvented.config.goldenGoblin) {
+				event.setCanceled(true);
+				GuiManager.createTitle("Golden Goblin!", 20);
+				return;
+			} else if (SkyblockReinvented.config.goldenGoblin){
 				event.setCanceled(true);
 				return;
+			} else if (SkyblockReinvented.config.goblinAlert) {
+				GuiManager.createTitle("Golden Goblin!", 20);
 			}
-			if (message.contains("You received 200") && message.contains("from killing a ") && message.contains("Golden Goblin")) {
+		}
+		if (SkyblockReinvented.config.goldenGoblin) {
+			if ((message.contains("You received 400") || message.contains("You received 200")) && message.contains("from killing a ") && message.contains("Golden Goblin")) {
 				event.setCanceled(true);
 				return;
 			}
 		}
+		if (SkyblockReinvented.config.hideIronman) {
+			if (Utils.checkIronman()) {
+				if (unformatted.contains(":")) {
+					String playerName = unformatted.substring(0, unformatted.indexOf(":"));
+					if (playerName.contains("[MVP+]") || playerName.contains("[VIP+]")) {
+						playerName = playerName.substring(6);
+					} else if (playerName.contains("[VIP]") || playerName.contains("[MVP]")) {
+						playerName = playerName.substring(5);
+					}
+					if (Utils.isInTablist(playerName)) {
+						event.setCanceled(true);
+						return;
+					}
+				}
+			}
+		}
 		if (SkyblockReinvented.config.experimentationTable) {
-			for (String s : experimentationTable) {
+			for (String s : ArrStorage.experimentationTable) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
 					return;
 				}
 			}
+		}
+		for (String s : ScoreboardUtil.getSidebarLines()) {
+
 		}
 		if (SkyblockReinvented.config.compactMsg) {
 			if (message.contains("COMPACT! You found a Enchanted")) {
@@ -920,7 +688,7 @@ public class FilterHandler {
 			return;
 		}
 		if (SkyblockReinvented.config.removeTooFast) {
-			for (String s : tooFast) {
+			for (String s : ArrStorage.tooFast) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
 					return;
@@ -952,7 +720,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.healerMsg) {
-			for (String s : healerMsg) {
+			for (String s : ArrStorage.healerMsg) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
 					return;
@@ -964,7 +732,7 @@ public class FilterHandler {
 			}
 		}
 		if (SkyblockReinvented.config.dungeonFinder) {
-			for (String s : dungeonFinder) {
+			for (String s : ArrStorage.dungeonFinder) {
 				if (message.contains(s)) {
 					event.setCanceled(true);
 					return;
@@ -977,7 +745,7 @@ public class FilterHandler {
 		}
 		if (SkyblockReinvented.config.sellable) {
 			if (unformatted.contains("You sold ") && unformatted.contains("for ") && unformatted.contains("Coins!") && Utils.inSkyblock) {
-				for (String s : DungeonUtils.blockedNames) {
+				for (String s : ArrStorage.blockedNames) {
 					if (unformatted.contains(s)) {
 						event.setCanceled(true);
 						return;

@@ -6,9 +6,10 @@
     "mixins": [
         "MixinGuiContainer",
         "MixinNetworkManager",
-        "MixinPlayerControllerMP",
         "MixinRenderItem",
-        "MixinEffectRenderer"
+        "MixinEffectRenderer",
+        "MixinRenderXPOrb",
+        "MixinEntityPlayerSP"
     ],
     "verbose": true
 }

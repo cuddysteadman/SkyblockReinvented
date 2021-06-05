@@ -61,7 +61,6 @@ public class ScoreboardUtil {
 
         ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
         if (objective == null) return lines;
-
         Collection<Score> scores = scoreboard.getSortedScores(objective);
         List<Score> list = scores.stream()
                 .filter(input -> input != null && input.getPlayerName() != null && !input.getPlayerName()

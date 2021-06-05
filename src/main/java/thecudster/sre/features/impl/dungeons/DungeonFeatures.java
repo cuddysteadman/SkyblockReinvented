@@ -20,15 +20,22 @@
 package thecudster.sre.features.impl.dungeons;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.util.StringUtils;
+import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.events.AddChatMessageEvent;
+import thecudster.sre.events.PlayerPingEvent;
 import thecudster.sre.util.gui.GuiManager;
 import thecudster.sre.util.sbutil.ItemUtil;
 import thecudster.sre.util.sbutil.Utils;
@@ -95,6 +102,44 @@ public class DungeonFeatures {
         if (event.entity instanceof EntitySheep && SkyblockReinvented.config.sheep) {
             if (Utils.inDungeons && ((EntitySheep)event.entity).getMaxHealth() == 8.0) {
                 event.setCanceled(true);
+            }
+        }
+    }
+    @SubscribeEvent
+    public void onPing(PlayerPingEvent event) {
+        if (event.sender.equals(Minecraft.getMinecraft().thePlayer.getName())) { return; }
+        if (!event.receiver.equals(Minecraft.getMinecraft().thePlayer.getName())) { return; }
+        if (event.reason != null) {
+            Utils.sendMsg("Reason: " + event.reason);
+            GuiManager.createTitle("Spirit Leap to " + event.sender + " for " + event.reason, 20);
+        } else {
+            GuiManager.createTitle("Spirit Leap to" + event.sender, 20);
+        }
+    }
+    @SubscribeEvent
+    public void onChat(AddChatMessageEvent event) {
+        // if (!Utils.inDungeons) { return; } TODO uncomment, just for testing purposes
+        String unformatted = StringUtils.stripControlCodes(event.message.getUnformattedText());
+        // if (unformatted.contains("Party > " + Minecraft.getMinecraft().thePlayer.getName() + ":")) { return; }
+        Utils.sendMsg(unformatted);
+        if (unformatted.contains("Party") && unformatted.contains(":") && unformatted.contains(Minecraft.getMinecraft().thePlayer.getName())) {
+            if (unformatted.contains("SREPingCommand")) {
+                String pingedBy;
+                if (unformatted.contains("[MVP+]") || unformatted.contains("[VIP+]")) {
+                    pingedBy = unformatted.substring(12, unformatted.indexOf(":"));
+                } else if (unformatted.contains("[VIP]") || unformatted.contains("[MVP]")) {
+                    pingedBy = unformatted.substring(11, unformatted.indexOf(":"));
+                } else {
+                    pingedBy = unformatted.substring(7, unformatted.indexOf(":"));
+                }
+                Utils.sendMsg("Pinged by: " + pingedBy);
+                if (unformatted.contains(" REASON: ")) {
+                    String reason = unformatted.substring(unformatted.indexOf("REASON: ") + 8);
+                    MinecraftForge.EVENT_BUS.post(new PlayerPingEvent(pingedBy, Minecraft.getMinecraft().thePlayer.getName(), reason));
+                } else {
+                    MinecraftForge.EVENT_BUS.post(new PlayerPingEvent(pingedBy, Minecraft.getMinecraft().thePlayer.getName()));
+                    GuiManager.createTitle("Spirit Leap to" + pingedBy, 20);
+                }
             }
         }
     }

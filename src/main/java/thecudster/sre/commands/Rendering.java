@@ -66,9 +66,9 @@ public class Rendering implements ICommand {
             SkyblockReinvented.config.listToRender.clear();
         }
         else if (args[0].equals("current")) {
-            Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("Your current list is as follows:"));
+           Utils.sendMsg(EnumChatFormatting.GOLD + "Your current list is as follows:");
             for (String s : SkyblockReinvented.config.listToRender) {
-                Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(s));
+                Utils.sendMsg(EnumChatFormatting.GOLD + "" + s);
             }
         }
         else if (args[0].equals("search")) {

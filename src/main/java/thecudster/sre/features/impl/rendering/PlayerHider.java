@@ -27,7 +27,7 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.sbutil.RenderWhitelist;
+import thecudster.sre.util.sbutil.ArrStorage;
 import thecudster.sre.util.sbutil.Utils;
 
 public class PlayerHider {
@@ -40,16 +40,23 @@ public class PlayerHider {
         boolean found = false;
 		String str = ((EntityOtherPlayerMP) event.entity).getDisplayNameString();
 		if (Utils.inDungeons) { return; }
-		for (String s : RenderWhitelist.renderWhitelist) {
+		for (String s : ArrStorage.renderWhitelist) {
 			if (str.contains(s)) {
 				return;
 			}
 		}
 		for (String s : SkyblockReinvented.config.listToRender) {
-			if (((EntityOtherPlayerMP) event.entity).getDisplayNameString().contains(s)) { found = true; }
+			if (((EntityOtherPlayerMP) event.entity).getDisplayNameString().contains(s)) {
+				if (SkyblockReinvented.config.renderPlayerArmor) {
+					setNoArmor((EntityOtherPlayerMP) event.entity);
+				}
+				return;
+			}
 		}
-		if (!found && SkyblockReinvented.config.renderPlayers) {
+		if (SkyblockReinvented.config.renderPlayers) {
 			event.setCanceled(true);
+		} else if (SkyblockReinvented.config.renderPlayerArmor) {
+			setNoArmor((EntityOtherPlayerMP) event.entity);
 		}
 	}
 	/**
@@ -64,4 +71,10 @@ public class PlayerHider {
         EntityLivingBase entityLivingBase = (EntityLivingBase) entity;
         return entity.getUniqueID().version() == 2 && entityLivingBase.getHealth() == 20.0F && !entityLivingBase.isPlayerSleeping();
     }
+    public void setNoArmor(EntityOtherPlayerMP player) {
+		player.setCurrentItemOrArmor(1, null);
+		player.setCurrentItemOrArmor(2, null);
+		player.setCurrentItemOrArmor(3, null);
+		player.setCurrentItemOrArmor(4, null);
+	}
 }

@@ -19,6 +19,7 @@
 
 package thecudster.sre.events;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,7 +31,7 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.features.impl.bestiary.BestiaryProgress;
+import thecudster.sre.features.impl.skills.bestiary.BestiaryProgress;
 import thecudster.sre.features.impl.dungeons.CreeperSolver;
 import thecudster.sre.features.impl.dungeons.HideIncorrectLivids;
 import thecudster.sre.util.api.APIHandler;
@@ -39,6 +40,7 @@ import thecudster.sre.util.sbutil.Utils;
 
 public class WorldChangeEvent {
     public boolean updateChecked = false;
+    public static boolean notInSB = true;
     @SubscribeEvent
     public void onWorldChange(WorldEvent.Load event) throws InterruptedException {
         new java.util.Timer().schedule(
@@ -49,12 +51,21 @@ public class WorldChangeEvent {
                         CreeperSolver.solved = 0;
                         HideIncorrectLivids.foundLivid = false;
                         HideIncorrectLivids.livid = null;
-                        check();
-                        updateCheck();
+                        // updateCheck();
                         Utils.checkForDungeons();
                         Utils.checkForSkyblock();
                         if (SkyblockReinvented.config.bestiaryInfo && Utils.inSkyblock) {
-                            BestiaryProgress.getThings();
+                            new Thread(() -> {
+                                check();
+                                BestiaryProgress.getThings();
+                            });
+                        }
+                        if (SkyblockReinvented.config.joinSB) {
+                            if (!Utils.inSkyblock) {
+                                notInSB = true;
+                            } else {
+                                notInSB = false;
+                            }
                         }
                     }
                 },3000
@@ -93,7 +104,7 @@ public class WorldChangeEvent {
                 EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 
                 System.out.println("Checking for updates...");
-                JsonObject latestRelease = APIHandler.getResponse("https://api.github.com/repos/theCudster/SkyblockReinvented/releases");
+                JsonObject latestRelease = APIHandler.getResponse("https://api.github.com/repos/theCudster/SkyblockReinvented/releases/latest");
                 String latestTag = latestRelease.get("tag_name").getAsString();
                 DefaultArtifactVersion currentVersion = new DefaultArtifactVersion(SkyblockReinvented.VERSION);
                 DefaultArtifactVersion latestVersion = new DefaultArtifactVersion(latestTag.substring(1));

@@ -16,27 +16,16 @@ import thecudster.sre.SkyblockReinvented;
 public abstract class MixinEffectRenderer {
     @Inject(method = "addBlockHitEffects", at = @At("HEAD"), cancellable = true)
     private void addBlockHitEffects(BlockPos pos, EnumFacing directionFacing, CallbackInfo ci) {
-        if (!SkyblockReinvented.config.disableFarmParticles) {
-            return;
-        }
-        Block block = Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
-        if (block instanceof BlockCarrot || block instanceof BlockNetherWart || block instanceof BlockPumpkin || block instanceof BlockMelon ||
-                block instanceof BlockCocoa || block instanceof BlockCactus || block instanceof BlockMushroom || block instanceof BlockReed || block instanceof BlockCrops) {
-            ci.cancel();
-            return;
-        }
+        if (isBlock(pos)) { ci.cancel(); }
     }
 
     @Inject(method = "addBlockDestroyEffects", at = @At("HEAD"), cancellable = true)
     private void addBlockDestroyEffects(BlockPos pos, IBlockState state, CallbackInfo ci) {
-        if (!SkyblockReinvented.config.disableFarmParticles) {
-            return;
-        }
+        if (isBlock(pos)) { ci.cancel(); }
+    }
+    private boolean isBlock(BlockPos pos) {
         Block block = Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
-        if (block instanceof BlockCarrot || block instanceof BlockNetherWart || block instanceof BlockPumpkin || block instanceof BlockMelon ||
-                block instanceof BlockCocoa || block instanceof BlockCactus || block instanceof BlockMushroom || block instanceof BlockReed || block instanceof BlockCrops) {
-            ci.cancel();
-            return;
-        }
+        return SkyblockReinvented.config.disableFarmParticles && (block instanceof BlockCarrot || block instanceof BlockNetherWart || block instanceof BlockPumpkin || block instanceof BlockMelon ||
+                block instanceof BlockCocoa || block instanceof BlockCactus || block instanceof BlockMushroom || block instanceof BlockReed || block instanceof BlockCrops);
     }
 }
