@@ -23,8 +23,7 @@ import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.CancelParticle;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 public class BlockPowerOrb {
 	public static boolean isOrb = false;
@@ -38,7 +37,7 @@ public class BlockPowerOrb {
 				isOrb = (name.contains("Radiant") || name.contains("Mana Flux") || name.contains("Overflux") || name.contains("Plasmaflux"));
 				if (isOrb && event.entity.getMaxHealth() == 20.0) {
 					event.entity.setAlwaysRenderNameTag(false);
-					CancelParticle.cancel();
+					Utils.cancelParticles();
 				}
 			}
 		}

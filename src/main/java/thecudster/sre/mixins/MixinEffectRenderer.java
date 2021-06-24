@@ -25,7 +25,7 @@ public abstract class MixinEffectRenderer {
     }
     private boolean isBlock(BlockPos pos) {
         Block block = Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
-        return SkyblockReinvented.config.disableFarmParticles && (block instanceof BlockCarrot || block instanceof BlockNetherWart || block instanceof BlockPumpkin || block instanceof BlockMelon ||
+        return SkyblockReinvented.config.disableFarmParticles && (block instanceof BlockNetherWart || block instanceof BlockPumpkin || block instanceof BlockMelon ||
                 block instanceof BlockCocoa || block instanceof BlockCactus || block instanceof BlockMushroom || block instanceof BlockReed || block instanceof BlockCrops);
     }
 }

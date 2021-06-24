@@ -41,7 +41,6 @@ public class WitherCloakHider {
 		if (!(event.entity instanceof EntityCreeper)) { return; }
 		EntityCreeper creeperEntity = (EntityCreeper) event.entity;
 		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-		if (CurrentLoc.currentLoc == null) {return;}
 		if (CurrentLoc.currentLoc.equals("The Mist")) {
 			return;
 		}

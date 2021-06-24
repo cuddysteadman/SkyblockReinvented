@@ -6,8 +6,6 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.events.WorldChangeEvent;
 
-import javax.crypto.SecretKey;
-
 public class MiscInputs {
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {

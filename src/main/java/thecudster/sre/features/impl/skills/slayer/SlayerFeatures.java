@@ -24,7 +24,7 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.sbutil.ArrStorage;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 public class SlayerFeatures {
     @SubscribeEvent

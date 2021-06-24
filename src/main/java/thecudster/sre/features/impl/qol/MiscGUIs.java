@@ -30,12 +30,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.sbutil.ItemUtil;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.List;
+
+import static thecudster.sre.util.sbutil.ItemUtil.getItemLore;
 
 public class MiscGUIs {
     public static boolean foundBadItem = false;
@@ -69,7 +70,7 @@ public class MiscGUIs {
          * https://github.com/Nat3z/SkyblockMod/blob/main/LICENSE
          * @author Nat3z
          */
-        if (!Utils.inSkyblock) { return; }
+        if (!Utils.inSkyblock) return;
         if (SkyblockReinvented.config.jacobRender) {
             Minecraft mc = Minecraft.getMinecraft();
             if (mc.currentScreen instanceof GuiChest) {
@@ -112,7 +113,7 @@ public class MiscGUIs {
                                 if (toCheck.getStack().hasDisplayName()) {
                                     String name = toCheck.getStack().getDisplayName();
                                     if (name.contains("SkyBlock Hub")) {
-                                        List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
+                                        List<String> lore = getItemLore(toCheck.getStack());
                                         boolean found = false;
                                         boolean foundYellow = false;
                                         for (String s : lore) {
@@ -168,28 +169,6 @@ public class MiscGUIs {
             }
         }
         Minecraft mc = Minecraft.getMinecraft();
-        if (SkyblockReinvented.config.currentPet) {
-            if (mc.currentScreen instanceof GuiChest) {
-                GuiChest chest = (GuiChest) mc.currentScreen;
-                ContainerChest inventory = (ContainerChest) chest.inventorySlots;
-                String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
-                if (displayText.contains("Pets")) {
-                    List<Slot> slots = chest.inventorySlots.inventorySlots;
-                    for (Slot toCheck : slots) {
-                        if (toCheck.getStack() != null) {
-                            if (toCheck.getStack().getDisplayName() != null) {
-                                List<String> lore = ItemUtil.getItemLore(toCheck.getStack());
-                                for (String s : lore) {
-                                    if (s.contains("Click to despawn")) {
-                                        showOnSlot(chest.inventorySlots.inventorySlots.size(), toCheck.xDisplayPosition, toCheck.yDisplayPosition, Color.green.getRGB());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
         if (SkyblockReinvented.config.chestStop >= 0 && Utils.inDungeons) {
             if (mc.currentScreen instanceof GuiChest) {
                 GuiChest chest = (GuiChest) mc.currentScreen;
@@ -230,7 +209,10 @@ public class MiscGUIs {
             String displayText = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
             if (displayText.equals("SkyBlock Menu")) {
                 try {
-                    for (String s : ItemUtil.getItemLore(inventory.inventorySlots.get(48).getStack())) {
+                    if (inventory.inventorySlots.get(48) == null) return;
+                    if (inventory.inventorySlots.get(48).getStack() == null) return;
+                    if (getItemLore(inventory.inventorySlots.get(48).getStack()) == null) return;
+                    for (String s : getItemLore(inventory.inventorySlots.get(48).getStack())) {
                         if (s.contains("Playing on: ")) {
                             DiscordRPC.state = "Profile: " + net.minecraft.util.StringUtils.stripControlCodes(s.substring(s.indexOf(": ") + 2));
                             break;

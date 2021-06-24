@@ -22,10 +22,10 @@ package thecudster.sre.features.impl.sounds;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.events.ReceivePacketEvent;
+import thecudster.sre.events.PacketEvent;
 import thecudster.sre.features.impl.filter.FilterHandler;
 import thecudster.sre.features.impl.qol.MiscGUIs;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 /*
  * Modified from Skytils under GNU Affero Public License.
@@ -35,8 +35,8 @@ import thecudster.sre.util.sbutil.Utils;
  */
 public class MiscSoundBlocks {
 	@SubscribeEvent(receiveCanceled=true)
-	public void onReceivePacket(ReceivePacketEvent event) {
-		if (!Utils.inSkyblock) { return; }
+	public void onReceivePacket(PacketEvent.ReceiveEvent event) {
+		if (!Utils.inSkyblock) return;
 		if (event.packet instanceof S29PacketSoundEffect) {
 			S29PacketSoundEffect packet = (S29PacketSoundEffect) event.packet;
 			if (SkyblockReinvented.config.creeperSounds) {

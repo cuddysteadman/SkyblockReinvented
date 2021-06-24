@@ -25,7 +25,7 @@ import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.gui.DrawWaypoint;
+import thecudster.sre.core.gui.RenderUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -68,7 +68,7 @@ public class TreasureLocs {
         String unformatted = StringUtils.stripControlCodes(event.message.getUnformattedText());
         for (Map.Entry<String, Vec3> entry : locations.entrySet()) {
             if (unformatted.contains(entry.getKey())) {
-                DrawWaypoint.drawWaypoint(20, new BlockPos(entry.getValue().xCoord, entry.getValue().yCoord, entry.getValue().zCoord), "Treasure");
+                RenderUtils.drawWaypoint(20, new BlockPos(entry.getValue().xCoord, entry.getValue().yCoord, entry.getValue().zCoord), "Treasure");
             }
         }
     }

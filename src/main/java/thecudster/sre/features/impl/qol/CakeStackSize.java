@@ -25,7 +25,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.events.GuiRenderItemEvent;
 import thecudster.sre.util.sbutil.ItemUtil;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ import java.util.List;
 public class CakeStackSize {
     @SubscribeEvent
     public void onRenderItemOverlayPos(GuiRenderItemEvent.RenderOverlayEvent.Post event) {
-        if (!Utils.inSkyblock) { return; }
+        if (!Utils.inSkyblock) return;
         ItemStack item = event.stack;
         if (item == null || item.stackSize != 1 || !SkyblockReinvented.config.cakeStackSize) return;
         String stackTip = "";

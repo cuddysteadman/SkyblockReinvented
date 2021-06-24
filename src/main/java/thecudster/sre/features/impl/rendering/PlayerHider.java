@@ -19,35 +19,37 @@
 
 package thecudster.sre.features.impl.rendering;
 
+import net.minecraft.block.BlockSkull;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemSkull;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
+import thecudster.sre.features.impl.filter.CustomPlayersFilter;
 import thecudster.sre.util.sbutil.ArrStorage;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 public class PlayerHider {
 	@SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
 	public void onEntityRender(RenderLivingEvent.Pre event) {
-		if (!Utils.inSkyblock) { return; }
+		if (!Utils.inSkyblock) return;
 		if (event.entity instanceof EntityPlayerSP) return;
         if (!(event.entity instanceof EntityOtherPlayerMP)) return;
-        if (this.isNPC(event.entity)) { return; }
-        boolean found = false;
+        if (this.isNPC(event.entity)) return;
 		String str = ((EntityOtherPlayerMP) event.entity).getDisplayNameString();
-		if (Utils.inDungeons) { return; }
+		if (Utils.inDungeons) return;
 		for (String s : ArrStorage.renderWhitelist) {
 			if (str.contains(s)) {
 				return;
 			}
 		}
-		for (String s : SkyblockReinvented.config.listToRender) {
-			if (((EntityOtherPlayerMP) event.entity).getDisplayNameString().contains(s)) {
-				if (SkyblockReinvented.config.renderPlayerArmor) {
+		for (CustomPlayersFilter s : SkyblockReinvented.config.listToRender) {
+			if (s.getShouldCancel(((EntityOtherPlayerMP) event.entity).getDisplayNameString())) {
+				if (SkyblockReinvented.config.renderPlayerArmor > 0) {
 					setNoArmor((EntityOtherPlayerMP) event.entity);
 				}
 				return;
@@ -55,7 +57,8 @@ public class PlayerHider {
 		}
 		if (SkyblockReinvented.config.renderPlayers) {
 			event.setCanceled(true);
-		} else if (SkyblockReinvented.config.renderPlayerArmor) {
+		}
+		if (SkyblockReinvented.config.renderPlayerArmor > 0) {
 			setNoArmor((EntityOtherPlayerMP) event.entity);
 		}
 	}
@@ -72,6 +75,12 @@ public class PlayerHider {
         return entity.getUniqueID().version() == 2 && entityLivingBase.getHealth() == 20.0F && !entityLivingBase.isPlayerSleeping();
     }
     public void setNoArmor(EntityOtherPlayerMP player) {
+		if (SkyblockReinvented.config.renderPlayerArmor == 1) {
+			if (player.getCurrentArmor(1).getItem() instanceof ItemSkull) {
+				player.setCurrentItemOrArmor(1, null);
+			}
+			return;
+		}
 		player.setCurrentItemOrArmor(1, null);
 		player.setCurrentItemOrArmor(2, null);
 		player.setCurrentItemOrArmor(3, null);

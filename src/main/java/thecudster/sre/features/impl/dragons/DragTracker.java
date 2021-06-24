@@ -26,13 +26,13 @@ import net.minecraft.util.StringUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.gui.FloatPair;
-import thecudster.sre.util.gui.GuiElement;
-import thecudster.sre.util.gui.ScreenRenderer;
-import thecudster.sre.util.gui.SmartFontRenderer;
-import thecudster.sre.util.gui.colours.CommonColors;
+import thecudster.sre.core.gui.FloatPair;
+import thecudster.sre.core.gui.GuiElement;
+import thecudster.sre.core.gui.ScreenRenderer;
+import thecudster.sre.core.gui.SmartFontRenderer;
+import thecudster.sre.core.gui.colours.CommonColors;
 import thecudster.sre.util.sbutil.CurrentLoc;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 import java.util.ArrayList;
 
@@ -73,7 +73,7 @@ public class DragTracker {
         }
         @Override
         public void render() {
-            if (!this.getToggled()) { return; }
+            if (!this.getToggled() || !(!Utils.inDungeons && Utils.inSkyblock && (CurrentLoc.currentLoc.equals("Dragon's Nest") || CurrentLoc.currentLoc.equals("The End")))) return;
             ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
             boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
             for (int i = 0; i < dragGui.size(); i++) {
@@ -83,7 +83,6 @@ public class DragTracker {
         }
         @Override
         public void demoRender() {
-            if (!this.getToggled()) { return; }
             ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
             boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
             for (int i = 0; i < dragDemo.length; i++) {
@@ -94,7 +93,7 @@ public class DragTracker {
 
         @Override
         public boolean getToggled() {
-            return SkyblockReinvented.config.dragTracker && !Utils.inDungeons && Utils.inSkyblock && (CurrentLoc.currentLoc.equals("Dragon's Nest") || CurrentLoc.currentLoc.equals("The End"));
+            return SkyblockReinvented.config.dragTracker;
         }
 
         @Override
@@ -113,7 +112,7 @@ public class DragTracker {
         if (event.type == 0x2) {
             return;
         }
-        if (!Utils.inSkyblock) { return; }
+        if (!Utils.inSkyblock) return;
         String unformatted = StringUtils.stripControlCodes(event.message.getUnformattedText());
         if (SkyblockReinvented.config.dragTracker && CurrentLoc.currentLoc.equals("Dragon's Nest") && !Utils.inDungeons) {
             if (unformatted.contains("The ") && unformatted.contains(" Dragon") && unformatted.contains("has spawned!")) {

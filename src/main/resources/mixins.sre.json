@@ -1,6 +1,7 @@
 {
     "required": true,
     "compatibilityLevel": "JAVA_8",
+    "minVersion": "0.7",
     "package": "thecudster.sre.mixins",
     "refmap": "mixins.sre.refmap.json",
     "mixins": [
@@ -8,8 +9,7 @@
         "MixinNetworkManager",
         "MixinRenderItem",
         "MixinEffectRenderer",
-        "MixinRenderXPOrb",
-        "MixinEntityPlayerSP"
+        "MixinGuiScreen"
     ],
     "verbose": true
 }

@@ -8,18 +8,16 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.time.StopWatch;
-import org.lwjgl.Sys;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.events.SecondPassedEvent;
-import thecudster.sre.util.gui.FloatPair;
-import thecudster.sre.util.gui.GuiElement;
-import thecudster.sre.util.gui.ScreenRenderer;
-import thecudster.sre.util.gui.SmartFontRenderer;
-import thecudster.sre.util.gui.colours.CommonColors;
+import thecudster.sre.core.gui.FloatPair;
+import thecudster.sre.core.gui.GuiElement;
+import thecudster.sre.core.gui.ScreenRenderer;
+import thecudster.sre.core.gui.SmartFontRenderer;
+import thecudster.sre.core.gui.colours.CommonColors;
 import thecudster.sre.util.sbutil.ArrStorage;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -130,7 +128,7 @@ public class SkillXPTracker {
     }
 
     public static void refresh() {
-        if (SkyblockReinvented.config.skillXPTracker == 0) { return; }
+        if (SkyblockReinvented.config.skillXPTracker == 0) return;
         if (!timeCountedExclude.isStarted()) { timeCountedExclude.start(); }
         if (!timeCountedInclude.isStarted()) { timeCountedInclude.start(); }
         double[] time = getTime(timeCountedExclude);
@@ -204,7 +202,7 @@ public class SkillXPTracker {
     }
     public static void updateText(String[] arr, double days, double hrs, double mins, double secs) {
         String[] temp = arr.clone();
-        if (maxLvlOfSkill(currentSkill) == currentLvl) { return; }
+        if (maxLvlOfSkill(currentSkill) == currentLvl) return;
         if (arr.length == 7) {
             temp[0] = currentSkill + " - " + !timeCountedExclude.isSuspended();
             temp[1] = "XP / hr: " + xpPerHr;
@@ -212,7 +210,7 @@ public class SkillXPTracker {
             temp[3] = timeCounted("Time Counted: ", days, hrs, mins, secs);
             temp[4] = timeCounted("Total Time Elapsed: ", days, hrs, mins, secs);
             if (ArrStorage.skillXPPerLevel.containsKey(currentLvl + 1)) {
-                int xpToNextLvl = (int)(ArrStorage.skillXPPerLevel.get(currentLvl + 1) - currentXP);
+                int xpToNextLvl = ArrStorage.skillXPPerLevel.get(currentLvl + 1) - currentXP;
                 temp[5] = "Time Needed: " + convertToReadable((double)xpToNextLvl / (double)xpPerHr);
                 temp[6] = "Actions Needed: " + (int)(xpToNextLvl / xpPerBlock);
             } else {
@@ -228,7 +226,7 @@ public class SkillXPTracker {
             temp[3] = timeCounted("Time Counted: ", days, hrs, mins, secs);
             temp[4] = timeCounted("Total Time Elapsed: ", days, hrs, mins, secs);
             if (ArrStorage.skillXPPerLevel.containsKey(currentLvl + 1)) {
-                int xpToNextLvl = (int)(ArrStorage.skillXPPerLevel.get(currentLvl + 1) - currentXP);
+                int xpToNextLvl = ArrStorage.skillXPPerLevel.get(currentLvl + 1) - currentXP;
                 temp[5] = "Time Needed: " + convertToReadable((double)xpToNextLvl / (double)xpPerHr);
                 temp[6] = "Actions Needed: " + (int)(xpToNextLvl / xpPerBlock);
             } else {
@@ -327,7 +325,7 @@ public class SkillXPTracker {
 
         @Override
         public boolean getToggled() {
-            return SkyblockReinvented.config.skillXPTracker != 0 && Utils.inSkyblock && !Utils.inDungeons;
+            return SkyblockReinvented.config.skillXPTracker != 0;
         }
 
         @Override

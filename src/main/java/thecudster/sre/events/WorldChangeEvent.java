@@ -19,7 +19,6 @@
 
 package thecudster.sre.events;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,10 +32,9 @@ import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.features.impl.skills.bestiary.BestiaryProgress;
 import thecudster.sre.features.impl.dungeons.CreeperSolver;
-import thecudster.sre.features.impl.dungeons.HideIncorrectLivids;
 import thecudster.sre.util.api.APIHandler;
 import thecudster.sre.util.api.APIUtil;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 public class WorldChangeEvent {
     public boolean updateChecked = false;
@@ -47,10 +45,15 @@ public class WorldChangeEvent {
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
+                        if (SkyblockReinvented.config.firstLoad) {
+                            Utils.sendMsg(EnumChatFormatting.GOLD + "Thanks for downloading SRE! Here's a quick guide to get you started.");
+                            Utils.sendHelp();
+                            SkyblockReinvented.config.firstLoad = false;
+                            SkyblockReinvented.config.markDirty();
+                            SkyblockReinvented.config.writeData();
+                        }
                         CreeperSolver.finishedPuzzle = false;
                         CreeperSolver.solved = 0;
-                        HideIncorrectLivids.foundLivid = false;
-                        HideIncorrectLivids.livid = null;
                         // updateCheck();
                         Utils.checkForDungeons();
                         Utils.checkForSkyblock();

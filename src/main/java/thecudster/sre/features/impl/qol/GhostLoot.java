@@ -22,13 +22,15 @@ package thecudster.sre.features.impl.qol;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.gui.*;
-import thecudster.sre.util.gui.colours.CommonColors;
+import thecudster.sre.core.gui.*;
+import thecudster.sre.core.gui.colours.CommonColors;
+import thecudster.sre.util.Utils;
 import thecudster.sre.util.sbutil.CurrentLoc;
-import thecudster.sre.util.sbutil.LootTracker;
 
 public class GhostLoot {
     static {
@@ -41,12 +43,12 @@ public class GhostLoot {
         }
         @Override
         public void render() {
-            if (!this.getToggled()) { return; }
+            if (!this.getToggled() || !Utils.inSkyblock) return;
             ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
             boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
-            for (int i = 0; i < LootTracker.display.length; i++) {
+            for (int i = 0; i < display.length; i++) {
                 SmartFontRenderer.TextAlignment alignment = leftAlign ? SmartFontRenderer.TextAlignment.LEFT_RIGHT : SmartFontRenderer.TextAlignment.RIGHT_LEFT;
-                ScreenRenderer.fontRenderer.drawString(LootTracker.display[i], leftAlign ? this.getActualX() : this.getActualX() + this.getWidth(), this.getActualY() + i * ScreenRenderer.fontRenderer.FONT_HEIGHT, CommonColors.WHITE, alignment, SmartFontRenderer.TextShadow.NORMAL);
+                ScreenRenderer.fontRenderer.drawString(display[i], leftAlign ? this.getActualX() : this.getActualX() + this.getWidth(), this.getActualY() + i * ScreenRenderer.fontRenderer.FONT_HEIGHT, CommonColors.WHITE, alignment, SmartFontRenderer.TextShadow.NORMAL);
             }
         }
 
@@ -54,10 +56,9 @@ public class GhostLoot {
         public void demoRender() {
             ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
             boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
-            if (!this.getToggled()) { return; }
-            for (int i = 0; i < LootTracker.display.length; i++) {
+            for (int i = 0; i < display.length; i++) {
                 SmartFontRenderer.TextAlignment alignment = leftAlign ? SmartFontRenderer.TextAlignment.LEFT_RIGHT : SmartFontRenderer.TextAlignment.RIGHT_LEFT;
-                ScreenRenderer.fontRenderer.drawString(LootTracker.display[i], leftAlign ? 0 : this.getActualWidth(), i * ScreenRenderer.fontRenderer.FONT_HEIGHT, CommonColors.WHITE, alignment, SmartFontRenderer.TextShadow.NORMAL);
+                ScreenRenderer.fontRenderer.drawString(display[i], leftAlign ? 0 : this.getActualWidth(), i * ScreenRenderer.fontRenderer.FONT_HEIGHT, CommonColors.WHITE, alignment, SmartFontRenderer.TextShadow.NORMAL);
             }
         }
 
@@ -73,7 +74,7 @@ public class GhostLoot {
 
         @Override
         public int getWidth() {
-            return ScreenRenderer.fontRenderer.getStringWidth(LootTracker.display[5]);
+            return ScreenRenderer.fontRenderer.getStringWidth(display[5]);
         }
     }
     @SubscribeEvent
@@ -82,9 +83,27 @@ public class GhostLoot {
             if (CurrentLoc.currentLoc.equals("The Mist")) {
                 EntityCreeper creeper = (EntityCreeper) event.entity;
                 if (creeper.getPowered()) {
-                    LootTracker.ghostsSinceSorrow++;
+                    ghostsSinceSorrow++;
                 }
             }
         }
+    }
+    public static int sorrow;
+    public static int bagCash;
+    public static int plasma;
+    public static int volta;
+    public static int ghostlyBoots;
+    public static int ghostsSinceSorrow;
+    public static String[] display = {EnumChatFormatting.GREEN + "Sorrow: " + sorrow, EnumChatFormatting.GREEN + "Bag of Cash: " + bagCash, EnumChatFormatting.GREEN +
+            "Plasma: " + plasma, EnumChatFormatting.GREEN + "Volta: "
+            + volta, EnumChatFormatting.GREEN + "Ghostly Boots: " + ghostlyBoots, EnumChatFormatting.GREEN + "Ghosts Since Sorrow: " + ghostsSinceSorrow};
+    @SubscribeEvent
+    public void onRender(RenderLivingEvent.Pre event) {
+        display[0] = EnumChatFormatting.GREEN + "Sorrow: " + EnumChatFormatting.LIGHT_PURPLE + sorrow;
+        display[1] = EnumChatFormatting.GREEN + "Bag of Cash: " + EnumChatFormatting.LIGHT_PURPLE + bagCash;
+        display[2] = EnumChatFormatting.GREEN + "Plasma: " + EnumChatFormatting.LIGHT_PURPLE + plasma;
+        display[3] = EnumChatFormatting.GREEN + "Volta: " + EnumChatFormatting.LIGHT_PURPLE + volta;
+        display[4] = EnumChatFormatting.GREEN + "Ghostly Boots: " + EnumChatFormatting.LIGHT_PURPLE + ghostlyBoots;
+        display[5] = EnumChatFormatting.GREEN + "Ghosts Since Sorrow: " + EnumChatFormatting.LIGHT_PURPLE + ghostsSinceSorrow;
     }
 }

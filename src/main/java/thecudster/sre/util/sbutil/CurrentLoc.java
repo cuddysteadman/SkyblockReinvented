@@ -22,7 +22,7 @@ package thecudster.sre.util.sbutil;
 import java.util.List;
 
 public class CurrentLoc {
-    public static String currentLoc = null;
+    public static String currentLoc = "None";
     public static final String[] locList = {
             "Dungeon Hub",
             "None",
@@ -88,6 +88,7 @@ public class CurrentLoc {
             "Jerry Pond",
             "Snowball Fight Cave",
             "The Forge",
+            "Royal Mines",
             "Forge Basin",
             "Lava Springs",
             "Palace Bridge",

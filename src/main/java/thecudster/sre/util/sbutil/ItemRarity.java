@@ -45,7 +45,7 @@ public enum ItemRarity {
     private static final ItemRarity[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(ItemRarity::ordinal)).toArray(size -> new ItemRarity[size]);
     private final String name;
     private final EnumChatFormatting baseColor;
-    private final Color color;
+    public final Color color;
 
     static {
         for (ItemRarity rarity : values())

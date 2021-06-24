@@ -14,8 +14,13 @@
   </a>
 </p>
 
+***
 
 ## Features
+***
+<details>
+  <summary>Items</summary>
+
 ### Items
 * Remove Creeper Veil Messages
 * Remove Skeleton Hat Messages
@@ -27,7 +32,13 @@
 * Hide JerryChine gun heads
 * Remove Power Orb Particles & Nametags
 * Remove Item Frame Display Names
+</details>
+<details>
+  <summary>General</summary>
+
 ### General
+* Gift Waypoints - Displays Gift Waypoints when holding Gift Compass
+* Clean Jerry's Workshop - Generally cleans up the chat of Jerry's Workshop
 * Configurable Discord Rich Presence 
 * Treasure Hunter Waypoints
 * Jerry Timer
@@ -48,6 +59,10 @@
 * Dragon Tracker
 * Auto notify when stash full + remove stash messages
 * "You need to be out of combat" spam hider
+</details>
+<details>
+  <summary>Your Island</summary>
+
 ### Your Island
 * Remove chat from Jerries
 * Remove Minion Inventory Warnings
@@ -55,6 +70,10 @@
 * Revamped Jacob Messages - Replaces some of the Jacob's Farming Contest messages with more... smarky messages (50% meme)
 * Hide Useless Jacob Messages - Removes Useless Jacob's Event Messages
 * Remove Minion XP Messages
+</details>
+<details>
+  <summary>Dungeons</summary>
+
 ### Dungeons
 * Watcher Ready Title
 * Hide Guided Sheep
@@ -81,45 +100,81 @@
 * Hide your own spirit bats
 * Remind Skeleton Masters: plays a sound and makes a title if you're near a skeleton master
 * Remind Bat Secrets: plays a sound and makes a title if you're near a bat that's a secret
+</details>
+<details>
+  <summary>QOL</summary>
+
 ### QOL
 * Remove GEXP Messages
 * Remove Watchdog Announcement!
 * Remove Warnings about Hubs
-### Skills
-#### Slayer
+</details>
+<details>
+      <summary>Skills</summary>
+<details>
+  <summary>Slayer</summary>
+
+### Slayer
 * Clean Maddox Batphone - Removes Useless Batphone Messages 
 * Maddox click message (just taken from DSM, for all of you that don't have DSM but want to use the slayer cleaner. get DSM though)
 * Hide Useless Slayer Drop Messages - Removes useless (<15k coinsish) slayer drop messages
 * Clean Maddox Batphone - Removes Useless Batphone Messages
-* Remind to Start New Slayer: reminds you to start a new slayer quest if you haven't started a new one after 5 seconds
+* Reminder to Start New Slayer: reminds you to start a new slayer quest if you haven't started a new one after 5 seconds
 * Hide Sven Pups - stops sven pups from rendering
 * Slayer Tracker
-#### Fishing
-* Remove Sea Creature Messages
-* Warn when about to catch a fish (when particles spawn, not when you actually get the fish)
-* Fish Particles Scale slider
-#### Enchanting
-* Remove Experimentation Table Messages
-#### Farming
-* Remove RNG Messages from Dicer
+</details>
+<details>
+  <summary>Fishing</summary>
+
+### Fishing
+</details>
+<details>
+  <summary>Enchanting</summary>
+
+### Enchanting
+</details>
+<details>
+  <summary>Farming</summary>
+
+### Farming
 * Disable Farm Block Particles
-#### Mining
-* Remove Compact Messages
+</details>
+<details>
+  <summary>Mining</summary>
+
+### Mining
+</details>
+</details>
+<details>
+  <summary>Dwarven Mines</summary>
+
 ### Dwarven Mines
 * Ghost Loot Tracker
 * Remove Puzzler Messages (except for the one that tells you where it is)
 * Remove Unimportant Fetchur Messages
 * Remove Golden Goblin Messages
 * Remove Titles from Raffles
+</details>
+<details>
+  <summary>Hub</summary>
+
 ### Hub
 * Hub Overlay: overlays hubs that you can join in green and hubs that you can't join in red
 * Jacob's Contest Overlay - Shows which you haven't claimed
-* Remove Messages from Kat
-* Remove Messages about Bank Withdrawals/Deposits
-### Jerry Island
-* Gift Waypoints - Displays Gift Waypoints when holding Gift Compass
-* Clean Jerry's Workshop - Generally cleans up the chat of Jerry's Workshop
-### Commands
+</details>
+<details>
+  <summary>Spam</summary>
+
+<details>
+  <summary>Skills</summary>
+
+### Skills
+* Remove Experimentation Table Messages
+* Remove RNG Messages from Dicer
+</details>
+</details><br>
+<details>
+  <summary>Commands</summary>
 * /sre: main GUI (aliases: /SRE, /SkyblockReinvented) 
 * /sre help: displays all commands
 * /sre gui: edit GUI locations
@@ -129,13 +184,39 @@
 * /re: /re add, /re search, /re add, /re remove: add or remove specific players to the whitelist
 * /fragrun: automatically parties an online fragrun bot (aliases: /fr)
 * /drag command: /drag clear (clear current dragon tracker info), /drag (toggle gui display element)
-## This mod would not be possible without these wonderful people and their projects:
-* Sychic & My-Name-Is-Jeff (Skytils: https://github.com/Skytils/SkytilsMod)
-* Moulberry (NEU: https://github.com/Moulberry/NotEnoughUpdates)
-* Cobble8 (SkyblockPersonalized: https://github.com/Cobble8/SkyblockPersonalized)
-* Biscuit (SkyblockAddons: https://github.com/BiscuitDevelopment/SkyblockAddons)
-* bowser0000 (Danker's Skyblock Mod: https://github.com/bowser0000/SkyblockMod)
-* Sk1er LLC (ModCore: https://github.com/Sk1erLLC (not exactly a github, but it was the closest I could find since the source code isn't public to my knowledge))  
-For licenses and info, [click here](https://github.com/theCudster/SkyblockReinvented/blob/main/OPEN_SOURCE_SOFTWARE.md).
+</details>
+
 #### Join the discord for support: 
-* https://discord.gg/xkeYgZrRbN
+https://discord.gg/xkeYgZrRbN
+### This mod would not be possible without these wonderful people and their projects:
+***
+<details>
+  <summary>Credits to Open Source Software</summary>
+
+Software | License | Author
+------------ | ------------- | -------------
+[Apache Commons Lang](https://github.com/apache/commons-lang) | [Apache 2.0](../../dependencyLicenses/discordIPC/APACHE_2.0.txt) | [Apache](https://github.com/apache)
+[awt-color-factory](https://github.com/beryx/awt-color-factory) | [GPL 2.0 with Classpath exception](https://github.com/beryx/awt-color-factory/blob/master/LICENSE#L347-L357) | [beryx](https://github.com/beryx)
+[Discord IPC](https://github.com/jagrosh/DiscordIPC) | [Apache 2.0](../../dependencyLicenses/discordIPC/APACHE_2.0.txt) | [Jagrosh](https://github.com/jagrosh)
+[Gson](https://github.com/google/gson) | [Apache 2.0](../../dependencyLicenses/discordIPC/APACHE_2.0.txt) | [Google LLC](https://github.com/google)
+[Minecraft Forge](https://github.com/MinecraftForge/MinecraftForge/tree/1.8.9) | [Minecraft Forge License](https://github.com/MinecraftForge/MinecraftForge/blob/1.8.9/MinecraftForge-License.txt) | [Forge Dev Team](https://github.com/MinecraftForge/MinecraftForge/)
+[Skytils](https://github.com/Skytils/SkytilsMod/blob/main/LICENSE) | [GNU Affero GPL v3.0](https://choosealicense.com/licenses/agpl-3.0/) | [Sychic](https://github.com/Sychic) & [My-Name-Is-Jeff](https://github.com/My-Name-Is-Jeff)
+[SkyblockAddons](https://github.com/BiscuitDevelopment/SkyblockAddons/blob/17bcf6383f827d84dac8bd9e8e7f89f594236f99/LICENSE) | [MIT License](https://choosealicense.com/licenses/mit/) | [Biscuit](https://github.com/BiscuitDevelopment/)
+[NotEnoughUpdates](https://github.com/Moulberry/NotEnoughUpdates/blob/master/LICENSE) | [Creative Commons Public License](https://creativecommons.org/licenses/by-nc/3.0/) | [Moulberry](https://github.com/Moulberry/)
+[Danker's Skyblock Mod](https://github.com/bowser0000/SkyblockMod/) | [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0-standalone.html) | [bowser0000](https://github.com/bowser0000)
+[SkyblockPersonalized](https://github.com/Cobble8/SkyblockPersonalized/tree/main/main/java/com/cobble/sbp) | Unlicensed | [Cobble8](https://github.com/Cobble8)
+[Vigilance](https://github.com/Sk1erLLC/Vigilance) | [LGPL 3.0](https://www.gnu.org/licenses/lgpl-3.0-standalone.html) | [Sk1er LLC](https://github.com/Sk1erLLC)
+[Wynntils](https://github.com/Wynntils/Wynntils) | [AGPL 3.0](https://github.com/Wynntils/Wynntils/blob/development/LICENSE) | [Scyu_](https://github.com/DevScyu) & [HeyZeer0](https://github.com/HeyZeer0)
+</details>
+
+### Learn more about the mod's inner workings and how to use the more advanced features here:
+***
+<details>
+    <summary>Documentation</summary>
+
+#### Please note that documentation is still a work in progress.
+Documentation | Purpose
+------------ | -------------
+[Spam Filter](https://github.com/theCudster/SkyblockReinvented/docs/SPAM_FILTER.md) | Learn more about SRE's Spam Filter and how to use it.
+[Player Whitelist](https://github.com/theCudster/SkyblockReinvented/docs/PLAYER_FILTER.md) | Learn more about SRE's Player Whitelist and how to use it.
+</details>

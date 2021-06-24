@@ -20,7 +20,6 @@
 package thecudster.sre.features.impl.dungeons;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityBat;
@@ -31,15 +30,15 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.events.AddChatMessageEvent;
+import thecudster.sre.core.gui.GuiManager;
+import thecudster.sre.core.gui.RenderUtils;
 import thecudster.sre.events.PlayerPingEvent;
-import thecudster.sre.util.gui.GuiManager;
 import thecudster.sre.util.sbutil.ItemUtil;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
+import java.awt.*;
 import java.util.Objects;
 
 public class DungeonFeatures {
@@ -49,7 +48,7 @@ public class DungeonFeatures {
     }
     @SubscribeEvent(receiveCanceled = true)
     public void onRender(RenderLivingEvent.Pre event) {
-        if (!Utils.inSkyblock || !Utils.inDungeons) { return; }
+        if (!Utils.inSkyblock || !Utils.inDungeons) return;
         if (event.entity instanceof EntityBat) {
             if (SkyblockReinvented.config.spiritBats) {
                 if (!isSpiritBat(event.entity)) {
@@ -62,7 +61,8 @@ public class DungeonFeatures {
     int stopDestroyingMyFuckingEars = 300;
     @SubscribeEvent
     public void onRenderLivingPre(RenderLivingEvent.Pre event) {
-        if (!Utils.inSkyblock || !Utils.inDungeons) { return; }
+        // warn skeleton masters / bats
+        if (!Utils.inSkyblock || !Utils.inDungeons) return;
         if (event.entity.getDistanceToEntity(Minecraft.getMinecraft().thePlayer) <= SkyblockReinvented.config.skeletonRange && isSkeletonMaster(event.entity)) {
             if (stopDestroyingMyFuckingEars > 300) {
                 GuiManager.createTitle("Skeleton Master Nearby!", 20);
@@ -81,6 +81,28 @@ public class DungeonFeatures {
                 stopDestroyingMyFuckingEars++;
             }
         }
+        // box starred mobs
+        /*
+         * Code to detect starred mobs taken from Skytils under GNU Affero General Public License.
+         * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
+         * @author My-Name-Is-Jeff
+         * @author Sychic
+         */
+        if (!Minecraft.getMinecraft().thePlayer.canEntityBeSeen(event.entity)) return;
+        if (SkyblockReinvented.config.outlineMobs) {
+            String name = StringUtils.stripControlCodes(event.entity.getCustomNameTag());
+            if (name.startsWith("✯ ") && name.contains("❤")) {
+                if (name.contains("Lost Adventurer") || name.contains("Angry Archeologist") || name.contains("Lurker") || name.contains("Dreadlord") || name.contains("Souleater") || name.contains("Zombie") || name.contains("Skeleton") || name.contains("Skeletor") || name.contains("Sniper") || name.contains("Super Archer") || name.contains("Spider") || name.contains("Fels") || name.contains("Withermancer")) {
+                    for (Entity e : Minecraft.getMinecraft().theWorld.loadedEntityList) {
+                        if (!(e.equals(Minecraft.getMinecraft().thePlayer)) && !e.isInvisible()) {
+                            if (e.getDistanceToEntity(event.entity) <= 3) {
+                                RenderUtils.drawOutlinedBoundingBox(e.getEntityBoundingBox(), new Color(255, 0, 0, 255), 3f, 1f);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     @SubscribeEvent
     public void onEntityDeath(LivingDeathEvent event) {
@@ -94,7 +116,7 @@ public class DungeonFeatures {
         }
     }
     public static boolean isSkeletonMaster(Entity e) {
-        if (!(e instanceof EntitySkeleton)) { return false; }
+        if (!(e instanceof EntitySkeleton)) return false;
         return Utils.inDungeons && SkyblockReinvented.config.warnSkeletonMasters && !e.isInvisible() && Objects.equals(ItemUtil.getSkyBlockItemID(((EntitySkeleton)e).getCurrentArmor(0)), "SKELETON_MASTER_BOOTS");
     }
     @SubscribeEvent
@@ -105,6 +127,7 @@ public class DungeonFeatures {
             }
         }
     }
+
     @SubscribeEvent
     public void onPing(PlayerPingEvent event) {
         if (event.sender.equals(Minecraft.getMinecraft().thePlayer.getName())) { return; }
@@ -117,11 +140,10 @@ public class DungeonFeatures {
         }
     }
     @SubscribeEvent
-    public void onChat(AddChatMessageEvent event) {
-        // if (!Utils.inDungeons) { return; } TODO uncomment, just for testing purposes
+    public void onChat(ClientChatReceivedEvent event) {
+        // if (!Utils.inDungeons) return; TODO uncomment, just for testing purposes
         String unformatted = StringUtils.stripControlCodes(event.message.getUnformattedText());
-        // if (unformatted.contains("Party > " + Minecraft.getMinecraft().thePlayer.getName() + ":")) { return; }
-        Utils.sendMsg(unformatted);
+        if (unformatted.contains("Party > " + Minecraft.getMinecraft().thePlayer.getName() + ":")) { return; }
         if (unformatted.contains("Party") && unformatted.contains(":") && unformatted.contains(Minecraft.getMinecraft().thePlayer.getName())) {
             if (unformatted.contains("SREPingCommand")) {
                 String pingedBy;

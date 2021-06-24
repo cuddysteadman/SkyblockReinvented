@@ -33,7 +33,7 @@ import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.events.GuiContainerEvent;
 import thecudster.sre.features.impl.qol.MiscGUIs;
 import thecudster.sre.util.sbutil.ItemUtil;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 /*
  * Modified from Skytils under GNU Affero Public license.

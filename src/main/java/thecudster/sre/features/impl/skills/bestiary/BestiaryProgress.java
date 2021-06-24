@@ -41,6 +41,7 @@ public class BestiaryProgress {
     public static HashMap<String, Double> things = new LinkedHashMap<String, Double>();
     public static String[] current = {EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + "Not detected yet!", EnumChatFormatting.RED + "Kills to next level: " + EnumChatFormatting.GOLD + "Not detected yet!"};
     public static int secondsSinceKill = 10;
+
     public static void placeItems() {
         things.put("kills_invisible_creeper", new Double(0.0));
         things.put("kills_diamond_zombie", new Double(0.0));
@@ -294,6 +295,7 @@ public class BestiaryProgress {
     }
     @SubscribeEvent
     public void onEntityDeath(LivingDeathEvent event) {
+        if (Minecraft.getMinecraft().theWorld == null) return;
         for (Entity e : Minecraft.getMinecraft().theWorld.loadedEntityList) {
             if (e instanceof EntityArmorStand && e.getDistanceToEntity(event.entity) < 3) {
                 try {
@@ -309,8 +311,8 @@ public class BestiaryProgress {
                         current[1] = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + "Undetected / first kill.";
                         return;
                     }
-                    this.things.put(currentKills, this.things.get(currentKills) + 1);
-                    int numKills = this.things.get(currentKills).intValue();
+                    things.put(currentKills,things.get(currentKills) + 1);
+                    int numKills = things.get(currentKills).intValue();
                     current[0] = EnumChatFormatting.RED + "Current Bestiary: " + EnumChatFormatting.GOLD + mobName;
                     current[1] = updateKills(numKills);
                 } catch (NullPointerException ex) {
@@ -321,6 +323,8 @@ public class BestiaryProgress {
     }
     @SubscribeEvent
     public void second(SecondPassedEvent event) {
+        boolean hasInitialized = false;
+        if (!hasInitialized) placeItems();
         secondsSinceKill++;
     }
 }

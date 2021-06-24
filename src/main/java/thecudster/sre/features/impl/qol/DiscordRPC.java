@@ -29,7 +29,7 @@ import org.json.JSONObject;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.sbutil.CurrentLoc;
 import thecudster.sre.util.sbutil.ItemUtil;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 import java.time.OffsetDateTime;
 import java.util.Timer;
@@ -113,7 +113,7 @@ public class DiscordRPC implements IPCListener {
         client.sendRichPresence(presence);
     }
     public boolean isActive() {
-        return client != null;
+        return client != null && this.connected;
     }
     @Override
     public void onActivityJoinRequest(IPCClient client, String secret, User user) {

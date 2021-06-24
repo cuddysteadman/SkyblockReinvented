@@ -19,124 +19,48 @@
 
 package thecudster.sre.features.impl.rendering;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.sbutil.ArrStorage;
-import thecudster.sre.util.sbutil.CurrentLoc;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RemoveVillagers {
-    ArrayList<EntityVillager> found = new ArrayList<EntityVillager>();
-    ArrayList<EntityArmorStand> foundNames = new ArrayList<EntityArmorStand>();
+    boolean hasInit = false;
+    public static ArrayList<BlockPos> villagerLocs = new ArrayList<>();
     @SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)
     public void onCheckRender(RenderLivingEvent.Pre event) {
-        if (!SkyblockReinvented.config.renderVillagers || !Utils.inSkyblock || CurrentLoc.currentLoc.equals("Jerry's Workshop") || CurrentLoc.currentLoc.equals("Jerry Pond")) {
+        if (!SkyblockReinvented.config.renderVillagers || !Utils.inSkyblock && Utils.inLoc(ArrStorage.hubLocs)) {
             return;
         }
-        if (!(event.entity instanceof EntityVillager || event.entity instanceof EntityArmorStand)) { return; }
-        boolean villager = false;
-        if (event.entity.getCustomNameTag() != null) {
-            List<EntityArmorStand> entitiesWithinRange = Minecraft.getMinecraft().theWorld.getEntitiesWithinAABB(EntityArmorStand.class, AxisAlignedBB.fromBounds(event.entity.posX, event.entity.posY, event.entity.posZ,
-                    (event.entity.posX + 1),(event.entity.posY + 1),(event.entity.posZ + 1)));
-            for (String s : ArrStorage.whitelist) {
-                if (event.entity.getCustomNameTag().contains(s)) {
-                    return;
-                }
-            }
-            for (String s : ArrStorage.whitelist) {
-                for (Entity e : entitiesWithinRange) {
-                    if (event.entity.getDistanceToEntity(e) < 2 && event.entity instanceof EntityVillager && e.getCustomNameTag().contains(s)) {
-                        return;
-                    }
-                }
-            }
-            if (!Utils.inLoc(ArrStorage.hubLocs)) {
-                if (!CurrentLoc.currentLoc.equals("Your Island")) { return; }
-                if (event.entity.getCustomNameTag().contains("NEW UPDATE")) {
-                    event.entity.setAlwaysRenderNameTag(false);
-                }
-                if (event.entity.getCustomNameTag().contains("CLICK")) {
-                    event.entity.setAlwaysRenderNameTag(false);
-                }
-                if (event.entity.getCustomNameTag().contains("Jerry")) {
-                    villager = true;
-                }
-                if (event.entity instanceof EntityVillager){
-                    for (Entity e : entitiesWithinRange) {
-                        if (e instanceof EntityArmorStand) {
-                            if (e.getCustomNameTag().contains("Jerry")) {
-                                villager = true;
-                            }
-                            if (villager) {
-                                    event.entity.setInvisible(true);
-                                    event.entity.setAlwaysRenderNameTag(false);
-                                    return;
-                            }
-                        }
-                    }
-                } else if (event.entity instanceof EntityArmorStand) {
-                    if (event.entity.getCustomNameTag().contains("Jerry")) {
-                        event.entity.setInvisible(true);
-                        event.entity.setAlwaysRenderNameTag(false);
-                        return;
-                    }
-                }
+        if (!hasInit) { init(); hasInit = true;}
+        for (BlockPos pos : villagerLocs) {
+            if (event.entity.getDistanceSq(pos) < 9) {
+                event.setCanceled(true);
                 return;
-            }
-            if (event.entity instanceof EntityArmorStand) {
-                for (String s : ArrStorage.villagerNames) {
-                    if (event.entity.getCustomNameTag().contains(s)) {
-                        villager = true;
-                    }
-                }
-                if (villager) {
-                    Minecraft.getMinecraft().theWorld.removeEntity(event.entity);
-                    event.setCanceled(true);
-                    event.entity.setAlwaysRenderNameTag(false);
-                    if (!foundNames.contains((EntityArmorStand) event.entity)) {
-                        foundNames.add((EntityArmorStand) event.entity);
-                    }
-                }
-            }
-
-            if (!(event.entity instanceof EntityVillager)) {
-                return;
-            }
-            EntityVillager villagerEntity = (EntityVillager) event.entity;
-            for (EntityArmorStand e : entitiesWithinRange) {
-                for (String s : ArrStorage.villagerNames) {
-                    if (e.getCustomNameTag().contains(s)) {
-                        villager = true;
-                    }
-                    if (e.getCustomNameTag().contains("CLICK") ) {
-                        villager = true;
-                    }
-                    if (villager) {
-                        e.setAlwaysRenderNameTag(false);
-                        Minecraft.getMinecraft().theWorld.removeEntity(e);
-                        Minecraft.getMinecraft().theWorld.removeEntity(villagerEntity);
-                        event.setCanceled(true);
-                        if (!found.contains(villagerEntity)) {
-                            found.add(villagerEntity);
-                        }
-                    }
-                }
             }
         }
     }
-    @SubscribeEvent
-    public void onChange(WorldEvent.Load event) {
-        found.clear();
+    public void init() {
+        // https://hypixel-skyblock.fandom.com/wiki/Village_Villagers
+        add(38, 68, -46);
+        add(0, 70, -54);
+        add(-35, 70, -36);
+        add(28, 69, -57);
+        add(-7, 70, -75);
+        add(-25, 70, -103);
+        add(27, 70, -116);
+        add(-6, 70, -89);
+        add(-21, 68, -124);
+        add(17, 70, -99);
+        add(-16, 70, -81);
+        add(-75, 70, -107);
+    }
+    private void add(int x, int y, int z) {
+        this.villagerLocs.add(new BlockPos(x, y, z));
     }
 }

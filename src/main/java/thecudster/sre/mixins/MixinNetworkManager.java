@@ -27,7 +27,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.MinecraftForge;
 import thecudster.sre.events.PacketEvent;
-import thecudster.sre.events.ReceivePacketEvent;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

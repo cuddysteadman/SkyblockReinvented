@@ -26,9 +26,8 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.events.ReceivePacketEvent;
-import thecudster.sre.util.TabListUtils;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.events.PacketEvent;
+import thecudster.sre.util.Utils;
 
 /**
  * Modified from Skytils under GNU Affero General Public license.
@@ -38,15 +37,14 @@ import thecudster.sre.util.sbutil.Utils;
  */
 public class RemoveRaffleTitles {
     @SubscribeEvent
-    public void onReceivePacket(ReceivePacketEvent event) {
+    public void onReceivePacket(PacketEvent.ReceiveEvent event) {
         if (!Utils.inSkyblock) return;
         if (SkyblockReinvented.config.removeRaffleTitles) {
             if (event.packet instanceof S45PacketTitle) {
                 S45PacketTitle packet = (S45PacketTitle) event.packet;
-                if (packet == null) { return; }
                 if (packet.getMessage() != null) {
                     String unformatted = StringUtils.stripControlCodes(packet.getMessage().getUnformattedText());
-                    for (NetworkPlayerInfo i : TabListUtils.getTabEntries()) {
+                    for (NetworkPlayerInfo i : Utils.getTabEntries()) {
                         if (i != null) {
                             if (i.getDisplayName() == null) { return; }
                             if (i.getDisplayName().getUnformattedText() == null) { return; }
@@ -75,7 +73,6 @@ public class RemoveRaffleTitles {
                 S45PacketTitle packet = (S45PacketTitle) event.packet;
                 if (packet.getMessage() != null) {
                     String unformatted = StringUtils.stripControlCodes(packet.getMessage().getUnformattedText());
-                    Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(unformatted));
                     if (unformatted.contains("Powerful creatures reside in the Mist")) {
                         event.setCanceled(true);
                     }

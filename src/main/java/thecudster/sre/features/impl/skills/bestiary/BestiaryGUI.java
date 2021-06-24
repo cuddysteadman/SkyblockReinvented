@@ -24,12 +24,12 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.EnumChatFormatting;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.gui.FloatPair;
-import thecudster.sre.util.gui.GuiElement;
-import thecudster.sre.util.gui.ScreenRenderer;
-import thecudster.sre.util.gui.SmartFontRenderer;
-import thecudster.sre.util.gui.colours.CommonColors;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.core.gui.FloatPair;
+import thecudster.sre.core.gui.GuiElement;
+import thecudster.sre.core.gui.ScreenRenderer;
+import thecudster.sre.core.gui.SmartFontRenderer;
+import thecudster.sre.core.gui.colours.CommonColors;
+import thecudster.sre.util.Utils;
 
 import static thecudster.sre.features.impl.skills.bestiary.BestiaryProgress.current;
 
@@ -47,7 +47,7 @@ public class BestiaryGUI {
         public void render() {
             EntityPlayerSP player = mc.thePlayer;
             ScaledResolution sr = new ScaledResolution(mc);
-            if (this.getToggled() && player != null && mc.theWorld != null) {
+            if (this.getToggled() && player != null && mc.theWorld != null && !Utils.inDungeons && Utils.inSkyblock && BestiaryProgress.secondsSinceKill < 10) {
                 boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
                 for (int i = 0; i < 2; i++) {
                     SmartFontRenderer.TextAlignment alignment = leftAlign ? SmartFontRenderer.TextAlignment.LEFT_RIGHT : SmartFontRenderer.TextAlignment.RIGHT_LEFT;
@@ -59,18 +59,16 @@ public class BestiaryGUI {
         @Override
         public void demoRender() {
             ScaledResolution sr = new ScaledResolution(mc);
-            if (this.getToggled()) {
                 boolean leftAlign = getActualX() < sr.getScaledWidth() / 2f;
                 for (int i = 0; i < 2; i++) {
                     SmartFontRenderer.TextAlignment alignment = leftAlign ? SmartFontRenderer.TextAlignment.LEFT_RIGHT : SmartFontRenderer.TextAlignment.RIGHT_LEFT;
                     ScreenRenderer.fontRenderer.drawString(current[i], leftAlign ? 0 : this.getActualWidth(), i * ScreenRenderer.fontRenderer.FONT_HEIGHT, CommonColors.WHITE, alignment, SmartFontRenderer.TextShadow.NORMAL);
                 }
-            }
         }
 
         @Override
         public boolean getToggled() {
-            return SkyblockReinvented.config.bestiaryInfo && !Utils.inDungeons && Utils.inSkyblock && BestiaryProgress.secondsSinceKill < 10;
+            return SkyblockReinvented.config.bestiaryInfo;
         }
 
         @Override

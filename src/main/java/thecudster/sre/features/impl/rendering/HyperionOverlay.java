@@ -27,9 +27,9 @@ import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.gui.RenderUtil;
+import thecudster.sre.core.gui.RenderUtils;
 import thecudster.sre.util.sbutil.ItemUtil;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 import java.awt.*;
 
@@ -40,7 +40,7 @@ public class HyperionOverlay {
         if (event.entity instanceof EntityOtherPlayerMP) {
             return;
         }
-        if (!Utils.inSkyblock) { return; }
+        if (!Utils.inSkyblock) return;
         if (SkyblockReinvented.config.hyperionOverlay) {
             EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
             Vec3 rot = player.getLookVec();
@@ -54,7 +54,7 @@ public class HyperionOverlay {
                                 event.entity instanceof EntitySkeleton || event.entity instanceof EntityEnderman ||
                                 event.entity instanceof EntitySpider) {
                             if (player.canEntityBeSeen(event.entity)) {
-                                RenderUtil.drawFilledBoundingBox(event.entity.getEntityBoundingBox(), new Color(27, 255, 11, 255), 3);
+                                RenderUtils.drawFilledBoundingBox(event.entity.getEntityBoundingBox(), new Color(27, 255, 11, 255), 3);
                                 return;
                             }
                         }

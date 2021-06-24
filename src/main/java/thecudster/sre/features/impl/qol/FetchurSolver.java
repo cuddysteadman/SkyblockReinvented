@@ -6,7 +6,7 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.util.sbutil.ArrStorage;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +33,13 @@ public class FetchurSolver {
     public void onChat(ClientChatReceivedEvent event) {
         if (SkyblockReinvented.config.showFetchur == 0) { return; }
         String message = Utils.getUnformattedChat(event);
-        if (!message.contains("[NPC] Fetchur: ")) { return; }
-        for (String s : ArrStorage.fetchurQuotes) {
+        if (!message.contains("[NPC] Fetchur: ")) {
+            if (Utils.containsAnyOf(message, new String[]{"You received these rewards", "20,000 Coins, 1,000 Mithril Powder"})) {
+                event.setCanceled(true);
+                return;
+            }
+        }
+        for (String s : ArrStorage.SpamArrays.fetchurQuotes) {
             if (message.contains(s)) {
                 event.setCanceled(true);
             }

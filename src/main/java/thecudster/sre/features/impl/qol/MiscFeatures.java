@@ -1,9 +1,6 @@
 package thecudster.sre.features.impl.qol;
 
-import net.minecraft.client.renderer.entity.RenderXPOrb;
 import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderItemInFrameEvent;
@@ -11,16 +8,19 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.gui.GuiManager;
+import thecudster.sre.core.gui.GuiManager;
+import thecudster.sre.events.SecondPassedEvent;
 import thecudster.sre.util.sbutil.CurrentLoc;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
+
+import java.time.LocalDateTime;
 
 public class MiscFeatures {
     @SubscribeEvent
     public void onRender(RenderItemInFrameEvent event) {
         if (!Utils.inSkyblock) { return; }
-        if (!CurrentLoc.currentLoc.equals("Your Island"))
-            if (!SkyblockReinvented.config.itemFrameNames) { return; }
+        if (!CurrentLoc.currentLoc.equals("Your Island")) { return; }
+        if (!SkyblockReinvented.config.itemFrameNames) { return; }
         event.entityItemFrame.setAlwaysRenderNameTag(false);
         event.entityItemFrame.getDisplayedItem().setStackDisplayName("");
     }
@@ -67,6 +67,29 @@ public class MiscFeatures {
         }
         if (unformatted.contains("An item didn't fit in your inventory and was added to your item")) {
             event.setCanceled(true);
+        }
+    }
+    @SubscribeEvent
+    public void onRender(RenderLivingEvent.Pre event) {
+        if (!Utils.inSkyblock || !CurrentLoc.currentLoc.equals("Your Island") || SkyblockReinvented.config.teleportPad == 0) { return; }
+        if (event.entity instanceof EntityArmorStand) {
+            if (event.entity.getName() != null) {
+                if (event.entity.getName().indexOf("Warp To") != -1) {
+                    if (SkyblockReinvented.config.teleportPad == 1) {
+                        event.entity.setCustomNameTag(event.entity.getName().substring(event.entity.getName().indexOf("To") + 3));
+                    } else {
+                        event.entity.setAlwaysRenderNameTag(false);
+                    }
+                }
+            }
+        }
+    }
+    @SubscribeEvent
+    public void onSeccondPassed(SecondPassedEvent event) {
+        if (SkyblockReinvented.config.darkAuction) {
+            if (LocalDateTime.now().getMinute() == 53 && !CurrentLoc.currentLoc.equals("Wilderness") && LocalDateTime.now().getSecond() == 0) {
+                GuiManager.createTitle("Dark Auction", 20);
+            }
         }
     }
 }

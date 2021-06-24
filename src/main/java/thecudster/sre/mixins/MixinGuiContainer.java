@@ -42,7 +42,7 @@ import thecudster.sre.events.GuiContainerEvent;
 @Mixin(GuiContainer.class)
 public abstract class MixinGuiContainer {
 
-    @Shadow public Container inventorySlots;
+    public Container inventorySlots;
 
     private final GuiContainer that = (GuiContainer) (Object) this;
 

@@ -31,9 +31,9 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
-import thecudster.sre.util.gui.RenderUtil;
+import thecudster.sre.core.gui.RenderUtils;
 import thecudster.sre.util.sbutil.CurrentLoc;
-import thecudster.sre.util.sbutil.Utils;
+import thecudster.sre.util.Utils;
 
 import java.awt.*;
 
@@ -47,7 +47,7 @@ public class DragonArrowHitbox {
         if (SkyblockReinvented.config.endDragHitbox) {
             if (event.entity instanceof EntityDragon || event.entity instanceof EntityIronGolem) {
                 if (Minecraft.getMinecraft().thePlayer.canEntityBeSeen(event.entity)) {
-                    RenderUtil.drawOutlinedBoundingBox(event.entity.getEntityBoundingBox(), new Color(255, 255, 255, 255), 3, 1f);
+                    RenderUtils.drawOutlinedBoundingBox(event.entity.getEntityBoundingBox(), new Color(255, 255, 255, 255), 3, 1f);
                     return;
                 }
             }
@@ -59,7 +59,7 @@ public class DragonArrowHitbox {
                 if (enderman.getHeldItem() == null) { return; }
                 if (enderman.getHeldItem().getItem() != null) {
                     if (Minecraft.getMinecraft().thePlayer.canEntityBeSeen(enderman) && enderman.getHeldItem().getItem().equals(BlockEndPortalFrame.blockRegistry)) {
-                        RenderUtil.drawOutlinedBoundingBox(enderman.getEntityBoundingBox(), new Color(255, 255, 255, 255), 3, 1f);
+                        RenderUtils.drawOutlinedBoundingBox(enderman.getEntityBoundingBox(), new Color(255, 255, 255, 255), 3, 1f);
                         return;
                     }
                 }
@@ -71,7 +71,7 @@ public class DragonArrowHitbox {
                     EntityArrow arrow = (EntityArrow) e;
                     if (arrow.shootingEntity == null || Minecraft.getMinecraft().thePlayer == null) { return; }
                     if (((EntityArrow) e).shootingEntity.equals(Minecraft.getMinecraft().thePlayer)) {
-                        RenderUtil.drawOutlinedBoundingBox(e.getEntityBoundingBox(), new Color(255, 255, 255, 255), 3, 1f);
+                        RenderUtils.drawOutlinedBoundingBox(e.getEntityBoundingBox(), new Color(255, 255, 255, 255), 3, 1f);
                     }
                 }
             }
