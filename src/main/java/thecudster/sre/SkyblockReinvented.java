@@ -105,6 +105,7 @@ public class SkyblockReinvented {
 	public static FilterHandler filter;
 	public boolean notUsingDSM;
 	private RenderPlayersGUI renderWhitelist = new RenderPlayersGUI();
+	public static MiscFeatures coopHelper;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -118,6 +119,8 @@ public class SkyblockReinvented {
 		TreasureLocs.init();
 		ArrStorage.init();
 		renderWhitelist.readConfig();
+		coopHelper = new MiscFeatures();
+		coopHelper.readConfig();
 	}
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
@@ -132,6 +135,7 @@ public class SkyblockReinvented {
 		ClientCommandHandler.instance.registerCommand(PingCommand);
 		ClientCommandHandler.instance.registerCommand(GarryCommand);
 		ClientCommandHandler.instance.registerCommand(SwaphubCommand);
+		ClientCommandHandler.instance.registerCommand(CoopCommand);
 
 		MinecraftForge.EVENT_BUS.register(new RemoveRaffleTitles());
 		MinecraftForge.EVENT_BUS.register(this);
@@ -305,6 +309,23 @@ public class SkyblockReinvented {
 					currentGui = config.gui();
 				} else {
 					currentGui = new MainGUI();
+				}
+			}
+		}
+	});
+	public SimpleCommand CoopCommand = new SimpleCommand("addcoopmember", Arrays.asList("cadd", "addcmem"), new SimpleCommand.ProcessCommandRunnable() {
+		@Override
+		public void processCommand(ICommandSender sender, String[] args) {
+			if (args.length == 0) {
+				Utils.sendMsg(EnumChatFormatting.RED + "Invalid usage! Proper usage is /addcoopmember {name} [disabled/enabled]");
+			}
+			else if (args.length == 1) {
+				SkyblockReinvented.coopHelper.addDisabledMember(args[0]);
+			} else if (args.length >= 2) {
+				if (args[1].toLowerCase().equals("true") || args[1].toLowerCase().equals("enabled")) {
+					SkyblockReinvented.coopHelper.addEnabledMember(args[0]);
+				} else {
+					SkyblockReinvented.coopHelper.addDisabledMember(args[0]);
 				}
 			}
 		}

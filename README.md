@@ -22,106 +22,117 @@
   <summary>Items</summary>
 
 ### Items
-* Remove Creeper Veil Messages
-* Remove Skeleton Hat Messages
-* Remove Guardian Chestplate Messages
-* Remove Wither Cloak Creepers Except your Own
+<BLOCKQUOTE>
+<details><summary>Rendering</summary>
+
+### Rendering
+* Remove Wither Cloak Creepers
+* Overlay Mobs in Range of Hyperion
+</details>
+<details><summary>Sounds</summary>
+
+### Sounds
 * Remove Creeper Sounds from Veil
-* Hyperion Overlay - Overlays mobs within Hyperion range
-* Show Cake year as stack size
-* Hide JerryChine gun heads
-* Remove Power Orb Particles & Nametags
-* Remove Item Frame Display Names
+</details>
+</BLOCKQUOTE>
 </details>
 <details>
   <summary>General</summary>
 
 ### General
-* Gift Waypoints - Displays Gift Waypoints when holding Gift Compass
-* Clean Jerry's Workshop - Generally cleans up the chat of Jerry's Workshop
-* Configurable Discord Rich Presence 
-* Treasure Hunter Waypoints
-* Jerry Timer
-* Auto Update Checker / clickable chat message
-* Remove "You're doing this too fast!" Messages
-* Remove Welcome Messages
-* Remove You are playing on profile Messages
-* Remove Inventory Full Messages
-* Remove Slow Down Messages
-* Remove Warp Messages
-* Remove Potion Buff Messages
-* Remove Generally Useless Messages
-* Hyperion Overlay - Overlays mobs within Hyperion range
-* Only Render Specific Players
-* Keybinds for TONS of different functions
-* Bestiary Info (very laggy atm and not too accurate)
-* Create Hitboxes around your arrows
+<BLOCKQUOTE>
+<details><summary>Misc</summary>
+
+### Misc
+* Hide Ironman in Scoreboard
+* Pickup Stash Keybind / Reminder - reminds you to pickup your stash (and customizable keybind)
+* Dark Auction Reminder
 * Dragon Tracker
-* Auto notify when stash full + remove stash messages
-* "You need to be out of combat" spam hider
+* Discord Rich Presence (Support for Dwarven Mines, dungeons, and custom messages!)
+* Treasure Hunter Waypoints / Solver
+* Show Cake Year as stack size
+* Skyblock Updates - sends message in chat when skyblock updates
+</details>
+<details><summary>QOL</summary>
+
+### QOL
+* Automatically join Skyblock (after mouse input - use at your own risk but should be ok according to newish rules)
+</details>
+<details><summary>Rendering</summary>
+
+### Rendering
+* Stop Rendering Players w/ customizable whitelist
+* Stop Rendering Player Armour - either just skulls or all armour
+* Create Hitboxes Around your Arrows
+* Hide Jerry-Chine Heads
+* Show Hitboxes of Special Zealots
+* Show Hitboxes of Drags & golems
+* Hide Other People’s Arrows (while in the End)
+* Stop Power Orb Nametags / particles from rendering
+</details>
+</BLOCKQUOTE>
 </details>
 <details>
   <summary>Your Island</summary>
 
 ### Your Island
-* Remove chat from Jerries
-* Remove Minion Inventory Warnings
-* Remove Island Visit Messages
-* Revamped Jacob Messages - Replaces some of the Jacob's Farming Contest messages with more... smarky messages (50% meme)
-* Hide Useless Jacob Messages - Removes Useless Jacob's Event Messages
-* Remove Minion XP Messages
+<BLOCKQUOTE>
+<details><summary>General</summary>
+
+### General
+* Shorten / Remove Teleport Pad Names
+</details>
+<details><summary>Misc</summary>
+
+### Misc
+* Disable Farm Block Breaking Particles
+* Remove Item Frame Names
+</details></BLOCKQUOTE>
 </details>
 <details>
   <summary>Dungeons</summary>
 
 ### Dungeons
-* Watcher Ready Title
-* Hide Guided Sheep
-* Hide Incorrect Livids
-* Right/Left Click anywhere in dungeon chest to auto press escape 
-* Spam hider for selling dungeon items
-* Remove "You hear the sound of something opening" Messages
-* Remove Dungeon Potion Messages
-* Remove Wither Skulls Messages
-* Remove Stats Doubled Messages
-* Remove Incorrect Three Weirdos Messages
-* Remove Lost Adventurer Messages
-* Remove Wither Door Opened Messages
-* Remove Can't Open Wither Door Messages
-* Remove Revive Stone Messages
-* Remove Orb Messages
-* /f1, /f2, /f3, etc commands for joining dungeon floors. (Master mode implementation coming soon!)
-* Remove Watcher Messages
-* Lock Mort - Lock which dungeon to join when in Mort's menu in Dungeons Hub (May be bannable, checking with admins soon)
-* Remove Bone Plating Messages
-* Clean Ending of Dungeon Message - Summarizes the end of a dungeon chat for a cleaner more :sparkles: aesthetic :sparkles: look
-* Remove Healer Messages - Removes "you were tethered to x person", etc, and other useless messages
-* Removes Useless Dungeon Finder Messages - DOES NOT remove X joined the group messages, so shouldn't break mods
-* Hide your own spirit bats
-* Remind Skeleton Masters: plays a sound and makes a title if you're near a skeleton master
-* Remind Bat Secrets: plays a sound and makes a title if you're near a bat that's a secret
+<BLOCKQUOTE>
+<details><summary>Misc</summary>
+
+### Misc
+* Stop Opening Chests - Stops you from opening a chest unless you click a certain amount of times.
+* Clean Ending of Dungeons - Cleans chat at the end of a dungeon.
+* Bonzo Mask Alert
+* Hide Guided Sheeps
+* Watcher Ready Reminder
 </details>
-<details>
-  <summary>QOL</summary>
+<details><summary>QOL</summary>
 
 ### QOL
-* Remove GEXP Messages
-* Remove Watchdog Announcement!
-* Remove Warnings about Hubs
+* Remove Guardians in Creeper Solver
+* Dungeon Floor Lock - Only allow you to join a certain floor of dungeons
+</details>
+<details><summary>Rendering</summary>
+
+### Rendering
+* Remind Skeleton Masters - plays a sound when you are near skeleton masters
+* Remind Bat Secrets - plays a sound when you are near a bat secret
+* Outline Hitboxes of Starred Mobs
+* Hide Spirit Bats
+</details>
+</BLOCKQUOTE>
 </details>
 <details>
       <summary>Skills</summary>
-<details>
+<BLOCKQUOTE><details>
   <summary>Slayer</summary>
 
 ### Slayer
-* Clean Maddox Batphone - Removes Useless Batphone Messages 
-* Maddox click message (just taken from DSM, for all of you that don't have DSM but want to use the slayer cleaner. get DSM though)
-* Hide Useless Slayer Drop Messages - Removes useless (<15k coinsish) slayer drop messages
-* Clean Maddox Batphone - Removes Useless Batphone Messages
-* Reminder to Start New Slayer: reminds you to start a new slayer quest if you haven't started a new one after 5 seconds
-* Hide Sven Pups - stops sven pups from rendering
-* Slayer Tracker
+* Slayer Info
+  * XP Until Next Level
+  * RNGesus Meter
+  * Current Slayer
+  * 2 modes: progress bars or text
+* Remove Sven Pups
+* Maddox Clickable Message (substitute for DSM to work with slayer spam hider)
+* Reminder to Start New Slayer
 </details>
 <details>
   <summary>Fishing</summary>
@@ -139,51 +150,185 @@
 ### Farming
 * Disable Farm Block Particles
 </details>
+<details><summary>Bestiary</summary>
+
+### Bestiary
+* Bestiary Info & Tracker
+</details>
 <details>
   <summary>Mining</summary>
 
 ### Mining
-</details>
+</details></BLOCKQUOTE>
 </details>
 <details>
   <summary>Dwarven Mines</summary>
 
 ### Dwarven Mines
+<BLOCKQUOTE>
+<details><summary>Alerts</summary>
+
+### Alerts
+* Boost Ready Alert
+* Boost Expired Alert
+* Remove Mining Speed Boost Ready
+* Remove Mining Speed Boost Used
+* Remove Mining Speed Boost Expired
+</details>
+<details><summary>Combat</summary>
+
+### Combat
 * Ghost Loot Tracker
-* Remove Puzzler Messages (except for the one that tells you where it is)
-* Remove Unimportant Fetchur Messages
-* Remove Golden Goblin Messages
+</details>
+<details><summary>General</summary>
+
+### General
+* Auto /garry
+* Fetchur Solver or Spam Hider
+* Golden Goblin Alert
+* Hide Mithril Powder in Scoreboard
+</details>
+<details><summary>Rendering</summary>
+
+### Rendering
+* Remove Ghost Titles
 * Remove Titles from Raffles
+</details>
+</BLOCKQUOTE>
 </details>
 <details>
   <summary>Hub</summary>
 
 ### Hub
-* Hub Overlay: overlays hubs that you can join in green and hubs that you can't join in red
-* Jacob's Contest Overlay - Shows which you haven't claimed
+<BLOCKQUOTE><details><summary>General</summary>
+
+### General
+* Hide Travel to Your Island nametag
+</details>
+<details><summary>Rendering</summary>
+
+### Rendering
+* Hub Overlay - Overlays hubs that you can join in green and hubs that you can’t join in red
+* Hide villagers in Hub
+* Overlay Uncollected Jacob’s Contests
+</details>
+<details><summary>Sounds</summary>
+
+### Sounds
+* Stop Reforge Sounds
+</details>
+</BLOCKQUOTE>
 </details>
 <details>
   <summary>Spam</summary>
+<BLOCKQUOTE><details>
+<summary>Dungeons</summary>
 
-<details>
-  <summary>Skills</summary>
-
-### Skills
-* Remove Experimentation Table Messages
-* Remove RNG Messages from Dicer
+### Dungeons
+* Remove Dungeon Potion Messages
+* Remove Doubled Messages
+* Remove Opening Messages
+* Remove Journal Messages
+* Remove Crypt Wither Skull Messages
+* Remove Damage Milestone Messages
+* Remove Lost Adventurer Messages
+* Remove Wither Essence Messages
+* Remove Wither Door Opened Messages
+* Remove Can’t Open Wither Door Messages
+* Remove Bone Plating Messages
+* Remove Orb Messages
+* Remove Healer Messages
+* Remove Dungeon Finder Messages
+* Remove Watcher Messages
+* Remove Incorrect Three Weirdos Messages (Solver-Compatible)
+  * Two modes: All messages or just Incorrect Answers)
+* Remove Dungeon Sell Messages
+* Remove “Struck” Messages
+* Remove Salvage Messages
 </details>
+<details>
+<summary>Dwarven Mines</summary>
+
+### Dwarven Mines
+* Remove Raffle Messages
+* Remove Puzzler Messages
+* Remove Golden Goblin Messages
+* Remove Powder Ghast Messages
+* Remove First Mithril Powder Messages
+</details>
+<details>
+<summary>General</summary>
+
+### General
+* Remove Too Fast Messages
+* Remove Welcome Messages
+* Remove Warp Messages
+* Remove Inventory Full Messages 
+* Remove Slow Down Messages
+* Remove Useless Jerry’s Workshop Messages
+* Remove Combat Warp Messages
+* Remove all Chat if Ironman
+</details>
+<details><summary>Hub</summary>
+
+### Hub
+* Remove Reforge Messages
+* Remove Bazaar Messages
+* Remove Messages about Bank
+* Remove Hub Warp Warnings / Messages
+* Remove Messages from Kat
+</details>
+<details><summary>Hypixel</summary>
+
+### Hypixel
+* Remove GEXP Messages
+* Remove Watchdog Announcements
+* Remove Warnings about Hubs
+</details>
+<details><summary>Items</summary>
+
+### Items
+* Remove Creeper Veil Messages
+* Remove Skeleton Hat Messages
+* Remove Guardian Chestplate Messages
+* Remove Potion Buff Messages
+</details>
+<details><summary>Slayer</summary>
+
+### Slayer
+* Remove Dumb Slayer Drops
+* Remove Maddox Messages
+</details>
+<details>
+    <summary>Your Island</summary>
+
+### Your Island
+* Remove Minion Inventory Warnings
+* Remove Chat from Jerries
+* Remove Headless Horseman Spawn/Death Messages
+* Remove Useless Jacob’s Contest Messages
+* Remove Minion XP Messages
+</details></BLOCKQUOTE>
 </details><br>
 <details>
   <summary>Commands</summary>
+
+### Commands
 * /sre: main GUI (aliases: /SRE, /SkyblockReinvented) 
-* /sre help: displays all commands
-* /sre gui: edit GUI locations
+  * /sre help: displays all commands
+  * /sre gui: edit GUI locations (aliases: /sre editlocations)
+  * /sre config: open config GUI
+  * /sre vigilance: edit Vigilance display settings
+  * /sre github: open the SRE GitHub page
+  * /sre discord: open the SRE discord
+  * /sre main: open main GUI
+  * /sre filter: open the custom filter editing gui
+  * /sre playerfilter: open the custom player whitelist gui
 * /re: toggle whether to render players (aliases: /render)
-* /f1, /f2, /f3, etc: join respective dungeon floors
-* /s: /s add, /s search, /s clear, /s remove: search for items in Wardrobe, Echest, and Accessory Bag.
-* /re: /re add, /re search, /re add, /re remove: add or remove specific players to the whitelist
 * /fragrun: automatically parties an online fragrun bot (aliases: /fr)
 * /drag command: /drag clear (clear current dragon tracker info), /drag (toggle gui display element)
+* /disc: edit the discord custom rich presence (aliases: /da, /disc, /dset, /discset, /rp, /rpset)
+* /swaphub: swap hubs (useful during Diana event, requires player input so not bannable)
 </details>
 
 #### Join the discord for support: 
@@ -217,6 +362,6 @@ Software | License | Author
 #### Please note that documentation is still a work in progress.
 Documentation | Purpose
 ------------ | -------------
-[Spam Filter](https://github.com/theCudster/SkyblockReinvented/docs/SPAM_FILTER.md) | Learn more about SRE's Spam Filter and how to use it.
-[Player Whitelist](https://github.com/theCudster/SkyblockReinvented/docs/PLAYER_FILTER.md) | Learn more about SRE's Player Whitelist and how to use it.
+[Spam Filter](https://github.com/theCudster/SkyblockReinvented/blob/main/docs/SPAM_FILTER.md) | Learn more about SRE's Spam Filter and how to use it.
+[Player Whitelist](https://github.com/theCudster/SkyblockReinvented/blob/main/docs/PLAYER_FILTER.md) | Learn more about SRE's Player Whitelist and how to use it.
 </details>

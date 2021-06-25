@@ -1,19 +1,33 @@
 package thecudster.sre.features.impl.qol;
 
+import com.google.gson.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.inventory.ContainerChest;
+import net.minecraft.inventory.Slot;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderItemInFrameEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.core.gui.GuiManager;
 import thecudster.sre.events.SecondPassedEvent;
+import thecudster.sre.features.impl.filter.Filter;
 import thecudster.sre.util.sbutil.CurrentLoc;
 import thecudster.sre.util.Utils;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MiscFeatures {
     @SubscribeEvent
@@ -91,5 +105,82 @@ public class MiscFeatures {
                 GuiManager.createTitle("Dark Auction", 20);
             }
         }
+    }
+    public ArrayList<String> coopMembers;
+    @SubscribeEvent
+    public void onTooltip(ItemTooltipEvent event) {
+        if (Minecraft.getMinecraft().currentScreen instanceof GuiChest) {
+            GuiChest chest = (GuiChest) Minecraft.getMinecraft().currentScreen;
+            ContainerChest inventory = (ContainerChest) chest.inventorySlots;
+            String inventoryTitle = inventory.getLowerChestInventory().getDisplayName().getUnformattedText();
+            if (isCollectionMenu(inventoryTitle)) {
+                for (String s : event.toolTip) {
+                    for (Map.Entry<String, CoopMember> member : this.coop.entrySet()) {
+                        if (s.contains(member.getValue().getMemberName()) && member.getValue().getDisabled()) {
+                            event.toolTip.remove(s);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public boolean isCollectionMenu(String inventoryTitle) {
+        return inventoryTitle.equals("Mining Collection") || inventoryTitle.equals("Farming Collection") || inventoryTitle.equals("Combat Collection") || inventoryTitle.equals("Foraging Collection") || inventoryTitle.equals("Fishing Collection");
+    }
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    public HashMap<String, CoopMember> coop;
+    public void readConfig() {
+        File coopMembersJson = new File(SkyblockReinvented.modDir, "coopMembers.json");
+        if (!coopMembersJson.exists()) {
+            try {
+                coopMembersJson.createNewFile();
+            } catch (Exception ex) {
+
+            }
+        }
+        JsonObject file;
+        try (FileReader in = new FileReader(new File(SkyblockReinvented.modDir, "coopMembers.json"))) {
+            file = gson.fromJson(in, JsonObject.class);
+            for (int i = 0; i < file.entrySet().size(); i++) {
+                if (file.get("coopMember" + i) != null) {
+                    CoopMember member = new CoopMember(file.get("coopMember" + i).getAsJsonObject().get("name").getAsString(), file.get("coopMember" + i).getAsJsonObject().get("disabled").getAsBoolean());
+                    this.coop.put("customFilter" + i, member);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void addDisabledMember(String name) {
+        int size = coop.size();
+        coop.put("coopMember" + size, new CoopMember(name, true));
+        try (FileWriter writer = new FileWriter(new File(SkyblockReinvented.modDir, "coopMembers.json"))) {
+            gson.toJson(coop, writer);
+        } catch (Exception ex) {
+
+        }
+    }
+    public void addEnabledMember(String name) {
+        int size = coop.size();
+        coop.put("coopMember" + size, new CoopMember(name, false));
+        try (FileWriter writer = new FileWriter(new File(SkyblockReinvented.modDir, "coopMembers.json"))) {
+            gson.toJson(coop, writer);
+        } catch (Exception ex) {
+
+        }
+    }
+}
+class CoopMember {
+    private String name;
+    private boolean disabled;
+    public CoopMember(String name, boolean disabled) {
+        this.name = name;
+        this.disabled = disabled;
+    }
+    public String getMemberName() {
+        return this.name;
+    }
+    public boolean getDisabled() {
+        return this.disabled;
     }
 }
