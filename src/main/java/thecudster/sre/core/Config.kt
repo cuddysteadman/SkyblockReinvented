@@ -715,30 +715,6 @@ public class Config extends Vigilant {
 	)
 	public boolean joinSB = false;
 	@Property(
-			type = PropertyType.NUMBER,
-			name = "Ignore",
-			category = "Ignore",
-			hidden = true,
-			max = 1000
-	)
-	public int dragsSinceSup;
-	@Property(
-			type = PropertyType.NUMBER,
-			name = "Ignore2",
-			category = "Ignore",
-			hidden = true,
-			max = 1000
-	)
-	public int dragsSinceAotd;
-	@Property(
-			type = PropertyType.NUMBER,
-			name = "Ignore3",
-			category = "Ignore",
-			hidden = true,
-			max = 1000
-	)
-	public int dragsSincePet;
-	@Property(
 			type = PropertyType.SWITCH,
 			name = "Dragon Tracker",
 			description = "Displays info about recent dragons, dragons since a drop, and more.",
@@ -785,19 +761,57 @@ public class Config extends Vigilant {
 			description = "Stops rendering all armour on other players except in dungeons.",
 			category = "General",
 			subcategory = "Rendering",
-			options = {"None, Skulls, All"}
+			options = {"None", "Skulls", "All"}
 	)
 	public int renderPlayerArmor = 0;
+
 	@Property(
-			type = PropertyType.SELECTOR,
-			name = "Skill XP Tracker",
-			description = "Tracks all of your skill XP to level 50 or level 60.",
-			category = "General",
-			subcategory = "Rendering",
-			options = {"Off", "Level 50", "Level 60"},
-			hidden = true
+			type = PropertyType.SWITCH,
+			name = "Show Skill XP Tracker",
+			description = "Show important info about your skill XP.",
+			category = "Skills",
+			subcategory = "Skill XP Tracker"
 	)
-	public int skillXPTracker = 0;
+	public boolean skillXPTracker = false;
+
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Show Extra Data",
+			description = "Shows extra data about skills including how long to get to level 60 or 50.",
+			category = "Skills",
+			subcategory = "Skill XP Tracker"
+	)
+	public boolean showExtraData = false;
+
+	@Property(
+			type = PropertyType.SLIDER,
+			name = "Skill XP Tracker Refresh Rate",
+			description = "How fast the skill XP tracker should refresh all of its info in seconds.",
+			category = "Skills",
+			subcategory = "Skill XP Tracker",
+			min = 1,
+			max = 10
+	)
+	public int xpTrackerRefreshRate = 1;
+	@Property(
+			type = PropertyType.SWITCH,
+			name = "Auto Pause XP Tracker",
+			description = "Automatically pause the Skill XP tracker when you open a GUI.",
+			category = "Skills",
+			subcategory = "Skill XP Tracker"
+	)
+	public boolean autoPauseXPTracker = false;
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "XP Tracker Timeout Time",
+			description = "How long to wait until the XP tracker times out (resets and stops showing) in seconds.",
+			category = "Skills",
+			subcategory = "Skill XP Tracker",
+			min = 15,
+			max = 120,
+			increment = 15
+	)
+	public int xpTrackerTimeout = 60;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Discord Rich Presence",
@@ -848,14 +862,6 @@ public class Config extends Vigilant {
 			subcategory = "Rendering"
 	)
 	public boolean arrowHitboxes = false;
-	@Property(
-			type = PropertyType.SWITCH,
-			name = "Hide Jerry Heads",
-			description = "Hides your jerry heads.",
-			category = "General",
-			subcategory = "Rendering"
-	)
-	public boolean hideJerry = false;
 	@Property(
 			type = PropertyType.SWITCH,
 			name = "Treasure Hunter Waypoints",
@@ -1096,8 +1102,9 @@ public class Config extends Vigilant {
 	public Config() {
 		super(new File("./config/sre/config.toml"), "SRE Config");
 		initialize();
-		/*
+
 		try {
+			/*
 			super.addDependency("batRange", "warnBatSecrets");
 			super.addDependency("skeletonRange", "warnSkeletonMasters");
 			super.addDependency("slayerMode", "slayerInfo");
@@ -1107,9 +1114,88 @@ public class Config extends Vigilant {
 			super.addDependency("removeUsed", "miningSpeedBoost");
 			super.addDependency("removeExpired", "miningSpeedBoost");
 			super.addDependency("maddoxClickable", "isUsingDSM");
+			super.addDependency("xpTrackerTimeout", "skillXPTracker");
+			super.addDependency("autoPauseXPTracker", "skillXPTracker");
+			super.addDependency("xpTrackerRefreshRate", "skillXPTracker");
+			super.addDependency("showExtraData", "skillXPtracker");
+			 */
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		 */
+
 	}
+	// helpers
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "Mining Level",
+			category = "Hidden",
+			hidden = true
+	)
+	public int miningLvl = 0;
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "Farming Level",
+			category = "Hidden",
+			hidden = true
+	)
+	public int farmingLvl = 0;
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "Combat Level",
+			category = "Hidden",
+			hidden = true
+	)
+	public int combatLvl = 0;
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "Foraging Level",
+			category = "Hidden",
+			hidden = true
+	)
+	public int foragingLvl = 0;
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "Fishing Level",
+			category = "Hidden",
+			hidden = true
+	)
+	public int fishingLvl = 0;
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "Alchemy Level",
+			category = "Hidden",
+			hidden = true
+	)
+	public int alchemyLvl = 0;
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "Enchanting Level",
+			category = "Hidden",
+			hidden = true
+	)
+	public int enchantingLvl = 0;
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "Ignore",
+			category = "Ignore",
+			hidden = true,
+			max = 1000
+	)
+	public int dragsSinceSup;
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "Ignore2",
+			category = "Ignore",
+			hidden = true,
+			max = 1000
+	)
+	public int dragsSinceAotd;
+	@Property(
+			type = PropertyType.NUMBER,
+			name = "Ignore3",
+			category = "Ignore",
+			hidden = true,
+			max = 1000
+	)
+	public int dragsSincePet;
 }

@@ -2,6 +2,7 @@ package thecudster.sre.core.gui;
 
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.scoreboard.Scoreboard;
 
 public class SimpleButton extends GuiButton {
     public boolean hasPlayedSound = false;

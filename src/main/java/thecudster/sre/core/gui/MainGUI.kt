@@ -4,6 +4,7 @@ import gg.essential.vigilance.VigilanceConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thecudster.sre.SkyblockReinvented;
 import thecudster.sre.core.gui.colours.CommonColors;
@@ -13,6 +14,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 public class MainGUI extends GuiScreen {
 
@@ -123,4 +125,23 @@ public class MainGUI extends GuiScreen {
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         super.keyTyped(typedChar, keyCode);
     }
+    @SubscribeEvent
+    public void onGuiDraw(GuiScreenEvent.DrawScreenEvent.Pre event) {
+        if (!(Minecraft.getMinecraft().currentScreen instanceof MainGUI)) return;
+
+        ArrayList<String> tooltipToDisplay = new ArrayList<>();
+        int mouseX = event.mouseX;
+        int mouseY = event.mouseY;
+        if (getShouldDraw(mouseX, mouseY, filter)) {
+
+        } else if (getShouldDraw(mouseX, mouseY, playerFilter)) {
+
+        }
+    }
+    private boolean getShouldDraw(int mouseX, int mouseY, GuiButton button) {
+        return mouseX > button.xPosition && mouseY < button.yPosition && mouseX < button.xPosition + button.getButtonWidth() && mouseY < button.yPosition + button.height;
+    }
+    private String[] filterTooltips = {};
+    private String[] playerFilterTooltips = {};
+
 }
