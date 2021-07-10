@@ -1,0 +1,32 @@
+/*
+ * Taken from Skytils under GNU Affero Public license.
+ * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
+ * @author My-Name-Is-Jeff
+ * @author Sychic
+ */
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots"
+        }
+        maven { url "https://maven.minecraftforge.net/" }
+        maven { url "https://jitpack.io" }
+    }
+    resolutionStrategy {
+        eachPlugin {
+            switch (requested.id.id) {
+                case "net.minecraftforge.gradle.forge":
+                    useModule("com.github.Skytils:ForgeGradle:${requested.version}")
+                    break
+                case "org.spongepowered.mixin":
+                    useModule("com.github.Skytils:mixingradle:${requested.version}")
+                    break
+            }
+        }
+    }
+}
+
+rootProject.name = "SkyblockReinvented"

@@ -9,7 +9,8 @@
         "MixinNetworkManager",
         "MixinRenderItem",
         "MixinEffectRenderer",
-        "MixinGuiScreen"
+        "MixinGuiScreen",
+        "MixinScoreboard"
     ],
     "verbose": true
 }
