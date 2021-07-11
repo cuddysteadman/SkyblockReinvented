@@ -16,9 +16,8 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.core.gui.colours
+package thecudster.sre.core.gui.structure.colours
 
-import thecudster.sre.core.gui.colours.CustomColor
 import java.util.*
 
 /**

@@ -18,22 +18,22 @@
  */
 package thecudster.sre.features.impl.filter
 
-import net.minecraftforge.fml.common.eventhandler.*
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import thecudster.sre.features.impl.qol.GhostLoot
-import net.minecraft.util.EnumChatFormatting
-import net.minecraft.util.ChatComponentText
-import net.minecraft.event.ClickEvent
 import net.minecraft.client.Minecraft
-import net.minecraft.util.StringUtils
+import net.minecraft.event.ClickEvent
+import net.minecraft.util.ChatComponentText
+import net.minecraft.util.EnumChatFormatting
+import net.minecraftforge.client.event.ClientChatReceivedEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.InputEvent
 import thecudster.sre.SkyblockReinvented
-import thecudster.sre.features.impl.qol.GiftCompassWaypoints
-import thecudster.sre.core.gui.GuiManager
+import thecudster.sre.core.gui.structure.GuiManager
 import thecudster.sre.events.SecondPassedEvent
-import thecudster.sre.util.sbutil.ArrStorage
+import thecudster.sre.features.impl.qol.MiscFeatures
+import thecudster.sre.features.impl.skills.mining.GhostLoot
 import thecudster.sre.util.Utils
-import java.util.ArrayList
+import thecudster.sre.util.sbutil.ArrStorage
+import thecudster.sre.util.sbutil.stripControlCodes
 
 class FilterHandler {
     var filters = ArrayList<Filter>()
@@ -46,7 +46,7 @@ class FilterHandler {
             init()
             hasInit = true
         }
-        val unformatted = StringUtils.stripControlCodes(event.message.unformattedText)
+        val unformatted = event.message.unformattedText.stripControlCodes()
         val message = event.message.unformattedText
         if (unformatted.contains("Welcome to Hypixel") && SkyblockReinvented.config.welcomeMsg) {
             event.isCanceled = true
@@ -138,7 +138,7 @@ class FilterHandler {
         }
         if (SkyblockReinvented.config.giftCompassWaypoints) {
             if (unformatted.contains("[NPC] St. Jerry: You found all of the Gifts!")) {
-                GiftCompassWaypoints.found = true
+                MiscFeatures.found = true
                 return
             }
         }

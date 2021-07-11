@@ -16,11 +16,9 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.core.gui.colours
+package thecudster.sre.core.gui.structure.colours
 
 import net.minecraft.client.renderer.GlStateManager
-import thecudster.sre.core.gui.colours.CustomColor
-import java.lang.UnsupportedOperationException
 import java.util.*
 
 /** CustomColor

@@ -19,11 +19,8 @@
 package thecudster.sre.util.sbutil
 
 import net.minecraft.util.EnumChatFormatting
-import thecudster.sre.util.sbutil.ItemRarity
 import java.awt.Color
 import java.util.*
-import java.util.function.ToIntFunction
-import java.util.function.IntFunction
 
 /**
  * Taken from Skyblockcatia under MIT License

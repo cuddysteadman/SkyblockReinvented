@@ -1,6 +1,5 @@
 package thecudster.sre.core
 
-import thecudster.sre.core.ChangelogType
 import net.minecraft.util.EnumChatFormatting
 
 class ChangelogEntry(private val change: String, val version: String, private val type: ChangelogType) {

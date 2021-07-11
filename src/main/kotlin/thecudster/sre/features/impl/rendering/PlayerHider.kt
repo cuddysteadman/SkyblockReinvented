@@ -18,18 +18,17 @@
  */
 package thecudster.sre.features.impl.rendering
 
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.eventhandler.EventPriority
-import net.minecraftforge.client.event.RenderLivingEvent
-import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.entity.EntityOtherPlayerMP
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.Entity
-import thecudster.sre.util.sbutil.ArrStorage
-import thecudster.sre.features.impl.filter.CustomPlayersFilter
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.ItemSkull
+import net.minecraftforge.client.event.RenderLivingEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
 import thecudster.sre.util.Utils
+import thecudster.sre.util.sbutil.ArrStorage
 
 class PlayerHider {
     @SubscribeEvent(receiveCanceled = true, priority = EventPriority.HIGHEST)

@@ -1,7 +1,6 @@
 package thecudster.sre.features.impl.skills.mining
 
 import net.minecraft.util.BlockPos
-import java.util.ArrayList
 
 class CommissionOverlay {
     val activeCommissions = ArrayList<Commission>()

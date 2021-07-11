@@ -1,11 +1,7 @@
 package thecudster.sre.core
 
-import thecudster.sre.util.Utils.sendMsg
-import thecudster.sre.core.ChangelogEntry
-import thecudster.sre.core.Changelog
-import thecudster.sre.core.ChangelogType
 import net.minecraft.util.EnumChatFormatting
-import java.util.ArrayList
+import thecudster.sre.util.Utils.sendMsg
 
 object Changelog {
     private val types: ArrayList<ChangelogEntry>? = null

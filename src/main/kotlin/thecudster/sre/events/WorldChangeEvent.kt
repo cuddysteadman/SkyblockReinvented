@@ -18,30 +18,25 @@
  */
 package thecudster.sre.events
 
-import thecudster.sre.util.Utils.sendMsg
-import thecudster.sre.util.Utils.sendHelp
-import thecudster.sre.util.Utils.checkForDungeons
-import thecudster.sre.util.Utils.checkForSkyblock
-import thecudster.sre.util.api.APIUtil.getJSONResponse
-import thecudster.sre.util.api.APIHandler.getResponse
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import java.lang.InterruptedException
-import net.minecraftforge.event.world.WorldEvent
-import net.minecraft.util.EnumChatFormatting
-import thecudster.sre.features.impl.dungeons.CreeperSolver
-import java.lang.Thread
-import java.lang.Runnable
-import thecudster.sre.features.impl.skills.bestiary.BestiaryProgress
-import thecudster.sre.events.WorldChangeEvent
 import net.minecraft.client.Minecraft
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ChatStyle
-import net.minecraft.event.ClickEvent
-import net.minecraft.entity.player.EntityPlayer
-import thecudster.sre.util.api.APIHandler
+import net.minecraft.util.EnumChatFormatting
+import net.minecraftforge.event.world.WorldEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion
 import thecudster.sre.SkyblockReinvented
+import thecudster.sre.features.impl.dungeons.CreeperSolver
+import thecudster.sre.features.impl.skills.bestiary.BestiaryProgress
 import thecudster.sre.util.Utils
+import thecudster.sre.util.Utils.checkForDungeons
+import thecudster.sre.util.Utils.checkForSkyblock
+import thecudster.sre.util.Utils.sendHelp
+import thecudster.sre.util.Utils.sendMsg
+import thecudster.sre.util.api.APIHandler.getResponse
+import thecudster.sre.util.api.APIUtil.getJSONResponse
 import java.util.*
 
 class WorldChangeEvent {
@@ -71,14 +66,10 @@ class WorldChangeEvent {
                         }
                     }
                     if (SkyblockReinvented.config.joinSB) {
-                        if (!Utils.inSkyblock) {
-                            notInSB = true
-                        } else {
-                            notInSB = false
-                        }
+                        notInSB = !Utils.inSkyblock
                     }
                 }
-            }, 3000
+            }, 4000
         )
     }
 

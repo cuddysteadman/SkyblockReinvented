@@ -1,15 +1,15 @@
-package thecudster.sre.core.gui
+package thecudster.sre.core.gui.screens
 
-import net.minecraft.client.gui.GuiScreen
-import thecudster.sre.core.UpdateChecker
-import thecudster.sre.core.gui.SimpleButton
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiMainMenu
+import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.renderer.GlStateManager
 import thecudster.sre.SkyblockReinvented
-import thecudster.sre.core.gui.ScreenRenderer
-import thecudster.sre.core.gui.colours.CommonColors
-import thecudster.sre.core.gui.SmartFontRenderer
+import thecudster.sre.core.UpdateChecker
+import thecudster.sre.core.gui.structure.ScreenRenderer
+import thecudster.sre.core.gui.structure.SimpleButton
+import thecudster.sre.core.gui.structure.SmartFontRenderer
+import thecudster.sre.core.gui.structure.colours.CommonColors
 
 class UpdateCheckerGUI : GuiScreen() {
     var checker = UpdateChecker()
@@ -38,7 +38,7 @@ class UpdateCheckerGUI : GuiScreen() {
             (width / -1f).toDouble(),
             height * -0.2,
             0.0
-        ) // other option: GlStateManager.translate(width / -2f, height * -0.2f, 0.0f); GlStateManager.scale(2.0f, 2.0f, 1.0f);
+        )
         GlStateManager.scale(3.0f, 3.0f, 1.0f)
         ScreenRenderer.fontRenderer.drawString(
             "Version" + checker.newVersionExists() + " is available!",

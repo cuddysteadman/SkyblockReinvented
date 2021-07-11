@@ -1,44 +1,39 @@
 package thecudster.sre.features.impl.skills
 
-import thecudster.sre.util.Utils.getIntFromString
-import thecudster.sre.util.Utils.containsAllOf
-import thecudster.sre.util.Utils.containsAnyOf
-import thecudster.sre.util.Utils.sendMsg
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.eventhandler.EventPriority
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import thecudster.sre.features.impl.skills.SkillXPTracker
-import java.time.LocalDateTime
-import thecudster.sre.util.sbutil.ArrStorage
-import thecudster.sre.events.SecondPassedEvent
-import java.time.temporal.ChronoUnit
-import net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent
 import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.ContainerChest
-import java.lang.NullPointerException
-import java.lang.ArrayIndexOutOfBoundsException
 import net.minecraft.util.EnumChatFormatting
-import thecudster.sre.features.impl.skills.SkillXPTracker.SkillXPElement
-import thecudster.sre.core.gui.GuiElement
-import thecudster.sre.core.gui.FloatPair
-import net.minecraft.client.entity.EntityPlayerSP
-import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.util.StringUtils
+import net.minecraftforge.client.event.ClientChatReceivedEvent
+import net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.commons.lang3.time.StopWatch
 import thecudster.sre.SkyblockReinvented
-import thecudster.sre.core.gui.SmartFontRenderer.TextAlignment
-import thecudster.sre.core.gui.SmartFontRenderer
-import thecudster.sre.core.gui.ScreenRenderer
-import thecudster.sre.core.gui.colours.CommonColors
+import thecudster.sre.core.gui.structure.FloatPair
+import thecudster.sre.core.gui.structure.GuiElement
+import thecudster.sre.core.gui.structure.ScreenRenderer
+import thecudster.sre.core.gui.structure.SmartFontRenderer
+import thecudster.sre.core.gui.structure.SmartFontRenderer.TextAlignment
+import thecudster.sre.core.gui.structure.colours.CommonColors
+import thecudster.sre.events.SecondPassedEvent
 import thecudster.sre.util.Utils
-import java.lang.Exception
+import thecudster.sre.util.Utils.containsAllOf
+import thecudster.sre.util.Utils.containsAnyOf
+import thecudster.sre.util.Utils.getIntFromString
+import thecudster.sre.util.Utils.sendMsg
+import thecudster.sre.util.sbutil.ArrStorage
+import thecudster.sre.util.sbutil.stripControlCodes
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 import java.util.concurrent.TimeUnit
 
 class SkillXPTracker {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun onChat(event: ClientChatReceivedEvent) {
-        val message = StringUtils.stripControlCodes(event.message.unformattedText)
+        val message = event.message.unformattedText.stripControlCodes()
         if (Utils.inSkyblock && !message.contains(":") && message.contains("  SKILL LEVEL UP ")) {
             // Handle skill level ups
             val skill = message.substring(message.indexOf("UP") + 3, message.lastIndexOf(" "))
@@ -187,8 +182,7 @@ class SkillXPTracker {
 
     @Throws(NullPointerException::class)
     private fun parseName(inventory: ContainerChest, slot: Int): Int {
-        var displayName =
-            StringUtils.stripControlCodes(inventory.lowerChestInventory.getStackInSlot(slot - 1).displayName)
+        var displayName =inventory.lowerChestInventory.getStackInSlot(slot - 1).displayName.stripControlCodes()
         displayName = displayName.substring(displayName.indexOf(" ") + 1)
         return toArabic(displayName)
     }
@@ -257,7 +251,7 @@ class SkillXPTracker {
             }
             val time = getTime(timeCountedExclude)
             val totalSecs = time[0] * 24 * 60 * 60 + time[1] * 60 * 60 + time[2] * 60 + time[3]
-            xpPerHr = ((currentXPGained / (totalSecs / (60 * 60))) as Int) as Double
+            xpPerHr = (currentXPGained / (totalSecs / (60 * 60))).toInt().toDouble()
             if (SkyblockReinvented.config.autoPauseXPTracker) {
                 if (Minecraft.getMinecraft().currentScreen != null) {
                     if (!timeCountedExclude.isSuspended) {
@@ -277,7 +271,7 @@ class SkillXPTracker {
             // Code to convert to days, hrs, mins, and secs taken from https://stackoverflow.com/questions/11357945/java-convert-seconds-into-day-hour-minute-and-seconds-using-timeunit
             val day = TimeUnit.SECONDS.toDays(seconds).toDouble()
             val hours = (TimeUnit.SECONDS.toHours(seconds) - TimeUnit.DAYS.toHours(
-                day as Int as Long
+                day.toInt().toLong()
             )).toDouble()
             val minute = (TimeUnit.SECONDS.toMinutes(seconds) - TimeUnit.HOURS.toMinutes(
                 TimeUnit.SECONDS.toHours(

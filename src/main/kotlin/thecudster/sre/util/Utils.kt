@@ -18,37 +18,38 @@
  */
 package thecudster.sre.util
 
-import net.minecraft.client.Minecraft
-import net.minecraft.scoreboard.ScoreObjective
-import net.minecraftforge.common.MinecraftForge
-import thecudster.sre.events.JoinSkyblockEvent
-import thecudster.sre.events.LeaveSkyblockEvent
-import thecudster.sre.util.sbutil.ScoreboardUtil
-import net.minecraft.client.gui.inventory.GuiContainer
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper
-import net.minecraft.client.network.NetworkPlayerInfo
-import net.minecraft.scoreboard.ScorePlayerTeam
 import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
 import net.minecraft.block.Block
-import net.minecraft.world.WorldSettings
+import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.inventory.GuiContainer
+import net.minecraft.client.network.NetworkPlayerInfo
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.Blocks
-import thecudster.sre.events.PacketEvent.ReceiveEvent
-import net.minecraft.network.play.server.S02PacketChat
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import thecudster.sre.util.sbutil.CurrentLoc
-import thecudster.sre.util.sbutil.CancelParticleHelper
 import net.minecraft.event.ClickEvent
+import net.minecraft.init.Blocks
 import net.minecraft.inventory.Slot
+import net.minecraft.network.play.server.S02PacketChat
 import net.minecraft.util.*
-import java.lang.Exception
+import net.minecraft.world.WorldSettings
+import net.minecraftforge.client.event.ClientChatReceivedEvent
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper
+import thecudster.sre.events.JoinSkyblockEvent
+import thecudster.sre.events.LeaveSkyblockEvent
+import thecudster.sre.events.PacketEvent.ReceiveEvent
+import thecudster.sre.util.sbutil.CancelParticleHelper
+import thecudster.sre.util.sbutil.CurrentLoc
+import thecudster.sre.util.sbutil.ScoreboardUtil
+import thecudster.sre.util.sbutil.stripControlCodes
 import java.util.*
 
 object Utils {
     private val mc = Minecraft.getMinecraft()
     @JvmField
     var inSkyblock = false
+
+    var inDiscordSkyblock = false
+
     @JvmField
     var inDungeons = false
     var shouldBypassVolume = false
@@ -60,19 +61,24 @@ object Utils {
      * @author Sychic
      * @author My-Name-Is-Jeff
      */
-    val isOnHypixel: Boolean
-        get() = try {
-            if (mc != null && mc.theWorld != null && !mc.isSingleplayer) {
-                if (mc.thePlayer != null && mc.thePlayer.clientBrand != null) {
-                    if (mc.thePlayer.clientBrand.toLowerCase().contains("hypixel")) true
+    var isOnHypixel = false
+    fun checkForHypixel() {
+        isOnHypixel = run {
+            try {
+                if (mc.theWorld != null && !mc.isSingleplayer) {
+                    if (mc.thePlayer != null && mc.thePlayer.clientBrand != null) {
+                        if (mc.thePlayer.clientBrand.lowercase().contains("hypixel")) return@run true
+                    }
+                    if (mc.currentServerData != null) return@run mc.currentServerData.serverIP.lowercase()
+                        .contains("hypixel")
                 }
-                if (mc.currentServerData != null) mc.currentServerData.serverIP.toLowerCase().contains("hypixel")
+                return@run false
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return@run false
             }
-            false
-        } catch (e: Exception) {
-            e.printStackTrace()
-            false
         }
+    }
 
     /**
      * Modified from Danker's Skyblock Mod under GPL 3.0 license
@@ -92,8 +98,15 @@ object Utils {
                 }
             }
         }
-        MinecraftForge.EVENT_BUS.post(LeaveSkyblockEvent())
+        if (inSkyblock) {
+            MinecraftForge.EVENT_BUS.post(LeaveSkyblockEvent())
+        }
         inSkyblock = false
+    }
+
+    @JvmStatic
+    fun sendMsg(text: ChatComponentText) {
+        Minecraft.getMinecraft().thePlayer.addChatComponentMessage(text)
     }
 
     /**
@@ -106,7 +119,7 @@ object Utils {
     @JvmStatic
     fun getIntFromString(text: String, romanNumeral: Boolean): Int {
         if (text.matches(Regex(".*\\d.*"))) {
-            return StringUtils.stripControlCodes(text).replace("[^\\d]".toRegex(), "").toInt()
+            return text.stripControlCodes().replace("[^\\d]".toRegex(), "").toInt()
         } else if (romanNumeral) {
             var number = 0
             var i = 0

@@ -1,29 +1,30 @@
-package thecudster.sre.core.gui
+package thecudster.sre.core.gui.screens
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
+import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiScreen
-import thecudster.sre.core.gui.SimpleButton
 import net.minecraft.client.gui.GuiTextField
 import net.minecraft.client.gui.ScaledResolution
-import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
-import thecudster.sre.core.gui.ScreenRenderer
-import thecudster.sre.core.gui.colours.CommonColors
-import thecudster.sre.core.gui.SmartFontRenderer
-import thecudster.sre.features.impl.filter.CustomPlayersFilter
-import net.minecraft.client.gui.GuiButton
 import thecudster.sre.SkyblockReinvented
-import thecudster.sre.core.gui.MainGUI
+import thecudster.sre.core.gui.structure.ScreenRenderer
+import thecudster.sre.core.gui.structure.SimpleButton
+import thecudster.sre.core.gui.structure.SmartFontRenderer
+import thecudster.sre.core.gui.structure.colours.CommonColors
+import thecudster.sre.features.impl.filter.CustomPlayersFilter
 import java.io.File
-import java.io.IOException
 import java.io.FileReader
 import java.io.FileWriter
-import java.lang.Exception
-import java.util.ArrayList
-import java.util.HashMap
+import java.io.IOException
 
-class RenderPlayersGUI : GuiScreen() {
+class RenderPlayersGUI : GuiScreen {
+
+    constructor() {
+        readConfig()
+    }
+
     private var add: SimpleButton? = null
     private var close: SimpleButton? = null
     private val customPlayerFiltersJson = File(SkyblockReinvented.modDir, "customPlayersFilter.json")

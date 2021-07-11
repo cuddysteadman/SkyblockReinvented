@@ -2,15 +2,16 @@
     "required": true,
     "compatibilityLevel": "JAVA_8",
     "minVersion": "0.7",
+    "plugin": "thecudster.sre.tweaker.SREMixinPlugin",
     "package": "thecudster.sre.mixins",
     "refmap": "mixins.sre.refmap.json",
     "mixins": [
         "MixinGuiContainer",
         "MixinNetworkManager",
+        "MixinRenderItemFrame",
         "MixinRenderItem",
         "MixinEffectRenderer",
-        "MixinGuiScreen",
-        "MixinScoreboard"
+        "MixinGuiScreen"
     ],
     "verbose": true
 }

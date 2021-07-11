@@ -1,7 +1,7 @@
-package thecudster.sre.core.gui
+package thecudster.sre.core.gui.structure
 
-import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.audio.SoundHandler
+import net.minecraft.client.gui.GuiButton
 
 class SimpleButton : GuiButton {
     var hasPlayedSound = false

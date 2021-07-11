@@ -16,18 +16,15 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.core.gui
+package thecudster.sre.core.gui.structure
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.FontRenderer
-import net.minecraft.util.ResourceLocation
-import thecudster.sre.core.gui.colours.CustomColor
-import thecudster.sre.core.gui.SmartFontRenderer.TextAlignment
-import thecudster.sre.core.gui.SmartFontRenderer.TextShadow
-import thecudster.sre.core.gui.colours.CommonColors
 import net.minecraft.client.renderer.GlStateManager
-import thecudster.sre.core.gui.SmartFontRenderer
-import thecudster.sre.core.gui.colours.MinecraftChatColors
+import net.minecraft.util.ResourceLocation
+import thecudster.sre.core.gui.structure.colours.CommonColors
+import thecudster.sre.core.gui.structure.colours.CustomColor
+import thecudster.sre.core.gui.structure.colours.MinecraftChatColors
 import java.awt.Color
 import java.util.*
 

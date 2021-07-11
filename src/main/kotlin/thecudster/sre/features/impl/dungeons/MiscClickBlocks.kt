@@ -18,24 +18,19 @@
  */
 package thecudster.sre.features.impl.dungeons
 
-import thecudster.sre.util.sbutil.ItemUtil.getExtraAttributes
-import thecudster.sre.util.sbutil.ItemUtil.getDisplayName
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.eventhandler.EventPriority
-import thecudster.sre.events.GuiContainerEvent.SlotClickEvent
-import net.minecraft.inventory.ContainerChest
-import net.minecraft.inventory.IInventory
-import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NBTTagCompound
-import thecudster.sre.util.sbutil.ItemUtil
 import net.minecraft.client.Minecraft
 import net.minecraft.init.Items
-import net.minecraft.inventory.Slot
-import thecudster.sre.features.impl.qol.MiscGUIs
+import net.minecraft.inventory.ContainerChest
 import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
+import thecudster.sre.events.GuiContainerEvent.SlotClickEvent
+import thecudster.sre.features.impl.qol.MiscGUIs
 import thecudster.sre.util.Utils
+import thecudster.sre.util.sbutil.ItemUtil.getDisplayName
+import thecudster.sre.util.sbutil.ItemUtil.getExtraAttributes
 
 /*
  * Modified from Skytils under GNU Affero Public license.

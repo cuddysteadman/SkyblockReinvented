@@ -1,8 +1,8 @@
 package thecudster.sre.features.impl.filter
 
-import net.minecraft.util.StringUtils
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import thecudster.sre.util.Utils
+import thecudster.sre.util.sbutil.stripControlCodes
 
 class FilterConcat {
     var concatCheck: Array<String>
@@ -30,7 +30,7 @@ class FilterConcat {
 
     fun checkConcat(event: ClientChatReceivedEvent): Boolean {
         for (s in concatCheck) {
-            if (!StringUtils.stripControlCodes(event.message.unformattedText).contains(s)) return false
+            if (!event.message.unformattedText.stripControlCodes().contains(s)) return false
         }
         return true
     }

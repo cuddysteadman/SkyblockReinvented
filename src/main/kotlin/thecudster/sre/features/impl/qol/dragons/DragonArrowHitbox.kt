@@ -16,22 +16,22 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.features.impl.dragons
+package thecudster.sre.features.impl.qol.dragons
 
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.client.event.RenderLivingEvent
-import thecudster.sre.util.sbutil.CurrentLoc
-import net.minecraft.entity.boss.EntityDragon
-import net.minecraft.entity.monster.EntityIronGolem
-import net.minecraft.client.Minecraft
-import thecudster.sre.core.gui.RenderUtils
-import net.minecraft.entity.monster.EntityEnderman
 import net.minecraft.block.BlockEndPortalFrame
-import net.minecraft.entity.projectile.EntityArrow
-import net.minecraftforge.event.entity.EntityJoinWorldEvent
+import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityOtherPlayerMP
+import net.minecraft.entity.boss.EntityDragon
+import net.minecraft.entity.monster.EntityEnderman
+import net.minecraft.entity.monster.EntityIronGolem
+import net.minecraft.entity.projectile.EntityArrow
+import net.minecraftforge.client.event.RenderLivingEvent
+import net.minecraftforge.event.entity.EntityJoinWorldEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
+import thecudster.sre.util.RenderUtils
 import thecudster.sre.util.Utils
+import thecudster.sre.util.sbutil.CurrentLoc
 import java.awt.Color
 
 class DragonArrowHitbox {

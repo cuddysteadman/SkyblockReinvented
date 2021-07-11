@@ -20,10 +20,9 @@ package thecudster.sre.features.impl.dungeons
 
 import com.google.gson.JsonIOException
 import thecudster.sre.util.api.APIUtil.getJSONResponse
-import java.util.function.Consumer
 import java.net.MalformedURLException
-import thecudster.sre.features.impl.dungeons.FragStatus
 import java.util.*
+import java.util.function.Consumer
 import java.util.stream.Collectors
 
 object FragStatus {

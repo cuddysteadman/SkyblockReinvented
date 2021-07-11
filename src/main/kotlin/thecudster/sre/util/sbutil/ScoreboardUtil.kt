@@ -18,17 +18,12 @@
  */
 package thecudster.sre.util.sbutil
 
-import net.minecraft.client.Minecraft
-import net.minecraft.scoreboard.Scoreboard
-import net.minecraft.scoreboard.ScoreObjective
-import net.minecraft.scoreboard.Score
-import java.util.stream.Collectors
-import com.google.common.collect.Lists
 import com.google.common.collect.Iterables
+import com.google.common.collect.Lists
+import net.minecraft.client.Minecraft
+import net.minecraft.scoreboard.Score
 import net.minecraft.scoreboard.ScorePlayerTeam
-import net.minecraft.util.StringUtils
-import java.lang.StringBuilder
-import java.util.ArrayList
+import java.util.stream.Collectors
 
 /**
  * Taken from Danker's Skyblock Mod under GPL 3.0 license
@@ -38,7 +33,7 @@ import java.util.ArrayList
 object ScoreboardUtil {
     @JvmStatic
     fun cleanSB(scoreboard: String): String {
-        return scoreboard.stripControlCodes().toCharArray().filter { it.code in 21..126 }.joinToString(separator = "")
+        return scoreboard.stripControlCodes().toCharArray().filter { it.toByte().toInt() in 21..126 }.joinToString(separator = "")
     }
 
     @JvmStatic

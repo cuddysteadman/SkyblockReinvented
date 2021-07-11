@@ -16,24 +16,23 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.core.gui
+package thecudster.sre.core.gui.screens
 
-import net.minecraft.client.gui.GuiScreen
-import thecudster.sre.core.gui.ResizeButton.Corner
-import thecudster.sre.core.gui.GuiElement
-import thecudster.sre.core.gui.LocationButton
 import net.minecraft.client.gui.GuiButton
-import net.minecraft.client.renderer.GlStateManager
-import thecudster.sre.core.gui.ResizeButton
+import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.ScaledResolution
+import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.input.Mouse
 import org.lwjgl.opengl.Display
 import thecudster.sre.SkyblockReinvented
 import thecudster.sre.core.PersistentSave
-import java.io.IOException
-import thecudster.sre.core.gui.GuiManager
+import thecudster.sre.core.gui.structure.ResizeButton
+import thecudster.sre.core.gui.structure.ResizeButton.Corner
+import thecudster.sre.core.gui.structure.GuiElement
+import thecudster.sre.core.gui.structure.GuiManager
+import thecudster.sre.core.gui.structure.LocationButton
 import java.awt.Color
-import java.util.HashMap
+import java.io.IOException
 
 /**
  * Taken from Skytils under GNU Affero General Public license.

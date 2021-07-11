@@ -1,27 +1,22 @@
-package thecudster.sre.core.gui
+package thecudster.sre.core.gui.screens
 
-import net.minecraft.client.gui.GuiScreen
-import thecudster.sre.core.gui.SimpleButton
-import net.minecraft.client.gui.ScaledResolution
+import gg.essential.vigilance.VigilanceConfig
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.GlStateManager
-import thecudster.sre.core.gui.ScreenRenderer
-import thecudster.sre.core.gui.colours.CommonColors
-import thecudster.sre.core.gui.SmartFontRenderer
 import net.minecraft.client.gui.GuiButton
+import net.minecraft.client.gui.GuiScreen
+import net.minecraft.client.gui.ScaledResolution
+import net.minecraft.client.renderer.GlStateManager
+import net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import thecudster.sre.SkyblockReinvented
+import thecudster.sre.core.gui.structure.ScreenRenderer
+import thecudster.sre.core.gui.structure.SimpleButton
+import thecudster.sre.core.gui.structure.SmartFontRenderer
+import thecudster.sre.core.gui.structure.colours.CommonColors
 import java.awt.Desktop
 import java.io.IOException
-import java.net.URISyntaxException
-import thecudster.sre.core.gui.LocationEditGUI
-import gg.essential.vigilance.VigilanceConfig
-import thecudster.sre.core.gui.FilterGUI
-import thecudster.sre.core.gui.RenderPlayersGUI
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent
-import thecudster.sre.SkyblockReinvented
-import thecudster.sre.core.gui.MainGUI
 import java.net.URI
-import java.util.ArrayList
+import java.net.URISyntaxException
 
 class MainGUI : GuiScreen() {
     private var configButton: SimpleButton? = null

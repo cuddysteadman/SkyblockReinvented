@@ -18,26 +18,22 @@
  */
 package thecudster.sre.features.impl.qol
 
-import thecudster.sre.util.sbutil.ItemUtil.getItemLore
-import thecudster.sre.util.Utils.sendMsg
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import java.io.IOException
-import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.Gui
+import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.ContainerChest
-import thecudster.sre.features.impl.qol.MiscGUIs
-import java.lang.NumberFormatException
 import net.minecraft.util.EnumChatFormatting
-import thecudster.sre.features.impl.qol.DiscordRPC
-import net.minecraft.client.gui.ScaledResolution
+import net.minecraftforge.client.event.GuiScreenEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.lwjgl.opengl.GL11
-import net.minecraft.client.gui.Gui
-import org.apache.commons.lang3.StringUtils
 import thecudster.sre.SkyblockReinvented
 import thecudster.sre.util.Utils
+import thecudster.sre.util.Utils.sendMsg
+import thecudster.sre.util.sbutil.ItemUtil.getItemLore
+import thecudster.sre.util.sbutil.stripControlCodes
 import java.awt.Color
-import java.lang.Exception
+import java.io.IOException
 
 class MiscGUIs {
     @SubscribeEvent
@@ -148,37 +144,6 @@ class MiscGUIs {
                 ex.printStackTrace() // temp fix
             }
         }
-        if (SkyblockReinvented.config.toSearch != null && !SkyblockReinvented.config.toSearch.isEmpty()) {
-            val mc = Minecraft.getMinecraft()
-            if (mc.currentScreen is GuiChest) {
-                val chest = mc.currentScreen as GuiChest
-                val inventory = chest.inventorySlots as ContainerChest
-                val displayText = inventory.lowerChestInventory.displayName.unformattedText
-                if (displayText.contains("Ender Chest") || displayText.contains("Accessory Bag") || displayText.contains(
-                        "Wardrobe"
-                    ) || displayText.contains("Backpack")
-                ) {
-                    val slots = chest.inventorySlots.inventorySlots
-                    for (toCheck in slots) {
-                        if (toCheck.stack != null) {
-                            if (toCheck.stack.hasDisplayName()) {
-                                val name = toCheck.stack.displayName
-                                for (s in SkyblockReinvented.config.toSearch) {
-                                    if (StringUtils.containsIgnoreCase(name, s)) {
-                                        showOnSlot(
-                                            chest.inventorySlots.inventorySlots.size,
-                                            toCheck.xDisplayPosition,
-                                            toCheck.yDisplayPosition,
-                                            Color.green.rgb
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
         val mc = Minecraft.getMinecraft()
         if (SkyblockReinvented.config.chestStop >= 0 && Utils.inDungeons) {
             if (mc.currentScreen is GuiChest) {
@@ -226,7 +191,7 @@ class MiscGUIs {
                     for (s in getItemLore(inventory.inventorySlots[48].stack)) {
                         if (s.contains("Playing on: ")) {
                             DiscordRPC.state =
-                                "Profile: " + net.minecraft.util.StringUtils.stripControlCodes(s.substring(s.indexOf(": ") + 2))
+                                "Profile: " + s.substring(s.indexOf(": ") + 2).stripControlCodes()
                             break
                         }
                     }

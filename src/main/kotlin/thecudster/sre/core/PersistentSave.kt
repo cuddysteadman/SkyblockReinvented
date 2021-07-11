@@ -1,13 +1,13 @@
 package thecudster.sre.core
 
-import java.io.FileReader
-import java.io.FileWriter
-import kotlin.reflect.KClass
 import com.google.gson.Gson
 import net.minecraft.client.Minecraft
 import thecudster.sre.SkyblockReinvented
 import java.io.File
+import java.io.FileReader
+import java.io.FileWriter
 import kotlin.concurrent.fixedRateTimer
+import kotlin.reflect.KClass
 
 /**
  * Taken from Skytils under GNU Affero General Public license.

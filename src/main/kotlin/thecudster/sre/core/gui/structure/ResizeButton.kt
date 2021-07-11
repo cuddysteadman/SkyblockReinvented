@@ -16,17 +16,14 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.core.gui
+package thecudster.sre.core.gui.structure
 
-import thecudster.sre.core.gui.GuiElement
-import thecudster.sre.core.gui.ResizeButton.Corner
-import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.Minecraft
-import thecudster.sre.core.gui.ResizeButton
-import thecudster.sre.core.gui.colours.CommonColors
-import thecudster.sre.core.gui.RenderUtils
+import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.ScaledResolution
 import org.lwjgl.input.Mouse
+import thecudster.sre.util.RenderUtils
+import thecudster.sre.core.gui.structure.colours.CommonColors
 
 /**
  * Taken from Skytils under GNU Affero General Public license.

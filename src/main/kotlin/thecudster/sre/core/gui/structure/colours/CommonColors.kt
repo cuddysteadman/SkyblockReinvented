@@ -16,11 +16,9 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.core.gui.colours
+package thecudster.sre.core.gui.structure.colours
 
-import thecudster.sre.core.gui.colours.CustomColor.SetBase
-import thecudster.sre.core.gui.colours.CommonColors
-import thecudster.sre.core.gui.colours.ColorSet
+import thecudster.sre.core.gui.structure.colours.CustomColor.SetBase
 
 /**
  * Taken from Wynntils under GNU Affero General Public License v3.0

@@ -18,10 +18,10 @@
  */
 package thecudster.sre.features.impl.sounds
 
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import thecudster.sre.events.PacketEvent.ReceiveEvent
 import net.minecraft.network.play.server.S29PacketSoundEffect
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
+import thecudster.sre.events.PacketEvent.ReceiveEvent
 import thecudster.sre.features.impl.filter.FilterHandler
 import thecudster.sre.features.impl.qol.MiscGUIs
 import thecudster.sre.util.Utils

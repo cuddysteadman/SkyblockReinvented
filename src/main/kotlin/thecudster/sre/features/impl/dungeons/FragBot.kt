@@ -18,8 +18,6 @@
  */
 package thecudster.sre.features.impl.dungeons
 
-import thecudster.sre.features.impl.dungeons.FragBot
-
 class FragBot {
     var username: String? = null
         private set

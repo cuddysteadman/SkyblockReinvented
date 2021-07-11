@@ -20,13 +20,12 @@ package thecudster.sre.util.api
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.client.Minecraft
-import java.io.BufferedReader
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ChatComponentText
+import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import java.lang.StringBuilder
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*

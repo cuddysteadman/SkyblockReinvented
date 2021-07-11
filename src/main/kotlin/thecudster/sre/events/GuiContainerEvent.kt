@@ -23,8 +23,6 @@ import net.minecraft.inventory.Container
 import net.minecraft.inventory.Slot
 import net.minecraftforge.fml.common.eventhandler.Cancelable
 import net.minecraftforge.fml.common.eventhandler.Event
-import thecudster.sre.events.GuiContainerEvent
-import thecudster.sre.events.GuiContainerEvent.DrawSlotEvent
 
 /*
  * Taken from Skytils under GNU Affero Public license.
@@ -53,7 +51,7 @@ open class GuiContainerEvent(var gui: GuiContainer?, var container: Container?) 
     class SlotClickEvent(
         gui: GuiContainer?,
         container: Container?,
-        var slot: Slot,
+        var slot: Slot?,
         var slotId: Int,
         var clickedButton: Int,
         var clickType: Int

@@ -18,12 +18,11 @@
  */
 package thecudster.sre.features.impl.dungeons
 
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.eventhandler.EventPriority
-import net.minecraftforge.client.event.RenderLivingEvent
-import net.minecraft.entity.monster.EntityCreeper
-import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.Minecraft
+import net.minecraft.entity.monster.EntityCreeper
+import net.minecraftforge.client.event.RenderLivingEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
 import thecudster.sre.util.sbutil.CurrentLoc
 

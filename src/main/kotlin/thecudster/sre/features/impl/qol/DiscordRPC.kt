@@ -22,17 +22,14 @@ import com.jagrosh.discordipc.IPCClient
 import com.jagrosh.discordipc.IPCListener
 import com.jagrosh.discordipc.entities.RichPresence
 import com.jagrosh.discordipc.entities.User
-import thecudster.sre.util.sbutil.ItemUtil.getDisplayName
-import thecudster.sre.util.Utils.sendMsg
-import java.time.OffsetDateTime
-import thecudster.sre.features.impl.qol.DiscordRPC
-import thecudster.sre.util.sbutil.CurrentLoc
 import net.minecraft.client.Minecraft
-import net.minecraft.util.StringUtils
 import org.json.JSONObject
 import thecudster.sre.SkyblockReinvented
-import thecudster.sre.util.sbutil.ItemUtil
-import java.lang.Exception
+import thecudster.sre.util.Utils.sendMsg
+import thecudster.sre.util.sbutil.CurrentLoc
+import thecudster.sre.util.sbutil.ItemUtil.getDisplayName
+import thecudster.sre.util.sbutil.stripControlCodes
+import java.time.OffsetDateTime
 import java.util.*
 
 /**
@@ -80,8 +77,7 @@ class DiscordRPC : IPCListener {
             2 -> {
                 if (Minecraft.getMinecraft().thePlayer.heldItem != null) {
                     if (getDisplayName(Minecraft.getMinecraft().thePlayer.heldItem) != null) {
-                        state =
-                            StringUtils.stripControlCodes(getDisplayName(Minecraft.getMinecraft().thePlayer.heldItem))
+                        state = getDisplayName(Minecraft.getMinecraft().thePlayer.heldItem).stripControlCodes()
                     }
                 } else {
                     state = "Not Holding an Item!"

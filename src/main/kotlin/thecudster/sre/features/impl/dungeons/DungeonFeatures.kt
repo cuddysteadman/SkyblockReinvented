@@ -18,27 +18,25 @@
  */
 package thecudster.sre.features.impl.dungeons
 
-import thecudster.sre.util.sbutil.ItemUtil.getSkyBlockItemID
-import thecudster.sre.util.Utils.sendMsg
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.client.event.RenderLivingEvent
-import net.minecraft.entity.passive.EntityBat
-import thecudster.sre.features.impl.dungeons.DungeonFeatures
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.Entity
-import thecudster.sre.core.gui.GuiManager
-import thecudster.sre.core.gui.RenderUtils
-import net.minecraftforge.event.entity.living.LivingDeathEvent
-import net.minecraftforge.event.entity.EntityJoinWorldEvent
-import net.minecraft.entity.passive.EntitySheep
-import thecudster.sre.events.PlayerPingEvent
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import net.minecraftforge.common.MinecraftForge
 import net.minecraft.entity.monster.EntitySkeleton
-import net.minecraft.util.StringUtils
+import net.minecraft.entity.passive.EntityBat
+import net.minecraft.entity.passive.EntitySheep
+import net.minecraftforge.client.event.ClientChatReceivedEvent
+import net.minecraftforge.client.event.RenderLivingEvent
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.entity.EntityJoinWorldEvent
+import net.minecraftforge.event.entity.living.LivingDeathEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
+import thecudster.sre.core.gui.structure.GuiManager
+import thecudster.sre.util.RenderUtils
+import thecudster.sre.events.PlayerPingEvent
 import thecudster.sre.util.Utils
-import thecudster.sre.util.sbutil.ItemUtil
+import thecudster.sre.util.Utils.sendMsg
+import thecudster.sre.util.sbutil.ItemUtil.getSkyBlockItemID
+import thecudster.sre.util.sbutil.stripControlCodes
 import java.awt.Color
 
 class DungeonFeatures {
@@ -90,7 +88,7 @@ class DungeonFeatures {
          * @author Sychic
          */if (!Minecraft.getMinecraft().thePlayer.canEntityBeSeen(event.entity)) return
         if (SkyblockReinvented.config.outlineMobs) {
-            val name = StringUtils.stripControlCodes(event.entity.customNameTag)
+            val name = event.entity.customNameTag.stripControlCodes()
             if (name.startsWith("✯ ") && name.contains("❤")) {
                 if (name.contains("Lost Adventurer") || name.contains("Angry Archeologist") || name.contains("Lurker") || name.contains(
                         "Dreadlord"
@@ -148,7 +146,7 @@ class DungeonFeatures {
     @SubscribeEvent
     fun onChat(event: ClientChatReceivedEvent) {
         // if (!Utils.inDungeons) return; TODO uncomment, just for testing purposes
-        val unformatted = StringUtils.stripControlCodes(event.message.unformattedText)
+        val unformatted = event.message.unformattedText.stripControlCodes()
         if (unformatted.contains("Party > " + Minecraft.getMinecraft().thePlayer.name + ":")) {
             return
         }

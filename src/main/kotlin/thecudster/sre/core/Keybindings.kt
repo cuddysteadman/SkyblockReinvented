@@ -18,14 +18,14 @@
  */
 package thecudster.sre.core
 
+import net.minecraft.client.Minecraft
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent
+import thecudster.sre.SkyblockReinvented
+import thecudster.sre.features.impl.qol.MiscFeatures
 import thecudster.sre.util.Utils.checkForDungeons
 import thecudster.sre.util.Utils.checkForSkyblock
 import thecudster.sre.util.Utils.checkIronman
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent
-import thecudster.sre.features.impl.qol.MiscFeatures
-import net.minecraft.client.Minecraft
-import thecudster.sre.SkyblockReinvented
 
 class Keybindings {
     @SubscribeEvent

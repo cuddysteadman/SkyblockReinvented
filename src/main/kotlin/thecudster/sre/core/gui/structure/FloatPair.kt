@@ -16,11 +16,10 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.core.gui
+package thecudster.sre.core.gui.structure
 
-import thecudster.sre.core.gui.FloatPair
-import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.ScaledResolution
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.mutable.MutableFloat

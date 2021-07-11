@@ -1,7 +1,7 @@
 # SkyblockReinvented
 <p align="center">
   <a href="https://github.com/theCudster/SkyblockReinvented/releases" target="_blank">
-    <img alt="downloads" src="https://img.shields.io/github/v/release/theCudster/SkyblockReinvented?color=4166f5&style=flat-square" />
+    <img alt="downloads" src="https://img.shields.io/github/v/tag/theCudster/SkyblockReinvented?label=latest%20release&color=4166f5&style=flat-square" />
   </a>
   <a href="https://github.com/theCudster/SkyblockReinvented/releases" target="_blank">
     <img alt="downloads" src="https://img.shields.io/github/downloads/theCudster/SkyblockReinvented/total?color=4166f5&style=flat-square" />
@@ -143,6 +143,7 @@
   <summary>Enchanting</summary>
 
 ### Enchanting
+* Exit Mode Button on Experiments
 </details>
 <details>
   <summary>Farming</summary>
@@ -328,10 +329,11 @@
 * /fragrun: automatically parties an online fragrun bot (aliases: /fr)
 * /drag command: /drag clear (clear current dragon tracker info), /drag (toggle gui display element)
 * /disc: edit the discord custom rich presence (aliases: /da, /disc, /dset, /discset, /rp, /rpset)
-* /swaphub: swap hubs (useful during Diana event, requires player input so not bannable)
+* /swaphub: swap hubs (useful during Diana event, requires player input so hopefully not bannable)
 </details>
 
-#### Join the discord for support: 
+### Join the discord for support, release notifications, and suggestions: 
+***
 https://discord.gg/xkeYgZrRbN
 ### This mod would not be possible without these wonderful people and their projects:
 ***

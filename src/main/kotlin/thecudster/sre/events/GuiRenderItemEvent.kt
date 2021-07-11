@@ -21,8 +21,6 @@ package thecudster.sre.events
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.eventhandler.Event
-import thecudster.sre.events.GuiRenderItemEvent
-import thecudster.sre.events.GuiRenderItemEvent.RenderOverlayEvent
 
 /**
  * Taken from Skytils under GNU Affero General Public license.

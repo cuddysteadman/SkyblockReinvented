@@ -1,11 +1,9 @@
 package thecudster.sre.util.sbutil
 
 import net.minecraft.command.CommandBase
-import thecudster.sre.util.sbutil.SimpleCommand.ProcessCommandRunnable
-import thecudster.sre.util.sbutil.SimpleCommand.TabCompleteRunnable
+import net.minecraft.command.CommandException
 import net.minecraft.command.ICommandSender
 import net.minecraft.util.BlockPos
-import net.minecraft.command.CommandException
 
 /**
  * Modified from NotEnoughUpdates under Creative Commons Attribution-NonCommercial 3.0
@@ -36,7 +34,7 @@ class SimpleCommand : CommandBase {
     }
 
     abstract class ProcessCommandRunnable {
-        abstract fun processCommand(sender: ICommandSender?, args: Array<String>?)
+        abstract fun processCommand(sender: ICommandSender?, args: Array<String>)
     }
 
     abstract class TabCompleteRunnable {

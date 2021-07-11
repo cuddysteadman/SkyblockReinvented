@@ -1,16 +1,15 @@
 package thecudster.sre.features.impl.skills.mining
 
-import thecudster.sre.util.Utils.inLoc
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.client.event.RenderWorldLastEvent
-import thecudster.sre.util.sbutil.ArrStorage
-import thecudster.sre.core.gui.RenderUtils
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.client.Minecraft
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.BlockPos
+import net.minecraftforge.client.event.RenderWorldLastEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import thecudster.sre.util.RenderUtils
 import thecudster.sre.util.Utils
+import thecudster.sre.util.Utils.inLoc
+import thecudster.sre.util.sbutil.ArrStorage
 import java.awt.Color
-import java.util.ArrayList
 
 class CommissionWaypoints {
     @SubscribeEvent

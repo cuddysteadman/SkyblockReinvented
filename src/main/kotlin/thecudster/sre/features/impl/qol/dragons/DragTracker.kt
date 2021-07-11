@@ -16,27 +16,24 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.features.impl.dragons
+package thecudster.sre.features.impl.qol.dragons
 
-import thecudster.sre.util.Utils.sendMsg
-import thecudster.sre.features.impl.dragons.DragTracker
-import net.minecraft.util.EnumChatFormatting
-import thecudster.sre.features.impl.dragons.DragTracker.DragGUI
-import thecudster.sre.core.gui.GuiElement
-import thecudster.sre.core.gui.FloatPair
-import thecudster.sre.util.sbutil.CurrentLoc
-import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.Minecraft
-import net.minecraft.util.StringUtils
-import thecudster.sre.core.gui.SmartFontRenderer.TextAlignment
-import thecudster.sre.core.gui.SmartFontRenderer
-import thecudster.sre.core.gui.ScreenRenderer
-import thecudster.sre.core.gui.colours.CommonColors
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraft.client.gui.ScaledResolution
+import net.minecraft.util.EnumChatFormatting
 import net.minecraftforge.client.event.ClientChatReceivedEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
+import thecudster.sre.core.gui.structure.FloatPair
+import thecudster.sre.core.gui.structure.GuiElement
+import thecudster.sre.core.gui.structure.ScreenRenderer
+import thecudster.sre.core.gui.structure.SmartFontRenderer
+import thecudster.sre.core.gui.structure.SmartFontRenderer.TextAlignment
+import thecudster.sre.core.gui.structure.colours.CommonColors
 import thecudster.sre.util.Utils
-import java.util.ArrayList
+import thecudster.sre.util.Utils.sendMsg
+import thecudster.sre.util.sbutil.CurrentLoc
+import thecudster.sre.util.sbutil.stripControlCodes
 
 class DragTracker {
     companion object {
@@ -127,7 +124,7 @@ class DragTracker {
             return
         }
         if (!Utils.inSkyblock) return
-        var unformatted = StringUtils.stripControlCodes(event.message.unformattedText)
+        var unformatted = event.message.unformattedText.stripControlCodes()
         if (SkyblockReinvented.config.dragTracker && CurrentLoc.currentLoc == "Dragon's Nest" && !Utils.inDungeons) {
             if (unformatted.contains("The ") && unformatted.contains(" Dragon") && unformatted.contains("has spawned!")) {
                 unformatted = unformatted.substring(unformatted.indexOf("The ") + 4, unformatted.indexOf(" Dragon"))

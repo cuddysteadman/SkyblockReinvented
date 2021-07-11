@@ -1,12 +1,12 @@
 package thecudster.sre.core
 
 import com.google.gson.JsonArray
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.eventhandler.EventPriority
-import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraft.client.gui.GuiMainMenu
+import net.minecraftforge.client.event.GuiOpenEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
-import thecudster.sre.core.gui.UpdateCheckerGUI
+import thecudster.sre.core.gui.screens.UpdateCheckerGUI
 import thecudster.sre.util.api.APIUtil
 
 class UpdateChecker {

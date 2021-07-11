@@ -16,31 +16,19 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.core.gui
+package thecudster.sre.util
 
-import net.minecraft.client.renderer.OpenGlHelper
-import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
-import thecudster.sre.core.gui.RenderUtils
-import org.lwjgl.opengl.GL11
-import net.minecraft.client.renderer.GlStateManager
-import org.lwjgl.opengl.GL14
-import net.minecraft.client.renderer.Tessellator
-import net.minecraft.client.renderer.WorldRenderer
+import net.minecraft.client.gui.ScaledResolution
+import net.minecraft.client.renderer.*
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
-import thecudster.sre.util.sbutil.ItemRarity
-import net.minecraft.util.ResourceLocation
-import net.minecraft.util.EnumChatFormatting
-import net.minecraft.util.MathHelper
-import net.minecraft.util.AxisAlignedBB
-import net.minecraft.client.renderer.RenderGlobal
-import net.minecraft.item.ItemStack
-import net.minecraft.client.renderer.RenderHelper
-import net.minecraft.util.Vec3
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.client.renderer.entity.RenderManager
-import net.minecraft.util.BlockPos
+import net.minecraft.item.ItemStack
+import net.minecraft.util.*
+import org.lwjgl.opengl.GL11
+import org.lwjgl.opengl.GL14
+import thecudster.sre.util.sbutil.ItemRarity
 import java.awt.Color
 
 /**

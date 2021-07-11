@@ -18,11 +18,11 @@
  */
 package thecudster.sre.features.impl.skills.slayer
 
-import thecudster.sre.util.Utils.inLoc
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.client.event.RenderLivingEvent
 import net.minecraft.entity.passive.EntityWolf
+import net.minecraftforge.client.event.RenderLivingEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
+import thecudster.sre.util.Utils.inLoc
 import thecudster.sre.util.sbutil.ArrStorage
 
 class SlayerFeatures {

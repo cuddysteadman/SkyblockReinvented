@@ -20,11 +20,7 @@ package thecudster.sre.util.sbutil
 
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
-import thecudster.sre.util.sbutil.ItemUtil
-import net.minecraft.nbt.NBTTagList
-import net.minecraft.util.StringUtils
 import net.minecraftforge.common.util.Constants
-import thecudster.sre.util.sbutil.ItemRarity
 import java.util.*
 import java.util.regex.Pattern
 
@@ -129,7 +125,7 @@ object ItemUtil {
 
     fun hasRightClickAbility(itemStack: ItemStack): Boolean {
         for (line in getItemLore(itemStack)) {
-            val stripped = StringUtils.stripControlCodes(line)
+            val stripped = line.stripControlCodes()
             if (stripped.startsWith("Item Ability:") && stripped.endsWith("RIGHT CLICK")) return true
         }
         return false

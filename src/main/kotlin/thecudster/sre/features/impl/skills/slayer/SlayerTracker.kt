@@ -18,30 +18,27 @@
  */
 package thecudster.sre.features.impl.skills.slayer
 
+import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.ScaledResolution
+import net.minecraft.util.EnumChatFormatting
+import net.minecraft.util.StringUtils
+import net.minecraftforge.client.event.ClientChatReceivedEvent
+import net.minecraftforge.client.event.RenderGameOverlayEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import thecudster.sre.SkyblockReinvented
+import thecudster.sre.core.gui.structure.SmartFontRenderer.TextAlignment
+import thecudster.sre.core.gui.structure.colours.CommonColors
+import thecudster.sre.core.gui.structure.FloatPair
+import thecudster.sre.core.gui.structure.GuiElement
+import thecudster.sre.core.gui.structure.ScreenRenderer
+import thecudster.sre.core.gui.structure.SmartFontRenderer
+import thecudster.sre.util.RenderUtils
+import thecudster.sre.util.Utils
 import thecudster.sre.util.Utils.inLoc
 import thecudster.sre.util.Utils.sendMsg
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.client.event.RenderGameOverlayEvent
-import thecudster.sre.features.impl.skills.slayer.SlayerTracker
-import net.minecraft.util.EnumChatFormatting
-import net.minecraftforge.fml.common.eventhandler.EventPriority
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import thecudster.sre.core.gui.RenderUtils
 import thecudster.sre.util.sbutil.ArrStorage
-import net.minecraft.client.Minecraft
-import thecudster.sre.features.impl.skills.slayer.SlayerTracker.SlayerGuiElement
-import thecudster.sre.core.gui.GuiElement
-import thecudster.sre.core.gui.FloatPair
-import net.minecraft.client.entity.EntityPlayerSP
-import net.minecraft.client.gui.ScaledResolution
-import net.minecraft.util.StringUtils
-import thecudster.sre.SkyblockReinvented
-import thecudster.sre.core.gui.SmartFontRenderer.TextAlignment
-import thecudster.sre.core.gui.SmartFontRenderer
-import thecudster.sre.core.gui.ScreenRenderer
-import thecudster.sre.core.gui.colours.CommonColors
-import thecudster.sre.util.Utils
-import java.lang.Exception
+import thecudster.sre.util.sbutil.stripControlCodes
 
 class SlayerTracker {
     private val nxtLvl = " - Next LVL in ".length
@@ -60,7 +57,7 @@ class SlayerTracker {
     public void onDeath(LivingDeathEvent event) {
         if (Utils.inLoc(ArrStorage.slayerLocs)) {
             for (String s : ScoreboardUtil.getSidebarLines()) {
-                if (StringUtils.stripControlCodes(s).contains("/") && StringUtils.stripControlCodes(s).contains(" Kills")) {
+                if (s.stripControlCodes().contains("/") && s.stripControlCodes().contains(" Kills")) {
                     String kills = StringUtils.stripControlCodes(s);
                     String toNext = kills.substring(0, kills.indexOf(" Kills"));
                 }
@@ -79,7 +76,7 @@ class SlayerTracker {
                     unformatted = unformatted.substring(2, unformatted.length - 1)
                     val meter = RenderUtils.progressBar(
                         30,
-                        StringUtils.stripControlCodes(unformatted).toDouble() / 100,
+                        unformatted.stripControlCodes().toDouble() / 100,
                         EnumChatFormatting.LIGHT_PURPLE
                     ) + getPercentageString(
                         StringUtils.stripControlCodes(unformatted).toDouble() / 100

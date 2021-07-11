@@ -16,13 +16,10 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.core.gui
+package thecudster.sre.core.gui.structure
 
-import thecudster.sre.core.gui.FloatPair
-import thecudster.sre.core.gui.GuiElement
-import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.Minecraft
-import thecudster.sre.core.gui.GuiManager
+import net.minecraft.client.gui.ScaledResolution
 
 /**
  * Modified from Skytils under GNU Affero General Public license.

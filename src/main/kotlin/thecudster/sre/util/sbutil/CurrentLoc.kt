@@ -18,10 +18,8 @@
  */
 package thecudster.sre.util.sbutil
 
-import thecudster.sre.util.sbutil.ScoreboardUtil.sidebarLines
 import thecudster.sre.util.sbutil.ScoreboardUtil.cleanSB
-import thecudster.sre.util.sbutil.ScoreboardUtil
-import thecudster.sre.util.sbutil.CurrentLoc
+import thecudster.sre.util.sbutil.ScoreboardUtil.sidebarLines
 
 object CurrentLoc {
     @JvmField

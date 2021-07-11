@@ -3,7 +3,6 @@ package thecudster.sre.events
 import net.minecraft.network.Packet
 import net.minecraftforge.fml.common.eventhandler.Cancelable
 import net.minecraftforge.fml.common.eventhandler.Event
-import thecudster.sre.events.PacketEvent
 
 /**
  * Taken from Skytils under GNU Affero General Public license.

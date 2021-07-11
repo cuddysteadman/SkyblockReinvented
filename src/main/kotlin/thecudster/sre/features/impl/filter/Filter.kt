@@ -1,8 +1,8 @@
 package thecudster.sre.features.impl.filter
 
-import net.minecraft.util.StringUtils
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import thecudster.sre.util.Utils
+import thecudster.sre.util.sbutil.stripControlCodes
 
 class Filter {
     /**
@@ -37,7 +37,7 @@ class Filter {
 
     fun check(event: ClientChatReceivedEvent): Boolean {
         for (s in messageArr) {
-            if (StringUtils.stripControlCodes(event.message.unformattedText).contains(s)) {
+            if (event.message.unformattedText.stripControlCodes().contains(s)) {
                 return true
             }
         }

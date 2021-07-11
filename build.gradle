@@ -15,7 +15,7 @@ ext.kotlin_version = "1.5.20"
 
 version = "1.0-pre2"
 group = "thecudster.sre"
-archivesBaseName = "SkyblockReinvented"
+archivesBaseName = "sre"
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
@@ -36,7 +36,7 @@ minecraft {
     mappings = "stable_22"
     makeObfSourceJar = false
     gitVersion = false
-    clientJvmArgs += "-Dfml.coreMods.load=thecudster.sre.tweaker.FMLLoadingPlugin"
+    clientJvmArgs += "-Dfml.coreMods.load=thecudster.sre.tweaker.SRELoadingPlugin"
     clientJvmArgs += "-Delementa.dev=true"
     clientJvmArgs += "-Delementa.debug=true"
     clientRunArgs += "--tweakClass org.spongepowered.asm.launch.MixinTweaker"
@@ -74,7 +74,7 @@ dependencies {
 jar {
     manifest.attributes(
             "Main-Class": "SkyblockReinventedInstallerFrame",
-            "FMLCorePlugin": "thecudster.sre.tweaker.FMLLoadingPlugin",
+            "FMLCorePlugin": "thecudster.sre.tweaker.SRELoadingPlugin",
             "FMLCorePluginContainsFMLMod": true,
             "ForceLoadAsMod": true,
             "MixinConfigs": "mixins.sre.json",

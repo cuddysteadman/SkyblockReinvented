@@ -18,9 +18,9 @@
  */
 package thecudster.sre
 
-import gg.essential.vigilance.VigilanceConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import gg.essential.vigilance.VigilanceConfig
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.resources.IReloadableResourceManager
@@ -30,7 +30,6 @@ import net.minecraft.event.ClickEvent
 import net.minecraft.scoreboard.ScorePlayerTeam
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.EnumChatFormatting
-import net.minecraft.util.StringUtils
 import net.minecraftforge.client.ClientCommandHandler
 import net.minecraftforge.client.event.MouseEvent
 import net.minecraftforge.common.MinecraftForge
@@ -48,33 +47,37 @@ import org.json.JSONException
 import org.lwjgl.input.Keyboard
 import thecudster.sre.core.Config
 import thecudster.sre.core.Keybindings
-import thecudster.sre.core.gui.*
+import thecudster.sre.core.gui.screens.FilterGUI
+import thecudster.sre.core.gui.screens.LocationEditGUI
+import thecudster.sre.core.gui.screens.MainGUI
+import thecudster.sre.core.gui.screens.RenderPlayersGUI
+import thecudster.sre.core.gui.structure.GuiManager
+import thecudster.sre.core.gui.structure.ScreenRenderer
 import thecudster.sre.events.JoinSkyblockEvent
 import thecudster.sre.events.LeaveSkyblockEvent
 import thecudster.sre.events.SecondPassedEvent
 import thecudster.sre.events.WorldChangeEvent
-import thecudster.sre.features.impl.dragons.DragTracker
-import thecudster.sre.features.impl.dragons.DragonArrowHitbox
 import thecudster.sre.features.impl.dungeons.*
-import thecudster.sre.features.impl.qol.BlockPowerOrb
 import thecudster.sre.features.impl.filter.FilterHandler
-import thecudster.sre.features.impl.qol.RemoveRaffleTitles
 import thecudster.sre.features.impl.qol.*
+import thecudster.sre.features.impl.qol.dragons.DragTracker
+import thecudster.sre.features.impl.qol.dragons.DragonArrowHitbox
 import thecudster.sre.features.impl.rendering.HyperionOverlay
 import thecudster.sre.features.impl.rendering.PlayerHider
 import thecudster.sre.features.impl.rendering.RemoveVillagers
 import thecudster.sre.features.impl.skills.SkillXPTracker
 import thecudster.sre.features.impl.skills.bestiary.BestiaryGUI
 import thecudster.sre.features.impl.skills.bestiary.BestiaryProgress
+import thecudster.sre.features.impl.skills.mining.GhostLoot
 import thecudster.sre.features.impl.skills.slayer.SlayerFeatures
 import thecudster.sre.features.impl.skills.slayer.SlayerReminder
 import thecudster.sre.features.impl.skills.slayer.SlayerTracker
 import thecudster.sre.features.impl.sounds.MiscSoundBlocks
 import thecudster.sre.util.Utils
-import thecudster.sre.util.sbutil.ArrStorage
 import thecudster.sre.util.sbutil.CurrentLoc
 import thecudster.sre.util.sbutil.SimpleCommand
 import thecudster.sre.util.sbutil.SimpleCommand.ProcessCommandRunnable
+import thecudster.sre.util.sbutil.stripControlCodes
 import java.awt.Desktop
 import java.io.File
 import java.io.IOException
@@ -84,7 +87,6 @@ import java.net.URISyntaxException
 import java.util.*
 import java.util.function.Consumer
 
-@SuppressWarnings("unused")
 @Mod(
     modid = SkyblockReinvented.MODID,
     name = SkyblockReinvented.MOD_NAME,
@@ -94,27 +96,22 @@ import java.util.function.Consumer
 )
 class SkyblockReinvented {
     var notUsingDSM = false
-    private val renderWhitelist = RenderPlayersGUI()
+
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent?) {
         if (!modDir.exists()) modDir.mkdirs()
     }
-
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent?) {
         config = Config()
         config.preload()
 
-        customFilters = FilterGUI()
-        customFilters!!.readConfig()
         GUIMANAGER = GuiManager()
         discordRPC = DiscordRPC()
         filter = FilterHandler()
-        TreasureLocs.init()
-        ArrStorage.init()
-        renderWhitelist.readConfig()
+        customFilters = FilterGUI()
         coopHelper = MiscFeatures()
-        coopHelper!!.readConfig()
+        val renderPlayersGUI = RenderPlayersGUI()
 
         ClientCommandHandler.instance.registerCommand(SRECommand)
         ClientCommandHandler.instance.registerCommand(RenderingCommand)
@@ -125,14 +122,14 @@ class SkyblockReinvented {
         ClientCommandHandler.instance.registerCommand(GarryCommand)
         ClientCommandHandler.instance.registerCommand(SwaphubCommand)
         ClientCommandHandler.instance.registerCommand(CoopCommand)
-        MinecraftForge.EVENT_BUS.register(RemoveRaffleTitles())
+        ClientCommandHandler.instance.registerCommand(ScammerCommand)
+
         MinecraftForge.EVENT_BUS.register(this)
         MinecraftForge.EVENT_BUS.register(SkillXPTracker())
         // MinecraftForge.EVENT_BUS.register(new CommissionWaypoints()); <- I worked on this for an afternoon will I work on it again the world may never know
         MinecraftForge.EVENT_BUS.register(SlayerReminder())
         MinecraftForge.EVENT_BUS.register(PlayerHider())
-        MinecraftForge.EVENT_BUS.register(GiftCompassWaypoints())
-        MinecraftForge.EVENT_BUS.register(BlockPowerOrb())
+        MinecraftForge.EVENT_BUS.register(PowerOrbFeatures())
         MinecraftForge.EVENT_BUS.register(WitherCloakHider())
         MinecraftForge.EVENT_BUS.register(RemoveVillagers())
         MinecraftForge.EVENT_BUS.register(HyperionOverlay())
@@ -182,56 +179,61 @@ class SkyblockReinvented {
     }
 
     @SubscribeEvent
-    fun onTick(event: ClientTickEvent) {
+    fun onTick(event: TickEvent.ClientTickEvent) {
         if (event.phase != TickEvent.Phase.START) return
+
+        ScreenRenderer.refresh()
+
         if (currentGui != null) {
             mc.displayGuiScreen(currentGui)
             currentGui = null
         }
         if (ticks % 20 == 0) {
-            if (mc.thePlayer == null) {
-                return
-            }
-            ScreenRenderer.refresh()
-            CurrentLoc.checkLoc()
-            DragTracker.updateGui()
-            MinecraftForge.EVENT_BUS.post(SecondPassedEvent())
-            ticks = 0
-            if (secondsPassed == -1) {
-                secondsPassed += 2
-            } else if (secondsPassed < 3) {
-                secondsPassed++
-            }
-            if (needsToClick == 0 && secondsPassed == 3) {
-                Utils.sendCommand("warp hub")
-                needsToClick = 2
-                secondsPassed = 4
-            }
-            try {
-                if (mc.theWorld == null) {
-                    return
+            if (mc.thePlayer != null) {
+                Utils.checkForHypixel()
+                Utils.checkForSkyblock()
+                Utils.checkForDungeons()
+                Utils.checkIronman()
+
+                CurrentLoc.checkLoc()
+                DragTracker.updateGui()
+                MinecraftForge.EVENT_BUS.post(SecondPassedEvent())
+
+                if (secondsPassed == -1) {
+                    secondsPassed += 2
+                } else if (secondsPassed < 3) {
+                    secondsPassed++
                 }
-                if (mc.theWorld.scoreboard == null) {
-                    return
+                if (needsToClick == 0 && secondsPassed == 3) {
+                    Utils.sendCommand("warp hub")
+                    needsToClick = 2
+                    secondsPassed = 4
                 }
-                val scoreboard = mc.theWorld.scoreboard
-                for (score in scoreboard.getSortedScores(scoreboard.getObjectiveInDisplaySlot(1))) {
-                    val name = StringUtils.stripControlCodes(
-                        ScorePlayerTeam.formatPlayerName(
-                            scoreboard.getPlayersTeam(score.playerName),
-                            score.playerName
-                        )
-                    )
-                    if (name.contains("Ironman") && config.removeIronmanScoreboard) {
-                        scoreboard.removeTeam(scoreboard.getPlayersTeam(score.playerName))
-                        Utils.ironmanProfile = true
-                    } else if (name.contains("Mithril") && config.hideMithrilPowder) {
-                        scoreboard.removeTeam(scoreboard.getPlayersTeam(score.playerName))
+                try {
+                    if (mc.thePlayer == null) {
+                        return
                     }
+                    if (mc.theWorld == null) {
+                        return
+                    }
+                    if (mc.theWorld.scoreboard == null) {
+                        return
+                    }
+                    val scoreboard = mc.theWorld.scoreboard
+                    for (score in scoreboard.getSortedScores(scoreboard.getObjectiveInDisplaySlot(1))) {
+                        val name = ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.playerName), score.playerName).stripControlCodes()
+                        if (name.contains("Ironman") && config.removeIronmanScoreboard) {
+                            scoreboard.removeTeam(scoreboard.getPlayersTeam(score.playerName))
+                            Utils.ironmanProfile = true
+                        } else if (name.contains("Mithril") && config.hideMithrilPowder) {
+                            scoreboard.removeTeam(scoreboard.getPlayersTeam(score.playerName))
+                        }
+                    }
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
                 }
-            } catch (ex: Exception) {
-                ex.printStackTrace()
             }
+            ticks = 0
         }
         ticks++
     }
@@ -240,6 +242,9 @@ class SkyblockReinvented {
     fun onLeave(event: LeaveSkyblockEvent?) {
         if (discordRPC!!.isActive) {
             discordRPC!!.stop()
+        }
+        if (!Minecraft.getMinecraft().gameSettings.viewBobbing && config.smartViewBobbing) {
+            Minecraft.getMinecraft().gameSettings.viewBobbing = true
         }
     }
 
@@ -258,6 +263,9 @@ class SkyblockReinvented {
         } else if (discordRPC!!.isActive) {
             discordRPC!!.stop()
         }
+        if (Minecraft.getMinecraft().gameSettings.viewBobbing && config.smartViewBobbing) {
+            Minecraft.getMinecraft().gameSettings.viewBobbing = false
+        }
     }
 
     // begin commands
@@ -265,9 +273,9 @@ class SkyblockReinvented {
         "sre",
         Arrays.asList("SRE", "SkyblockReinvented", "skyblockreinvented", "sbr", "SBR"),
         object : ProcessCommandRunnable() {
-            override fun processCommand(sender: ICommandSender?, args: Array<String>?) {
-                if (args!!.size > 0) {
-                    when (args!![0]) {
+            override fun processCommand(sender: ICommandSender?, args: Array<String>) {
+                if (args.size > 0) {
+                    when (args[0]) {
                         "gui", "editlocations" -> currentGui = LocationEditGUI()
                         "help" -> Utils.sendHelp()
                         "config" -> currentGui = config.gui()
@@ -307,18 +315,24 @@ class SkyblockReinvented {
                 }
             }
         })
+    var ScammerCommand = SimpleCommand("isscammer", listOf("issc", "sc", "isuserscammer"), object : ProcessCommandRunnable() {
+        override fun processCommand(sender: ICommandSender?, args: Array<String>) {
+            MiscFeatures.checkForScammers(args[0], true)
+        }
+    })
     var CoopCommand =
         SimpleCommand("addcoopmember", Arrays.asList("cadd", "addcmem"), object : ProcessCommandRunnable() {
-            override fun processCommand(sender: ICommandSender?, args: Array<String>?) {
-                if (args!!.size == 0) {
+            override fun processCommand(sender: ICommandSender?, args: Array<String>) {
+                if (args.size == 0) {
                     Utils.sendMsg(EnumChatFormatting.RED.toString() + "Invalid usage! Proper usage is /addcoopmember {name} [disabled/enabled]")
-                } else if (args!!.size == 1) {
-                    coopHelper!!.addDisabledMember(args!![0])
-                } else if (args!!.size >= 2) {
-                    if (args!![1].toLowerCase() == "true" || args!![1].toLowerCase() == "enabled") {
-                        coopHelper!!.addEnabledMember(args!![0])
+                } else if (args.size == 1) {
+                    coopHelper!!.addDisabledMember(args[0])
+                    coopHelper!!.addDisabledMember(args[0])
+                } else if (args.size >= 2) {
+                    if (args[1].lowercase() == "true" || args[1].lowercase() == "enabled") {
+                        coopHelper!!.addEnabledMember(args[0])
                     } else {
-                        coopHelper!!.addDisabledMember(args!![0])
+                        coopHelper!!.addDisabledMember(args[0])
                     }
                 }
                 coopHelper!!.readConfig()
@@ -328,7 +342,7 @@ class SkyblockReinvented {
         "dset",
         Arrays.asList("da", "disc", "dset", "discset", "rp", "rpset"),
         object : ProcessCommandRunnable() {
-            override fun processCommand(sender: ICommandSender?, args: Array<String>?) {
+            override fun processCommand(sender: ICommandSender?, args: Array<String>) {
                 if (!Utils.inSkyblock) {
                     Utils.sendMsg(EnumChatFormatting.RED.toString() + "Use this command in Skyblock!")
                     return
@@ -341,12 +355,12 @@ class SkyblockReinvented {
                     Utils.sendMsg(EnumChatFormatting.RED.toString() + "You do not have the custom discord rich presence setting on, so this command will do nothing.")
                     return
                 }
-                if (args!!.size > 0) {
-                    if (args!![0] != "current") {
+                if (args.size > 0) {
+                    if (args[0] != "current") {
                         var toReturn = ""
-                        toReturn += args!![0]
-                        args!![0] = ""
-                        for (s in args!!) {
+                        toReturn += args[0]
+                        args[0] = ""
+                        for (s in args) {
                             toReturn += " "
                             toReturn += s
                         }
@@ -364,8 +378,8 @@ class SkyblockReinvented {
         })
     var RenderingCommand =
         SimpleCommand("re", Arrays.asList("render", "rendering", "re"), object : ProcessCommandRunnable() {
-            override fun processCommand(sender: ICommandSender?, args: Array<String>?) {
-                if (args!!.size == 0) {
+            override fun processCommand(sender: ICommandSender?, args: Array<String>) {
+                if (args.size == 0) {
                     config.renderPlayers = !config.renderPlayers
                     config.markDirty()
                     config.writeData()
@@ -387,10 +401,10 @@ class SkyblockReinvented {
         "frags",
         Arrays.asList("fragbot", "frag", "invitefrag", "fragrun", "fragbots", "fr"),
         object : ProcessCommandRunnable() {
-            override fun processCommand(sender: ICommandSender?, args: Array<String>?) {
+            override fun processCommand(sender: ICommandSender?, args: Array<String>) {
                 val amount: Int
-                amount = if (args!!.size == 1) {
-                    args!![0].toInt()
+                amount = if (args.size == 1) {
+                    args[0].toInt()
                 } else {
                     1
                 }
@@ -433,27 +447,27 @@ class SkyblockReinvented {
         "ping",
         Arrays.asList("pi", "pingplayer", "playerping", "sreping"),
         object : ProcessCommandRunnable() {
-            override fun processCommand(sender: ICommandSender?, args: Array<String>?) {
+            override fun processCommand(sender: ICommandSender?, args: Array<String>) {
                 if (!Utils.inDungeons || !Utils.inSkyblock) {
                     Utils.sendMsg(EnumChatFormatting.RED.toString() + "You aren't in dungeons! You may only use this command in dungeons.")
                     return
-                } else if (args!!.size == 0) {
+                } else if (args.size == 0) {
                     Utils.sendMsg(EnumChatFormatting.RED.toString() + "Improper usage! Proper usage: /ping {player} [message (optional)]")
                     return
                 } else {
-                    if (args!!.size == 1) {
-                        Utils.sendCommand("pc SREPingCommand: " + args!![0])
-                    } else if (args!!.size > 1) {
-                        Utils.sendCommand("pc SREPingCommand: " + args!![0] + " REASON: " + args!![1])
+                    if (args.size == 1) {
+                        Utils.sendCommand("pc SREPingCommand: " + args[0])
+                    } else if (args.size > 1) {
+                        Utils.sendCommand("pc SREPingCommand: " + args[0] + " REASON: " + args[1])
                     }
                 }
             }
         })
     var DragCommand = SimpleCommand("drags", Arrays.asList("dragon", "drags", "dr"), object : ProcessCommandRunnable() {
-        override fun processCommand(sender: ICommandSender?, args: Array<String>?) {
-            if (args!!.size == 0) {
+        override fun processCommand(sender: ICommandSender?, args: Array<String>) {
+            if (args.size == 0) {
                 config.dragTracker = !config.dragTracker
-            } else if (args!![0] == "clear") {
+            } else if (args[0] == "clear") {
                 config.dragsSinceAotd = 0
                 config.dragsSincePet = 0
                 config.dragsSinceSup = 0
@@ -469,14 +483,14 @@ class SkyblockReinvented {
     private var needsToClick = 2
     var SwaphubCommand =
         SimpleCommand("swaphub", Arrays.asList("swh", "sw", "shub", "swap"), object : ProcessCommandRunnable() {
-            override fun processCommand(sender: ICommandSender?, args: Array<String>?) {
+            override fun processCommand(sender: ICommandSender?, args: Array<String>) {
                 needsToClick = 1
                 secondsPassed = -1
                 Utils.sendCommand("warpforge")
             }
         })
     var GarryCommand = SimpleCommand("garrytoggle", Arrays.asList("gtoggle"), object : ProcessCommandRunnable() {
-        override fun processCommand(sender: ICommandSender?, args: Array<String>?) {
+        override fun processCommand(sender: ICommandSender?, args: Array<String>) {
             FilterHandler.secondsPassed = 0
         }
     })

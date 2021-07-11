@@ -18,25 +18,18 @@
  */
 package thecudster.sre.features.impl.skills.bestiary
 
-import com.google.gson.JsonObject
-import thecudster.sre.util.api.APIUtil.getUUID
-import thecudster.sre.util.api.APIUtil.getLatestProfileID
-import thecudster.sre.util.api.APIUtil.getJSONResponse
-import thecudster.sre.features.impl.skills.bestiary.BestiaryProgress
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.item.EntityArmorStand
-import net.minecraft.util.EnumChatFormatting
-import java.lang.NullPointerException
-import thecudster.sre.events.SecondPassedEvent
-import java.lang.Thread
-import java.lang.Runnable
 import net.minecraft.util.ChatComponentText
-import net.minecraft.util.StringUtils
+import net.minecraft.util.EnumChatFormatting
+import net.minecraftforge.event.entity.living.LivingDeathEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
-import java.util.HashMap
-import java.util.LinkedHashMap
+import thecudster.sre.events.SecondPassedEvent
+import thecudster.sre.util.api.APIUtil.getJSONResponse
+import thecudster.sre.util.api.APIUtil.getLatestProfileID
+import thecudster.sre.util.api.APIUtil.getUUID
+import thecudster.sre.util.sbutil.stripControlCodes
 
 class BestiaryProgress {
     val stats: Map<String, Double>
@@ -56,8 +49,7 @@ class BestiaryProgress {
                     }
                     secondsSinceKill = 0
                     mobName = e.getCustomNameTag().substring(e.getCustomNameTag().indexOf(" §c") + 1)
-                    mobName = mobName.substring(0, mobName.indexOf(" §a"))
-                    mobName = StringUtils.stripControlCodes(mobName)
+                    mobName = mobName.substring(0, mobName.indexOf(" §a")).stripControlCodes()
                     val currentKills = "kills_" + getCorrectName(mobName)
                     if (!things.containsKey(currentKills) || things[currentKills]!! == 0.0) {
                         current[0] =

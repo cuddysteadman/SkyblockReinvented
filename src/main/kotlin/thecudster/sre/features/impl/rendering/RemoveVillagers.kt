@@ -18,16 +18,14 @@
  */
 package thecudster.sre.features.impl.rendering
 
-import thecudster.sre.util.Utils.inLoc
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.eventhandler.EventPriority
-import net.minecraftforge.client.event.RenderLivingEvent
-import thecudster.sre.util.sbutil.ArrStorage
 import net.minecraft.util.BlockPos
+import net.minecraftforge.client.event.RenderLivingEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
-import thecudster.sre.features.impl.rendering.RemoveVillagers
 import thecudster.sre.util.Utils
-import java.util.ArrayList
+import thecudster.sre.util.Utils.inLoc
+import thecudster.sre.util.sbutil.ArrStorage
 
 class RemoveVillagers {
     var hasInit = false

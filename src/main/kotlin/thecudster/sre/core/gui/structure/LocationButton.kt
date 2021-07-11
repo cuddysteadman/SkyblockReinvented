@@ -16,15 +16,13 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.core.gui
+package thecudster.sre.core.gui.structure
 
-import net.minecraft.client.gui.GuiButton
-import thecudster.sre.core.gui.GuiElement
 import net.minecraft.client.Minecraft
-import thecudster.sre.core.gui.RenderUtils
-import net.minecraft.client.renderer.GlStateManager
-import thecudster.sre.core.gui.LocationButton
 import net.minecraft.client.audio.SoundHandler
+import net.minecraft.client.gui.GuiButton
+import net.minecraft.client.renderer.GlStateManager
+import thecudster.sre.util.RenderUtils
 import java.awt.Color
 
 /**

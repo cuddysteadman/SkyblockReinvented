@@ -1,14 +1,13 @@
 package thecudster.sre.features.impl.qol
 
-import thecudster.sre.util.Utils.getUnformattedChat
-import thecudster.sre.util.Utils.containsAnyOf
-import thecudster.sre.util.Utils.sendMsg
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import thecudster.sre.util.sbutil.ArrStorage
 import net.minecraft.util.EnumChatFormatting
+import net.minecraftforge.client.event.ClientChatReceivedEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
-import java.util.HashMap
+import thecudster.sre.util.Utils.containsAnyOf
+import thecudster.sre.util.Utils.getUnformattedChat
+import thecudster.sre.util.Utils.sendMsg
+import thecudster.sre.util.sbutil.ArrStorage
 
 class FetchurSolver {
     var fetchurSolutions: HashMap<String?, String> = hashMapOf("theyre red and soft" to "fifty red wool",
@@ -23,7 +22,8 @@ class FetchurSolver {
             "its wearable and grows" to "a pumpkin",
             "its shiny and makes sparks" to "a flint and steel",
             "theyre red and white and you can mine it" to "fifty nether quartz ore",
-            "theyre round and green, or purple" to "sixteen epearls")
+            "theyre round and green, or purple" to "sixteen epearls"
+    )
 
     @SubscribeEvent
     fun onChat(event: ClientChatReceivedEvent) {
@@ -45,7 +45,7 @@ class FetchurSolver {
         if (SkyblockReinvented.config.showFetchur == 1) {
             return
         }
-        if (message.contains("i need ") && message.contains(" pls")) {
+        if (message.contains("i need ") && message.contains(" pls") && message.contains("[NPC] Fetchur: ")) {
             event.isCanceled = true
             return
         }

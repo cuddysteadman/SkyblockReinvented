@@ -18,15 +18,14 @@
  */
 package thecudster.sre.features.impl.dungeons
 
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.event.entity.EntityJoinWorldEvent
 import net.minecraft.entity.monster.EntityCreeper
-import thecudster.sre.features.impl.dungeons.CreeperSolver
-import net.minecraftforge.client.event.RenderLivingEvent
 import net.minecraft.entity.monster.EntityGuardian
-import thecudster.sre.events.PacketEvent.ReceiveEvent
 import net.minecraft.network.play.server.S29PacketSoundEffect
+import net.minecraftforge.client.event.RenderLivingEvent
+import net.minecraftforge.event.entity.EntityJoinWorldEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
+import thecudster.sre.events.PacketEvent.ReceiveEvent
 import thecudster.sre.util.Utils
 
 class CreeperSolver {

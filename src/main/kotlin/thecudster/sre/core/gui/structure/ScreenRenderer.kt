@@ -16,14 +16,12 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.core.gui
+package thecudster.sre.core.gui.structure
 
-import thecudster.sre.core.gui.colours.CustomColor
-import net.minecraft.client.renderer.GlStateManager
-import thecudster.sre.core.gui.SmartFontRenderer
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.ScaledResolution
-import thecudster.sre.core.gui.ScreenRenderer
+import net.minecraft.client.renderer.GlStateManager
+import thecudster.sre.core.gui.structure.colours.CustomColor
 
 /**
  * Taken from Wynntils under GNU Affero General Public License v3.0

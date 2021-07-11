@@ -16,24 +16,19 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-package thecudster.sre.core.gui
+package thecudster.sre.core.gui.structure
 
-import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.client.event.RenderGameOverlayEvent
-import thecudster.sre.core.gui.GuiElement
-import thecudster.sre.core.gui.GuiManager
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent
-import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
-import thecudster.sre.core.gui.FloatPair
-import net.minecraft.util.EnumChatFormatting
 import net.minecraftforge.client.GuiIngameForge
+import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.eventhandler.EventPriority
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.TickEvent
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent
 import thecudster.sre.SkyblockReinvented
 import thecudster.sre.core.PersistentSave
 import thecudster.sre.events.RenderHUDEvent
@@ -41,8 +36,6 @@ import thecudster.sre.util.Utils
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
-import java.lang.Exception
-import java.util.HashMap
 
 /**
  * Modified from _root_ide_package_.thecudster.sre.SkyblockReinvented under GNU Affero General Public license.
@@ -155,7 +148,7 @@ class GuiManager : PersistentSave(File(SkyblockReinvented.modDir, "guipositions.
             GlStateManager.enableBlend()
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0)
             GlStateManager.pushMatrix()
-            GlStateManager.scale(scale, scale, scale) // TODO Check if changing this scale breaks anything...
+            GlStateManager.scale(scale, scale, scale)
             mc.fontRendererObj.drawString(
                 title,
                 (-mc.fontRendererObj.getStringWidth(title) / 2).toFloat(),
@@ -177,7 +170,7 @@ class GuiManager : PersistentSave(File(SkyblockReinvented.modDir, "guipositions.
             GlStateManager.enableBlend()
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0)
             GlStateManager.pushMatrix()
-            GlStateManager.scale(scale, scale, scale) // TODO Check if changing this scale breaks anything...
+            GlStateManager.scale(scale, scale, scale)
             mc.fontRendererObj.drawString(
                 subtitle, -mc.fontRendererObj.getStringWidth(subtitle) / 2f, -23.0f,
                 0xFF0000, true

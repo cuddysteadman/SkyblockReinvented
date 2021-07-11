@@ -74,7 +74,7 @@ class SkyblockReinventedInstallerFrame() : JFrame(), ActionListener, MouseListen
     }
 
     private val pictureLabel: JLabel?
-        private get() {
+            get() {
             if (logo == null) {
                 try {
                     h = w / 2
@@ -120,7 +120,7 @@ class SkyblockReinventedInstallerFrame() : JFrame(), ActionListener, MouseListen
     }
 
     private val textArea: JTextArea?
-        private get() {
+        get() {
             if (descriptionText == null) {
                 try {
                     h = 60
@@ -152,7 +152,7 @@ class SkyblockReinventedInstallerFrame() : JFrame(), ActionListener, MouseListen
     }
 
     private val forgeTextArea: JTextArea?
-        private get() {
+        get() {
             if (forgeDescriptionText == null) {
                 try {
                     h = 55
@@ -193,7 +193,7 @@ class SkyblockReinventedInstallerFrame() : JFrame(), ActionListener, MouseListen
     }
 
     private val fieldFolder: JTextField?
-        private get() {
+        get() {
             if (textFieldFolderLocation == null) {
                 h = 20
                 w = 287
@@ -213,7 +213,7 @@ class SkyblockReinventedInstallerFrame() : JFrame(), ActionListener, MouseListen
 
     // Padding
     private val buttonFolder: JButton?
-        private get() {
+        get() {
             if (buttonChooseFolder == null) {
                 h = 20
                 w = 25
@@ -486,7 +486,7 @@ class SkyblockReinventedInstallerFrame() : JFrame(), ActionListener, MouseListen
 
     val operatingSystem: OperatingSystem
         get() {
-            val osName = System.getProperty("os.name").toLowerCase(Locale.US)
+            val osName = System.getProperty("os.name").lowercase()
             if (osName.contains("win")) {
                 return OperatingSystem.WINDOWS
             } else if (osName.contains("mac")) {
@@ -524,7 +524,7 @@ class SkyblockReinventedInstallerFrame() : JFrame(), ActionListener, MouseListen
 
     // It's okay, I guess just don't use the version lol.
     private val versionFromMcmodInfo: String
-        private get() {
+        get() {
             var version = ""
             try {
                 val bufferedReader = BufferedReader(
@@ -566,7 +566,7 @@ class SkyblockReinventedInstallerFrame() : JFrame(), ActionListener, MouseListen
     }
 
     private val thisFile: File?
-        private get() {
+        get() {
             try {
                 return File(SkyblockReinventedInstallerFrame::class.java.protectionDomain.codeSource.location.toURI())
             } catch (ex: URISyntaxException) {

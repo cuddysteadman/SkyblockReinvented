@@ -1,8 +1,5 @@
 package thecudster.sre.util.sbutil
 
-import thecudster.sre.util.sbutil.ArrStorage
-import java.util.HashMap
-
 class ArrStorage {
     companion object {
         @JvmField
@@ -13,10 +10,6 @@ class ArrStorage {
 
         @JvmField
         val svenLeveling = doubleArrayOf(30.0, 250.0, 1500.0, 5000.0, 20000.0, 100000.0, 400000.0, 1000000.0)
-        val whitelist = arrayOf(
-            "Blacksmith",
-            "St. Jerry"
-        )
 
         @JvmField
         val hubLocs = arrayOf(
@@ -106,72 +99,13 @@ class ArrStorage {
          * @author bowser0000
          */
         @JvmField
-        var skillXPPerLevel = HashMap<Int, Int>()
-
-        @JvmStatic
-        fun init() {
-            skillXPPerLevel[0] = 0
-            skillXPPerLevel[1] = 50
-            skillXPPerLevel[2] = 125
-            skillXPPerLevel[3] = 200
-            skillXPPerLevel[4] = 300
-            skillXPPerLevel[5] = 500
-            skillXPPerLevel[6] = 750
-            skillXPPerLevel[7] = 1000
-            skillXPPerLevel[8] = 1500
-            skillXPPerLevel[9] = 2000
-            skillXPPerLevel[10] = 3500
-            skillXPPerLevel[11] = 5000
-            skillXPPerLevel[12] = 7500
-            skillXPPerLevel[13] = 10000
-            skillXPPerLevel[14] = 15000
-            skillXPPerLevel[15] = 20000
-            skillXPPerLevel[16] = 30000
-            skillXPPerLevel[17] = 50000
-            skillXPPerLevel[18] = 75000
-            skillXPPerLevel[19] = 100000
-            skillXPPerLevel[20] = 200000
-            skillXPPerLevel[21] = 300000
-            skillXPPerLevel[22] = 400000
-            skillXPPerLevel[23] = 500000
-            skillXPPerLevel[24] = 600000
-            skillXPPerLevel[25] = 700000
-            skillXPPerLevel[26] = 800000
-            skillXPPerLevel[27] = 900000
-            skillXPPerLevel[28] = 1000000
-            skillXPPerLevel[29] = 1100000
-            skillXPPerLevel[30] = 1200000
-            skillXPPerLevel[31] = 1300000
-            skillXPPerLevel[32] = 1400000
-            skillXPPerLevel[33] = 1500000
-            skillXPPerLevel[34] = 1600000
-            skillXPPerLevel[35] = 1700000
-            skillXPPerLevel[36] = 1800000
-            skillXPPerLevel[37] = 1900000
-            skillXPPerLevel[38] = 2000000
-            skillXPPerLevel[39] = 2100000
-            skillXPPerLevel[40] = 2200000
-            skillXPPerLevel[41] = 2300000
-            skillXPPerLevel[42] = 2400000
-            skillXPPerLevel[43] = 2500000
-            skillXPPerLevel[44] = 2600000
-            skillXPPerLevel[45] = 2750000
-            skillXPPerLevel[46] = 2900000
-            skillXPPerLevel[47] = 3100000
-            skillXPPerLevel[48] = 3400000
-            skillXPPerLevel[49] = 3700000
-            skillXPPerLevel[50] = 4000000
-            skillXPPerLevel[51] = 4300000
-            skillXPPerLevel[52] = 4600000
-            skillXPPerLevel[53] = 4900000
-            skillXPPerLevel[54] = 5200000
-            skillXPPerLevel[55] = 5500000
-            skillXPPerLevel[56] = 5800000
-            skillXPPerLevel[57] = 6100000
-            skillXPPerLevel[58] = 6400000
-            skillXPPerLevel[59] = 6700000
-            skillXPPerLevel[60] = 7000000
-        }
+        var skillXPPerLevel = hashMapOf(0 to 0, 1 to 50, 2 to 125, 3 to 200, 4 to 300, 5 to 500, 6 to 750, 7 to 1000, 8 to 1500, 9 to 2000, 10 to 3500, 11 to 5000, 12 to 7500,
+            13 to 10000, 14 to 15000, 15 to 20000, 16 to 30000, 17 to 50000, 18 to 75000, 19 to 100000, 20 to 200000, 21 to 300000, 22 to 400000, 23 to 500000, 24 to 600000,
+            25 to 700000, 26 to 800000, 27 to 900000, 28 to 1000000, 29 to 1100000, 30 to 1200000, 31 to 1300000, 32 to 1400000, 33 to 1500000, 34 to 1600000, 35 to 1700000,
+            36 to 1800000, 37 to 1900000, 38 to 2000000, 39 to 2100000, 40 to 2200000, 41 to 2300000, 42 to 2400000, 43 to 2500000, 44 to 2600000, 45 to 2750000, 46 to 2900000,
+            47 to 3100000, 48 to 3400000, 49 to 3700000, 50 to 4000000, 51 to 4300000, 52 to 4600000, 53 to 4900000, 54 to 5200000, 55 to 5500000, 56 to 5800000, 57 to 6100000,
+            58 to 6400000, 59 to 6700000, 60 to 7000000
+        )
     }
     class SpamArrays {
         companion object {

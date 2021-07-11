@@ -19,19 +19,15 @@
 package thecudster.sre.features.impl.skills.bestiary
 
 import net.minecraft.client.Minecraft
-import thecudster.sre.core.gui.GuiElement
-import thecudster.sre.core.gui.FloatPair
-import net.minecraft.client.entity.EntityPlayerSP
-import thecudster.sre.features.impl.skills.bestiary.BestiaryGUI
 import net.minecraft.client.gui.ScaledResolution
-import thecudster.sre.features.impl.skills.bestiary.BestiaryProgress
-import thecudster.sre.core.gui.SmartFontRenderer.TextAlignment
-import thecudster.sre.core.gui.SmartFontRenderer
-import thecudster.sre.core.gui.ScreenRenderer
-import thecudster.sre.core.gui.colours.CommonColors
 import net.minecraft.util.EnumChatFormatting
 import thecudster.sre.SkyblockReinvented
-import thecudster.sre.features.impl.skills.bestiary.BestiaryGUI.BestiaryInfo
+import thecudster.sre.core.gui.structure.FloatPair
+import thecudster.sre.core.gui.structure.GuiElement
+import thecudster.sre.core.gui.structure.ScreenRenderer
+import thecudster.sre.core.gui.structure.SmartFontRenderer
+import thecudster.sre.core.gui.structure.SmartFontRenderer.TextAlignment
+import thecudster.sre.core.gui.structure.colours.CommonColors
 import thecudster.sre.util.Utils
 
 class BestiaryGUI {

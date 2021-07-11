@@ -18,28 +18,24 @@
  */
 package thecudster.sre.features.impl.skills.slayer
 
-import thecudster.sre.util.Utils.playLoudSound
-import thecudster.sre.util.Utils.getUnformattedChat
-import thecudster.sre.util.Utils.sendMsg
-import thecudster.sre.util.sbutil.ScoreboardUtil.sidebarLines
-import thecudster.sre.util.sbutil.ScoreboardUtil.cleanSB
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraft.client.gui.GuiChat
 import net.minecraft.client.Minecraft
-import net.minecraftforge.client.event.ClientChatReceivedEvent
-import net.minecraft.util.IChatComponent
-import net.minecraft.util.ChatComponentText
-import net.minecraft.util.EnumChatFormatting
-import net.minecraft.util.ChatStyle
+import net.minecraft.client.gui.GuiChat
 import net.minecraft.event.ClickEvent
+import net.minecraft.util.ChatComponentText
+import net.minecraft.util.ChatStyle
+import net.minecraft.util.EnumChatFormatting
+import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.GuiScreenEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.lwjgl.input.Mouse
 import thecudster.sre.SkyblockReinvented
-import thecudster.sre.util.sbutil.ScoreboardUtil
-import thecudster.sre.features.impl.skills.slayer.SlayerReminder
-import java.lang.InterruptedException
-import thecudster.sre.core.gui.GuiManager
+import thecudster.sre.core.gui.structure.GuiManager
 import thecudster.sre.util.Utils
+import thecudster.sre.util.Utils.getUnformattedChat
+import thecudster.sre.util.Utils.playLoudSound
+import thecudster.sre.util.Utils.sendMsg
+import thecudster.sre.util.sbutil.ScoreboardUtil.cleanSB
+import thecudster.sre.util.sbutil.ScoreboardUtil.sidebarLines
 import java.util.*
 
 class SlayerReminder {

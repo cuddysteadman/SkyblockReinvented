@@ -18,22 +18,15 @@
  */
 package thecudster.sre.features.impl.rendering
 
-import thecudster.sre.util.sbutil.ItemUtil.getSkyBlockItemID
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.client.event.RenderLivingEvent
-import net.minecraft.client.entity.EntityOtherPlayerMP
-import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.Minecraft
-import net.minecraft.util.Vec3
-import thecudster.sre.util.sbutil.ItemUtil
-import net.minecraft.entity.monster.EntityZombie
-import net.minecraft.entity.monster.EntitySilverfish
-import net.minecraft.entity.monster.EntitySkeleton
-import net.minecraft.entity.monster.EntityEnderman
-import net.minecraft.entity.monster.EntitySpider
+import net.minecraft.client.entity.EntityOtherPlayerMP
+import net.minecraft.entity.monster.*
+import net.minecraftforge.client.event.RenderLivingEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import thecudster.sre.SkyblockReinvented
-import thecudster.sre.core.gui.RenderUtils
+import thecudster.sre.util.RenderUtils
 import thecudster.sre.util.Utils
+import thecudster.sre.util.sbutil.ItemUtil.getSkyBlockItemID
 import java.awt.Color
 
 class HyperionOverlay {

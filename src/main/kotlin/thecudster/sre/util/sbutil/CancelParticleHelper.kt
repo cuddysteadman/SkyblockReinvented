@@ -18,11 +18,11 @@
  */
 package thecudster.sre.util.sbutil
 
-import net.minecraft.world.IWorldAccess
-import net.minecraft.util.BlockPos
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.util.BlockPos
+import net.minecraft.world.IWorldAccess
 
 class CancelParticleHelper : IWorldAccess {
     override fun markBlockForUpdate(pos: BlockPos) {
