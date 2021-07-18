@@ -27,6 +27,8 @@ class MainGUI : GuiScreen() {
     private var closeGUI: SimpleButton? = null
     private var filter: SimpleButton? = null
     private var playerFilter: SimpleButton? = null
+    private var craftingHUDConfig: SimpleButton? = null
+
     private var hasOpenedDiscord = false
     private var hasOpenedGithub = false
     override fun doesGuiPauseGame(): Boolean {
@@ -43,9 +45,11 @@ class MainGUI : GuiScreen() {
         playerFilter = SimpleButton(0, width / 2 - 100, (height * 0.4).toInt(), "Edit Player Whitelist")
         locationEditButton = SimpleButton(2, width / 2 - 100, (height * 0.45).toInt(), "Edit Locations")
         vigilanceEditButton = SimpleButton(3, width / 2 - 100, (height * 0.5).toInt(), "Edit Vigilance")
-        githubButton = SimpleButton(4, width / 2 + 5, (height * 0.55).toInt(), 95, 20, "GitHub")
-        discordButton = SimpleButton(5, width / 2 - 100, (height * 0.55).toInt(), 95, 20, "Discord")
-        closeGUI = SimpleButton(1, width / 2 - 100, (height * 0.6).toInt(), "Close")
+        craftingHUDConfig = SimpleButton(69, width / 2 - 100, (height * 0.55).toInt(), "Edit Forge Crafting")
+
+        githubButton = SimpleButton(4, width / 2 + 5, (height * 0.6).toInt(), 95, 20, "GitHub")
+        discordButton = SimpleButton(5, width / 2 - 100, (height * 0.6).toInt(), 95, 20, "Discord")
+        closeGUI = SimpleButton(1, width / 2 - 100, (height * 0.7).toInt(), "Close")
     }
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
@@ -88,7 +92,7 @@ class MainGUI : GuiScreen() {
         ScreenRenderer.fontRenderer.drawString(
             "by theCudster",
             (width / 2).toFloat(),
-            ((height * 0.67).toInt()).toFloat(),
+            ((height * 0.77).toInt()).toFloat(),
             CommonColors.LIGHT_GRAY,
             SmartFontRenderer.TextAlignment.MIDDLE,
             SmartFontRenderer.TextShadow.NORMAL
@@ -103,6 +107,7 @@ class MainGUI : GuiScreen() {
         buttonList.add(discordButton)
         buttonList.add(filter)
         buttonList.add(playerFilter)
+        buttonList.add(craftingHUDConfig)
     }
 
     public override fun actionPerformed(button: GuiButton) {
@@ -139,6 +144,8 @@ class MainGUI : GuiScreen() {
             SkyblockReinvented.currentGui = FilterGUI()
         } else if (button === playerFilter) {
             SkyblockReinvented.currentGui = RenderPlayersGUI()
+        } else if (button === craftingHUDConfig) {
+            SkyblockReinvented.currentGui = CraftingHUDConfig()
         }
     }
 

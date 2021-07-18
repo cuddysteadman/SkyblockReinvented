@@ -24,10 +24,12 @@ import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.network.NetworkPlayerInfo
+import net.minecraft.enchantment.Enchantment
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.event.ClickEvent
 import net.minecraft.init.Blocks
 import net.minecraft.inventory.Slot
+import net.minecraft.item.ItemStack
 import net.minecraft.network.play.server.S02PacketChat
 import net.minecraft.util.*
 import net.minecraft.world.WorldSettings
@@ -79,6 +81,22 @@ object Utils {
             }
         }
     }
+    fun getItem(item: net.minecraft.item.Item, enchanted: Boolean): ItemStack {
+            if (enchanted) {
+                var temp = ItemStack(item)
+                temp.addEnchantment(Enchantment.aquaAffinity, 1)
+                return temp
+            }
+            else return ItemStack(item)
+    }
+    fun getItem(item: Block, enchanted: Boolean): ItemStack {
+        if (enchanted) {
+            var temp = ItemStack(item)
+            temp.addEnchantment(Enchantment.aquaAffinity, 1)
+            return temp
+        }
+        else return ItemStack(item)
+    }
 
     /**
      * Modified from Danker's Skyblock Mod under GPL 3.0 license
@@ -88,18 +106,14 @@ object Utils {
     @JvmStatic
     fun checkForSkyblock() {
         if (isOnHypixel) {
-            val scoreboardObj = mc!!.theWorld.scoreboard.getObjectiveInDisplaySlot(1)
+            val scoreboardObj = mc.theWorld.scoreboard.getObjectiveInDisplaySlot(1)
             if (scoreboardObj != null) {
-                val scObjName = scoreboardObj.displayName
+                val scObjName = ScoreboardUtil.cleanSB(scoreboardObj.displayName)
                 if (scObjName.contains("SKYBLOCK")) {
-                    MinecraftForge.EVENT_BUS.post(JoinSkyblockEvent())
                     inSkyblock = true
                     return
                 }
             }
-        }
-        if (inSkyblock) {
-            MinecraftForge.EVENT_BUS.post(LeaveSkyblockEvent())
         }
         inSkyblock = false
     }

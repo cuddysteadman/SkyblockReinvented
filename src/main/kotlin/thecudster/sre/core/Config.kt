@@ -913,12 +913,12 @@ class Config : Vigilant(File("./config/sre/config.toml"), "SRE Config") {
 	@Property(
         type = PropertyType.SWITCH,
         name = "Remove Item Frame Names",
-        description = "Removes all item frame names.\n§cThis feature can conflict with some resource packs.",
+        description = "Removes all item frame names while on your island.",
         category = "Your Island",
         subcategory = "Misc"
     )
     @JvmField
-    var itemFrameNames = false
+    var itemFrameNames = false // TODO changelog no longer conflict
 
     // Your Island -> General
     @Property(
@@ -1202,6 +1202,16 @@ class Config : Vigilant(File("./config/sre/config.toml"), "SRE Config") {
         subcategory = "Rendering"
     )
     var dangerGhosts = false
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Stop Rendering XP In Dwarven Mines",
+        description = "Prevents the rendering of all XP while in the Dwarven Mines.",
+        category = "Dwarven Mines",
+        subcategory = "Rendering"
+    )
+    @JvmField
+    var stopRenderXP = false // TODO changelog
 
     // Dwarven Mines -> Alerts
     @Property(

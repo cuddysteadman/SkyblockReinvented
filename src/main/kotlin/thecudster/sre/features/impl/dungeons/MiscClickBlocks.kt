@@ -121,12 +121,12 @@ class MiscClickBlocks {
             return
         }
         if (MiscGUIs.woodenChest || !MiscGUIs.foundBadItem) {
-            for (i in event.toolTip.indices) {
-                if (event.toolTip[i].contains("your bank") || event.toolTip[i].contains("Purchase this chest to receive") ||
-                    event.toolTip[i].contains("the rewards above") || event.toolTip[i].contains("open one chest") ||
-                    event.toolTip[i].contains("choose wisely") || event.toolTip.contains("per Dungeons run")
+            for (i in event.toolTip.iterator()) {
+                if (i.contains("your bank") || i.contains("Purchase this chest to receive") ||
+                    i.contains("the rewards above") || i.contains("open one chest") ||
+                    i.contains("choose wisely") || i.contains("per Dungeons run")
                 ) {
-                    event.toolTip.removeAt(i)
+                    event.toolTip.remove(i)
                 }
             }
             event.toolTip.removeAt(0)

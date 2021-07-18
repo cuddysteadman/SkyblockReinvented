@@ -12,7 +12,7 @@ import thecudster.sre.util.sbutil.CurrentLoc;
 
 @Mixin(RenderItemFrame.class)
 public abstract class MixinRenderItemFrame {
-    @Inject(method = "renderName", at = @At("HEAD"))
+    @Inject(method = "renderName", at = @At("HEAD"), cancellable = true)
     private void onRenderName(EntityItemFrame entity, double x, double y, double z, CallbackInfo ci) {
         if (!Utils.inSkyblock) {
             return;

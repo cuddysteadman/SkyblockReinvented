@@ -242,18 +242,17 @@ class FilterGUI : GuiScreen {
     private val buttons = ArrayList<SimpleButton>()
     public override fun actionPerformed(button: GuiButton) {
         if (button.id > 5 && button is SimpleButton) {
-            val simpleButton = button
-            if (simpleButton.filterName != null) {
+            if (button.filterName != null) {
                 if (customFilters.containsKey(button.filterName)) {
                     customFilters.remove(button.filterName)
                     buttons.remove(button)
                     buttonList.remove(button)
-                    writeRemoveConfig(simpleButton.filterName as String)
+                    writeRemoveConfig(button.filterName as String)
                 } else if (customConcatFilters.containsKey(button.filterName)) {
                     customConcatFilters.remove(button.filterName)
                     buttons.remove(button)
                     buttonList.remove(button)
-                    writeRemoveConfig(simpleButton.filterName as String)
+                    writeRemoveConfig(button.filterName as String)
                 }
             }
         }

@@ -33,6 +33,11 @@ import java.util.concurrent.TimeUnit
 class SkillXPTracker {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun onChat(event: ClientChatReceivedEvent) {
+        /**
+         * Taken from Danker's Skyblock Mod under GPL 3.0 license
+         * https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE
+         * @author bowser0000
+         */
         val message = event.message.unformattedText.stripControlCodes()
         if (Utils.inSkyblock && !message.contains(":") && message.contains("  SKILL LEVEL UP ")) {
             // Handle skill level ups
@@ -49,6 +54,7 @@ class SkillXPTracker {
                 else -> System.err.println("Unknown skill leveled up.")
             }
         }
+        // original
         if (!Utils.inSkyblock || event.type.toInt() != 2) return
         var unformatted = StringUtils.stripControlCodes(event.message.unformattedText)
         if (containsAllOf(unformatted, arrayOf("+", "(", "%)")) && containsAnyOf(
@@ -71,9 +77,11 @@ class SkillXPTracker {
             val prevSkill = currentSkill
             currentSkill = unformatted.substring(0, unformatted.indexOf(" "))
             if (prevSkill != currentSkill) {
-                timeCountedExclude.reset()
-                timeCountedInclude.reset()
-                currentXPGained = 0.0
+                timeCountedExclude = StopWatch()
+                timeCountedInclude = StopWatch()
+                if (!timeCountedExclude.isStarted) timeCountedExclude.start()
+                if (!timeCountedInclude.isStarted) timeCountedInclude.start()
+                currentXPGained = 0.001
             }
             unformatted = unformatted.substring(unformatted.indexOf(" (") + 2)
             val currentPercent = unformatted.substring(0, unformatted.indexOf("%)")).toDouble() / 100.0
@@ -106,23 +114,25 @@ class SkillXPTracker {
                     currentXP = ArrStorage.skillXPPerLevel[SkyblockReinvented.config.alchemyLvl]!! * currentPercent
                     currentLvl = SkyblockReinvented.config.alchemyLvl
                 }
-                else -> println("bruh moment! skill: " + currentSkill)
+                else -> println("bruh moment! skill: $currentSkill")
             }
         }
     }
 
-    var timeSinceRefresh = 0
-    var isFirst = true
+    private var timeSinceRefresh = 0
+    private var isFirst = true
     @SubscribeEvent
     fun onSecondPass(event: SecondPassedEvent?) {
         if (SkyblockReinvented.config.skillXPTracker) {
             if (ChronoUnit.SECONDS.between(
                     latestXPGain,
                     LocalDateTime.now()
-                ) > SkyblockReinvented.config.xpTrackerTimeout
+                ) > SkyblockReinvented.config.xpTrackerTimeout && timeCountedExclude.isStarted && timeCountedInclude.isStarted
             ) {
-                timeCountedExclude.reset()
-                timeCountedInclude.reset()
+                timeCountedExclude = StopWatch()
+                timeCountedInclude = StopWatch()
+                timeCountedExclude.start()
+                timeCountedInclude.start()
                 currentXPGained = 0.0
             } else {
                 timeSinceRefresh++
@@ -136,7 +146,7 @@ class SkillXPTracker {
         }
     }
 
-    fun refreshTime(arr: Array<String>) {
+    private fun refreshTime(arr: Array<String>) {
         val temp = arr.clone()
         temp[3] = timeCounted(
             "Time Counted: ", getTime(timeCountedExclude)[0], getTime(timeCountedExclude)[1], getTime(
@@ -213,10 +223,10 @@ class SkillXPTracker {
         var currentSkill = "Not detected yet!"
         var timeCountedExclude = StopWatch()
         var timeCountedInclude = StopWatch()
-        var xpPerHr = 0.0
+        private var xpPerHr = 0.0
         var currentXPGained = 0.0
         var xpPerBlock = 0.0
-        var latestXPGain = LocalDateTime.MIN
+        var latestXPGain: LocalDateTime = LocalDateTime.MIN
         var currentXP = 0.0
         var currentLvl = 0
         var displayText1 = arrayOf(
@@ -307,7 +317,7 @@ class SkillXPTracker {
             }
         }
 
-        fun convertToReadable(hours: Double): String {
+        private fun convertToReadable(hours: Double): String {
             var temp = hours
             var days = 0
             var hrs = 0
@@ -359,87 +369,96 @@ class SkillXPTracker {
             } else "Inactive"
         }
 
-        fun updateText(arr: Array<String>) {
+        private fun updateText(arr: Array<String>) {
             val temp = arr.clone()
             if (maxLvlOfSkill(currentSkill) == currentLvl) return
-            if (arr.size == 7) {
-                temp[0] = currentSkill + " - " + getActive(!timeCountedExclude.isSuspended)
-                temp[1] = "XP / hr: " + String.format("%,.1f", xpPerHr)
-                temp[2] = "XP Gained: " + String.format("%,.1f", currentXPGained)
-                if (ArrStorage.skillXPPerLevel.containsKey(currentLvl + 1)) {
-                    val xpToNextLvl = ArrStorage.skillXPPerLevel[currentLvl + 1]!! - currentXP
-                    temp[5] = "Time Needed: " + convertToReadable(xpToNextLvl / xpPerHr)
-                    temp[6] = "Actions Needed: " + String.format("%,.0f", xpToNextLvl / xpPerBlock)
-                } else {
-                    temp[5] = "MAXED OUT!"
-                    temp[6] = "MAXED OUT!"
+            when (arr.size) {
+                7 -> {
+                    temp[0] = currentSkill + " - " + getActive(!timeCountedExclude.isSuspended)
+                    temp[1] = "XP / hr: " + String.format("%,.1f", xpPerHr)
+                    temp[2] = "XP Gained: " + String.format("%,.1f", currentXPGained)
+                    if (ArrStorage.skillXPPerLevel.containsKey(currentLvl + 1)) {
+                        val xpToNextLvl = ArrStorage.skillXPPerLevel[currentLvl + 1]!! - currentXP
+                        temp[5] = "Time Needed: " + convertToReadable(xpToNextLvl / xpPerHr)
+                        temp[6] = "Actions Needed: " + String.format("%,.0f", xpToNextLvl / xpPerBlock)
+                    } else {
+                        temp[5] = "MAXED OUT!"
+                        temp[6] = "MAXED OUT!"
+                    }
+                    displayText1 = temp
+                    addColours()
+                    return
                 }
-                displayText1 = temp
-                addColours()
-                return
-            } else if (arr.size == 10) {
-                temp[0] = currentSkill + " - " + getActive(!timeCountedExclude.isSuspended)
-                temp[1] = "XP / hr: " + String.format("%,.1f", xpPerHr)
-                temp[2] = "XP Gained: " + String.format("%,.1f", currentXPGained)
-                if (ArrStorage.skillXPPerLevel.containsKey(currentLvl + 1)) {
-                    val xpToNextLvl = ArrStorage.skillXPPerLevel[currentLvl + 1]!! - currentXP
-                    temp[5] = "Time Needed: " + convertToReadable(xpToNextLvl / xpPerHr)
-                    temp[6] = "Actions Needed: " + String.format("%,.0f", xpToNextLvl / xpPerBlock)
-                } else {
-                    temp[5] = "MAXED OUT!"
-                    temp[6] = "MAXED OUT!"
+                10 -> {
+                    temp[0] = currentSkill + " - " + getActive(!timeCountedExclude.isSuspended)
+                    temp[1] = "XP / hr: " + String.format("%,.1f", xpPerHr)
+                    temp[2] = "XP Gained: " + String.format("%,.1f", currentXPGained)
+                    if (ArrStorage.skillXPPerLevel.containsKey(currentLvl + 1)) {
+                        val xpToNextLvl = ArrStorage.skillXPPerLevel[currentLvl + 1]!! - currentXP
+                        temp[5] = "Time Needed: " + convertToReadable(xpToNextLvl / xpPerHr)
+                        temp[6] = "Actions Needed: " + String.format("%,.0f", xpToNextLvl / xpPerBlock)
+                    } else {
+                        temp[5] = "MAXED OUT!"
+                        temp[6] = "MAXED OUT!"
+                    }
+                    temp[7] = "Time Until Lvl 60:"
+                    temp[8] = "Time Needed: " + convertToReadable(
+                        getTotalXPToLvl(
+                            currentLvl,
+                            maxLvlOfSkill(currentSkill)
+                        ) / xpPerHr
+                    )
+                    temp[9] = "Actions Needed: " + String.format(
+                        "%,.0f", (getTotalXPToLvl(
+                            currentLvl, maxLvlOfSkill(
+                                currentSkill
+                            )
+                        ) - currentXP) / xpPerBlock
+                    )
+                    displayText2 = temp
+                    addColours()
+                    return
                 }
-                temp[7] = "Time Until Lvl 60:"
-                temp[8] = "Time Needed: " + convertToReadable(
-                    getTotalXPToLvl(
-                        currentLvl,
-                        maxLvlOfSkill(currentSkill)
-                    ) / xpPerHr
-                )
-                temp[9] = "Actions Needed: " + String.format(
-                    "%,.0f", (getTotalXPToLvl(
-                        currentLvl, maxLvlOfSkill(
-                            currentSkill
-                        )
-                    ) - currentXP) / xpPerBlock
-                )
-                displayText2 = temp
-                addColours()
-                return
-            } else {
-                sendMsg(EnumChatFormatting.RED.toString() + "SkyblockReinvented caught and logged an exception at SkillXPTracker. Please report this!")
-                println("Array of Strings:")
-                for (s in arr) {
-                    println(s)
+                else -> {
+                    sendMsg(EnumChatFormatting.RED.toString() + "SkyblockReinvented caught and logged an exception at SkillXPTracker. Please report this!")
+                    println("Array of Strings:")
+                    for (s in arr) {
+                        println(s)
+                    }
+                    print("Config: " + SkyblockReinvented.config.skillXPTracker)
+                    return
                 }
-                print("Config: " + SkyblockReinvented.config.skillXPTracker)
-                return
             }
         }
 
         fun timeCounted(prefix: String, days: Double, hrs: Double, mins: Double, secs: Double): String {
-            return if (days >= 1) {
-                prefix + days.toInt() + "d" + hrs.toInt() + "hr"
-            } else if (hrs > 0) {
-                prefix + hrs.toInt() + "hr" + mins.toInt() + "m"
-            } else if (mins > 0) {
-                prefix + mins.toInt() + "m" + secs.toInt() + "s"
-            } else {
-                prefix + "0m" + secs.toInt() + "s"
+            return when {
+                days >= 1 -> {
+                    prefix + days.toInt() + "d" + hrs.toInt() + "hr"
+                }
+                hrs > 0 -> {
+                    prefix + hrs.toInt() + "hr" + mins.toInt() + "m"
+                }
+                mins > 0 -> {
+                    prefix + mins.toInt() + "m" + secs.toInt() + "s"
+                }
+                else -> {
+                    prefix + "0m" + secs.toInt() + "s"
+                }
             }
         }
 
-        fun getTotalXPToLvl(currentLvl: Int, maxLvl: Int): Double {
+        private fun getTotalXPToLvl(currentLvl: Int, maxLvl: Int): Double {
             var sum = ArrStorage.skillXPPerLevel[currentLvl]!! - currentXP
             for ((key, value) in ArrStorage.skillXPPerLevel) {
-                if (key > currentLvl && key <= maxLvl) {
+                if (key in (currentLvl + 1)..maxLvl) {
                     sum += value
                 }
             }
             return sum
         }
 
-        fun maxLvlOfSkill(skill: String?): Int {
+        private fun maxLvlOfSkill(skill: String?): Int {
             return when (skill) {
                 "Alchemy", "Fishing", "Foraging" -> 50
                 "Enchanting", "Combat", "Mining", "Farming" -> 60

@@ -47,10 +47,7 @@ import org.json.JSONException
 import org.lwjgl.input.Keyboard
 import thecudster.sre.core.Config
 import thecudster.sre.core.Keybindings
-import thecudster.sre.core.gui.screens.FilterGUI
-import thecudster.sre.core.gui.screens.LocationEditGUI
-import thecudster.sre.core.gui.screens.MainGUI
-import thecudster.sre.core.gui.screens.RenderPlayersGUI
+import thecudster.sre.core.gui.screens.*
 import thecudster.sre.core.gui.structure.GuiManager
 import thecudster.sre.core.gui.structure.ScreenRenderer
 import thecudster.sre.events.JoinSkyblockEvent
@@ -304,6 +301,10 @@ class SkyblockReinvented {
                             currentGui = RenderPlayersGUI()
                             return
                         }
+                        "crafting" -> {
+                            currentGui = CraftingHUDConfig()
+                            return
+                        }
                         else -> Utils.sendMsg(EnumChatFormatting.RED.toString() + "Unknown argument! Acceptable parameters are config, help, main, filter, playerfilter, editlocations, vigilance, github, discord, and gui.")
                     }
                 } else {
@@ -355,7 +356,7 @@ class SkyblockReinvented {
                     Utils.sendMsg(EnumChatFormatting.RED.toString() + "You do not have the custom discord rich presence setting on, so this command will do nothing.")
                     return
                 }
-                if (args.size > 0) {
+                if (args.isNotEmpty()) {
                     if (args[0] != "current") {
                         var toReturn = ""
                         toReturn += args[0]

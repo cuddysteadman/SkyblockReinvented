@@ -18,6 +18,7 @@
  */
 package thecudster.sre.util.sbutil
 
+import thecudster.sre.util.Utils
 import thecudster.sre.util.sbutil.ScoreboardUtil.cleanSB
 import thecudster.sre.util.sbutil.ScoreboardUtil.sidebarLines
 

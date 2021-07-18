@@ -33,7 +33,7 @@ import java.util.stream.Collectors
 object ScoreboardUtil {
     @JvmStatic
     fun cleanSB(scoreboard: String): String {
-        return scoreboard.stripControlCodes().toCharArray().filter { it.toByte().toInt() in 21..126 }.joinToString(separator = "")
+        return scoreboard.stripControlCodes().toCharArray().filter { it.code in 21..126 }.joinToString(separator = "")
     }
 
     @JvmStatic
