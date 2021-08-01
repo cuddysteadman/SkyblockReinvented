@@ -1097,6 +1097,16 @@ class Config : Vigilant(File("./config/sre/config.toml"), "SRE Config") {
     )
     var creeperSounds = false
 
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Remove Royal Pigeon Sounds",
+        description = "Removes Royal Pigeon activation sounds.",
+        category = "Items",
+        subcategory = "Sounds",
+        hidden = true
+    )
+    var royalPigeon = false
+
     // Hub -> General
     @Property(
         type = PropertyType.SWITCH,

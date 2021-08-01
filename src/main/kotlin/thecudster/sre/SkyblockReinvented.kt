@@ -42,7 +42,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent
 import org.json.JSONException
 import org.lwjgl.input.Keyboard
 import thecudster.sre.core.Config
@@ -149,6 +148,7 @@ class SkyblockReinvented {
         MinecraftForge.EVENT_BUS.register(SlayerFeatures())
         MinecraftForge.EVENT_BUS.register(FetchurSolver())
         MinecraftForge.EVENT_BUS.register(filter)
+
         if (Minecraft.getMinecraft().gameSettings.language != null) {
             ScreenRenderer.fontRenderer.unicodeFlag = Minecraft.getMinecraft().isUnicode
             ScreenRenderer.fontRenderer.bidiFlag =

@@ -121,20 +121,16 @@ class MiscClickBlocks {
             return
         }
         if (MiscGUIs.woodenChest || !MiscGUIs.foundBadItem) {
+            val toRemove = ArrayList<String>()
             for (i in event.toolTip.iterator()) {
                 if (i.contains("your bank") || i.contains("Purchase this chest to receive") ||
                     i.contains("the rewards above") || i.contains("open one chest") ||
-                    i.contains("choose wisely") || i.contains("per Dungeons run")
+                    i.contains("choose wisely") || i.contains("per Dungeons run") || i.contains("NOTE: Coins are withdrawn from")
                 ) {
-                    event.toolTip.remove(i)
+                    toRemove.add(i)
                 }
             }
-            event.toolTip.removeAt(0)
-            event.toolTip.removeAt(0)
-            event.toolTip.removeAt(0)
-            event.toolTip.removeAt(0)
-            event.toolTip.removeAt(3)
-            event.toolTip.removeAt(2)
+            event.toolTip.removeAll(toRemove)
             return
         }
         if (event.itemStack != null) {

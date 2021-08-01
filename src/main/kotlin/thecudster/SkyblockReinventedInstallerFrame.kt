@@ -110,7 +110,7 @@ class SkyblockReinventedInstallerFrame() : JFrame(), ActionListener, MouseListen
                 versionInfo!!.font = Font(Font.DIALOG, Font.BOLD, 14)
                 versionInfo!!.horizontalAlignment = SwingConstants.CENTER
                 versionInfo!!.preferredSize = Dimension(w, h)
-                versionInfo!!.text = "v$versionFromMcmodInfo by the SRE Team - for Minecraft 1.8.9"
+                versionInfo!!.text = "v" + getVersionFromMcmodInfo() + "by the SRE Team - for Minecraft 1.8.9"
                 frameY += h
             } catch (ivjExc: Throwable) {
                 showErrorPopup(ivjExc)
@@ -362,7 +362,7 @@ class SkyblockReinventedInstallerFrame() : JFrame(), ActionListener, MouseListen
         val thisFile = thisFile
         if (thisFile != null) {
             val inSubFolder = IN_MODS_SUBFOLDER.matcher(modsFolder.path).find()
-            val newFile = File(modsFolder, "sre-$versionFromMcmodInfo.jar")
+            val newFile = File(modsFolder, "sre-" + getVersionFromMcmodInfo() + ".jar")
             if (thisFile == newFile) {
                 showErrorMessage("You are opening this file from where the file should be installed... there's nothing to be done!")
                 return
@@ -523,30 +523,26 @@ class SkyblockReinventedInstallerFrame() : JFrame(), ActionListener, MouseListen
     }
 
     // It's okay, I guess just don't use the version lol.
-    private val versionFromMcmodInfo: String
-        get() {
-            var version = ""
-            try {
-                val bufferedReader = BufferedReader(
-                    InputStreamReader(
-                        Objects.requireNonNull(
-                            javaClass.classLoader.getResourceAsStream("mcmod.info"),
-                            "mcmod.info not found."
-                        )
-                    )
+    private fun getVersionFromMcmodInfo(): String {
+        var version = ""
+        try {
+            val bufferedReader = InputStreamReader(
+                Objects.requireNonNull(
+                    javaClass.classLoader.getResourceAsStream("mcmod.info"), "mcmod.info not found."
                 )
-                while ((bufferedReader.readLine().also { version = it }) != null) {
-                    if (version.contains("\"version\": \"")) {
-                        version = version.split(Pattern.quote("\"version\": \"")).toTypedArray()[1]
-                        version = version.substring(0, version.length - 2)
-                        break
-                    }
+            ).buffered()
+            while ((bufferedReader.readLine().also { version = it }) != null) {
+                if (version.contains("\"version\": \"")) {
+                    version = version.split("\"version\": \"")[1]
+                    version = version.substring(0, version.length - 2)
+                    break
                 }
-            } catch (ex: Exception) {
-                // It's okay, I guess just don't use the version lol.
             }
-            return version
+        } catch (ex: Exception) {
+            // It's okay, I guess just don't use the version lol.
         }
+        return version
+    }
 
     private fun getModIDFromInputStream(inputStream: InputStream): String {
         var version = ""
@@ -554,7 +550,7 @@ class SkyblockReinventedInstallerFrame() : JFrame(), ActionListener, MouseListen
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
             while ((bufferedReader.readLine().also { version = it }) != null) {
                 if (version.contains("\"modid\": \"")) {
-                    version = version.split("\"modid\": \"").toTypedArray()[1]
+                    version = version.split("\"modid\": \"")[1]
                     version = version.substring(0, version.length - 2)
                     break
                 }

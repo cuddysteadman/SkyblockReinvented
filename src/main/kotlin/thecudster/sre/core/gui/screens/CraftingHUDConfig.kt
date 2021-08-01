@@ -1,5 +1,7 @@
 package thecudster.sre.core.gui.screens
 
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiCommandBlock
@@ -19,16 +21,20 @@ import thecudster.sre.core.gui.structure.SimpleButton
 import thecudster.sre.core.gui.structure.SmartFontRenderer
 import thecudster.sre.core.gui.structure.colours.CommonColors
 import thecudster.sre.core.gui.structure.colours.CustomColor
+import thecudster.sre.features.impl.filter.CustomPlayersFilter
 import thecudster.sre.util.RenderUtils
 import thecudster.sre.util.Utils
 import thecudster.sre.util.Utils.getItem
 import thecudster.sre.util.sbutil.ItemRarity
 import thecudster.sre.util.sbutil.stripControlCodes
+import java.io.File
+import java.io.FileReader
+import java.io.FileWriter
 import java.io.IOException
 import java.lang.Math.abs
 import net.minecraft.init.Items as MinecraftItem
 
-class CraftingHUDConfig : GuiScreen() {
+class CraftingHUDConfig() : GuiScreen() {
     override fun doesGuiPauseGame(): Boolean {
         return false
     }
@@ -275,8 +281,54 @@ class CraftingHUDConfig : GuiScreen() {
         }
     }
 
+    override fun onGuiClosed() {
+        if (!File(SkyblockReinvented.modDir, "forgeGUI.json").exists()) File(SkyblockReinvented.modDir, "ForgeGUI.json").createNewFile()
+        writeConfig()
+    }
+
+    private var openGUI = hashMapOf<String, GuiButton>()
+
+    fun readConfig() {
+        if (!File(SkyblockReinvented.modDir, "forgeGUI.json").exists()) File(SkyblockReinvented.modDir, "ForgeGUI.json").createNewFile()
+        var file: JsonObject
+        try {
+            FileReader(File(SkyblockReinvented.modDir, "forgeGUI.json")).use { `in` ->
+                file = gson.fromJson(`in`, JsonObject::class.java)
+                for (i in file.entrySet().indices) {
+                    if (file["customPlayersFilter$i"] != null) {
+
+                    }
+                }
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+    }
+    private val gson = GsonBuilder().setPrettyPrinting().create()
+    fun writeConfig() {
+        if (!File(SkyblockReinvented.modDir, "forgeGUI.json").exists()) File(SkyblockReinvented.modDir, "ForgeGUI.json").createNewFile()
+        for (i in 0..buttonList.size) {
+            openGUI.put(i.toString(), buttonList.get(i))
+        }
+        try {
+            FileWriter(File(SkyblockReinvented.modDir, "forgeGUI.json")).use { writer ->
+                gson.toJson(
+                    openGUI,
+                    writer
+                )
+            }
+        } catch (ex: Exception) {
+        }
+        readConfig()
+    }
+
     companion object {
         val drillItem = getItem(MinecraftItem.prismarine_shard, true)
+    }
+
+    init {
+        if (!File(SkyblockReinvented.modDir, "forgeGUI.json").exists()) File(SkyblockReinvented.modDir, "ForgeGUI.json").createNewFile()
+        readConfig()
     }
 }
 enum class Item(

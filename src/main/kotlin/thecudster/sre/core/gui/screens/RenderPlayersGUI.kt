@@ -29,6 +29,7 @@ class RenderPlayersGUI : GuiScreen {
     private var close: SimpleButton? = null
     private val customPlayerFiltersJson = File(SkyblockReinvented.modDir, "customPlayersFilter.json")
     private var input: GuiTextField? = null
+    private var addFriends: SimpleButton? = null
     override fun doesGuiPauseGame(): Boolean {
         return false
     }
@@ -47,6 +48,7 @@ class RenderPlayersGUI : GuiScreen {
         add = SimpleButton(2, width / 2 - 100, (height * 0.3).toInt(), "Add Whitelisted Player")
         close = SimpleButton(1, width / 2 - 100, (height * 0.4).toInt(), "Close")
         input = GuiTextField(0, fontRendererObj, width / 2 - 98, (height * 0.35).toInt(), 196, 20)
+        addFriends = SimpleButton(3, width / 2 - 100,(height * 0.45).toInt(), "Add Friends")
         input!!.visible = true
         input!!.setEnabled(true)
         customPlayersFilter.clear()
@@ -216,9 +218,9 @@ class RenderPlayersGUI : GuiScreen {
         try {
             FileReader(File(SkyblockReinvented.modDir, "customPlayersFilter.json")).use { `in` ->
                 file = gson.fromJson(`in`, JsonObject::class.java)
-                for (i in file.entrySet().indices) {
+                for (i in 0..file.entrySet().size) {
                     if (file["customPlayersFilter$i"] != null) {
-                        val name = file["customPlayersFilter$i"].asJsonObject["name"].asString
+                        val name = file["customPlayersFilter$i"].asJsonObject["playerName"].asString
                         SkyblockReinvented.config.listToRender.add(CustomPlayersFilter(name))
                         customPlayersFilter["customPlayersFilter$i"] = CustomPlayersFilter(name)
                     }
@@ -245,7 +247,7 @@ class RenderPlayersGUI : GuiScreen {
     fun writeRemoveConfig(id: String) {
         if (customPlayersFilter.containsKey(id)) {
             SkyblockReinvented.config.listToRender.remove(customPlayersFilter[id])
-            customPlayersFilter.remove(customPlayersFilter[id] as String)
+            customPlayersFilter.remove(customPlayersFilter[id].toString())
         }
         try {
             FileWriter(File(SkyblockReinvented.modDir, "customPlayersFilter.json")).use { writer ->

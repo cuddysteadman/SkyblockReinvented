@@ -76,8 +76,10 @@ class PlayerHider {
 
     fun setNoArmor(player: EntityOtherPlayerMP) {
         if (SkyblockReinvented.config.renderPlayerArmor == 1) {
-            if (player.getCurrentArmor(1).item is ItemSkull) {
-                player.setCurrentItemOrArmor(1, null)
+            if (player.getCurrentArmor(1) != null && player.getCurrentArmor(1).item != null) {
+                if (player.getCurrentArmor(1).item is ItemSkull) {
+                    player.setCurrentItemOrArmor(1, null)
+                }
             }
             return
         }

@@ -36,8 +36,9 @@ class PowerOrbFeatures {
         if (SkyblockReinvented.config.renderPowerOrb || SkyblockReinvented.config.powerOrbTimeout) {
             if (event.entity is EntityArmorStand) {
                 val entity = event.entity as EntityArmorStand
-                val name = entity.customNameTag.stripControlCodes()
+                var name = entity.customNameTag
                 if (name != null) {
+                    name = name.stripControlCodes()
                     isOrb =
                         name.contains("Radiant") || name.contains("Mana Flux") || name.contains("Overflux") || name.contains(
                             "Plasmaflux"
