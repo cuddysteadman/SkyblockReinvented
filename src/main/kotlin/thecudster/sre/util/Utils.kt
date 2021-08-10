@@ -22,8 +22,10 @@ import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
 import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.GuiTextField
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.network.NetworkPlayerInfo
+import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.event.ClickEvent
@@ -36,6 +38,10 @@ import net.minecraft.world.WorldSettings
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper
+import thecudster.sre.core.gui.screens.SearchOptionButton
+import thecudster.sre.core.gui.structure.ScreenRenderer
+import thecudster.sre.core.gui.structure.SmartFontRenderer
+import thecudster.sre.core.gui.structure.colours.CommonColors
 import thecudster.sre.events.JoinSkyblockEvent
 import thecudster.sre.events.LeaveSkyblockEvent
 import thecudster.sre.events.PacketEvent.ReceiveEvent
@@ -46,6 +52,21 @@ import thecudster.sre.util.sbutil.stripControlCodes
 import java.util.*
 
 object Utils {
+    @JvmStatic
+    fun drawHoveringText(input: GuiTextField, text: String): Boolean {
+        if (input.isFocused) return false
+        input!!.text = ""
+        ScreenRenderer.fontRenderer.drawString(
+            text,
+            input!!.xPosition + 5f,
+            input!!.yPosition + 6f,
+            CommonColors.GRAY,
+                SmartFontRenderer.TextAlignment.LEFT_RIGHT,
+                SmartFontRenderer.TextShadow.NORMAL
+            )
+        return true
+        }
+
     private val mc = Minecraft.getMinecraft()
     @JvmField
     var inSkyblock = false

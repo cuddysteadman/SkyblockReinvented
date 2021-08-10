@@ -312,8 +312,8 @@ class FilterGUI : GuiScreen {
     fun readConfig() {
         var file: JsonObject
         try {
-            FileReader(File(SkyblockReinvented.modDir, "customFilters.json")).use { `in` ->
-                file = gson.fromJson(`in`, JsonObject::class.java)
+            FileReader(File(SkyblockReinvented.modDir, "customFilters.json")).use {
+                file = gson.fromJson(it, JsonObject::class.java)
                 for (i in file.entrySet().indices) {
                     if (file["customFilter$i"] != null) {
                         val obj = file["customFilter$i"].asJsonObject["messageArr"].asJsonArray
@@ -339,8 +339,8 @@ class FilterGUI : GuiScreen {
             ex.printStackTrace()
         }
         try {
-            FileReader(File(SkyblockReinvented.modDir, "customConcatFilters.json")).use { `in` ->
-                file = gson.fromJson(`in`, JsonObject::class.java)
+            FileReader(File(SkyblockReinvented.modDir, "customConcatFilters.json")).use {
+                file = gson.fromJson(it, JsonObject::class.java)
                 for (i in file.entrySet().indices) {
                     if (file["customFilter$i"] != null) {
                         val obj = file["customFilter$i"].asJsonObject["concatCheck"].asJsonArray

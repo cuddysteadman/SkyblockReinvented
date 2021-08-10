@@ -181,7 +181,8 @@ class FilterHandler {
 		  https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
 		  @author My-Name-Is-Jeff
 		 * @author Sychic
-		 */if (message.startsWith("Your new API key is ")) {
+		 */
+        if (message.startsWith("Your new API key is ")) {
             val apiKey = event.message.siblings[0].chatStyle.chatClickEvent.value
             SkyblockReinvented.config.apiKey = apiKey
             SkyblockReinvented.config.markDirty()

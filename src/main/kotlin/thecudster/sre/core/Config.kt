@@ -650,6 +650,14 @@ class Config : Vigilant(File("./config/sre/config.toml"), "SRE Config") {
         options = ["Main GUI", "Config"]
     )
     var openConfig = 0 // TODO meta settings -> advanced settings
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "SRE Button in Pause Menu",
+        description = "Shows a button that, when clicked, opens the main SRE menu when you're in the pause (ESC) menu.",
+        category = "General",
+        subcategory = "Advanced Settings"
+    )
+    var configPause = true
 
     // General -> Misc
     @Property(
@@ -930,6 +938,15 @@ class Config : Vigilant(File("./config/sre/config.toml"), "SRE Config") {
         options = ["Normal", "Shortened", "Hidden"]
     )
     var teleportPad = 0
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Remove Coopmember Names",
+        description = "Removes coop member names in collections. Configurable via /addcoopmember.",
+        category = "Your Island",
+        subcategory = "General"
+    )
+    var coopRemove = false
 
     @Property(
         type = PropertyType.SWITCH,

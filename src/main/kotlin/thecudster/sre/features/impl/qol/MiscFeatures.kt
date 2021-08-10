@@ -3,6 +3,8 @@ package thecudster.sre.features.impl.qol
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.GuiButton
+import net.minecraft.client.gui.GuiIngameMenu
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.item.EntityArmorStand
@@ -17,6 +19,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.lwjgl.input.Keyboard
 import thecudster.sre.SkyblockReinvented
+import thecudster.sre.core.gui.screens.MainGUI
 import thecudster.sre.core.gui.structure.GuiManager
 import thecudster.sre.util.RenderUtils
 import thecudster.sre.core.gui.structure.SimpleButton
@@ -56,6 +59,7 @@ class MiscFeatures() {
     // hide travel to your island hider
     @SubscribeEvent
     fun onRenderEntity(event: RenderLivingEvent.Pre<*>) {
+
         try {
             if (SkyblockReinvented.config.travelIsland && Utils.inSkyblock) {
                 if (event.entity.customNameTag != null) {
@@ -146,6 +150,41 @@ class MiscFeatures() {
                     }
                 }
             }
+        }
+    }
+    // config button on pause
+    /**
+     * Taken from Skytils under GNU Affero General Public license.
+     * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
+     * @author My-Name-Is-Jeff
+     * @author Sychic
+     */
+    @SubscribeEvent
+    fun onGuiInitPost(event: GuiScreenEvent.InitGuiEvent.Post) {
+        if (SkyblockReinvented.config.configPause && event.gui is GuiIngameMenu) {
+            Utils.sendMsg("Post")
+            val x = event.gui.width - 105
+            val x2 = x + 100
+            var y = event.gui.height - 22
+            var y2 = y + 20
+            val sorted = event.buttonList.sortedWith { a, b -> b.yPosition + b.height - a.yPosition + a.height }
+            for (button in sorted) {
+                val otherX = button.xPosition
+                val otherX2 = button.xPosition + button.width
+                val otherY = button.yPosition
+                val otherY2 = button.yPosition + button.height
+                if (otherX2 > x && otherX < x2 && otherY2 > y && otherY < y2) {
+                    y = otherY - 22
+                    y2 = y + 20
+                }
+            }
+            event.buttonList.add(GuiButton(999, x, 0.coerceAtLeast(y), 100, 20, "SkyblockReinvented")) // the party never ends amirite gamers
+        }
+    }
+    @SubscribeEvent
+    fun onGuiAction(event: GuiScreenEvent.ActionPerformedEvent.Post) {
+        if (SkyblockReinvented.config.configPause && event.gui is GuiIngameMenu && event.button.id == 999) {
+            SkyblockReinvented.currentGui = if (SkyblockReinvented.config.openConfig == 0) MainGUI() else SkyblockReinvented.config.gui()
         }
     }
 
@@ -286,18 +325,20 @@ class MiscFeatures() {
     var coopMembers: ArrayList<String>? = null
     @SubscribeEvent
     fun onTooltip(event: ItemTooltipEvent) {
-        if (Minecraft.getMinecraft().currentScreen is GuiChest) {
-            val chest = Minecraft.getMinecraft().currentScreen as GuiChest
-            val inventory = chest.inventorySlots as ContainerChest
-            val inventoryTitle = inventory.lowerChestInventory.displayName.unformattedText
-            if (isCollectionMenu(inventoryTitle)) {
-                event.toolTip.removeIf { i: String ->
-                    for ((_, value) in coop) {
-                        if (i.contains(value.memberName!!)) {
-                            return@removeIf true
+        if (SkyblockReinvented.config.coopRemove) {
+            if (Minecraft.getMinecraft().currentScreen is GuiChest) {
+                val chest = Minecraft.getMinecraft().currentScreen as GuiChest
+                val inventory = chest.inventorySlots as ContainerChest
+                val inventoryTitle = inventory.lowerChestInventory.displayName.unformattedText
+                if (isCollectionMenu(inventoryTitle)) {
+                    event.toolTip.removeIf { i: String ->
+                        for ((_, value) in coop) {
+                            if (i.contains(value.memberName!!)) {
+                                return@removeIf true
+                            }
                         }
+                        false
                     }
-                    false
                 }
             }
         }
@@ -320,8 +361,8 @@ class MiscFeatures() {
         }
         var file: JsonObject
         try {
-            FileReader(File(SkyblockReinvented.modDir, "coopMembers.json")).use { `in` ->
-                file = gson.fromJson(`in`, JsonObject::class.java)
+            FileReader(File(SkyblockReinvented.modDir, "coopMembers.json")).use {
+                file = gson.fromJson(it, JsonObject::class.java)
                 for (i in file.entrySet().indices) {
                     if (file["coopMember$i"] != null) {
                         val member = CoopMember(

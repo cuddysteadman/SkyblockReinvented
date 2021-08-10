@@ -14,6 +14,9 @@ import thecudster.sre.core.gui.structure.SimpleButton
 import thecudster.sre.core.gui.structure.SmartFontRenderer
 import thecudster.sre.core.gui.structure.colours.CommonColors
 import thecudster.sre.features.impl.filter.CustomPlayersFilter
+import thecudster.sre.features.impl.rendering.PlayerHider
+import thecudster.sre.util.Utils
+import thecudster.sre.util.api.APIUtil
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
@@ -24,7 +27,7 @@ class RenderPlayersGUI : GuiScreen {
     constructor() {
         readConfig()
     }
-
+    private var readingFriends = false
     private var add: SimpleButton? = null
     private var close: SimpleButton? = null
     private val customPlayerFiltersJson = File(SkyblockReinvented.modDir, "customPlayersFilter.json")
@@ -45,10 +48,10 @@ class RenderPlayersGUI : GuiScreen {
         val sr = ScaledResolution(Minecraft.getMinecraft())
         val height = sr.scaledHeight
         val width = sr.scaledWidth
-        add = SimpleButton(2, width / 2 - 100, (height * 0.3).toInt(), "Add Whitelisted Player")
-        close = SimpleButton(1, width / 2 - 100, (height * 0.4).toInt(), "Close")
-        input = GuiTextField(0, fontRendererObj, width / 2 - 98, (height * 0.35).toInt(), 196, 20)
-        addFriends = SimpleButton(3, width / 2 - 100,(height * 0.45).toInt(), "Add Friends")
+        add = SimpleButton(2, width / 2 - 100, (height * 0.35).toInt(), "Add Whitelisted Player")
+        close = SimpleButton(1, width / 2 - 100, (height * 0.45).toInt(), "Close")
+        input = GuiTextField(0, fontRendererObj, width / 2 - 98, (height * 0.3).toInt(), 196, 20)
+        addFriends = SimpleButton(3, width / 2 - 100,(height * 0.4).toInt(), "Add Friends")
         input!!.visible = true
         input!!.setEnabled(true)
         customPlayersFilter.clear()
@@ -64,10 +67,7 @@ class RenderPlayersGUI : GuiScreen {
         GlStateManager.disableDepth()
         GlStateManager.pushMatrix()
         GlStateManager.translate(
-            (width / -1f).toDouble(),
-            height * -0.2,
-            0.0
-        ) // other option: GlStateManager.translate(width / -2f, height * -0.2f, 0.0f); GlStateManager.scale(2.0f, 2.0f, 1.0f);
+            (width / -1f).toDouble(), height * -0.2, 0.0)
         GlStateManager.scale(3.0f, 3.0f, 1.0f)
         ScreenRenderer.fontRenderer.drawString(
             "SkyblockReinvented",
@@ -97,21 +97,25 @@ class RenderPlayersGUI : GuiScreen {
         ScreenRenderer.fontRenderer.drawString(
             "by theCudster",
             (width / 2).toFloat(),
-            (height * 0.47).toInt().toFloat(),
+            (height * 0.52).toInt().toFloat(),
             CommonColors.LIGHT_GRAY,
             SmartFontRenderer.TextAlignment.MIDDLE,
             SmartFontRenderer.TextShadow.NORMAL
         )
+        Utils.drawHoveringText(input!!, "Add a player to the whitelist...")
         GlStateManager.enableLighting()
         GlStateManager.enableDepth()
-        readConfig()
-        refresh()
+        if (!readingFriends) {
+            readConfig()
+            refresh()
+        }
     }
 
     private fun refresh() {
         buttonList.clear()
         buttonList.add(add)
         buttonList.add(close)
+        buttonList.add(addFriends)
         val sr = ScaledResolution(Minecraft.getMinecraft())
         var y = sr.scaledHeight / 5
         var x = sr.scaledHeight / 30
@@ -194,8 +198,38 @@ class RenderPlayersGUI : GuiScreen {
         } else if (button === close) {
             Minecraft.getMinecraft().displayGuiScreen(MainGUI())
             return
+        } else if (button == addFriends) {
+            readingFriends = true
+            Thread(Runnable {
+                val myUUID = Minecraft.getMinecraft().thePlayer.uniqueID.toString()
+                val url = "https://api.hypixel.net/friends?key=${SkyblockReinvented.config.apiKey}&uuid=${myUUID}"
+                println(url)
+                val json = APIUtil.getJSONResponse(url).get("records").asJsonArray
+                json.forEach{
+                        var playerObj = APIUtil.getJsonArrayResponse(
+                            "https://api.mojang.com/user/profiles/${it.asJsonObject.get("uuidSender").asString}/names"
+                        )
+                        var name = playerObj.get(playerObj.size() - 1).asJsonObject.get("name").asString
+                        if (name != Minecraft.getMinecraft().thePlayer.name) {
+                            val filter = CustomPlayersFilter(name)
+                            SkyblockReinvented.config.listToRender.add(filter)
+                            customPlayersFilter["customPlayersFilter" + customPlayersFilter.size] = filter
+                        }
+
+                        val url = "https://api.mojang.com/user/profiles/${it.asJsonObject.get("uuidReceiver").asString}/names"
+                        playerObj = APIUtil.getJsonArrayResponse(url)
+                        name = playerObj.get(playerObj.size() - 1).asJsonObject.get("name").asString
+                        if (name != Minecraft.getMinecraft().thePlayer.name) {
+                            val filter = CustomPlayersFilter(name)
+                            SkyblockReinvented.config.listToRender.add(filter)
+                            customPlayersFilter["customPlayersFilter" + customPlayersFilter.size] = filter
+                    }
+                    writeConfig()
+                }
+                readingFriends = false
+            }).start()
         }
-        refresh()
+        writeConfig()
     }
 
     @Throws(IOException::class)
@@ -216,8 +250,8 @@ class RenderPlayersGUI : GuiScreen {
         var file: JsonObject
         SkyblockReinvented.config.listToRender.clear()
         try {
-            FileReader(File(SkyblockReinvented.modDir, "customPlayersFilter.json")).use { `in` ->
-                file = gson.fromJson(`in`, JsonObject::class.java)
+            FileReader(File(SkyblockReinvented.modDir, "customPlayersFilter.json")).use {
+                file = gson.fromJson(it, JsonObject::class.java)
                 for (i in 0..file.entrySet().size) {
                     if (file["customPlayersFilter$i"] != null) {
                         val name = file["customPlayersFilter$i"].asJsonObject["playerName"].asString

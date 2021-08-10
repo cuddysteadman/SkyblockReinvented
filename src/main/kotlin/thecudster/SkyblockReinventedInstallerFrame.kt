@@ -110,7 +110,7 @@ class SkyblockReinventedInstallerFrame() : JFrame(), ActionListener, MouseListen
                 versionInfo!!.font = Font(Font.DIALOG, Font.BOLD, 14)
                 versionInfo!!.horizontalAlignment = SwingConstants.CENTER
                 versionInfo!!.preferredSize = Dimension(w, h)
-                versionInfo!!.text = "v" + getVersionFromMcmodInfo() + "by the SRE Team - for Minecraft 1.8.9"
+                versionInfo!!.text = "v" + getVersionFromMcmodInfo() + " by theCudster for Minecraft 1.8.9"
                 frameY += h
             } catch (ivjExc: Throwable) {
                 showErrorPopup(ivjExc)

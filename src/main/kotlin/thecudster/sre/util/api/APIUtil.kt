@@ -19,7 +19,9 @@
 package thecudster.sre.util.api
 
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ChatComponentText
@@ -102,6 +104,50 @@ object APIUtil {
             ex.printStackTrace()
         }
         return JsonObject()
+    }
+    fun getJsonArrayResponse(urlString: String): JsonArray {
+        if (Minecraft.getMinecraft().thePlayer == null) return JsonArray()
+        val player: EntityPlayer = Minecraft.getMinecraft().thePlayer
+        try {
+            val request = HttpGet(URL(urlString).toURI())
+            request.protocolVersion = HttpVersion.HTTP_1_1
+            val response: HttpResponse = client.execute(request)
+            val entity = response.entity
+            if (response.statusLine.statusCode == 200) {
+                val `in` = BufferedReader(InputStreamReader(entity.content))
+                var input: String?
+                val r = StringBuilder()
+                while (`in`.readLine().also { input = it } != null) {
+                    r.append(input)
+                }
+                `in`.close()
+                val gson = Gson()
+                return gson.fromJson(r.toString(), JsonArray::class.java)
+            } else {
+                if (urlString.startsWith("https://api.hypixel.net/") || urlString.startsWith("https://sky.shiiyu.moe/api/v2/")) {
+                    val errorStream = entity.content
+                    Scanner(errorStream).use { scanner ->
+                        scanner.useDelimiter("\\Z")
+                        val error = scanner.next()
+                        if (error.startsWith("{")) {
+                            val gson = Gson()
+                            return gson.fromJson(error, JsonArray::class.java)
+                        }
+                    }
+                } else if (urlString.startsWith("https://api.mojang.com/users/profiles/minecraft/") && response.statusLine.statusCode == 204) {
+                    player.addChatMessage(ChatComponentText(EnumChatFormatting.RED.toString() + "Failed with reason: Player does not exist."))
+                } else {
+                    player.addChatMessage(ChatComponentText(EnumChatFormatting.RED.toString() + "Request failed. HTTP Error Code: " + response.statusLine.statusCode))
+                }
+            }
+        } catch (ex: IOException) {
+            player.addChatMessage(ChatComponentText(EnumChatFormatting.RED.toString() + "An error has occured. See logs for more details."))
+            ex.printStackTrace()
+        } catch (ex: URISyntaxException) {
+            player.addChatMessage(ChatComponentText(EnumChatFormatting.RED.toString() + "An error has occured. See logs for more details."))
+            ex.printStackTrace()
+        }
+        return JsonArray()
     }
 
     /**

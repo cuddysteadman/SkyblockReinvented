@@ -53,31 +53,27 @@ class DungeonFeatures {
         }
     }
 
-    var stopDestroyingMyFuckingEars = 300
+    var skeletonMasterTimer = 300
+    var batSecretTimer = 300
     @SubscribeEvent
     fun onRenderLivingPre(event: RenderLivingEvent.Pre<*>) {
         // warn skeleton masters / bats
         if (!Utils.inSkyblock || !Utils.inDungeons) return
-        if (event.entity.getDistanceToEntity(Minecraft.getMinecraft().thePlayer) <= SkyblockReinvented.config.skeletonRange && isSkeletonMaster(
-                event.entity
-            )
-        ) {
-            if (stopDestroyingMyFuckingEars > 300) {
+        if (event.entity.getDistanceToEntity(Minecraft.getMinecraft().thePlayer) <= SkyblockReinvented.config.skeletonRange && isSkeletonMaster(event.entity)) {
+            if (skeletonMasterTimer > 300) {
                 GuiManager.createTitle("Skeleton Master Nearby!", 20)
-                stopDestroyingMyFuckingEars = 0
+                skeletonMasterTimer = 0
             } else {
-                stopDestroyingMyFuckingEars++
+                skeletonMasterTimer++
             }
+            return
         }
-        if (event.entity.getDistanceToEntity(Minecraft.getMinecraft().thePlayer) <= SkyblockReinvented.config.batRange && SkyblockReinvented.config.warnBatSecrets && isSpiritBat(
-                event.entity
-            )
-        ) {
-            if (stopDestroyingMyFuckingEars > 300) {
+        if (event.entity.getDistanceToEntity(Minecraft.getMinecraft().thePlayer) <= SkyblockReinvented.config.batRange && SkyblockReinvented.config.warnBatSecrets && isSpiritBat(event.entity)) {
+            if (batSecretTimer > 300) {
                 GuiManager.createTitle("Bat Secret Nearby!", 20)
-                stopDestroyingMyFuckingEars = 0
+                batSecretTimer = 0
             } else {
-                stopDestroyingMyFuckingEars++
+                batSecretTimer++
             }
         }
         // box starred mobs
@@ -86,7 +82,8 @@ class DungeonFeatures {
          * https://github.com/Skytils/SkytilsMod/blob/main/LICENSE
          * @author My-Name-Is-Jeff
          * @author Sychic
-         */if (!Minecraft.getMinecraft().thePlayer.canEntityBeSeen(event.entity)) return
+         */
+        if (!Minecraft.getMinecraft().thePlayer.canEntityBeSeen(event.entity)) return
         if (SkyblockReinvented.config.outlineMobs) {
             val name = event.entity.customNameTag.stripControlCodes()
             if (name.startsWith("✯ ") && name.contains("❤")) {
@@ -110,11 +107,11 @@ class DungeonFeatures {
     fun onEntityDeath(event: LivingDeathEvent) {
         if (event.entity is EntityBat) {
             if (isSpiritBat(event.entity)) {
-                stopDestroyingMyFuckingEars = 290
+                batSecretTimer = 290
             }
         }
         if (isSkeletonMaster(event.entity)) {
-            stopDestroyingMyFuckingEars = 250
+            skeletonMasterTimer = 250
         }
     }
 

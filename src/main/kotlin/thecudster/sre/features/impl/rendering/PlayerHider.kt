@@ -65,7 +65,7 @@ class PlayerHider {
      * https://github.com/BiscuitDevelopment/SkyblockAddons/blob/master/LICENSE
      * @author BiscuitDevelopment
      */
-    fun isNPC(entity: Entity): Boolean {
+    private fun isNPC(entity: Entity): Boolean {
         if (entity !is EntityOtherPlayerMP) {
             return false
         }
@@ -74,7 +74,7 @@ class PlayerHider {
             .version() == 2 && entityLivingBase.health == 20.0f && !entityLivingBase.isPlayerSleeping
     }
 
-    fun setNoArmor(player: EntityOtherPlayerMP) {
+    private fun setNoArmor(player: EntityOtherPlayerMP) {
         if (SkyblockReinvented.config.renderPlayerArmor == 1) {
             if (player.getCurrentArmor(1) != null && player.getCurrentArmor(1).item != null) {
                 if (player.getCurrentArmor(1).item is ItemSkull) {

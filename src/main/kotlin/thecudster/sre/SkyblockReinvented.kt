@@ -27,6 +27,7 @@ import net.minecraft.client.resources.IReloadableResourceManager
 import net.minecraft.client.settings.KeyBinding
 import net.minecraft.command.ICommandSender
 import net.minecraft.event.ClickEvent
+import net.minecraft.item.ItemWritableBook
 import net.minecraft.scoreboard.ScorePlayerTeam
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.EnumChatFormatting
@@ -110,6 +111,7 @@ class SkyblockReinvented {
         val renderPlayersGUI = RenderPlayersGUI()
 
         ClientCommandHandler.instance.registerCommand(SRECommand)
+        ClientCommandHandler.instance.registerCommand(DevCommand)
         ClientCommandHandler.instance.registerCommand(RenderingCommand)
         ClientCommandHandler.instance.registerCommand(DiscordCommand)
         ClientCommandHandler.instance.registerCommand(FragRunCommand)
@@ -148,6 +150,7 @@ class SkyblockReinvented {
         MinecraftForge.EVENT_BUS.register(SlayerFeatures())
         MinecraftForge.EVENT_BUS.register(FetchurSolver())
         MinecraftForge.EVENT_BUS.register(filter)
+        MinecraftForge.EVENT_BUS.register(MiscFeatures())
 
         if (Minecraft.getMinecraft().gameSettings.language != null) {
             ScreenRenderer.fontRenderer.unicodeFlag = Minecraft.getMinecraft().isUnicode
@@ -377,6 +380,17 @@ class SkyblockReinvented {
                 }
             }
         })
+    var DevCommand = SimpleCommand("dev", Arrays.asList("devtools"), object : ProcessCommandRunnable() {
+        override fun processCommand(sender: ICommandSender?, args: Array<String>) {
+            SkyblockReinvented.currentGui = WelcomeGUI()
+            if (Minecraft.getMinecraft().thePlayer.heldItem != null) {
+                if (Minecraft.getMinecraft().thePlayer.heldItem.item is ItemWritableBook) {
+                    println(Minecraft.getMinecraft().thePlayer.heldItem.tagCompound)
+                    println((Minecraft.getMinecraft().thePlayer.heldItem.item as ItemWritableBook).shareTag)
+                }
+            }
+        }
+    })
     var RenderingCommand =
         SimpleCommand("re", Arrays.asList("render", "rendering", "re"), object : ProcessCommandRunnable() {
             override fun processCommand(sender: ICommandSender?, args: Array<String>) {
